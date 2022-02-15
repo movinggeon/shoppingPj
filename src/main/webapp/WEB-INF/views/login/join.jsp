@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<!-- daum 우편주소 api-->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<title>회원가입</title>
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<!-- daum 우편주소 api-->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   
 </head>
 <body>
@@ -24,10 +24,12 @@
 	
 	비밀번호 <br>
 	<input type="password" id="memPassword" placeholder="비밀번호(영문자,숫자,특수문자 조합 최소8)"><br><br>
-	<input type="password" id="passwordCheck" placeholder="비밀번호 확인"><br><br>
+	<input type="password" id="passwordReEnter" placeholder="비밀번호 확인">
+	<p id="passwordCheck"></p><br>
 	
 	이메일<br>
-	<input type="text" id="memEmail" placeholder="이메일 입력"><br><br>
+	<input type="text" id="memEmail" placeholder="이메일 입력">
+	<p id="emailCheck"></p><br>
 	
 	생년월일<br>
 	<select name="year">
@@ -53,16 +55,35 @@
 	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 	<input type="text" id="address" placeholder="주소" disabled="disabled"><br>
 	<input type="text" id="detailAddress" placeholder="상세주소">
-	<input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled"><br><br>
+	<input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled">
+	<p id="addressCheck"></p><br>
 	
 	<button onclick="sendInfo()">회원가입</button>
 
 	<!-- javascript -->
 	<script type="text/javascript">
 
+		//회원이름
 		var memName = document.querySelector('#memName');
 		var nameCheck = document.querySelector('#nameCheck');
 		
+		//아이디
+		var memId = document.querySelector('#memId');
+		var idCheck = document.querySelector('#idCheck');
+		
+		//비밀번호
+		var memPassword = document.querySelector('#memPassword');
+		var passwordReEnter = document.querySelector('#passwordReEnter');
+		var passwordCheck = document.querySelector('#passwordCheck');
+		
+		//이메일
+		var memEmail = document.querySelector('#memEmail');
+		var emailCheck = document.querySelector('#emailCheck');
+		
+		//주소
+		
+		
+		//회원이름 정보 확인
 		memName.onblur = function (e) {
 			if(memName.value.length == 0){
 				nameCheck.innerHTML = "이름을 입력해주세요";
@@ -70,6 +91,35 @@
 				nameCheck.innerHTML = null;
 			}
 		}
+		
+		//회원아이디 정보 확인
+		memId.onblur = function (e) {
+			if(memId.value.length == 0){
+				idCheck.innerHTML = "아이디를 입력해주세요";
+			}else{
+				idCheck.innerHTML = null;
+			}
+		}
+		
+		//비밀번호 정보 확인
+		memPassword.onblur = function (e) {
+			if(memPassword.value.length == 0){
+				passwordCheck.innerHTML = "비밀번호을 입력해주세요";
+			}else{
+				passwordCheck.innerHTML = null;
+			}
+		}
+		
+		//이메일 정보 확인
+		memEmail.onblur = function (e) {
+			if(memEmail.value.length == 0){
+				emailCheck.innerHTML = "이메일을 입력해주세요";
+			}else{
+				emailCheck.innerHTML = null;
+			}
+		}
+		
+		//주소 정보 확인
 
 		//우편번호 api
 		function execDaumPostcode() {
