@@ -20,4 +20,16 @@ public class MembersServiceImpl implements MembersService{
 		
 		return membersDAO.getAllMembers();
 	}
+	
+	@Override
+	public String lookupId(String memId) throws Exception{
+
+		return membersDAO.lookupId(memId);
+	}
+	
+	@Override
+	 public void insertMem(MembersVO membersVO) throws Exception{
+		
+		membersDAO.insertMem(membersVO);
+	}
 }

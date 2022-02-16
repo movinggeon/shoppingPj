@@ -8,7 +8,10 @@
 <head>
 	<title>회원가입</title>
 	<!-- jQuery -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script><!-- jQuery CDN --->
 	<!-- daum 우편주소 api-->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   
@@ -19,42 +22,43 @@
 	<p id="nameCheck"></p><br>
 	
 	아이디 <br>
-	<input type="text" id="memId" maxlength="11" placeholder="아이디 입력(5~11자)"><button onclick="checkId()">중복확인</button>
+	<input type="text" id="memId" maxlength="11" placeholder="아이디 입력(5~11자)"><button id="idLookupBtn" onclick="idLookup()">중복확인</button>
 	<p id="idCheck"></p><br>
 	
 	비밀번호 <br>
-	<input type="password" id="memPassword" placeholder="비밀번호(영문자,숫자,특수문자 조합 최소8)"><br><br>
-	<input type="password" id="passwordReEnter" placeholder="비밀번호 확인">
+	<input type="password" id="memPassword" maxlength="40" placeholder="비밀번호(영문자,숫자,특수문자 조합 최소 8자)"><br><br>
+	<input type="password" id="passwordReEnter" maxlength="40" placeholder="비밀번호 확인">
 	<p id="passwordCheck"></p><br>
 	
 	이메일<br>
-	<input type="text" id="memEmail" placeholder="이메일 입력">
+	<input type="text" id="memEmail" maxlength="90" placeholder="이메일 입력">
 	<p id="emailCheck"></p><br>
 	
 	생년월일<br>
-	<select name="year">
+	<select name="year" id="year">
  		<c:forEach var="i" begin="0" end="105" step="1">
 			<option value="${ year - i }">${ year - i}</option>
 		</c:forEach>
 	</select>
-	<select name="month">
+	<select name="month" id="month">
 		<c:forEach var="i" begin="1" end="12" step="1">
 			<option value="${ i }"> ${ i }</option>
 		</c:forEach>
 	</select>
-	<select>
+	<select name="day" id="day">
 		<c:forEach var="i" begin="1" end="31" step="1">
 			<option value="${ i }"> ${ i }</option>
 		</c:forEach>
 	</select><br><br>
 	휴대폰번호<br>
-	<input type="text" id="memPhone" placeholder="휴대폰번호입력(01012341234)"><br><br>
+	<input type="text" id="memPhone" placeholder="휴대폰번호입력(01012341234)">
+	<p id="phoneCheck"></p><br>
 	
 	주소<br>
 	<input type="text" id="postcode" placeholder="우편번호" disabled="disabled">
 	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 	<input type="text" id="address" placeholder="주소" disabled="disabled"><br>
-	<input type="text" id="detailAddress" placeholder="상세주소">
+	<input type="text" id="detailAddress" maxlength="80" placeholder="상세주소">
 	<input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled">
 	<p id="addressCheck"></p><br>
 	
@@ -65,28 +69,40 @@
 
 		//회원이름
 		var memName = document.querySelector('#memName');
-		var nameCheck = document.querySelector('#nameCheck');
+		
 		
 		//아이디
 		var memId = document.querySelector('#memId');
-		var idCheck = document.querySelector('#idCheck');
+		//var idLookup = document.querySelector('#idLookup');
+		var successId;
 		
 		//비밀번호
 		var memPassword = document.querySelector('#memPassword');
 		var passwordReEnter = document.querySelector('#passwordReEnter');
-		var passwordCheck = document.querySelector('#passwordCheck');
+		
+		var regPassword =/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/; //.test(password)
 		
 		//이메일
 		var memEmail = document.querySelector('#memEmail');
-		var emailCheck = document.querySelector('#emailCheck');
+		
+		var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+		
+		//생년월일
+		var documentYear = document.getElementById("year");
+		var documentMonth = document.getElementById("month");
+		var documentDay = document.getElementById("day");
+
+		//전화번호
+		var memPhone = document.querySelector('#memPhone');
+		var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/;
 		
 		//주소
-		
+		//var address = document.querySelector('#address');
 		
 		//회원이름 정보 확인
 		memName.onblur = function (e) {
 			if(memName.value.length == 0){
-				nameCheck.innerHTML = "이름을 입력해주세요";
+				nameCheck.innerHTML = "이름을 입력해주세요.";
 			}else{
 				nameCheck.innerHTML = null;
 			}
@@ -95,31 +111,99 @@
 		//회원아이디 정보 확인
 		memId.onblur = function (e) {
 			if(memId.value.length == 0){
-				idCheck.innerHTML = "아이디를 입력해주세요";
+				idCheck.innerHTML = "아이디를 입력해주세요.";
+			}else if(memId.value.length < 5){
+				idCheck.innerHTML = "5~11자 입력해주세요."
 			}else{
 				idCheck.innerHTML = null;
 			}
 		}
+
+		function idLookup() {
+			
+		    jQuery.ajax({
+		        "url": "join/idLookup",
+		        "type": "POST",
+		        "contentType": "application/json; charset=utf-8;",
+		        "data": JSON.stringify({
+		          "memId": memId.value,
+		        }),
+		        "dataType": "json"
+		      }).done(function(data) {
+		    		data = JSON.stringify(data);
+		    		jsonData = JSON.parse(data);
+		    		
+		    		//console.log(jsonData);
+		    		
+		    		if(jsonData.success){
+		    			idCheck.innerHTML = "사용 가능한 아이디 입니다.";
+		    			successId = jsonData.memId;
+		    		}else{
+		    			idCheck.innerHTML = "중복된 아이디 입니다.";
+		    		}
+
+		    	});
+		}
 		
-		//비밀번호 정보 확인
+ 		//비밀번호 정보 확인
 		memPassword.onblur = function (e) {
+
+			//console.log(regPassword.test(password));
+			
 			if(memPassword.value.length == 0){
+				
 				passwordCheck.innerHTML = "비밀번호을 입력해주세요";
+				
+			}else if(!regPassword.test(memPassword.value)){
+				
+				passwordCheck.innerHTML = "잘못된 비밀번호 형식입니다.(특수문자는 @$!%*#? 중 선택)";	
+				
 			}else{
+				
 				passwordCheck.innerHTML = null;
+				
+			}
+		}
+		
+		passwordReEnter.onblur = function (e) {
+
+			if(memPassword.value.length != 0){
+				
+				if(memPassword.value == passwordReEnter.value){
+					passwordCheck.innerHTML = "비밀번호가 일치 합니다.";
+				}else{
+					passwordCheck.innerHTML = "비밀번호가 일치하지 않습니다.";
+				}
+				
 			}
 		}
 		
 		//이메일 정보 확인
 		memEmail.onblur = function (e) {
+			
 			if(memEmail.value.length == 0){
 				emailCheck.innerHTML = "이메일을 입력해주세요";
+			}else if(!regEmail.test(memEmail.value)){
+				emailCheck.innerHTML = "잘못된 이메일 형식입니다.";
 			}else{
 				emailCheck.innerHTML = null;
 			}
+			
 		}
 		
-		//주소 정보 확인
+		//전화번호 정보 확인
+		memPhone.onblur = function (e) {
+			
+			if(memPhone.value.length == 0){
+				phoneCheck.innerHTML = "전화번호을 입력해주세요";
+			}else if(!regPhone.test(memPhone.value)){
+				phoneCheck.innerHTML = "잘못된 전화번호 형식입니다.";
+			}else{
+				phoneCheck.innerHTML = null;
+			}
+			
+		}
+
 
 		//우편번호 api
 		function execDaumPostcode() {
@@ -168,6 +252,86 @@
 					document.getElementById("detailAddress").focus();
 				}
 			}).open();
+		}
+		
+		//회원가입
+		function sendInfo() {
+			
+			var year = documentYear.options[documentYear.selectedIndex].value;
+			var month = documentMonth.options[documentMonth.selectedIndex].value;
+			var day = documentDay.options[documentDay.selectedIndex].value;
+			var birth = year + month + day;
+			
+			var postCode = document.getElementById('postcode').value; //우편번호
+			var address = document.getElementById("address").value + " " + document.getElementById("detailAddress").value; //주소
+			var extraAddress = document.getElementById("extraAddress").value; //참고항목
+			
+			
+			var boolName = memName.value.length == 0;
+			var boolId = memId.value.length == 0 || memId.value.length < 0;
+			var boolPassword = memPassword.value.length == 0 || !regPassword.test(memPassword.value);
+			var boolPasswordReEnter = memPassword.value != passwordReEnter.value;
+			var boolEmail = memEmail.value.length == 0 || !regEmail.test(memEmail.value);
+			var boolPhone = memPhone.value.length == 0 || !regPhone.test(memPhone.value);
+			
+			//console.log(document.getElementById("address").value.length);
+			//console.log(birth);
+			if(document.getElementById("address").value.length == 0){
+				
+				alert("주소를 입력해 주세요.");
+			}else if(successId != memId.value){
+				
+				alert("아이디 중복 확인 해주세요.");
+			}else if(boolName){
+				
+				alert("이름을 다시 입력해주세요");
+			}else if(boolId){
+				
+				alert("아이디를 다시 입력해주세요.");
+			}else if(boolPassword){
+				
+				alert("비밀번호를 다시 입력해주세요.");
+			}else if(boolPasswordReEnter){
+				
+				alert("비밀번호 확인해주세요.");
+			}else if(boolEmail){
+				
+				alert("이메일을 다시 입력해주세요.");
+			}else if(boolPhone){
+				
+				alert("전화번호를 다시 입력해주세요.")
+			}
+			else{
+			
+			    jQuery.ajax({
+			        "url": "join/joinProcess",
+			        "type": "POST",
+			        "contentType": "application/json; charset=utf-8;",
+			        "data": JSON.stringify({
+			          "memName": memName.value,
+			          "memId": memId.value,
+			          "memPassword": memPassword.value,
+			          "memEmail": memEmail.value,
+			          "memBirth": birth,
+			          "memPostCode": postCode,
+			          "memAddress": address
+			        }),
+			        "dataType": "json"
+			      }).done(function(data) {
+			    		data = JSON.stringify(data);
+			    		jsonData = JSON.parse(data);
+			    		
+			    		//console.log(jsonData);
+			    		
+			    		if(jsonData.success){
+			    			alert(jsonData.success);
+			    			//location.href = "/";
+			    		}else{
+			    			alert('에러. 새로고침 후 다시 회원가입 해주세요.');
+			    		}
+	
+			    	});
+			}
 		}
 	</script>
 </body>

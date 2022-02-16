@@ -1,17 +1,15 @@
-CREATE table members (
-    id VARCHAR2(300),
-    password VARCHAR2(300)
+DROP TABLE members;
+CREATE TABLE members (
+    mem_name VARCHAR2(300),
+    mem_id VARCHAR2(36),
+    mem_password VARCHAR2(150),
+    mem_email VARCHAR2(300),
+    mem_birth VARCHAR(30),
+    mem_post_code VARCHAR2(30),
+    mem_address VARCHAR2(300)
 );
 
-INSERT INTO members VALUES(
-    'bb','1234'
-);
-
-INSERT INTO members VALUES(
-    'bb','1234'
-);
-
-commit;
+COMMIT;
 
 SELECT * FROM
     members;

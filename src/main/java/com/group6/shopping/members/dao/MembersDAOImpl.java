@@ -28,4 +28,20 @@ public class MembersDAOImpl implements MembersDAO {
     	
     	return membersList;
     }
+    
+    @Override
+    public String lookupId(String memId) throws Exception{
+    	
+    	//System.out.println(memId);
+    	
+    	return sqlSession.selectOne(namespace + ".lookupId", memId);
+    }
+    
+    @Override
+    public void insertMem(MembersVO membersVo) throws Exception {
+    	
+    	int row = sqlSession.insert(namespace + ".insertMem", membersVo);
+    	
+    	System.out.println("members 테이블 -> " + row + "행 추가.");
+    }
 }
