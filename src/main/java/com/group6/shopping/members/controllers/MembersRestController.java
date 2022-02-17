@@ -1,9 +1,11 @@
 package com.group6.shopping.members.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.javassist.Loader.Simple;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,8 +39,10 @@ public class MembersRestController {
 		return result;
 	}
 	
-	@PostMapping(value = "join/joinProcess")
+	@PostMapping(value = "/join/joinProcess")
 	public HashMap<String, Object> joinPorcess(@RequestBody HashMap<String, Object>param) throws Exception{
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		String memName = (String)param.get("memName");
 		String memId = (String)param.get("memId");
@@ -47,11 +51,10 @@ public class MembersRestController {
 		String memBirth = (String)param.get("memBirth");
 		String memPostCode = (String)param.get("memPostCode");
 		String memAddress = (String)param.get("memAddress");
+		int memPoint = 0;
 		
-		MembersVO membersVO = new MembersVO(memName, memId, memPassword, memEmail, memBirth, memPostCode, memAddress);
+		MembersVO membersVO = new MembersVO(memName, memId, memPassword, memEmail, memBirth, memPostCode, memAddress, memPoint);
 		membersService.insertMem(membersVO);
-		
-		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("success", "회원가입이 완료되었습니다.");
 		

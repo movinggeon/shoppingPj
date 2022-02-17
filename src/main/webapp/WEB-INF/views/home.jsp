@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>홈</title>
 </head>
 <body>
 	<a href="join">회원가입</a>

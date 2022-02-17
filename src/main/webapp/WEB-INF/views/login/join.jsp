@@ -17,53 +17,54 @@
   
 </head>
 <body>
-	이름<br>
-	<input type="text" id="memName" placeholder="이름">
-	<p id="nameCheck"></p><br>
-	
-	아이디 <br>
-	<input type="text" id="memId" maxlength="11" placeholder="아이디 입력(5~11자)"><button id="idLookupBtn" onclick="idLookup()">중복확인</button>
-	<p id="idCheck"></p><br>
-	
-	비밀번호 <br>
-	<input type="password" id="memPassword" maxlength="40" placeholder="비밀번호(영문자,숫자,특수문자 조합 최소 8자)"><br><br>
-	<input type="password" id="passwordReEnter" maxlength="40" placeholder="비밀번호 확인">
-	<p id="passwordCheck"></p><br>
-	
-	이메일<br>
-	<input type="text" id="memEmail" maxlength="90" placeholder="이메일 입력">
-	<p id="emailCheck"></p><br>
-	
-	생년월일<br>
-	<select name="year" id="year">
- 		<c:forEach var="i" begin="0" end="105" step="1">
-			<option value="${ year - i }">${ year - i}</option>
-		</c:forEach>
-	</select>
-	<select name="month" id="month">
-		<c:forEach var="i" begin="1" end="12" step="1">
-			<option value="${ i }"> ${ i }</option>
-		</c:forEach>
-	</select>
-	<select name="day" id="day">
-		<c:forEach var="i" begin="1" end="31" step="1">
-			<option value="${ i }"> ${ i }</option>
-		</c:forEach>
-	</select><br><br>
-	휴대폰번호<br>
-	<input type="text" id="memPhone" placeholder="휴대폰번호입력(01012341234)">
-	<p id="phoneCheck"></p><br>
-	
-	주소<br>
-	<input type="text" id="postcode" placeholder="우편번호" disabled="disabled">
-	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" id="address" placeholder="주소" disabled="disabled"><br>
-	<input type="text" id="detailAddress" maxlength="80" placeholder="상세주소">
-	<input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled">
-	<p id="addressCheck"></p><br>
-	
-	<button onclick="sendInfo()">회원가입</button>
-
+	<div class="join">
+		이름<br>
+		<input type="text" id="memName" placeholder="이름">
+		<p id="nameCheck"></p><br>
+		
+		아이디 <br>
+		<input type="text" id="memId" maxlength="11" placeholder="아이디 입력(5~11자)"><button id="idLookupBtn" onclick="idLookup()">중복확인</button>
+		<p id="idCheck"></p><br>
+		
+		비밀번호 <br>
+		<input type="password" id="memPassword" maxlength="40" placeholder="비밀번호(영문자,숫자,특수문자 조합 최소 8자)"><br><br>
+		<input type="password" id="passwordReEnter" maxlength="40" placeholder="비밀번호 확인">
+		<p id="passwordCheck"></p><br>
+		
+		이메일<br>
+		<input type="text" id="memEmail" maxlength="90" placeholder="이메일 입력">
+		<p id="emailCheck"></p><br>
+		
+		생년월일<br>
+		<select name="year" id="year">
+	 		<c:forEach var="i" begin="0" end="105" step="1">
+				<option value="${ year - i }">${ year - i}</option>
+			</c:forEach>
+		</select>
+		<select name="month" id="month">
+			<c:forEach var="i" begin="1" end="12" step="1">
+				<option value="${ i }"> ${ i }</option>
+			</c:forEach>
+		</select>
+		<select name="day" id="day">
+			<c:forEach var="i" begin="1" end="31" step="1">
+				<option value="${ i }"> ${ i }</option>
+			</c:forEach>
+		</select><br><br>
+		휴대폰번호<br>
+		<input type="text" id="memPhone" placeholder="휴대폰번호입력(01012341234)">
+		<p id="phoneCheck"></p><br>
+		
+		주소<br>
+		<input type="text" id="postcode" placeholder="우편번호" disabled="disabled">
+		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+		<input type="text" id="address" placeholder="주소" disabled="disabled"><br>
+		<input type="text" id="detailAddress" maxlength="80" placeholder="상세주소">
+		<input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled">
+		<p id="addressCheck"></p><br>
+		
+		<button onclick="sendInfo()">회원가입</button>
+	</div>
 	<!-- javascript -->
 	<script type="text/javascript">
 
@@ -259,8 +260,14 @@
 			
 			var year = documentYear.options[documentYear.selectedIndex].value;
 			var month = documentMonth.options[documentMonth.selectedIndex].value;
+			if(month.length == 1){
+				month = 0 + month;
+			}
 			var day = documentDay.options[documentDay.selectedIndex].value;
-			var birth = year + month + day;
+			if(day.length == 1){
+				day = 0 + day;
+			}
+			var birth = year + "-" + month + "-" + day;
 			
 			var postCode = document.getElementById('postcode').value; //우편번호
 			var address = document.getElementById("address").value + " " + document.getElementById("detailAddress").value; //주소

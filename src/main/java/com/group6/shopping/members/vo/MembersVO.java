@@ -16,4 +16,5 @@ public class MembersVO {
     private String mem_birth;
     private String mem_post_code;
     private String mem_address;
+    private int mem_point;
 }
