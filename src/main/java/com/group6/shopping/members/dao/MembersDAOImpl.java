@@ -5,9 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.group6.shopping.members.vo.MembersVO;
+import com.group6.shopping.security.CustomMemDetails;
 
 @Repository
 public class MembersDAOImpl implements MembersDAO {
@@ -17,6 +20,9 @@ public class MembersDAOImpl implements MembersDAO {
 	// 결국 주입 대상은 SqlSessionTemplate의 부모 interface SqlSession --> 다형성
 	@Inject
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	// membersMapper.xml에서 mapper namespace 복사
 	private static final String namespace = "com.group6.shopping.members.MembersDAO";
@@ -40,8 +46,19 @@ public class MembersDAOImpl implements MembersDAO {
     @Override
     public void insertMem(MembersVO membersVo) throws Exception {
     	
+    	String endcodedPassword = bcryptPasswordEncoder.encode(membersVo.getMem_password());
+    	membersVo.setMem_password(endcodedPassword);
+    	
     	int row = sqlSession.insert(namespace + ".insertMem", membersVo);
     	
     	System.out.println("members 테이블 -> " + row + "행 추가.");
+    }
+    
+    @Override
+    public CustomMemDetails getMemById(String memId) throws Exception {
+    	
+    	CustomMemDetails members = sqlSession.selectOne(namespace + ".getMemById", memId);
+    	
+    	return members;
     }
 }

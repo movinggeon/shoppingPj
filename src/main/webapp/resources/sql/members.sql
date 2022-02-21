@@ -7,7 +7,9 @@ CREATE TABLE members (
     mem_birth VARCHAR(30),
     mem_post_code VARCHAR2(30),
     mem_address VARCHAR2(300),
-    mem_point NUMBER(10)
+    mem_point NUMBER(10),
+    mem_auth VARCHAR2(50),
+    mem_enable NUMBER(1)
 );
 
 COMMIT;

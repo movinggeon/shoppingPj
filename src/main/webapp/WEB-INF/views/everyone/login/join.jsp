@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
 	<title>회원가입</title>
 	<!-- jQuery -->
 	<script
@@ -14,7 +18,7 @@
 	  crossorigin="anonymous"></script><!-- jQuery CDN --->
 	<!-- daum 우편주소 api-->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  
+
 </head>
 <body>
 	<div class="join">
@@ -67,6 +71,10 @@
 	</div>
 	<!-- javascript -->
 	<script type="text/javascript">
+	
+		//csrf 토큰값 받기
+	    var token = $("meta[name='_csrf']").attr("content");
+	    var header = $("meta[name='_csrf_header']").attr("content");
 
 		//회원이름
 		var memName = document.querySelector('#memName');
@@ -121,29 +129,36 @@
 		}
 
 		function idLookup() {
-			
-		    jQuery.ajax({
-		        "url": "join/idLookup",
-		        "type": "POST",
-		        "contentType": "application/json; charset=utf-8;",
-		        "data": JSON.stringify({
-		          "memId": memId.value,
-		        }),
-		        "dataType": "json"
-		      }).done(function(data) {
-		    		data = JSON.stringify(data);
-		    		jsonData = JSON.parse(data);
-		    		
-		    		//console.log(jsonData);
-		    		
-		    		if(jsonData.success){
-		    			idCheck.innerHTML = "사용 가능한 아이디 입니다.";
-		    			successId = jsonData.memId;
-		    		}else{
-		    			idCheck.innerHTML = "중복된 아이디 입니다.";
-		    		}
-
-		    	});
+		    
+			if(memId.value.length >= 5){
+				
+			    jQuery.ajax({
+			        "url": "/everyone/join/idLookup",
+			        "type": "POST",
+			        "contentType": "application/json; charset=utf-8;",
+			        "data": JSON.stringify({
+			          "memId": memId.value,
+			        }),
+					beforeSend : function(xhr)
+		            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+						xhr.setRequestHeader(header, token);
+		            },
+			        "dataType": "json"
+			      }).done(function(data) {
+			    		data = JSON.stringify(data);
+			    		jsonData = JSON.parse(data);
+			    		
+			    		//console.log(jsonData);
+			    		
+			    		if(jsonData.success){
+			    			idCheck.innerHTML = jsonData.success;
+			    			successId = jsonData.memId;
+			    		}else{
+			    			idCheck.innerHTML = jsonData.error;
+			    		}
+	
+			    	});
+			}
 		}
 		
  		//비밀번호 정보 확인
@@ -311,7 +326,7 @@
 			else{
 			
 			    jQuery.ajax({
-			        "url": "join/joinProcess",
+			        "url": "/everyone/join/joinProcess",
 			        "type": "POST",
 			        "contentType": "application/json; charset=utf-8;",
 			        "data": JSON.stringify({
@@ -323,6 +338,10 @@
 			          "memPostCode": postCode,
 			          "memAddress": address
 			        }),
+					beforeSend : function(xhr)
+		            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+						xhr.setRequestHeader(header, token);
+		            },
 			        "dataType": "json"
 			      }).done(function(data) {
 			    		data = JSON.stringify(data);
@@ -332,7 +351,7 @@
 			    		
 			    		if(jsonData.success){
 			    			alert(jsonData.success);
-			    			//location.href = "/";
+			    			location.href = "/";
 			    		}else{
 			    			alert('에러. 새로고침 후 다시 회원가입 해주세요.');
 			    		}

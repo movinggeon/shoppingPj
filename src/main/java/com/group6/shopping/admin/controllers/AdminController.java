@@ -1,17 +1,16 @@
-package com.group6.shopping.members.controllers;
+package com.group6.shopping.admin.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequestMapping("/admin")
 @Controller
-@RequestMapping("/member")
-public class MembersController {
+public class AdminController {
 
-	
-	@GetMapping(value = "")
-	public String accessMember() {
+	@GetMapping(value = "/")
+	public String accessAdmin() {
 		
-		return "member/index";
+		return "admin/index";
 	}
 }
