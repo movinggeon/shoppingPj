@@ -27,11 +27,11 @@
   ```css
     /* css 예시 */
 
-    div .login a{
+    div.login a{
         color:red;
     }
     
-    div .login .loginForm{
+    div.login .loginForm{
         width: 100%;
     }
   ```
