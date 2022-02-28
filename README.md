@@ -35,3 +35,5 @@
         width: 100%;
     }
   ```
+4. WEB-INF/views/{폴더명}/{jsp} 까지만 header footer 붙게 설정함
+   views/{폴더}/{폴더}/jsp 할 경우 말해줄것 추가 설정할 수 있음 
