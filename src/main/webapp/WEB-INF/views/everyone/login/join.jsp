@@ -333,6 +333,7 @@
 			          "memName": memName.value,
 			          "memId": memId.value,
 			          "memPassword": memPassword.value,
+			          "memPhone" : memPhone.value,
 			          "memEmail": memEmail.value,
 			          "memBirth": birth,
 			          "memPostCode": postCode,
