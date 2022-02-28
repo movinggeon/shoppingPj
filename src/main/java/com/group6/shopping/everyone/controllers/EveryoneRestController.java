@@ -55,13 +55,17 @@ public class EveryoneRestController {
 		String memId = (String)param.get("memId");
 		String memPassword = (String)param.get("memPassword");
 		String memEmail = (String)param.get("memEmail");
+		String memPhone = (String)param.get("memPhone");
 		String memBirth = (String)param.get("memBirth");
 		String memPostCode = (String)param.get("memPostCode");
 		String memAddress = (String)param.get("memAddress");
 		String memAuth = "ROLE_MEMBER";
 		int memPoint = 0;
 		
-		MembersVO membersVO = new MembersVO(memName, memId, memPassword, memEmail, memBirth, memPostCode, memAddress, memPoint, memAuth, 1);
+		memPhone = memPhone.trim();
+		memPhone = memPhone.substring(0, 3) + "-" + memPhone.substring(3,7) + "-" + memPhone.substring(7,11);
+		
+		MembersVO membersVO = new MembersVO(memName, memId, memPassword, memEmail, memPhone , memBirth, memPostCode, memAddress, memPoint, memAuth, 1);
 		membersService.insertMem(membersVO);
 		
 		result.put("success", "회원가입이 완료되었습니다.");
