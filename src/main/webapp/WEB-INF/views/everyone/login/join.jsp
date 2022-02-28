@@ -290,7 +290,7 @@
 			
 			
 			var boolName = memName.value.length == 0;
-			var boolId = memId.value.length == 0 || memId.value.length < 0;
+			var boolId = memId.value.length == 0 || memId.value.length < 5;
 			var boolPassword = memPassword.value.length == 0 || !regPassword.test(memPassword.value);
 			var boolPasswordReEnter = memPassword.value != passwordReEnter.value;
 			var boolEmail = memEmail.value.length == 0 || !regEmail.test(memEmail.value);
