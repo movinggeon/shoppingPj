@@ -6,13 +6,19 @@
 		SELECT *
 			FROM members
 	</select>
+	
 	<select id="lookupId" resultType="String" parameterType="String">
 		SELECT mem_id
 			FROM members
 			WHERE mem_id = #{mem_id}
 	</select>
+	
+	<select id="getMemById" parameterType="String" resultType="com.group6.shopping.security.CustomMemDetails">
+		SELECT * FROM members WHERE mem_id=#{mem_id}
+	</select>
+	
 	<insert id="insertMem" parameterType="MembersVO">
 		INSERT INTO members
-			VALUES(#{mem_name}, #{mem_id}, #{mem_password}, #{mem_email}, #{mem_birth}, #{mem_post_code}, #{mem_address},#{mem_point})
+			VALUES( #{mem_name}, #{mem_id}, #{mem_password}, #{mem_email}, #{mem_phone} , #{mem_birth}, #{mem_post_code}, #{mem_address} ,#{mem_point}, #{mem_auth}, #{mem_enable} )
 	</insert>
 </mapper>
