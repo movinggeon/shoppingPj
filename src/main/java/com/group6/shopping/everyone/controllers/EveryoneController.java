@@ -33,7 +33,7 @@ public class EveryoneController {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         model.addAttribute("year", year);
 
-        return "everyone/login/join";
+        return "/everyone/login/join";
     }
     
     @RequestMapping(value = "/login")
