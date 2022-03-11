@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MembersController {
 
 	
-	@GetMapping(value = "")
+	@GetMapping(value = "/")
 	public String accessMember() {
 		
 		return "member/index";

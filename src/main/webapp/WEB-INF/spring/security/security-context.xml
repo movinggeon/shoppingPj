@@ -13,10 +13,16 @@
 		<security:intercept-url pattern="/everyone/**" access="permitAll"/>
 		<security:intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/**" access="permitAll"/>
 		<security:form-login login-page="/everyone/login"
-							 login-processing-url="/everyone/login/loginProcess" 
-							 default-target-url="/"/>
-							 
+							 login-processing-url="/everyone/login"
+							 authentication-failure-handler-ref="loginFailureHandler"
+							 authentication-success-handler-ref="loginSuccessHandler"/>
+		<!--로그아웃-->
+		<security:logout logout-url="/everyone/logout"
+						 success-handler-ref="logoutHandler" />
+		<!--권한이 없는 사용자가 접근시 이동-->
+		<security:access-denied-handler ref="deniedHandler"/>
 		<!-- 최대 한 개의 세션만 생성되도록 -->
 		<security:session-management invalid-session-url="/everyone/login">
             <security:concurrency-control max-sessions="1"
@@ -24,7 +30,7 @@
             							  error-if-maximum-exceeded="true" />
         </security:session-management>
 	</security:http>
-	
+
 	<security:authentication-manager>	
 		<security:authentication-provider user-service-ref="customMemService">
 			<security:password-encoder hash="bcrypt"/>
@@ -32,7 +38,11 @@
 	</security:authentication-manager>
 
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	
+	<bean id="loginFailureHandler" class="com.group6.shopping.security.LoginFailureHandler"/>
+	<bean id="loginSuccessHandler" class="com.group6.shopping.security.LoginSuccessHandler"/>
+	<bean id="logoutHandler" class="com.group6.shopping.security.LogoutHandler"/>
+
+	<bean id="deniedHandler" class="com.group6.shopping.security.DeniedHandler"/>
 	<context:component-scan base-package="com.group6.shopping.security" />
 	<bean id="customMemService" class="com.group6.shopping.security.CustomMemDetailsService" />
 </beans>

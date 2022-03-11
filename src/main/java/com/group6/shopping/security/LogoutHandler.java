@@ -1,0 +1,26 @@
+package com.group6.shopping.security;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
+public class LogoutHandler implements LogoutSuccessHandler {
+    @Override
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth) throws IOException, ServletException {
+        System.out.println("logout handler");
+
+        HttpSession session = request.getSession();
+        String defaultUrl = "/";
+        
+        //로그인 정보가 있을 경우
+        if (auth != null) {
+            session.removeAttribute("user");
+        }
+        response.sendRedirect(defaultUrl);
+    }
+}

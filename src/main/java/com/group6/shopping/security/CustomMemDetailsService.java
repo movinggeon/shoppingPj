@@ -1,11 +1,13 @@
 package com.group6.shopping.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.group6.shopping.members.dao.MembersDAO;
+import org.springframework.ui.Model;
 
 public class CustomMemDetailsService implements UserDetailsService{
 	
@@ -14,23 +16,21 @@ public class CustomMemDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String memId) {
-		
+		//System.out.println("loaduserByusername");
 		CustomMemDetails members = null;
 		
 		try {
 			
 			members = membersDAO.getMemById(memId);
-			
+
 			if(members == null) {
-				 throw new UsernameNotFoundException("username " + memId + " not found");
+				throw new InternalAuthenticationServiceException(memId);
 			}
-			
 			System.out.println("**************Found user***************");
 			System.out.println("id : " + members.getUsername());
 			return members;
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return members;

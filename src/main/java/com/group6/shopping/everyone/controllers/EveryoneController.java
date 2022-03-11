@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +26,9 @@ public class EveryoneController {
     public String join(Model model) throws Exception{
     	
     	//mybatis 실행 확인
-    	List<MembersVO> membersList = membersService.getAllMembers();
-    	model.addAttribute("memberList", membersList);
-
+        //필요없을듯
+    	/*List<MembersVO> membersList = membersService.getAllMembers();
+    	model.addAttribute("memberList", membersList);*/
         System.out.println("joinController 호출됨");
         
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -37,14 +38,14 @@ public class EveryoneController {
     }
     
     @RequestMapping(value = "/login")
-    public String login() {
-    	
+    public String login(HttpServletRequest request) {
     	System.out.println("loginController 호출됨");
     	return "everyone/login/login";
     }
     
+/*  필요없음
     @PostMapping(value = "/login/loginProcess")
     public void loginProcess() {
     	System.out.println("로그인 처리 중...");
-    }
+    }*/
 }
