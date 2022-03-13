@@ -11,11 +11,8 @@ public class AdminController {
 	@GetMapping(value = "/")
 	public String accessAdmin() {
 
-		return "admin/index";
+		return "/admin/index";
 	}
 
-	@GetMapping(value = "/accessDenied")
-	public void accessDenied() {
-		;
-	}
+
 }

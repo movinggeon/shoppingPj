@@ -42,6 +42,11 @@ public class EveryoneController {
     	System.out.println("loginController 호출됨");
     	return "everyone/login/login";
     }
+
+    @GetMapping(value = "/accessDenied")
+    public void accessDenied() {
+
+    }
     
 /*  필요없음
     @PostMapping(value = "/login/loginProcess")
