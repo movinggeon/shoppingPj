@@ -1,7 +1,7 @@
 ## setting 할때 필요한 사항
 
-1. MYSQL (username: 'teamsix', pw: 'teamsixxx')이어야됨 엔드포인트, 포트번호 단톡방 확인할것<br>
-~~2. 테이블 존재하는지 확인하기. (테이블 존재하지 않을시 프로젝트 내에 **/webapp/resources/sql/*.sql** 파일을 실행하여 테이블 생성하기)~~<br>
+1. MYSQL (username: 'teamsix', pw: 'teamsixxx')이어야됨 엔드포인트, 포트번호 단톡방 확인할것<br><br>
+~~2. 테이블 존재하는지 확인하기. (테이블 존재하지 않을시 프로젝트 내에 **/webapp/resources/sql/*.sql** 파일을 실행하여 테이블 생성하기)~~<br><br>
 2. 테이블 생성 예정 (2022-03-14) members 생성
 
 ## 권한별로 경로 나누기
@@ -19,9 +19,9 @@ ex) /boards/admin/insertEvent
 
 <h2>파일 생성</h2>
 
-1.com.group6.shopping.(DB테이블 명)을 설정되있음.
-2.com.group6.shopping.batis 안에 모든 테이블의 dao 모여져있음. 설정사항이니 웬만해서는 여기서 하기
-3.header footer 안붙으면 tiles 문제니 말할 것 (tiles jsp쪽 에러뜨면 겁나 불편함. 계속 불편하면 지울 예정)
+1.com.group6.shopping.(DB테이블 명)을 설정되있음. <br>
+2.com.group6.shopping.batis 안에 모든 테이블의 dao 모여져있음. 설정사항이니 웬만해서는 여기서 하기<br>
+3.header footer 안붙으면 tiles 문제니 말할 것 (tiles jsp쪽 에러뜨면 겁나 불편함. 계속 불편하면 지울 예정)<br>
 
 ## 주의사항
 
