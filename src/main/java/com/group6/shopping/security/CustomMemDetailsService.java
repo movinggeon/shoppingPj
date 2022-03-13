@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.group6.shopping.members.dao.MembersDAO;
-import org.springframework.ui.Model;
+import com.group6.shopping.batis.MembersDAO;
 
 public class CustomMemDetailsService implements UserDetailsService{
 	
