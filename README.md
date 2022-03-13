@@ -10,14 +10,14 @@
 ~~2. 회원(members)만 접속가능하다면 /member/** 경로 사용.~~<br>
 ~~3. 관리자(admin)만 접속가능하다면 /admin/** 경로 사용.~~<br>
 
-1. 모든 사용자 (비회원 포함) url 제한 없음
+1. 모든 사용자 (비회원 포함) url 제한 없음 <br>
 ex) /boards/viewBoard
-2. 회원(member) /*/member/**
+2. 회원(member) /*/member/** <br>
 ex) /boards/member/insertReview
-3. 관리지(admin) /*/admin/**
+3. 관리지(admin) /*/admin/** <br>
 ex) /boards/admin/insertEvent
 
-##파일 생성
+<h2>파일 생성</h2>
 
 1.com.group6.shopping.(DB테이블 명)을 설정되있음.
 2.com.group6.shopping.batis 안에 모든 테이블의 dao 모여져있음. 설정사항이니 웬만해서는 여기서 하기
