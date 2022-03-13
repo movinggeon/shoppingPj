@@ -25,19 +25,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
-    @Autowired
-    MembersService membersService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session) throws Exception {
-
-        List<MembersVO> membersVOList = membersService.getAllMembers();
-
-        for(MembersVO tmp : membersVOList){
-            System.out.println(tmp.getMem_name());
-        }
-
-		System.out.println("home123 호출");
 
 		return "home";
 	}
