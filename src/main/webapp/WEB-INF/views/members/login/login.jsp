@@ -15,7 +15,7 @@
 	<h1>Login Page</h1> 
 	<h2>${error}</h2> 
 	<h2>${logout}</h2> 
-	<form action="/everyone/login" method="post">
+	<form action="/members/login" method="post">
 		<div> <input type="text" name="username" /> </div> 
 		<div> <input type="password" name="password" /> </div> 
 		<div> <input type="submit"/> </div> 

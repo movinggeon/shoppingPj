@@ -15,19 +15,19 @@
 
 <sec:authorize access="isAuthenticated()">
     ${user.mem_id}님 반갑습니다.
-    <form action="/everyone/logout" method="post" id="logout">
+    <form action="/members/logout" method="post" id="logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
     <a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a>
 </sec:authorize>
 
 <sec:authorize access="isAnonymous()">
-    <c:if test="${URI ne '/everyone/join'}">
-        <a href="/everyone/join">회원가입</a><br>
+    <c:if test="${URI ne '/members/join'}">
+        <a href="/members/join">회원가입</a><br>
     </c:if>
 
-    <c:if test="${URI ne '/everyone/login'}">
-        <a href="/everyone/login">로그인</a><br>
+    <c:if test="${URI ne '/members/login'}">
+        <a href="/members/login">로그인</a><br>
     </c:if>
 </sec:authorize>
 

@@ -1,3 +1,4 @@
+/*
 package com.group6.shopping.everyone.controllers;
 
 import java.util.Calendar;
@@ -27,8 +28,10 @@ public class EveryoneController {
     	
     	//mybatis 실행 확인
         //필요없을듯
-    	/*List<MembersVO> membersList = membersService.getAllMembers();
-    	model.addAttribute("memberList", membersList);*/
+    	*/
+/*List<MembersVO> membersList = membersService.getAllMembers();
+    	model.addAttribute("memberList", membersList);*//*
+
         System.out.println("joinController 호출됨");
         
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -48,9 +51,12 @@ public class EveryoneController {
 
     }
     
+*/
 /*  필요없음
     @PostMapping(value = "/login/loginProcess")
     public void loginProcess() {
     	System.out.println("로그인 처리 중...");
-    }*/
+    }*//*
+
 }
+*/

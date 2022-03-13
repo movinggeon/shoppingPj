@@ -16,7 +16,7 @@ public class AdminController {
 	@GetMapping(value = "/qwe/member")
 	public String accessMember() {
 
-		return "/member/index";
+		return "/members/index";
 	}
 
 

@@ -9,8 +9,5 @@
 </head>
 <body>
 Member
-<c:forEach items="${vo}">
-    ${vo.mem_name}
-</c:forEach>
 </body>
 </html>

@@ -20,6 +20,6 @@ public class DeniedHandler implements AccessDeniedHandler {
             //logging code goes here, maybe,,
             System.out.println(auth.getName() + "attempted to enter URL: " + request.getRequestURI());
         }
-        request.getRequestDispatcher("/everyone/accessDenied").forward(request, response);
+        request.getRequestDispatcher("/members/accessDenied").forward(request, response);
     }
 }
