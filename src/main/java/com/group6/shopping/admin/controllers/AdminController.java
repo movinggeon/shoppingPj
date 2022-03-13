@@ -4,14 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/admin")
 @Controller
 public class AdminController {
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "/qwe/admin")
 	public String accessAdmin() {
 
 		return "/admin/index";
+	}
+
+	@GetMapping(value = "/qwe/member")
+	public String accessMember() {
+
+		return "/member/index";
 	}
 
 
