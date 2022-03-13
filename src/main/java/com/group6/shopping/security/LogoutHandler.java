@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +19,11 @@ public class LogoutHandler implements LogoutSuccessHandler {
 
         HttpSession session = request.getSession();
         String defaultUrl = "/";
-        
+
         //로그인 정보가 있을 경우
         if (auth != null) {
             session.removeAttribute("user");
-            SecurityContext context = SecurityContextHolder.getContext();
+            //new SecurityContextLogoutHandler().logout(request,response,auth);
         }
 
         response.sendRedirect(defaultUrl);

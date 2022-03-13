@@ -26,7 +26,6 @@ public class MembersController {
 		return "members/index";
 	}
 
-
 	@GetMapping(value = "/join")
 	public String join(Model model) throws Exception{
 

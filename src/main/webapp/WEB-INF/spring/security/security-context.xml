@@ -14,8 +14,8 @@
 		<security:intercept-url pattern="/boards/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/boards/member/**" access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')"/>-->
 
-		<security:intercept-url pattern="/WEB-INF/views/members/**" access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/*/members/**" access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/*/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="permitAll"/>
 		<security:form-login login-page="/members/login"
 							 login-processing-url="/members/login"
@@ -23,11 +23,12 @@
 							 authentication-success-handler-ref="loginSuccessHandler"/>
 		<!--로그아웃-->
 		<security:logout logout-url="/members/logout"
+						 delete-cookies="JSESSIONID"
 						 success-handler-ref="logoutHandler" />
 		<!--권한이 없는 사용자가 접근시 이동-->
 		<security:access-denied-handler ref="deniedHandler"/>
 		<!-- 최대 한 개의 세션만 생성되도록 -->
-		<security:session-management invalid-session-url="/members/login">
+		<security:session-management invalid-session-url="/">
             <security:concurrency-control max-sessions="1"
             							  expired-url="/members/login"
             							  error-if-maximum-exceeded="true" />
