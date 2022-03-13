@@ -133,7 +133,7 @@
 			if(memId.value.length >= 5){
 				
 			    jQuery.ajax({
-			        "url": "/everyone/join/idLookup",
+			        "url": "/members/join/idLookup",
 			        "type": "POST",
 			        "contentType": "application/json; charset=utf-8;",
 			        "data": JSON.stringify({
@@ -326,7 +326,7 @@
 			else{
 			
 			    jQuery.ajax({
-			        "url": "/everyone/join/joinProcess",
+			        "url": "/members/join/joinProcess",
 			        "type": "POST",
 			        "contentType": "application/json; charset=utf-8;",
 			        "data": JSON.stringify({
