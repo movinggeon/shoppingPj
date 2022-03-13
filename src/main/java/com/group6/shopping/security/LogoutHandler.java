@@ -1,6 +1,8 @@
 package com.group6.shopping.security;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -20,7 +22,9 @@ public class LogoutHandler implements LogoutSuccessHandler {
         //로그인 정보가 있을 경우
         if (auth != null) {
             session.removeAttribute("user");
+            SecurityContext context = SecurityContextHolder.getContext();
         }
+
         response.sendRedirect(defaultUrl);
     }
 }
