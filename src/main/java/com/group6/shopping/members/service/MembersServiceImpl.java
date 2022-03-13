@@ -4,20 +4,21 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group6.shopping.members.dao.MembersDAO;
 import com.group6.shopping.members.vo.MembersVO;
 
-@Service
+@Service("memberService")
 public class MembersServiceImpl implements MembersService{
 
-	@Inject
+	@Autowired
 	private MembersDAO membersDAO;
 	
 	@Override
 	public List<MembersVO> getAllMembers() throws Exception{
-		
+		System.out.println("여기");
 		return membersDAO.getAllMembers();
 	}
 	

@@ -20,7 +20,6 @@ public class CustomMemDetailsService implements UserDetailsService{
 		CustomMemDetails members = null;
 		
 		try {
-			
 			members = membersDAO.getMemById(memId);
 
 			if(members == null) {

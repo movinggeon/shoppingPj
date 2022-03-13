@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.group6.shopping.members.vo.MembersVO;
 import com.group6.shopping.security.CustomMemDetails;
-
+import org.apache.ibatis.annotations.Mapper;
 
 public interface MembersDAO {
     

@@ -1,3 +1,4 @@
+/*
 package com.group6.shopping.members.dao;
 
 import java.util.List;
@@ -62,3 +63,4 @@ public class MembersDAOImpl implements MembersDAO {
     	return members;
     }
 }
+*/

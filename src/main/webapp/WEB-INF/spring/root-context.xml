@@ -3,6 +3,7 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
@@ -27,13 +28,17 @@
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
 
 		<!-- SQL 파일의 위치를 지정합니다. -->
-		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:/mappers/*.xml" />
 
 	</bean>
 
 	<!-- SqlSession -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.group6.shopping.members.dao.MembersDAO"/>
 	</bean>
 
 	<!-- 트랜잭션 매니저 bean 을 등록합니다. -->
@@ -44,6 +49,9 @@
 	<!-- 아노테이션 기반의 트랜잭션을 사용합니다. -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
-	<context:component-scan base-package="com.group6.shopping.members.dao"></context:component-scan>
-	<context:component-scan base-package="com.group6.shopping.members.service"></context:component-scan>
+	<!--<context:component-scan base-package="com.group6.shopping.members.dao"/>-->
+	<!--<context:component-scan base-package="com.group6.shopping.members.service"/>-->
+
+
+
 </beans>
