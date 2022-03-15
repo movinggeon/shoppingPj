@@ -1,0 +1,10 @@
+delete from products;
+delete from models;
+delete from specifications;
+delete from members;
+delete from carts;
+delete from coupons;
+delete from likes;
+delete from boards;
+delete from replies;
+delete from files;
