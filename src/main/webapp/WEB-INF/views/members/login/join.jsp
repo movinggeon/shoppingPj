@@ -109,7 +109,8 @@
 	</div>
 	<!-- javascript -->
 	<script type="text/javascript">
-	
+		var code="";
+		var mailnumCheck="false";
 		//csrf 토큰값 받기
 	    var token = $("meta[name='_csrf']").attr("content");
 	    var header = $("meta[name='_csrf_header']").attr("content");
@@ -333,7 +334,7 @@
 			var boolPasswordReEnter = memPassword.value != passwordReEnter.value;
 			var boolEmail = memEmail.value.length == 0 || !regEmail.test(memEmail.value);
 			var boolPhone = memPhone.value.length == 0 || !regPhone.test(memPhone.value);
-			
+
 			//console.log(document.getElementById("address").value.length);
 			//console.log(birth);
 			if(document.getElementById("address").value.length == 0){
@@ -360,6 +361,8 @@
 			}else if(boolPhone){
 				
 				alert("전화번호를 다시 입력해주세요.")
+			}else if(mailnumCheck=="false"){
+				alert("이메일 인증을 진행해주세요")
 			}
 			else{
 			
@@ -432,9 +435,11 @@
 			if(inputCode == code){                            // 일치할 경우
 				checkResult.html("인증번호가 일치합니다.");
 				checkResult.attr("class", "correct");
+				mailnumCheck=false;
 			} else {                                            // 일치하지 않을 경우
 				checkResult.html("인증번호를 다시 확인해주세요.");
 				checkResult.attr("class", "incorrect");
+				mailnumCheck=true;
 			}
 		});
 
