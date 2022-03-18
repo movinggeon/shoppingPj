@@ -3,5 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="MembersVO" type="com.group6.shopping.members.vo.MembersVO"/>
+		<typeAlias alias="SpecVO" type="com.group6.shopping.specifications.vo.SpecVO"/>
+		<typeAlias alias="SpecDisplayVO" type="com.group6.shopping.specifications.vo.SpecDisplayVO"/>
 	</typeAliases>
 </configuration>

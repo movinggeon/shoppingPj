@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 @Getter
 @Service
 @AllArgsConstructor
-//@NoArgsConstructor
-public class SpecVO {
+@NoArgsConstructor
+public class SpecVO{
+    private int sped_id, model_id, spec_weight, spec_price, spec_qty;
+    private String product_name, model_name, spec_processor, spec_memory, spec_display, spec_network, spec_color;
 }

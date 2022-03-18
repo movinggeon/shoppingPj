@@ -1,4 +1,4 @@
-
+/* 그냥 넣어 놨는데 안썻음 */
 drop table files;
 drop table replies;
 drop table boards;

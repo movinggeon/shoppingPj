@@ -114,6 +114,8 @@ create table boards(
         references members(mem_id) on Delete CASCADE,
     spec_id int
         references specifications(spec_id) on Delete CasCADE,
+	model_id int
+		references models(model_id) on delete cascade,
     board_rate int,
     board_title varchar(100),
     board_content varchar(100),

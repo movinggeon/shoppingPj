@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.SpecificationsDAO">
+	<select id="getModels" resultType="SpecVO">
+		select *
+		from products p, models m, specifications s
+		where p.product_id = m.product_id and m.model_id = s.model_id
+		  and p.product_name = #{product}
+		order by s.model_id;
+	</select>
+
+	<select id="getModelNames" resultType="SpecDisplayVO">
+		select m.product_id, m.model_id, m.model_name
+		from products p, models m, specifications s
+		where p.product_id = m.product_id and m.model_id = s.model_id
+		  and p.product_name = #{product}
+		group by m.model_name
+		order by s.model_id;
+	</select>
+
+	<select id="getSpec" resultType="Object">
+		select s.${spec}
+		from products p, models m, specifications s
+		where p.product_id = m.product_id and m.model_id = s.model_id
+		  and p.product_name = #{product} and m.model_name = #{model}
+		group by s.${spec}
+		order by s.model_id;
+	</select>
+</mapper>

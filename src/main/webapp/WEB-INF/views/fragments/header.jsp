@@ -13,8 +13,16 @@
 <c:set var="URI" value="${pageContext.request.getAttribute('javax.servlet.forward.request_uri')}" />
 <a href="/">HOME</a><br>
 
+<a href="/spec/viewModels?product=sixPhone">SixPhone</a>
+<a href="/spec/viewModels?product=sixBook">SixBook</a>
+<a href="/spec/viewModels?product=sixTablet">SixTablet</a>
+<a href="/spec/viewModels?product=sixWatch">SixWatch</a>
+
+
 <sec:authorize access="isAuthenticated()">
-    ${user.mem_id}님 반갑습니다.
+    ${user.mem_id}님 환영합니다.
+    <!--<sec:authentication property="principal" var="userName" scope="request"/>-->
+
     <form action="/members/logout" method="post" id="logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
@@ -23,7 +31,7 @@
 
 <sec:authorize access="isAnonymous()">
     <c:if test="${URI ne '/members/join'}">
-        <a href="/members/join">회원가입</a><br>
+        <a href="/members/join">회원가입</a>
     </c:if>
 
     <c:if test="${URI ne '/members/login'}">
