@@ -21,4 +21,10 @@
 		INSERT INTO members
 			VALUES( #{mem_name}, #{mem_id}, #{mem_password}, #{mem_email}, #{mem_phone} , #{mem_birth}, #{mem_post_code}, #{mem_address} ,#{mem_point}, #{mem_auth}, #{mem_enable} )
 	</insert>
+
+	<update id="modifyMem" >
+		UPDATE members
+			SET mem_name=#{mem_name}, mem_phone=#{mem_phone}, mem_email=#{mem_email}, mem_post_code=#{mem_post_code}, mem_address=#{mem_address}
+			WHERE mem_id=#{mem_id}
+	</update>
 </mapper>

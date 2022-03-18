@@ -51,4 +51,16 @@ public class MembersController {
 	public void accessDenied() {
 
 	}
+
+	@RequestMapping(value="/mypage")
+	public String mypage(HttpServletRequest request) {
+		System.out.println("mypage로 이동");
+		return "members/mypage/mypage";
+	}
+
+	@RequestMapping(value = "/modify")
+	public String modify(HttpServletRequest request) {
+		System.out.println("modify 호출");
+		return "members/mypage/modify";
+	}
 }
