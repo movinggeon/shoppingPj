@@ -9,6 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 <!--현재 경로-->
 <c:set var="URI" value="${pageContext.request.getAttribute('javax.servlet.forward.request_uri')}" />
 <a href="/">HOME</a><br>

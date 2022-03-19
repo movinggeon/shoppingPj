@@ -35,7 +35,6 @@ public class SpecServiceImpl implements SpecService {
 
         int maxPrice = getMaxPrice(product, model);
         int minPrice = getMinPrice(product, model);
-        System.out.println(maxPrice + " " + minPrice);
 
         maxmin.add(minPrice); maxmin.add(maxPrice);
 

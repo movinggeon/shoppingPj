@@ -49,19 +49,23 @@
 </div>
 
 <form id="userPhone">
-    <input type="hidden" name="model_id" id="modelIdInput">
-    <input type="hidden" name="spec_display" id="displayInput">
-    <input type="hidden" name="spec_color" id="colorInput"> //
-    <input type="hidden" name="spec_processor" id="processorInput"> //
-    <input type="hidden" name="spec_memory" id="memoryInput">  //
-    <input type="hidden" name="spec_network" id="networkInput">  //
+    <input type="hidden" name="model_id" id="modelIdInput" value="${specDisplayVO.model_id}">
+    <input type="hidden" name="spec_display" id="displayInput" value="${specDisplayVO.spec_display[0]}">
+    <input type="hidden" name="spec_weight" id="weigthInput" value="${specDisplayVO.spec_weight[0]}">
+
+    <input type="hidden" name="spec_color" id="colorInput"> <!--input from user-->
+    <input type="hidden" name="spec_processor" id="processorInput"> <!--input from user-->
+    <input type="hidden" name="spec_memory" id="memoryInput">  <!--input from user-->
+    <input type="hidden" name="spec_network" id="networkInput">  <!--input from user-->
 </form>
 
 <script>
-    function clickEvent(id){
+    function clickEvent(id, specInput){
         var currentChoice = document.getElementById(id);
         //do thing to put id value into input value
+        document.getElementById(specInput).value = id;
         //do something to show click design
+        currentChoice.style.fontWeight = "bold";
 
         var parent = currentChoice.parentElement.children;
 
@@ -69,8 +73,16 @@
             for(var i = 0; i < parent.length; i++){
                 if (parent[i] != currentChoice){
                     //do something to un-click design
-                    console.log(parent[i]);
+                    parent[i].style.fontWeight = "normal";
+
                 }
+            }
+        }
+
+        let userInput = $("#userPhone").serializeArray();
+        for(i=3; i < userInput.length; i++){
+            if(userInput[i].value.length == 0){
+                return;
             }
         }
         specCheck();
@@ -78,6 +90,32 @@
     function specCheck(){
         //bring the record of spec (qty, price)
         //form userPhone to json
+
+        let userInput = $("#userPhone").serializeArray();
+        let phone = {}
+        for(i=0; i < userInput.length; i++){
+            phone[userInput[i].name] = userInput[i].value;
+        }
+
+        console.log(phone);
+/*
+        $.ajax({
+            url:"/findSpec",
+            type:"post",
+            dataType:"json",
+            data: JSON.stringify(phone),
+            contentType: "application/json;charset=utf-8",
+            success:function(data){
+
+            },
+            error:function(){
+                alert("error");
+            }
+
+        });
+*/
+
+
     }
 </script>
 
