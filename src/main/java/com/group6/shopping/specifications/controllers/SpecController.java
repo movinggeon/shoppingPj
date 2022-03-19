@@ -31,7 +31,7 @@ public class SpecController {
             int modelId = modelNamesList.get(i).getModel_id();
             int productId = modelNamesList.get(i).getProduct_id();
 
-            SpecDisplayVO tmp = specService.getSpec(product, productId, model, modelId);
+            SpecDisplayVO tmp = specService.getSpecDisplay(product, productId, model, modelId);
 
             specDisplayVOList.add(tmp);
         }
@@ -43,8 +43,7 @@ public class SpecController {
 
     @RequestMapping("/chooseModel")
     public String chooseModel(Model models,SpecDisplayVO specDisplayVO) throws Exception {
-
-        SpecDisplayVO tmp = specService.getSpec(
+        SpecDisplayVO tmp = specService.getSpecDisplay(
                 specDisplayVO.getProduct_name(), specDisplayVO.getProduct_id(),
                 specDisplayVO.getModel_name(),specDisplayVO.getModel_id());
 
@@ -52,4 +51,7 @@ public class SpecController {
 
         return "spec/chooseModel";
     }
+
+
+
 }

@@ -9,12 +9,11 @@
 
 
     <c:forEach items="${specDisplayVOList}" var="list">
-        <form action="/spec/chooseModel" method="post">
+        <form action="/spec/chooseModel" method="get">
             <input type = "hidden" value="${list.product_id}" name="product_id">
             <input type = "hidden" value="${list.product_name}" name="product_name">
             <input type = "hidden" value="${list.model_id}" name="model_id">
             <input type = "hidden" value="${list.model_name}" name="model_name">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input type="submit" value="보러가기">
         </form>
         ${list.product_id}

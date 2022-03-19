@@ -8,7 +8,7 @@
 <body>
 
 <h2>${specDisplayVO.product_name} ${specDisplayVO.model_name}</h2>
-
+<div id = "price">
 <c:choose>
     <c:when test="${specDisplayVO.spec_price[0] == specDisplayVO.spec_price[1]}">
         <h3>₩${specDisplayVO.spec_price[0]}</h3>
@@ -17,7 +17,7 @@
         <h3>₩${specDisplayVO.spec_price[0]} ~ ₩${specDisplayVO.spec_price[1]}</h3>
     </c:otherwise>
 </c:choose>
-
+</div>
 <hr>
 
 <h4>Color</h4>
@@ -48,6 +48,14 @@
     </c:forEach>
 </div>
 
+<div id="qty">
+</div>
+
+<div id="toCart">
+    <button onclick="addCart()">장바구니 담기</button>
+
+</div>
+
 <form id="userPhone">
     <input type="hidden" name="model_id" id="modelIdInput" value="${specDisplayVO.model_id}">
     <input type="hidden" name="spec_display" id="displayInput" value="${specDisplayVO.spec_display[0]}">
@@ -74,11 +82,9 @@
                 if (parent[i] != currentChoice){
                     //do something to un-click design
                     parent[i].style.fontWeight = "normal";
-
                 }
             }
         }
-
         let userInput = $("#userPhone").serializeArray();
         for(i=3; i < userInput.length; i++){
             if(userInput[i].value.length == 0){
@@ -87,6 +93,7 @@
         }
         specCheck();
     }
+    var userPhone = {};
     function specCheck(){
         //bring the record of spec (qty, price)
         //form userPhone to json
@@ -97,15 +104,22 @@
             phone[userInput[i].name] = userInput[i].value;
         }
 
-        console.log(phone);
-/*
         $.ajax({
-            url:"/findSpec",
+            url:"/spec/findSpec",
             type:"post",
             dataType:"json",
             data: JSON.stringify(phone),
             contentType: "application/json;charset=utf-8",
-            success:function(data){
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader(header, token);
+            },
+            success:function(specVO){
+                //setting the input values
+                userPhone = specVO;
+                console.log(userPhone);
+                document.getElementById("price").innerHTML = "<h3>₩"+ specVO.spec_price +"</h3>";
+                document.getElementById("qty").innerHTML = specVO.spec_qty +"개 남았습니다.";
 
             },
             error:function(){
@@ -113,10 +127,34 @@
             }
 
         });
-*/
-
-
     }
+    function addCart(){
+        if(Object.keys(userPhone).length == 0){
+            alert("옵션들 선택해주세요");
+        }else{
+            //ajax work to controller (sending userphone value to finish DB work)
+            $.ajax({
+                url:"/carts/member/addCart",
+                type:"post",
+                dataType:"text",
+                data: JSON.stringify(userPhone),
+                contentType: "application/json;charset=utf-8",
+                beforeSend : function(xhr)
+                {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                    xhr.setRequestHeader(header, token);
+                },
+                success:function(result){
+                    //modal work if yes to cart no then remain in the page
+                    alert("장바구니 담기 완료 이동 하시겠습니까?");
+
+                },
+                error:function(){
+                    alert("error");
+                }
+            });
+        }
+    }
+
 </script>
 
 </body>

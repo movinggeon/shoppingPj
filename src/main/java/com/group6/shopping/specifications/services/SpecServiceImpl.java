@@ -29,7 +29,7 @@ public class SpecServiceImpl implements SpecService {
     }
 
     @Override
-    public SpecDisplayVO getSpec(String product, int productId, String model, int modelId) throws Exception {
+    public SpecDisplayVO getSpecDisplay(String product, int productId, String model, int modelId) throws Exception {
 
         List<Integer> maxmin = new ArrayList<Integer>();
 
@@ -40,12 +40,12 @@ public class SpecServiceImpl implements SpecService {
 
         SpecDisplayVO tmp = new SpecDisplayVO(
                 productId, modelId, product, model,
-                specificationsDAO.getSpec("spec_processor",product,model),
-                specificationsDAO.getSpec("spec_memory",product,model),
-                specificationsDAO.getSpec("spec_display",product,model),
-                specificationsDAO.getSpec("spec_network",product,model),
-                specificationsDAO.getSpec("spec_color",product,model),
-                specificationsDAO.getSpec("spec_weight",product,model),
+                specificationsDAO.getSpecDisplay("spec_processor",product,model),
+                specificationsDAO.getSpecDisplay("spec_memory",product,model),
+                specificationsDAO.getSpecDisplay("spec_display",product,model),
+                specificationsDAO.getSpecDisplay("spec_network",product,model),
+                specificationsDAO.getSpecDisplay("spec_color",product,model),
+                specificationsDAO.getSpecDisplay("spec_weight",product,model),
                 maxmin
         );
 
@@ -60,5 +60,10 @@ public class SpecServiceImpl implements SpecService {
     @Override
     public Integer getMinPrice(String product, String model) throws Exception {
         return specificationsDAO.getMinPrice(product,model);
+    }
+
+    @Override
+    public SpecVO getSpec(SpecVO specVO) throws Exception {
+        return specificationsDAO.getSpec(specVO);
     }
 }
