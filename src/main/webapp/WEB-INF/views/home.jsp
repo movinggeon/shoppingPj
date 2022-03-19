@@ -33,9 +33,34 @@ ${user.mem_enable}님 반갑습니다 main<br>
 -->
 main.jsp
 
+
+<div id="parent-div">
+    <div id="div-no-1">하나</div>
+    <div id="div-no-2">둘</div>
+    <div id="div-no-3">셋</div>
+    <div id="div-no-4">야</div>
+</div>
+
+
 <button type="button" onclick="something()">ajax</button>
 
 <script>
+    var children = document.getElementById("parent-div").children;
+    var parent = document.getElementById("div-no-1").parentNode;
+    var parent1 = document.getElementById("div-no-1").parentElement;
+
+    console.log(parent.children[0]);
+    console.log(parent.children[1]);
+    console.log(parent.children[2]);
+    console.log(parent.children[3]);
+    console.log(parent1);
+
+    for (var i = 0; i < children.length; i++) {
+        console.log(children[i]);
+        //console.log(children[i].innerText);
+    }
+
+
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     function something(){

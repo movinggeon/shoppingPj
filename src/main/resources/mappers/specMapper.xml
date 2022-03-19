@@ -27,4 +27,20 @@
 		group by s.${spec}
 		order by s.model_id;
 	</select>
+
+	<select id="getMaxPrice" resultType="int">
+		select max(s.spec_price)
+		from products p, models m, specifications s
+		where p.product_id = m.product_id and m.model_id = s.model_id
+		  and p.product_name = #{product} and m.model_name = #{model}
+		order by s.model_id;
+	</select>
+
+	<select id="getMinPrice" resultType="int">
+		select min(s.spec_price)
+		from products p, models m, specifications s
+		where p.product_id = m.product_id and m.model_id = s.model_id
+		  and p.product_name = #{product} and m.model_name = #{model}
+		order by s.model_id;
+	</select>
 </mapper>
