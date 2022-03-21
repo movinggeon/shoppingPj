@@ -92,12 +92,23 @@
     </c:forEach>
 </div>
 
+<div id="qty">
+
+</div>
+
+<div id="isCare">
+    <div id="1" onclick="clickEvent(this.id, 'careInput')">예</div>
+    <div id="0" onclick="clickEvent(this.id, 'careInput')">아니요</div>
+</div>
+
 
 
 <form id="userPhone">
     <input type="hidden" name="model_id" id="modelIdInput" value="${specDisplayVO.model_id}">
     <input type="hidden" name="spec_display" id="displayInput" value="${specDisplayVO.spec_display[0]}">
     <input type="hidden" name="spec_weight" id="weigthInput" value="${specDisplayVO.spec_weight[0]}">
+
+    <input type="hidden" name="isCare" id="careInput">
 
     <input type="hidden" name="spec_color" id="colorInput"> <!--input from user-->
     <input type="hidden" name="spec_processor" id="processorInput"> <!--input from user-->
@@ -121,10 +132,6 @@
 
 
 <script>
-
-
-
-
     function clickEvent(id, specInput){
         var currentChoice = document.getElementById(id);
         //do thing to put id value into input value
@@ -142,12 +149,14 @@
                 }
             }
         }
+        //check whether user choose all of the options
         let userInput = $("#userPhone").serializeArray();
         for(i=3; i < userInput.length; i++){
             if(userInput[i].value.length == 0){
                 return;
             }
         }
+        //if user made all the choices then show the remaining qty and chosen model's value
         specCheck();
     }
     var userPhone = {};
@@ -172,17 +181,24 @@
                 xhr.setRequestHeader(header, token);
             },
             success:function(specVO){
-                //setting the input values
                 userPhone = _.cloneDeep(specVO);
-                //toCart = 1;
-                document.getElementById("price").innerHTML = "<h3>₩"+ specVO.spec_price +"</h3>";
-                document.getElementById("qty").innerHTML = specVO.spec_qty +"개 남았습니다.";
 
+                var care = { cart_isCare : document.getElementById("careInput").value };
+                userPhone = Object.assign(userPhone, care);
+
+                console.log(userPhone);
+
+                //toCart = 1;
+                if(document.getElementById("careInput").value == 1){
+                    document.getElementById("price").innerHTML = "<h3>₩"+ specVO.spec_price + 10 +"</h3>";
+                }else{
+                    document.getElementById("price").innerHTML = "<h3>₩"+ specVO.spec_price +"</h3>";
+                }
+                document.getElementById("qty").innerHTML = specVO.spec_qty +"개 남았습니다.";
             },
             error:function(){
                 alert("error");
             }
-
         });
     }
     function addCart(){
@@ -196,8 +212,10 @@
             $.ajax({
                 url: "/carts/member/addCart",
                 type:"post",
-                data:{spec_id:userPhone.spec_id},
+                data:
+                    JSON.stringify(userPhone),
                 dataType: "text",
+                contentType: "application/json;charset=utf-8",
                 beforeSend : function(xhr)
                 {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                     xhr.setRequestHeader(header, token);
@@ -207,7 +225,7 @@
                     document.getElementById("modal-pop").innerText = "장바구니로 이동 하시 겠습니까?";
                 },
                 error:function(request){
-                    if(request.status) {
+                    if(request.status == 403) {
                         document.getElementById("modal-pop").innerText = "로그인해주세요";
                     }else{
                         alert(request.status);

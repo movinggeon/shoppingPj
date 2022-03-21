@@ -36,6 +36,7 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
     <a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a>
+    <a href="/carts/member/cart">장바구니</a>
 </sec:authorize>
 
 <sec:authorize access="isAnonymous()">

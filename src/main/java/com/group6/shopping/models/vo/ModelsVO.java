@@ -9,6 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class ModelsVO {
+    private int model_id, product_id;
+    private String model_name;
 }

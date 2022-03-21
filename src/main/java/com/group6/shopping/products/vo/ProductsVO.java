@@ -9,6 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class ProductsVO {
+    private int product_id;
+    private String product_name;
 }
