@@ -9,7 +9,8 @@
 		
 	<security:http pattern="/resources/**" security="none"/>
 
-	<security:http>
+	<security:http entry-point-ref="authenticationEntryPoint">
+		<!---->
 		<!--<security:intercept-url pattern="/boards/**" access="permitAll"/>
 		<security:intercept-url pattern="/boards/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/boards/member/**" access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')"/>-->
@@ -33,6 +34,7 @@
             							  expired-url="/members/login"
             							  error-if-maximum-exceeded="true" />
         </security:session-management>
+
 	</security:http>
 
 	<security:authentication-manager>	
@@ -45,6 +47,9 @@
 	<bean id="loginFailureHandler" class="com.group6.shopping.security.LoginFailureHandler"/>
 	<bean id="loginSuccessHandler" class="com.group6.shopping.security.LoginSuccessHandler"/>
 	<bean id="logoutHandler" class="com.group6.shopping.security.LogoutHandler"/>
+	<bean id="authenticationEntryPoint" class="com.group6.shopping.security.AjaxAwareAuthenticationEntryPoint">
+		<constructor-arg value="/members/login"/>
+	</bean>
 
 	<bean id="deniedHandler" class="com.group6.shopping.security.DeniedHandler"/>
 	<context:component-scan base-package="com.group6.shopping.security" />

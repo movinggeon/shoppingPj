@@ -56,7 +56,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         String defaultUrl = "/";
-
         //savedRequest 인증권한이 필요한 페이지 url
         if(savedRequest!=null) {
             String targetUrl = savedRequest.getRedirectUrl();

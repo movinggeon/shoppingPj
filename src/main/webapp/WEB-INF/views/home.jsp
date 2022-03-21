@@ -41,11 +41,15 @@ main.jsp
     <div id="div-no-4">야</div>
 </div>
 
-
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <button type="button" onclick="something()">ajax</button>
 
 <script>
-    var children = document.getElementById("parent-div").children;
+/*    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");*/
+
+
+/*    var children = document.getElementById("parent-div").children;
     var parent = document.getElementById("div-no-1").parentNode;
     var parent1 = document.getElementById("div-no-1").parentElement;
 
@@ -58,19 +62,17 @@ main.jsp
     for (var i = 0; i < children.length; i++) {
         console.log(children[i]);
         //console.log(children[i].innerText);
-    }
+    }*/
 
 
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    function something(){
+/*    function something(){
         $.ajax({
             url: "/boards/something",
             type:"post",
             data:{id:'id'},
             dataType: "text",
             beforeSend : function(xhr)
-            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+            {   /!*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*!/
                 xhr.setRequestHeader(header, token);
             },
             success: function(data) {
@@ -79,7 +81,7 @@ main.jsp
             error: function() {
                 alert("error");
             }
-        });
+        });*/
     }
 
 </script>

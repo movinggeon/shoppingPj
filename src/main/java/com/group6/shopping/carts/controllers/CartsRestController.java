@@ -10,6 +10,7 @@ public class CartsRestController {
 
     @RequestMapping("/member/addCart")
     public String addCart(SpecVO specVO){
+        //db work add spec_id to cart
         System.out.println(specVO.getSpec_id());
         return "success";
     }

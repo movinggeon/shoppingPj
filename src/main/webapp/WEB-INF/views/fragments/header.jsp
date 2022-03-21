@@ -16,6 +16,8 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+
 <!--현재 경로-->
 <c:set var="URI" value="${pageContext.request.getAttribute('javax.servlet.forward.request_uri')}" />
 <a href="/">HOME</a><br>
@@ -49,6 +51,12 @@
 <script>
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
+
+   $(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
+        if (xhr.status == 403) {
+            window.location.href ="/members/login";
+        }
+    });
 </script>
 
 
