@@ -1,3 +1,4 @@
+<%@ page import="com.group6.shopping.security.CustomMemDetails" %>
 <<%@ page language="java" contentType="text/html; charset=UTF-8"
           pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -26,6 +27,18 @@
 
 </head>
 <body>
+
+<%
+
+    CustomMemDetails cs =(CustomMemDetails) session.getAttribute("user");
+
+    String imsi_address = cs.getMem_address();
+
+    String[] Imsi = imsi_address.split("!");
+    String address =Imsi[0];
+    String detailaddress =Imsi[1];
+
+%>
 <br><br><br>
 
 <h2>회원정보수정</h2>
@@ -64,12 +77,10 @@
     </tr>
     <tr>
         <th scope="row">주소</th>
-        <td><input type="text" style="border:0 solid black" id="memPostcode" value=${user.mem_post_code} readonly><br>
-            <input type="text" style="border:0 solid black" id="memAddress" size="50" value="${user.mem_address}" readonly></td>
-        <td><input type="text" id="postcode" placeholder="우편번호" disabled="disabled">
+        <td><input type="text" size="50" id="postcode" value=${user.mem_post_code} disabled="disabled">
             <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="address" placeholder="주소" disabled="disabled"><br>
-            <input type="text" id="detailAddress" maxlength="80" placeholder="상세주소">
+            <input type="text" size="50" id="address" value="<%=address%>"  disabled="disabled"><br>
+            <input type="text" size="50" id="detailAddress" value="<%=detailaddress%>" >
             <input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled">
         </td>
         <td><p id="addressCheck"></p></td>
@@ -78,7 +89,12 @@
 
     </tbody>
 </table>
-    <button onclick="sendInfoModify()">정보수정</button>
+    <button type="button" class="btn btn-primary" onclick="sendInfoModify()">정보수정</button>
+
+    <c:if test="${URI ne '/members/member/modifyPassword'}">
+        <a href="/members/member/modifyPassword" class="btn btn-secondary">비밀번호 변경</a><br>
+    </c:if>
+
 
 </div>
 
@@ -193,13 +209,23 @@
 
 
         var postCode = document.getElementById('postcode').value; //우편번호
-        var address = document.getElementById("address").value + " " + document.getElementById("detailAddress").value; //주소
+        var address = document.getElementById("address").value + "!" + document.getElementById("detailAddress").value; //주소
         var extraAddress = document.getElementById("extraAddress").value; //참고항목
+        var phone = memPhone.value;
+
+
+
+        if (phone.indexOf('-')!=-1) {
+            phone = phone.replaceAll("-", "");
+        }
+            phone = phone.trim();
+            phone = phone.substring(0, 3) + "-" + phone.substring(3,7) + "-" + phone.substring(7,11);
 
 
         var boolName = memName.value.length == 0;
         var boolEmail = memEmail.value.length == 0 || !regEmail.test(memEmail.value);
         var boolPhone = memPhone.value.length == 0 || !regPhone.test(memPhone.value);
+
 
 
         if(document.getElementById("address").value.length == 0){
@@ -221,12 +247,12 @@
         else{
 
             jQuery.ajax({
-                "url": "/members/modify/modifyProcess",
+                "url": "/members/member/modify/modifyProcess",
                 "type": "POST",
                 "contentType": "application/json; charset=utf-8;",
                 "data": JSON.stringify({
                     "mem_name": memName.value,
-                    "mem_phone" : memPhone.value,
+                    "mem_phone" : phone,
                     "mem_email": memEmail.value,
                     "mem_post_code": postCode,
                     "mem_address": address
@@ -241,8 +267,10 @@
                 jsonData = JSON.parse(data);
 
                 if(jsonData.success){
+
                     alert(jsonData.success);
-                    location.href = "/";
+
+                    document.getElementById("memPhone").value = jsonData.modPhone;
                 }else{
                     alert('에러. 새로고침 후 다시 수정해주세요');
                 }

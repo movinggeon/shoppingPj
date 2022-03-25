@@ -10,8 +10,11 @@
 </head>
 <body>
 <sec:authorize access="hasRole('ROLE_MEMBER')">
-    <c:if test="${URI ne '/members/modify'}">
-    <a href="/members/modify">회원정보수정</a><br>
+    <c:if test="${URI ne '/members/member/modify'}">
+        <a href="/members/member/modify">회원정보수정</a><br>
+    </c:if>
+    <c:if test="${URI ne '/members/member/delete'}">
+    <a href="/members/member/delete">회원탈퇴</a><br>
     </c:if>
 </sec:authorize>
 

@@ -40,5 +40,21 @@ public class MembersServiceImpl implements MembersService{
 		membersDAO.modifyMem(param);
 	}
 
+	@Override
+	public String pwCheck(String memId) throws Exception {
+		return membersDAO.pwCheck(memId);
+	}
+
+	@Override
+	public void modifyPw(HashMap<String, String> param) throws Exception {
+
+		membersDAO.modifyPw(param);
+	}
+
+	@Override
+	public void deleteMem(String memId) throws Exception {
+		membersDAO.deleteMem(memId);
+	}
+
 
 }
