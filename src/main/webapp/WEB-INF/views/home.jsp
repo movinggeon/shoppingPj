@@ -16,7 +16,7 @@
 <body>
 <sec:authorize access="isAuthenticated()">
     <c:if test="${URI ne '/members/modify'}">
-        <a href="/members/member/mypage">마이페이지</a><br>
+		<a href="/members/member/mypage">마이페이지</a><br>
     </c:if>
 </sec:authorize>
 -------------------------------test-------------------<br>
