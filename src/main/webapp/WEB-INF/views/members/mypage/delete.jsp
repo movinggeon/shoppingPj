@@ -20,7 +20,7 @@
 
     <title>Title</title>
 </head>
-<>
+
 <h2>회원탈퇴</h2>
 <div class = "delete">
 <table class="table">

@@ -10,20 +10,6 @@
 </head>
 <body>
 
-<%-- <sec:authorize access="hasRole('ROLE_MEMBER')">
-    <c:if test="${URI ne '/members/modify'}">
-    <a href="/members/member/modify">회원정보수정</a><br>
-=======
-<sec:authorize access="hasRole('ROLE_MEMBER')">
-    <c:if test="${URI ne '/members/member/modify'}">
-        <a href="/members/member/modify">회원정보수정</a><br>
-    </c:if>
-    <c:if test="${URI ne '/members/member/delete'}">
-    <a href="/members/member/delete">회원탈퇴</a><br>
->>>>>>> origin/chaeyeon1
-    </c:if>
-</sec:authorize> --%>
-
 	<h1 class="sub_title">MY PAGE</h1>
 	
 	<div class="sub_menu">
@@ -86,13 +72,17 @@
 				</ul>
 				<ul>
 					<li>
-						<a href="#">회원정보 수정</a>
+					   <c:if test="${URI ne '/members/member/modify'}">
+        					<a href="/members/member/modify">회원정보수정</a><br>
+    					</c:if>
 					</li>
 					<li>
 						<a href="#">환불계좌 관리</a>
 					</li>
 					<li>
-						<a href="#">회원탈퇴</a>
+						<c:if test="${URI ne '/members/member/delete'}">
+    						<a href="/members/member/delete">회원탈퇴</a><br>
+    					</c:if>
 					</li>
 				</ul>
 				<ul>
