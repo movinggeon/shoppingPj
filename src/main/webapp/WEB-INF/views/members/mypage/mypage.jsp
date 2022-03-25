@@ -6,10 +6,9 @@
 <html>
 <head>
     <title>Title</title>
-	<link rel="stylesheet" href="/resources/css/mypage.css" type="text/css">
+	<link rel="stylesheet" href="/resources/static/css/mypage.css" type="text/css">
 </head>
 <body>
-
 	<h1 class="sub_title">MY PAGE</h1>
 	
 	<div class="sub_menu">
