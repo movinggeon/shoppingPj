@@ -27,4 +27,21 @@
 			SET mem_name=#{mem_name}, mem_phone=#{mem_phone}, mem_email=#{mem_email}, mem_post_code=#{mem_post_code}, mem_address=#{mem_address}
 			WHERE mem_id=#{mem_id}
 	</update>
+
+	<select id="pwCheck" parameterType="String" resultType="String">
+		SELECT mem_password
+		FROM members
+		WHERE mem_id=#{mem_id}
+	</select>
+
+	<update id="modifyPw">
+		UPDATE members
+		SET mem_password=#{mem_password}
+		WHERE mem_id=#{mem_id}
+	</update>
+	<delete id="deleteMem">
+		DELETE
+		FROM members
+		WHERE mem_id=#{mem_id}
+	</delete>
 </mapper>

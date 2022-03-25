@@ -63,4 +63,17 @@ public class MembersController {
 		System.out.println("modify 호출");
 		return "members/mypage/modify";
 	}
+	@RequestMapping(value ="/member/delete")
+	public String delete(HttpServletRequest requet){
+		System.out.println("회원탈퇴 이동");
+		return "members/mypage/delete";
+	}
+
+	@RequestMapping(value = "/member/modifyPassword")
+	public String modifyPassword(HttpServletRequest request){
+		System.out.println("비밀번호 변경 이동");
+		return "members/mypage/modifyPassword";
+	}
+
+
 }

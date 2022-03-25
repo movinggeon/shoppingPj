@@ -287,7 +287,7 @@
 			var birth = year + "-" + month + "-" + day;
 			
 			var postCode = document.getElementById('postcode').value; //우편번호
-			var address = document.getElementById("address").value + "-" + document.getElementById("detailAddress").value; //주소
+			var address = document.getElementById("address").value + "!" + document.getElementById("detailAddress").value; //주소
 			var extraAddress = document.getElementById("extraAddress").value; //참고항목
 			
 			
