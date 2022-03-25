@@ -1,12 +1,14 @@
 package com.group6.shopping.members.controllers;
 
 import java.util.Calendar;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.group6.shopping.members.service.MembersService;
-import javax.inject.Inject;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
 
 @Controller
 @RequestMapping("/members")
@@ -66,7 +61,6 @@ public class MembersController {
 
 	}
 
-<<<<<<< HEAD
 	@RequestMapping(value="/member/mypage")
 	public String mypage(HttpServletRequest request) {
 		System.out.println("mypage로 이동");
@@ -90,7 +84,6 @@ public class MembersController {
 		return "members/mypage/modifyPassword";
 	}
 
-=======
 	/* 이메일 인증 */
 	@RequestMapping(value="/mailCheck", method= RequestMethod.GET)
 	@ResponseBody
@@ -131,6 +124,5 @@ public class MembersController {
 		String num=Integer.toString(checkNum);
 		return num;
 	}
->>>>>>> origin/jiyul2
 
 }
