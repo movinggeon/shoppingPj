@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="/resources/css/mypage.css" type="text/css">
 </head>
 <body>
-<<<<<<< HEAD
+
 <%-- <sec:authorize access="hasRole('ROLE_MEMBER')">
     <c:if test="${URI ne '/members/modify'}">
     <a href="/members/member/modify">회원정보수정</a><br>
