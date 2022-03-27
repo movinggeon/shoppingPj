@@ -43,7 +43,7 @@
 		select * from boards b, specifications s, models m, products p
 		where b.spec_id = s.spec_id and s.model_id = m.model_id and m.product_id = p.product_id
 		      and b.model_id = #{modelsVO.model_id}
-		order by board_date desc
+		order by ${cateMap.field} ${cateMap.order}
 		limit #{pagingVO.numOfBoards} offset #{pagingVO.offset}
 	</select>
 

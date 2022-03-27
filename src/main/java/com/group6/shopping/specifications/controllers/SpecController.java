@@ -78,23 +78,27 @@ public class SpecController {
         if(!pTmp.pageCheck()){
             models.addAttribute("pageError", "Page Number is not valid");
         }else{
-            String field = ""; String order = "";
+            Map<String, String> cateMap = new HashMap<>();
             if(category.equals("new") || category.equals("old")){
-                field = "board_date";
+                cateMap.put("field", "board_date");
                 if(category.equals("new")){
-                    order = "desc";
+                    cateMap.put("order", "desc");
                 }else{
-                    order = "asc";
+                    cateMap.put("order", "asc");
+                }
+            }else if(category.equals("high") || category.equals("low")){
+                cateMap.put("field", "board_rate");
+                if(category.equals("high")){
+                    cateMap.put("order", "desc");
+                }else{
+                    cateMap.put("order", "asc");
                 }
             }else{
-                field = "board_rate";
-                if(category.equals("high")){
-                    order = "desc";
-                }else{
-                    order = "asc";
-                }
+                UrlHandler.alert(response, "Wrong Url");
+                return "home";
             }
-            List<BoardsVO> boardsVOList = boardsService.getModelBoards(modelsVO, pTmp);
+
+            List<BoardsVO> boardsVOList = boardsService.getModelBoards(modelsVO, pTmp, cateMap);
             List<Integer> numByRate = boardsService.numOfBoardRate(modelsVO);
             List<Integer> boardRateList = boardsService.boardRateList(modelsVO);
 
@@ -107,8 +111,7 @@ public class SpecController {
             double avgRate = boardsService.avgOfBoardRate(modelsVO);
             int roundRate = (int) Math.round(avgRate);
 
-            System.out.println(roundRate);
-
+            models.addAttribute("category", category);
             models.addAttribute("rateList", rateList);
             models.addAttribute("numOfBoards", numOfBoards);
             models.addAttribute("avgRate", avgRate);

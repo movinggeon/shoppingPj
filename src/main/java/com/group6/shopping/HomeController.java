@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.group6.shopping.carts.services.CartsService;
+import com.group6.shopping.carts.vo.CartsVO;
 import com.group6.shopping.members.service.MembersService;
 import com.group6.shopping.members.vo.MembersVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +27,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
-	
+	@Autowired
+	private CartsService cartsService;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session) throws Exception {
-		System.out.println("home");
+
 		return "home";
 	}
 }

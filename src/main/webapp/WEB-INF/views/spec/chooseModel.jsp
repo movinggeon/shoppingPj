@@ -102,10 +102,17 @@
 </div>
 
 
-<h1>후기</h1>
-<hr>
+<div id = "addCart">
+    <button type="button" id="show" onclick="addCart()">장바구니 추가</button>
+</div>
+
+
+
 <!-- https://icon-sets.iconify.design/ion/add/ -->
 <div id="review">
+    <h1>후기</h1>
+    <hr>
+    <a name="reviewPoint"/>
     후기글 갯수
     <h3>${numOfBoards}</h3>
     평균 평점<br><br>
@@ -116,6 +123,13 @@
         <span class="iconify" data-icon="ion:heart-outline" style="color: #0075ff;" data-width="25"></span>
     </c:forEach>
     <h3>${avgRate} / 5</h3>
+    <div id ="category">
+        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=new&currPage=${1}#reviewPoint">최신순</a> |
+        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=old&currPage=${1}#reviewPoint">오래된순</a>|
+        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=high&currPage=${1}#reviewPoint">높은 별점순</a>
+        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=low&currPage=${1}#reviewPoint">낮은 별점순</a>
+    </div>
+    <%--후기글--%>
     <c:forEach var="rate" items="${rateList}">
         ${rate.key} : <progress value="${(rate.value / numOfBoards) * 100}" min="0" max="100"></progress> (${rate.value})<br>
     </c:forEach>
@@ -133,8 +147,8 @@
         <%-- 일번 페이지가 아닐 경우 --%>
         <c:if test="${page.currPage ne 1}">
             <%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
-            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${1}"> << </a>
-            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${page.currPage-1}"> < </a>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${1}#reviewPoint"> << </a>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage-1}#reviewPoint"> < </a>
         </c:if>
         <c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
             <%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
@@ -143,15 +157,15 @@
                     ${i}
                 </c:when>
                 <c:otherwise>
-                    <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${i}">${i}</a>
+                    <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${i}#reviewPoint">${i}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
         <%--현재 페이지가 마지막 페이지가 아닐 경우--%>
         <c:if test="${page.currPage ne page.totalPage}">
             <%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
-            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${page.currPage+1}"> > </a>
-            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${page.totalPage}"> >> </a>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage+1}#reviewPoint"> > </a>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.totalPage}#reviewPoint"> >> </a>
         </c:if>
     </c:otherwise>
 </c:choose>
@@ -172,9 +186,6 @@
     <input type="hidden" name="spec_network" id="networkInput">  <!--input from user-->
 </form>
 
-<div id = "addCart">
-    <button type="button" id="show" onclick="addCart()">장바구니 추가</button>
-</div>
 <div class="background" >
     <div class="window">
         <button id="close">팝업닫기</button>

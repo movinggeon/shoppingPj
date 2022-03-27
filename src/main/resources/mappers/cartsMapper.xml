@@ -74,5 +74,19 @@
 		where cart_id = #{cart_id};
 	</select>
 
+	<update id="updateCart">
+		update carts c
+		set cart_price = (select salePrice from(
+			select cart_id, (cart_price-round((cart_price / (select (sum(cart_price)) from carts where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null )) * #{salePrice})) as salePrice
+			from carts
+			where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null
+			) A where A.cart_id = c.cart_id),
+		    cart_imp_uid = #{cartsVO.cart_imp_uid}, cart_merchant_uid = #{cartsVO.cart_merchant_uid}, cart_date = curdate(), cart_address = #{cartsVO.cart_address}, cart_phone = #{cartsVO.cart_phone}
+		where cart_id in
+			  (select cId from(select cart_id as cId
+							   from carts
+							   where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null) B );
+	</update>
+
 
 </mapper>

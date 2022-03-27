@@ -42,4 +42,9 @@ public class CartsServiceImpl implements CartsService{
     public CartsVO getSingleCart(CartsVO cartsVO) throws Exception {
         return cartsDAO.getSingleCart(cartsVO);
     }
+
+    @Override
+    public int updateCart(CartsVO cartsVO, int salePrice) throws Exception {
+        return cartsDAO.updateCart(cartsVO, salePrice);
+    }
 }

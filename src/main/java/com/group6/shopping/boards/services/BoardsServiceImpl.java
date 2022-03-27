@@ -16,8 +16,8 @@ public class BoardsServiceImpl implements BoardsService{
     private BoardsDAO boardsDAO;
 
     @Override
-    public List<BoardsVO> getModelBoards(ModelsVO modelsVO, PagingVO pagingVO) throws Exception {
-        return boardsDAO.getModelBoards(modelsVO, pagingVO);
+    public List<BoardsVO> getModelBoards(ModelsVO modelsVO, PagingVO pagingVO, Map<String, String> cateMap) throws Exception {
+        return boardsDAO.getModelBoards(modelsVO, pagingVO, cateMap);
     }
 
     @Override
