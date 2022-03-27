@@ -33,6 +33,8 @@ create table models(
     model_name varchar(50)
 );
 
+
+
 drop table specifications;
 create table specifications(
     spec_id int 
@@ -53,7 +55,7 @@ create table specifications(
 drop table members;
 create table members(
     mem_name varchar(300),
-    mem_id varchar(26) primary key,
+    mem_id varchar(36) primary key,
     mem_password varchar(150),
     mem_email varchar(300),
     mem_birth varchar(30),
@@ -61,6 +63,8 @@ create table members(
     mem_address varchar(300),
     mem_point int
 );
+
+
 
 drop table carts;
 create table carts(
@@ -96,6 +100,7 @@ create table coupons(
     coupon_valid_date varchar(36)
 );
 
+
 drop table likes;
 create table likes(
     like_id int
@@ -105,6 +110,7 @@ create table likes(
     mem_id varchar(26)
         references members(mem_id) on Delete CASCADE
 );
+
 
 drop table boards;
 create table boards(
@@ -123,6 +129,8 @@ create table boards(
     board_type varchar(30)
 );
 
+
+
 drop table replies;
 create table replies(
     reply_id int
@@ -135,6 +143,7 @@ create table replies(
     reply_date datetime default NOW()
 );
 
+
 drop table files;
 create table files(
     file_id int
@@ -143,5 +152,17 @@ create table files(
         references boards(board_id) on Delete CASCADE,
     file_name varchar(100)
 );
+
+commit;
+
+
+
+alter table files
+add FOREIGN key(board_id)
+references boards (board_id) on delete cascade on update cascade;
+
+alter table replies drop foreign key replies_ibfk_3;
+
+select * from information_schema.table_constraints where table_name = 'files';
 
 commit;

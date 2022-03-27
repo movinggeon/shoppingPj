@@ -6,14 +6,13 @@
     <title>Title</title>
 </head>
 <body>
-
-
+<% String str = "asd"; %>
+<%=str%>
     <c:forEach items="${specDisplayVOList}" var="list">
         <form action="/spec/chooseModel" method="get">
-            <input type = "hidden" value="${list.product_id}" name="product_id">
-            <input type = "hidden" value="${list.product_name}" name="product_name">
             <input type = "hidden" value="${list.model_id}" name="model_id">
-            <input type = "hidden" value="${list.model_name}" name="model_name">
+            <input type="hidden" value="new" name="category">
+            <input type="hidden" value="1" name="currPage">
             <input type="submit" value="보러가기">
         </form>
         ${list.product_id}
@@ -46,14 +45,5 @@
         </c:forEach>
         <br>
     </c:forEach>
-
-
-<script>
-    function chooseModel(){
-
-    }
-
-
-</script>
 </body>
 </html>

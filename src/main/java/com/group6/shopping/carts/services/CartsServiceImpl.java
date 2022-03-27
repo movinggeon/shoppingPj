@@ -19,12 +19,27 @@ public class CartsServiceImpl implements CartsService{
     }
 
     @Override
-    public List<CartsVO> getCart(String mem_id) throws Exception {
-        return cartsDAO.getCart(mem_id);
+    public List<CartsVO> getCart(String mem_id, String history) throws Exception {
+        return cartsDAO.getCart(mem_id, history);
     }
 
     @Override
-    public List<CartsVO> getCartHistory(String mem_id) throws Exception {
-        return null;
+    public int deleteCart(CartsVO cartsVO) throws Exception {
+        return cartsDAO.deleteCart(cartsVO);
+    }
+
+    @Override
+    public int updateQty(CartsVO cartsVO) throws Exception {
+        return cartsDAO.updateQty(cartsVO);
+    }
+
+    @Override
+    public int getTotal(String mem_id, String history) throws Exception {
+        return cartsDAO.getTotal(mem_id, history);
+    }
+
+    @Override
+    public CartsVO getSingleCart(CartsVO cartsVO) throws Exception {
+        return cartsDAO.getSingleCart(cartsVO);
     }
 }

@@ -8,5 +8,7 @@
 		<typeAlias alias="CartsVO" type="com.group6.shopping.carts.vo.CartsVO"/>
 		<typeAlias alias="ModelsVO" type="com.group6.shopping.models.vo.ModelsVO"/>
 		<typeAlias alias="ProductsVO" type="com.group6.shopping.products.vo.ProductsVO"/>
+		<typeAlias alias="CouponsVO" type="com.group6.shopping.coupons.vo.CouponsVO"/>
+		<typeAlias alias="BoardsVO" type="com.group6.shopping.boards.vo.BoardsVO"/>
 	</typeAliases>
 </configuration>

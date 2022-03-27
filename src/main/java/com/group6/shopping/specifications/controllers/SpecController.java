@@ -1,16 +1,24 @@
 package com.group6.shopping.specifications.controllers;
 
+import com.group6.shopping.boards.services.BoardsService;
+import com.group6.shopping.boards.vo.BoardsVO;
+import com.group6.shopping.boards.vo.PagingVO;
+import com.group6.shopping.models.services.ModelsService;
+import com.group6.shopping.models.vo.ModelsVO;
 import com.group6.shopping.specifications.services.SpecService;
 import com.group6.shopping.specifications.vo.SpecDisplayVO;
+import com.group6.shopping.url.UrlHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.parser.Entity;
+import java.io.PrintWriter;
 import java.net.http.HttpRequest;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/spec")
@@ -18,12 +26,20 @@ public class SpecController {
 
     @Autowired
     private SpecService specService;
+    @Autowired
+    private ModelsService modelsService;
+    @Autowired
+    private BoardsService boardsService;
 
     @RequestMapping("/viewModels")
-    public String viewModels(Model models, String product) throws Exception {
+    public String viewModels(HttpServletResponse response, Model models, String product) throws Exception {
         //List<SpecVO> specVOList = specService.getModels(product);
 
         List<SpecDisplayVO> modelNamesList = specService.getModelNames(product);
+        if(modelNamesList.size() == 0){
+            UrlHandler.alert(response, "Wrong Url");
+            return "home";
+        }
         List<SpecDisplayVO> specDisplayVOList = new ArrayList<SpecDisplayVO>();
 
         for(int i = 0; i < modelNamesList.size(); i++){
@@ -42,13 +58,64 @@ public class SpecController {
     }
 
     @RequestMapping("/chooseModel")
-    public String chooseModel(Model models,SpecDisplayVO specDisplayVO) throws Exception {
-        SpecDisplayVO tmp = specService.getSpecDisplay(
-                specDisplayVO.getProduct_name(), specDisplayVO.getProduct_id(),
-                specDisplayVO.getModel_name(),specDisplayVO.getModel_id());
+    public String chooseModel(HttpServletResponse response, Model models, ModelsVO modelsVO, PagingVO pagingVO, String category) throws Exception {
+        ModelsVO mTmp = modelsService.getModel(modelsVO);
 
+        if(mTmp == null){
+            UrlHandler.alert(response, "Wrong Url");
+            return "home";
+        }
+
+        SpecDisplayVO tmp = specService.getSpecDisplay(
+                mTmp.getProductsVO().getProduct_name(), mTmp.getProduct_id(),
+                mTmp.getModel_name(), mTmp.getModel_id()
+        );
         models.addAttribute("specDisplayVO", tmp);
 
+        int numOfBoards = boardsService.getNumOfBoards(modelsVO);
+        PagingVO pTmp = new PagingVO(numOfBoards, pagingVO.getCurrPage());
+
+        if(!pTmp.pageCheck()){
+            models.addAttribute("pageError", "Page Number is not valid");
+        }else{
+            String field = ""; String order = "";
+            if(category.equals("new") || category.equals("old")){
+                field = "board_date";
+                if(category.equals("new")){
+                    order = "desc";
+                }else{
+                    order = "asc";
+                }
+            }else{
+                field = "board_rate";
+                if(category.equals("high")){
+                    order = "desc";
+                }else{
+                    order = "asc";
+                }
+            }
+            List<BoardsVO> boardsVOList = boardsService.getModelBoards(modelsVO, pTmp);
+            List<Integer> numByRate = boardsService.numOfBoardRate(modelsVO);
+            List<Integer> boardRateList = boardsService.boardRateList(modelsVO);
+
+            Map<Integer, Integer> rateList = new LinkedHashMap<>();
+
+            for(int i = 0; i < boardRateList.size(); i++){
+                rateList.put(boardRateList.get(i),numByRate.get(i));
+            }
+
+            double avgRate = boardsService.avgOfBoardRate(modelsVO);
+            int roundRate = (int) Math.round(avgRate);
+
+            System.out.println(roundRate);
+
+            models.addAttribute("rateList", rateList);
+            models.addAttribute("numOfBoards", numOfBoards);
+            models.addAttribute("avgRate", avgRate);
+            models.addAttribute("roundRate", roundRate);
+            models.addAttribute("boardList", boardsVOList);
+            models.addAttribute("page", pTmp);
+        }
         return "spec/chooseModel";
     }
 

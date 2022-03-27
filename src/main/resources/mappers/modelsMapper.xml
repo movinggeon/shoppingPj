@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.ModelsDAO">
+
+	<resultMap id="ModelsVO" type="ModelsVO">
+		<result column="model_id" property="model_id" />
+		<result column="product_id" property="product_id" />
+		<result column="model_name" property="model_name" />
+		<collection property="productsVO" resultMap="ProductsVO"/>
+	</resultMap>
+	<resultMap id="ProductsVO" type="ProductsVO">
+		<result column="product_id" property="product_id"/>
+		<result column="product_name" property="product_name"/>
+	</resultMap>
+
+	<select id="getModel" resultMap="ModelsVO">
+		select *
+		from products p, models m
+		where p.product_id = m.product_id
+		  and m.model_id = #{model_id};
+	</select>
+
+</mapper>

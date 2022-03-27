@@ -1,5 +1,6 @@
 package com.group6.shopping.models.vo;
 
+import com.group6.shopping.products.vo.ProductsVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,4 +14,6 @@ import lombok.Setter;
 public class ModelsVO {
     private int model_id, product_id;
     private String model_name;
+
+    private ProductsVO productsVO;
 }

@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Title</title>
+
     <style>
         .background {
             position: fixed;
@@ -50,7 +51,7 @@
     </style>
 </head>
 <body>
-
+<script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
 <h2>${specDisplayVO.product_name} ${specDisplayVO.model_name}</h2>
 <div id = "price">
 <c:choose>
@@ -92,13 +93,68 @@
     </c:forEach>
 </div>
 
-<div id="qty">
-
+<div id="isCare">
+    <div id="-1" onclick="clickEvent(this.id, 'careInput')">예</div>
+    <div id="-2" onclick="clickEvent(this.id, 'careInput')">아니요</div>
 </div>
 
-<div id="isCare">
-    <div id="1" onclick="clickEvent(this.id, 'careInput')">예</div>
-    <div id="0" onclick="clickEvent(this.id, 'careInput')">아니요</div>
+<div id="qty">
+</div>
+
+
+<h1>후기</h1>
+<hr>
+<!-- https://icon-sets.iconify.design/ion/add/ -->
+<div id="review">
+    후기글 갯수
+    <h3>${numOfBoards}</h3>
+    평균 평점<br><br>
+    <c:forEach var="i" begin="1" end="${roundRate}">
+        <span class="iconify" data-icon="ion:heart-sharp" style="color: #0075ff;" data-width="25"></span>
+    </c:forEach>
+    <c:forEach var="j" begin="${roundRate+1}" end="5">
+        <span class="iconify" data-icon="ion:heart-outline" style="color: #0075ff;" data-width="25"></span>
+    </c:forEach>
+    <h3>${avgRate} / 5</h3>
+    <c:forEach var="rate" items="${rateList}">
+        ${rate.key} : <progress value="${(rate.value / numOfBoards) * 100}" min="0" max="100"></progress> (${rate.value})<br>
+    </c:forEach>
+    <c:forEach var="board" items="${boardList}">
+        ${board.board_id} ${board.board_title} ${board.board_rate} <br>
+    </c:forEach>
+</div>
+
+<div id="paging">
+<c:choose>
+    <c:when test="${pageError ne null}">
+        ${pageError}
+    </c:when>
+    <c:otherwise>
+        <%-- 일번 페이지가 아닐 경우 --%>
+        <c:if test="${page.currPage ne 1}">
+            <%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${1}"> << </a>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${page.currPage-1}"> < </a>
+        </c:if>
+        <c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
+            <%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
+            <c:choose>
+                <c:when test="${i eq page.currPage}">
+                    ${i}
+                </c:when>
+                <c:otherwise>
+                    <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${i}">${i}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <%--현재 페이지가 마지막 페이지가 아닐 경우--%>
+        <c:if test="${page.currPage ne page.totalPage}">
+            <%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${page.currPage+1}"> > </a>
+            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&currPage=${page.totalPage}"> >> </a>
+        </c:if>
+    </c:otherwise>
+</c:choose>
 </div>
 
 
@@ -160,7 +216,6 @@
         specCheck();
     }
     var userPhone = {};
-    //var toCart = 0;
     function specCheck(){
         //bring the record of spec (qty, price)
         //form userPhone to json
@@ -185,15 +240,7 @@
 
                 var care = { cart_isCare : document.getElementById("careInput").value };
                 userPhone = Object.assign(userPhone, care);
-
-                console.log(userPhone);
-
-                //toCart = 1;
-                if(document.getElementById("careInput").value == 1){
-                    document.getElementById("price").innerHTML = "<h3>₩"+ specVO.spec_price + 10 +"</h3>";
-                }else{
-                    document.getElementById("price").innerHTML = "<h3>₩"+ specVO.spec_price +"</h3>";
-                }
+                document.getElementById("price").innerHTML = "<h3>₩"+ specVO.spec_price +"</h3>";
                 document.getElementById("qty").innerHTML = specVO.spec_qty +"개 남았습니다.";
             },
             error:function(){
