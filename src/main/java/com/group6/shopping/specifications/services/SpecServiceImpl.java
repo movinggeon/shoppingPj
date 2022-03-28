@@ -1,6 +1,7 @@
 package com.group6.shopping.specifications.services;
 
 import com.group6.shopping.batis.SpecificationsDAO;
+import com.group6.shopping.security.CustomMemDetails;
 import com.group6.shopping.specifications.vo.SpecDisplayVO;
 import com.group6.shopping.specifications.vo.SpecVO;
 import org.apache.ibatis.annotations.Param;
@@ -65,5 +66,10 @@ public class SpecServiceImpl implements SpecService {
     @Override
     public SpecVO getSpec(SpecVO specVO) throws Exception {
         return specificationsDAO.getSpec(specVO);
+    }
+
+    @Override
+    public int updateSpecQty(CustomMemDetails user) throws Exception {
+        return specificationsDAO.updateSpecQty(user);
     }
 }

@@ -18,4 +18,9 @@ public class CouponsServiceImpl implements CouponsService{
     public List<CouponsVO> getAllCoupons(CustomMemDetails user) throws Exception {
         return couponsDAO.getAllCoupons(user);
     }
+
+    @Override
+    public int usedCoupon(CouponsVO couponsVO) throws Exception {
+        return couponsDAO.usedCoupon(couponsVO);
+    }
 }

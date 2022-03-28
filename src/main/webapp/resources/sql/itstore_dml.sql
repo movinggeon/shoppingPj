@@ -178,15 +178,31 @@ DELIMITER $$
 CREATE PROCEDURE insertBookExp() 
 BEGIN
     DECLARE i INT DEFAULT 1;  
-    WHILE (i <= 2) DO 
+    WHILE (i <= 3) DO 
         insert into specifications
         values (
-			null, 5, 'Core I3', '256', '13.3', 'Wi-Fi', 1200, (select SUBSTRING_INDEX(SUBSTRING_INDEX('silver,gray', ',', i), ',', -1)), 180, 10
+			null, 5, 'Core I3', '256', '13.3', 'Wi-Fi', 1200, (select SUBSTRING_INDEX(SUBSTRING_INDEX('silver,gray,gold', ',', i), ',', -1)), 180, 10
         );
         SET i = i + 1;
     END WHILE;
 END$$
 DELIMITER ;
+
+
+DELIMITER $$ 
+CREATE PROCEDURE insertBookExp1() 
+BEGIN
+    DECLARE i INT DEFAULT 1;  
+    WHILE (i <= 3) DO 
+        insert into specifications
+        values (
+			null, 5, 'Core I3', '512', '13.3', 'Wi-Fi', 1200, (select SUBSTRING_INDEX(SUBSTRING_INDEX('silver,gray,gold', ',', i), ',', -1)), 180, 10
+        );
+        SET i = i + 1;
+    END WHILE;
+END$$
+DELIMITER ;
+
 
 DELIMITER $$ 
 CREATE PROCEDURE insertBookExp2() 
@@ -504,7 +520,7 @@ call insertTableExp2();
 call insertTablelt();
 call insertTablelt2();
 
-call insertWatch3();specifications
+call insertWatch3();
 call insertWatch32();
 
 call insertWatch2();

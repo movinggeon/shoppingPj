@@ -31,4 +31,14 @@ public class MembersServiceImpl implements MembersService{
 		membersVO.setMem_password(bcryptPasswordEncoder.encode(membersVO.getMem_password()));
 		membersDAO.insertMem(membersVO);
 	}
+
+	@Override
+	public int usePoint(MembersVO membersVO) throws Exception {
+		return membersDAO.usePoint(membersVO);
+	}
+
+	@Override
+	public int addPoint(MembersVO membersVO) throws Exception {
+		return membersDAO.addPoint(membersVO);
+	}
 }

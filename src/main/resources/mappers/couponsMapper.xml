@@ -7,4 +7,10 @@
 		where mem_id = #{mem_id} and coupon_valid_date >= curdate();
 	</select>
 
+	<update id="usedCoupon">
+		update coupons
+		set coupon_valid_date = '0'
+		where coupon_id = #{coupon_id}
+	</update>
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.group6.shopping.batis;
 
+import com.group6.shopping.security.CustomMemDetails;
 import com.group6.shopping.specifications.vo.SpecDisplayVO;
 import com.group6.shopping.specifications.vo.SpecVO;
 import org.apache.ibatis.annotations.Param;
@@ -14,5 +15,6 @@ public interface SpecificationsDAO {
     public Integer getMaxPrice( @Param("product")String product, @Param("model") String model) throws Exception;
     public Integer getMinPrice( @Param("product")String product, @Param("model") String model) throws Exception;
     public SpecVO getSpec(SpecVO specVO) throws Exception;
+    public int updateSpecQty(CustomMemDetails user) throws Exception;
 
 }

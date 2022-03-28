@@ -21,4 +21,16 @@
 		INSERT INTO members
 			VALUES( #{mem_name}, #{mem_id}, #{mem_password}, #{mem_email}, #{mem_phone} , #{mem_birth}, #{mem_post_code}, #{mem_address} ,#{mem_point}, #{mem_auth}, #{mem_enable} )
 	</insert>
+
+	<update id="usePoint">
+		update members
+		set mem_point = mem_point - #{mem_point}
+		where mem_id = #{mem_id};
+	</update>
+
+	<update id="addPoint">
+		update members
+		set mem_point = mem_point + #{mem_point}
+		where mem_id = #{mem_id};
+	</update>
 </mapper>

@@ -126,7 +126,7 @@
     <div id ="category">
         <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=new&currPage=${1}#reviewPoint">최신순</a> |
         <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=old&currPage=${1}#reviewPoint">오래된순</a>|
-        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=high&currPage=${1}#reviewPoint">높은 별점순</a>
+        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=high&currPage=${1}#reviewPoint">높은 별점순</a> |
         <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=low&currPage=${1}#reviewPoint">낮은 별점순</a>
     </div>
     <%--후기글--%>
@@ -263,6 +263,10 @@
         //Object.keys(userPhone).length == 0
         //toCart == 0
         console.log(userPhone.spec_id);
+        if(userPhone.spec_qty <= 0){
+            alert("수량이 부족합니다.");
+            return;
+        }
         if(Object.keys(userPhone).length == 0){
             document.getElementById("modal-pop").innerText = "옵션을 선택헤주세요";
         }else{
