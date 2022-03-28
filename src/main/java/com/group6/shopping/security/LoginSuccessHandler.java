@@ -28,7 +28,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession session = request.getSession();
         auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails;
-
+        System.out.println("login success");
         //authenticaiton에 로그인 정보가 있을 경우
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userDetails = (UserDetails) auth.getPrincipal();
