@@ -11,7 +11,7 @@
 <hr>
 
 ${qtyError}<br>
-
+${qtyZero}<br>
 <c:forEach items="${carts}" var="items">
     <div id =${items.cart_id}>
         ${items.productsVO.product_name} ${items.modelsVO.model_name}${items.specVO.spec_color} <br>

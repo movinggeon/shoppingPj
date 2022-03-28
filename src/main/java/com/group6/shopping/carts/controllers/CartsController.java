@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,17 +32,25 @@ public class CartsController {
         CustomMemDetails user = (CustomMemDetails) session.getAttribute("user");
         List<CartsVO> cartsVOList = cartsService.getCart(user.getMem_id(), "null");
 
+        Iterator<CartsVO> iter = cartsVOList.iterator();
         int totalPrice = 0;
-        for(CartsVO tmp : cartsVOList){
-            totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
-            if(tmp.getCart_qty() > tmp.getSpecVO().getSpec_qty()){
+
+        while(iter.hasNext()){
+            CartsVO tmp = iter.next();
+            if(tmp.getSpecVO().getSpec_qty() == 0){
+                cartsService.deleteCart(tmp);
+                iter.remove();
+                models.addAttribute("qtyZero"," 수량이 부족하여 장바구니에서 삭제되었습니다..");
+            }else if(tmp.getCart_qty() > tmp.getSpecVO().getSpec_qty()){
                 tmp.setCart_qty(1);
                 cartsService.updateQty(tmp);
-                models.addAttribute("qtyError",
-                        tmp.getProductsVO().getProduct_name() + " " +tmp.getModelsVO().getModel_name() + " 수량이 부족하여 갯수가 1개로 재설정 되었습니다.");
+                models.addAttribute("qtyError"," 수량이 부족하여 갯수가 1개로 재설정 되었습니다.");
+                totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
+            }else{
+                totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
             }
         }
-
+        
         models.addAttribute("carts", cartsVOList);
         models.addAttribute("totalPrice", totalPrice);
         return "/carts/cart";
