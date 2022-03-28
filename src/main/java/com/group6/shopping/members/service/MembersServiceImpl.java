@@ -1,6 +1,9 @@
 package com.group6.shopping.members.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,4 +44,27 @@ public class MembersServiceImpl implements MembersService{
 	public int addPoint(MembersVO membersVO) throws Exception {
 		return membersDAO.addPoint(membersVO);
 	}
+
+	@Override
+	public void modifyMem(HashMap<String, String> param) throws Exception {
+		membersDAO.modifyMem(param);
+	}
+
+	@Override
+	public String pwCheck(String memId) throws Exception {
+		return membersDAO.pwCheck(memId);
+	}
+
+	@Override
+	public void modifyPw(HashMap<String, String> param) throws Exception {
+
+		membersDAO.modifyPw(param);
+	}
+
+	@Override
+	public void deleteMem(String memId) throws Exception {
+		membersDAO.deleteMem(memId);
+	}
+
+
 }

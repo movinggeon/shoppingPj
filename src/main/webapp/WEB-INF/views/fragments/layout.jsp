@@ -12,15 +12,16 @@
 </head>
 <body>
 
-<div>
+<div class="header">
   <tiles:insertAttribute name="header" />
 </div>
 
-<div>
+<div style="margin-top: 200px"></div>
+<div class="container">
 	<tiles:insertAttribute name="body" />
 </div>
 
-<div>
+<div class="footer">
   <tiles:insertAttribute name="footer" />
 </div>
 

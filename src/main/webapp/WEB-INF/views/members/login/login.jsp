@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<link rel="stylesheet" href="/resources/static/css/login.css" type="text/css">
 </head>
 <body>
+<div>
 <c:if test="${not empty msg}">
     ${msg}
 </c:if>
@@ -21,5 +23,6 @@
 		<div> <input type="submit"/> </div> 
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 	</form>
+</div>
 </body>
 </html>

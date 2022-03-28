@@ -54,4 +54,20 @@
 	<!--<context:component-scan base-package="com.group6.shopping.members.dao"/>-->
 	<!--<context:component-scan base-package="com.group6.shopping.members.service"/>-->
 
+	<!-- gmail설정 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/> <!-- 메일서버 호스트 -->
+		<property name="port" value="587"/> <!-- 465 or 587메일서버 포트번호 -->
+		<property name="username" value="clothes.test.teamsix@gmail.com"/> <!-- 자신의 이메일 아이디 -->
+		<property name="password" value="Teamsixxx0606"/> <!-- 자신의 비밀번호 -->
+		<!-- 보안연결 SSL과 관련된 설정 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+
+			</props>
+		</property>
+	</bean>
+
 </beans>

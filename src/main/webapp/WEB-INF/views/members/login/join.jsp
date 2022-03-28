@@ -5,10 +5,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
+<style>
+	#mail_check_input_box_false{
+		background-color:#ebebe4;
+	}
+	#mail_check_input_box_true{
+		background-color:white;
+	}
+	.mail_check_button{
+		background-color: blue;
+		border: none;
+		color: white;
+		padding: 15px 30px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+	}
+	.correct{
+		color : green;
+	}
+	.incorrect{
+		color : red;
+	}
+</style>
 <head>
 
 	<meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+
 
 	<title>회원가입</title>
 	<!-- jQuery -->
@@ -38,6 +66,18 @@
 		이메일<br>
 		<input type="text" id="memEmail" maxlength="90" placeholder="이메일 입력">
 		<p id="emailCheck"></p><br>
+		<div class="mail_check_wrap">
+			<div class="mail_check_input_box" id="mail_check_input_box_false">
+				<input class="mail_check_input" id="mail_check_input" disabled="disabled">
+			</div>
+
+			<div class="mail_check_button" type="button">
+				<span> 인증번호 전송</span>
+			</div>
+			<div class="ui-helper-clearfix"></div>
+			<span id="mail_check_input_box_warn"></span>
+			<br>
+		</div>
 		
 		생년월일<br>
 		<select name="year" id="year">
@@ -71,7 +111,8 @@
 	</div>
 	<!-- javascript -->
 	<script type="text/javascript">
-	
+		var code="";
+		var mailnumCheck="false";
 		//csrf 토큰값 받기
 	    var token = $("meta[name='_csrf']").attr("content");
 	    var header = $("meta[name='_csrf_header']").attr("content");
@@ -285,7 +326,7 @@
 			var birth = year + "-" + month + "-" + day;
 			
 			var postCode = document.getElementById('postcode').value; //우편번호
-			var address = document.getElementById("address").value + " " + document.getElementById("detailAddress").value; //주소
+			var address = document.getElementById("address").value + "!" + document.getElementById("detailAddress").value; //주소
 			var extraAddress = document.getElementById("extraAddress").value; //참고항목
 			
 			
@@ -295,7 +336,7 @@
 			var boolPasswordReEnter = memPassword.value != passwordReEnter.value;
 			var boolEmail = memEmail.value.length == 0 || !regEmail.test(memEmail.value);
 			var boolPhone = memPhone.value.length == 0 || !regPhone.test(memPhone.value);
-			
+
 			//console.log(document.getElementById("address").value.length);
 			//console.log(birth);
 			if(document.getElementById("address").value.length == 0){
@@ -322,6 +363,8 @@
 			}else if(boolPhone){
 				
 				alert("전화번호를 다시 입력해주세요.")
+			}else if(mailnumCheck=="false"){
+				alert("이메일 인증을 진행해주세요")
 			}
 			else{
 			
@@ -360,6 +403,48 @@
 			    	});
 			}
 		}
+
+		/*인증번호 이메일 전송 */
+		$(".mail_check_button").click(function(){
+			var email=document.getElementById("memEmail").value; //회원이 입력한 이메일
+			var checkbox;
+			var boxWrap;
+
+			//console.log(email);
+
+			jQuery.ajax({
+
+				type:"GET",
+				url:"mailCheck?email=" + email,
+				success:function(data){
+					//console.log("data:"+data);
+
+					checkbox= $(".mail_check_input").attr("disabled",false); //인증번호 입력란
+					boxWrap= $(".mail_check_input_box").attr("id","mail_check_input_box_true")//인증번호 입력란 박스
+
+					code=data;
+				}
+
+			});
+		});
+
+
+		/* 인증번호 비교 */
+		$(".mail_check_input").blur(function(){
+			var inputCode = $(".mail_check_input").val();        // 입력코드
+			var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
+
+			if(inputCode == code){                            // 일치할 경우
+				checkResult.html("인증번호가 일치합니다.");
+				checkResult.attr("class", "correct");
+				mailnumCheck=false;
+			} else {                                            // 일치하지 않을 경우
+				checkResult.html("인증번호를 다시 확인해주세요.");
+				checkResult.attr("class", "incorrect");
+				mailnumCheck=true;
+			}
+		});
+
 	</script>
 </body>
 </html>
