@@ -50,7 +50,7 @@ public class CartsController {
                 totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
             }
         }
-        
+
         models.addAttribute("carts", cartsVOList);
         models.addAttribute("totalPrice", totalPrice);
         return "/carts/cart";

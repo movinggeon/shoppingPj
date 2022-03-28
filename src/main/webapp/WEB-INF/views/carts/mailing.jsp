@@ -11,9 +11,6 @@
 <h1>주소 전화번호 정보</h1>
 <hr>
 
-
-
-
 <div id="mem_addres" onclick="hide_New_address('new_address')">
     <h3>기존 주소 사용</h3>
     ${user.mem_address}
@@ -47,26 +44,29 @@
 
 <div onclick="show_New_Address('new_phone')">
     <h3>새번호 사용</h3>
+    <div id="new_phone" style="display: none">
+        <input type="text" name="phone" id ="phone">
+    </div>
 </div>
 
-<div id="new_phone" style="display: none">
-    <input type="text" name="phone">
-</div>
+
 
 <form action="payment" method="post">
     <input type="hidden" name="cart_address" id="cart_address" value="${user.mem_address}/${user.mem_post_code}">
-    <input type="hidden" name="cart_phone" id="phone" value="${user.mem_phone}">
-    <input type="submit" value="제출">
+    <input type="hidden" name="cart_phone" id="cart_phone" value="${user.mem_phone}">
 </form>
 
 ${user.mem_point}점
 <div id="point">
-    사용하고 싶은 점수: <input type="text" id="mem_point">
+    사용하고 싶은 점수: <input type="number" id="mem_point">
 </div>
 
 현재 가지고 있는 쿠폰 리스트
+*쿠폰은 최대 하나만 사용 가능합니다. 만들기 귀찮잖아요.
+<button type="button" onclick="delCoupon()">쿠폰 취소</button>
 <div id="mem_coupon_list">
     <c:forEach var="list" items="${coupons}">
+        <div id = "cop${list.coupon_id}" onclick="addCoupon(this.id)">
         ${list.coupon_id} ${list.coupon_desc}
         <c:choose>
             <c:when test="${list.coupon_pct eq 0}">
@@ -76,27 +76,73 @@ ${user.mem_point}점
                 ${list.coupon_pct}
             </c:otherwise>
         </c:choose>
-        ${list.coupon_valid_date} <br>
+        ${list.coupon_valid_date}
+        </div>
     </c:forEach>
 </div>
 
 <h1>총 가격: ${totalPrice}원</h1>
 
+<button type="button" onclick="payment()">Pay</button>
+
 
 <script>
+    var Addr = "";
+    var Addr2 = "";
+    var detailAddr = document.getElementById("detailAddress");
+    detailAddr.onblur = function (e){
+        if(document.getElementById("cart_address").value == ""){
+            alert("주소를 전부 입력해주세요");
+            return;
+        }
+        document.getElementById("cart_address").value += document.getElementById("detailAddress").value;
+    };
+    var phone = document.getElementById("phone");
+    phone.onblur = function(e){
+        document.getElementById("cart_phone").value = phone.value;
+    };
+    var mem_point= 0;
+    var point = document.getElementById("mem_point")
+    point.onblur = function(e){
+        if(point.value.length == 0){
+            mem_point = 0;
+        }else{
+            mem_point = point.value;
+        }
+
+    }
+    var couponId= 0;
+
+    function delCoupon(){
+        couponId = 0;
+    }
+
+    function addCoupon(id){
+        var id = id.substring(3);
+        couponId = id;
+    }
     function show_New_Address(id){
         document.getElementById(id).style.display = "block";
+        if(id == 'new_phone'){
+            document.getElementById("cart_phone").value = "";
+        }else{
+            document.getElementById("cart_address").value = "";
+        }
 
     }
 
    function hide_New_address(id){
         document.getElementById(id).style.display = "none";
         if(id == 'new_phone'){
-            document.getElementById("cart_phone").value = ${user.mem_phone};
+            document.getElementById("cart_phone").value = "${user.mem_phone}";
+            document.getElementById("phone").value = "";
         }else{
             var address = "${user.mem_address}";
-            var post = ${user.mem_post_code};
+            var post = "${user.mem_post_code}";
             document.getElementById("cart_address").value = address + "/" + post;
+            document.getElementById('postcode').value = "";
+            document.getElementById("address").value = "";
+            document.getElementById("detailAddress").value = "";
         }
     }
 
@@ -149,10 +195,33 @@ ${user.mem_point}점
         }).open();
     }
 
-    var detailAddr = document.getElementById("detailAddress");
-    detailAddr.onblur = function (e){
-        document.getElementById("cart_address").value += detailAddr.value;
-    };
+
+
+    function payment(){
+        var mem_phone = document.getElementById("cart_phone").value;
+        var mem_address = document.getElementById("cart_address").value;
+
+        if(Number(mem_point) > Number("${user.mem_point}")) {
+            alert("가진것보다 더 못씀!");
+            return;
+        }
+        if(mem_address == ""){
+            alert("주소 입력해주세요");
+            return;
+        }else if (mem_phone == ""){
+            alert("번호 입력해주세요");
+            return;
+        }else{
+            console.log("주소: " + mem_address);
+            console.log("번호: " + mem_phone);
+            console.log("점수: " + mem_point);
+            console.log("쿠폰: " + couponId);
+            //ajax work to make paymnet
+        }
+
+
+
+    }
 
 </script>
 
