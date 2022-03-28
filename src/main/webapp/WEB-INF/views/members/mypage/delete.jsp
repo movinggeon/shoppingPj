@@ -40,7 +40,7 @@
     </tr>
     </tbody>
 </table>
-<button type="button" id="pwUpdate" onclick="DeleteMem()" class="btn btn-primary" >비밀번호 변경</button>
+<button type="button" id="pwUpdate" onclick="DeleteMem()" class="btn btn-primary" >회원탈퇴</button>
 <a href="/members/member/modify" class="btn btn-default">취소</a>
 </div>
 

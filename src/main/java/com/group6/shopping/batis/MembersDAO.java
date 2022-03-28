@@ -20,5 +20,4 @@ public interface MembersDAO {
     public void modifyPw(HashMap<String, String> param) throws Exception;
     public void deleteMem(String memId) throws Exception;
 
-
 }

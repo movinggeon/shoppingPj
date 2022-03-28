@@ -1,3 +1,5 @@
+<%@page import="com.group6.shopping.security.CustomMemDetails"%>
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -7,6 +9,7 @@
 <head>
     <title>Title</title>
 	<link rel="stylesheet" href="/resources/static/css/mypage.css" type="text/css">
+	<%CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user"); %>
 </head>
 <body>
 	<h1 class="sub_title">MY PAGE</h1>
@@ -101,13 +104,19 @@
 	
 	<div class="cupon_info">
 		<div class="user_name">
-			ㅁㅁㅁ님 안녕하세요
+			<%=cs.getMem_name() %>님 안녕하세요
 		</div>
 		<div class="user_cupon">
-			<span>쿠폰</span> <br><br> X 개
+			쿠폰
+			<div style="padding-top: 30px">
+				<a href="/members/cupons">ㅁ</a>개
+			</div>
 		</div>
 		<div class="user_point">
-			<span>포인트</span> <br><br> XXXX P
+			포인트
+			<div style="padding-top: 30px">
+				<%=cs.getMem_point() %>P
+			</div>
 		</div>
 	</div>
 	
