@@ -62,7 +62,7 @@ public class CartsController {
 
         List<CouponsVO> couponsVOList = couponsService.getAllCoupons(user.getMem_id());
         int totalPrice = cartsService.getTotal(user.getMem_id(), "null");
-        user.getClass().getName();
+
         models.addAttribute("coupons", couponsVOList);
         models.addAttribute("totalPrice", totalPrice);
 
