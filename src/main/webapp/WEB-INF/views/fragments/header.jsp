@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,10 +46,23 @@
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">고객센터</h4></a></li>
 		</ul>
 		<hr color="#ebebeb" size="1px" width="95%" />
-		<ul class="m2">
-			<li><a href="/members/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
-			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/truck.png"><h4 class="left">주문/배송조회</h4></a></li>
-		</ul>
+		<sec:authorize access="isAnonymous()">
+			<ul class="m2">
+				<li><a href="/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
+			</ul>
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
+			<ul class="m2">
+				<li>
+				<form action="/members/logout" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+					<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
+					<h4 class="left">로그아웃</h4>
+				</form>
+				</li>
+				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/truck.png"><h4 class="left">주문/배송조회</h4></a></li>
+			</ul>
+		</sec:authorize>
 	</div>
 
 	<!-- Search box -->
@@ -145,9 +159,24 @@
 				<li>
 					<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
 				</li>
-				<li class="user user_menu">
-					<a href="/members/login"><i class="fa-solid fa-user"></i></a>
-				</li>
+				<sec:authorize access="isAnonymous()">
+					<li class="user user_menu">
+						<a href="/login"><i class="fa-solid fa-user"></i></a>
+					</li>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_MEMBER')">
+					<li class="user user_menu">
+						<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
+					</li>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_MEMBER')">
+					<li class="user user_menu">
+						<form action="/members/logout" method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+							<input type="image" value="로그아웃">
+						</form>
+					</li>
+				</sec:authorize>
 			</ol>
 
 			<a href="#" class="menu_find">

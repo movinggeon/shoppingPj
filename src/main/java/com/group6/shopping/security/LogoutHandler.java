@@ -22,6 +22,7 @@ public class LogoutHandler implements LogoutSuccessHandler {
 
         //로그인 정보가 있을 경우
         if (auth != null) {
+        	System.out.println("LogoutHandler -> 회원정보 있음");
             session.removeAttribute("user");
             //new SecurityContextLogoutHandler().logout(request,response,auth);
         }
