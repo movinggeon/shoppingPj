@@ -9,6 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class RepliesVO {
+    private int reply_id, board_id;
+    private String mem_id, reply_content, reply_date;
 }

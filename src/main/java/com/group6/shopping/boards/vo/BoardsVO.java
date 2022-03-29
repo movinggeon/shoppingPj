@@ -1,9 +1,13 @@
 package com.group6.shopping.boards.vo;
 
+import com.group6.shopping.files.vo.FilesVO;
 import com.group6.shopping.models.vo.ModelsVO;
 import com.group6.shopping.products.vo.ProductsVO;
+import com.group6.shopping.replies.vo.RepliesVO;
 import com.group6.shopping.specifications.vo.SpecVO;
 import lombok.*;
+
+import java.util.List;
 
 //필드 추가후 noargs 롬복 주석 해제 할것 이하 모든 vo 적용
 @AllArgsConstructor
@@ -18,4 +22,7 @@ public class BoardsVO {
     private SpecVO specVO;
     private ModelsVO modelsVO;
     private ProductsVO productsVO;
+
+    //private List<RepliesVO> repliesVOList;
+    //private List<FilesVO> filesVOList;
 }

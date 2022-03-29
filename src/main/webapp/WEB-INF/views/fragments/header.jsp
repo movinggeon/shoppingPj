@@ -79,7 +79,10 @@
 	<div id="mask"></div>
 	<div class="window">
 		<div class="win_wrap">
-			<input id="h_box" class="holder" type="text" placeholder="Search" value="" />
+			<form action="/spec/searchItems" method="POST" id="search">
+				<input id="h_box" class="holder" type="text" placeholder="Search" value="" name="searchInput" onkeyup="enter()"/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
 			<div class="h_box">
 				<div class="h1" style="text-align: left;">
 					<ul>
@@ -217,6 +220,15 @@
             window.location.href ="/members/login";
         }
     });
+
+	function enter(){
+		if(documnet.getElementById("h_box") == ""){
+			alert("값을 입력해주세요");
+			return;
+		}
+		document.getElementById("search").submit();
+
+	}
 </script>
 
 </body>

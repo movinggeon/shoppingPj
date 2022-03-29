@@ -122,6 +122,12 @@ public class SpecController {
         return "spec/chooseModel";
     }
 
+    @RequestMapping("/searchItems")
+    public String searchItems(String searchInput){
+        System.out.println(searchInput);
+
+        return "spec/searchItems";
+    }
 
 
 }

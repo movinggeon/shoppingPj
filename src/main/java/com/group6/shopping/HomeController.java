@@ -10,6 +10,8 @@ import com.group6.shopping.carts.vo.CartsVO;
 import com.group6.shopping.members.service.MembersService;
 import com.group6.shopping.members.vo.MembersVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,14 +27,16 @@ import javax.servlet.http.HttpSession;
  * Handles requests for the application home page.
  */
 @Controller
+@PropertySource("classpath:test.properties")
 public class HomeController {
 
 	@Autowired
 	private CartsService cartsService;
 
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session) throws Exception {
-
+		System.out.println("home");
 		return "home";
 	}
 }
