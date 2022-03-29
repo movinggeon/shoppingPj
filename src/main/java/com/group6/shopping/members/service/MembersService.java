@@ -10,6 +10,8 @@ public interface MembersService {
     public List<MembersVO> getAllMembers() throws Exception;
     public String lookupId(String memId) throws Exception;
     public void insertMem(MembersVO membersVO) throws Exception;
+    public int usePoint(MembersVO membersVO) throws Exception;
+    public int addPoint(MembersVO membersVO) throws Exception;
    public void modifyMem(HashMap<String, String> param) throws Exception;
    public String pwCheck(String memId) throws Exception;
     public void modifyPw(HashMap<String, String> param) throws Exception;

@@ -36,6 +36,16 @@ public class MembersServiceImpl implements MembersService{
 	}
 
 	@Override
+	public int usePoint(MembersVO membersVO) throws Exception {
+		return membersDAO.usePoint(membersVO);
+	}
+
+	@Override
+	public int addPoint(MembersVO membersVO) throws Exception {
+		return membersDAO.addPoint(membersVO);
+	}
+
+	@Override
 	public void modifyMem(HashMap<String, String> param) throws Exception {
 		membersDAO.modifyMem(param);
 	}

@@ -28,7 +28,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession session = request.getSession();
         auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails;
-
+        System.out.println("login success");
         //authenticaiton에 로그인 정보가 있을 경우
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userDetails = (UserDetails) auth.getPrincipal();
@@ -56,7 +56,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         String defaultUrl = "/";
-
         //savedRequest 인증권한이 필요한 페이지 url
         if(savedRequest!=null) {
             String targetUrl = savedRequest.getRedirectUrl();
