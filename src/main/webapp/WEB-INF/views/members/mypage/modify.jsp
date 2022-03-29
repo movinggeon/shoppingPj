@@ -60,7 +60,7 @@
         <td><input type="text" id="memName" value=${user.mem_name}></td>
         <td><p id="nameCheck"></p></td>
     </tr>
-    <<tr>
+    <tr>
         <th scope="row">휴대폰번호</th>
         <td><input type="text" id="memPhone" value=${user.mem_phone}></td>
         <td><p id="phoneCheck"></p></td>
