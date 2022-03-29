@@ -155,14 +155,9 @@
     line-height:28px;
     font-size: 15px;
     padding:0;
-    /*border:0;*/
-    /*border:1px solid #777;*/
     border-left-width:0;
     border-right-width:0;
     border-top-width:0;
     border-bottom-width:1px;
 
-}
-.fileUpload{
-   /* display: none;*/
 }
