@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<script
 			src="https://kit.fontawesome.com/6da1745729.js"
 			crossorigin="anonymous"
@@ -28,7 +30,9 @@
 <body>
 	<div class="wrapper">
 	<!-- Chat button -->
-	<div id="chat"></div>
+	<div id="chat">
+		<button id="enterRoom" onclick="enterRoom()">asdfasdfasdf</button>
+	</div>
 
 	<!-- Side menu -->
 	<div class="menu_bg"></div>
@@ -188,6 +192,32 @@
 
 		</nav>
 	</header>
+	
+<script>
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    sessionStorage.setItem("mem_id","${user.mem_id}");
+    function enterRoom() {
+        var user = "${user.mem_id}";
+        console.log(user);
+        $.ajax({
+            //url: '/chat/member/createRoom'.
+            url: '/createRoom',
+            data: {mem_id : user},
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function (xhr) {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader(header, token);
+            },
+            success: function (res) {
+                location.href="/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+</script>
 </div>
 </body>
 </html>
