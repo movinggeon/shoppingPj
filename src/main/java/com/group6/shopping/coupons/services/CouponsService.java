@@ -9,4 +9,5 @@ import java.util.List;
 public interface CouponsService {
     public List<CouponsVO> getAllCoupons(CustomMemDetails user) throws Exception;
     public int usedCoupon(CouponsVO couponsVO) throws Exception;
+    public CouponsVO getCoupon(CouponsVO couponsVO) throws Exception;
 }

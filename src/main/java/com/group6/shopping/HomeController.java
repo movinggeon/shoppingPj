@@ -27,7 +27,6 @@ import javax.servlet.http.HttpSession;
  * Handles requests for the application home page.
  */
 @Controller
-@PropertySource("classpath:test.properties")
 public class HomeController {
 
 	@Autowired

@@ -23,4 +23,9 @@ public class CouponsServiceImpl implements CouponsService{
     public int usedCoupon(CouponsVO couponsVO) throws Exception {
         return couponsDAO.usedCoupon(couponsVO);
     }
+
+    @Override
+    public CouponsVO getCoupon(CouponsVO couponsVO) throws Exception {
+        return couponsDAO.getCoupon(couponsVO);
+    }
 }

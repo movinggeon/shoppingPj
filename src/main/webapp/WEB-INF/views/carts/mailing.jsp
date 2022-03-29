@@ -54,6 +54,8 @@
 <form action="payment" method="post">
     <input type="hidden" name="cart_address" id="cart_address" value="${user.mem_address}/${user.mem_post_code}">
     <input type="hidden" name="cart_phone" id="cart_phone" value="${user.mem_phone}">
+    <input type="hidden" name="coupon_price" id="coupon_price">
+    <input type="hidden" name="coupon_pct" id="coupon_pct">
 </form>
 
 ${user.mem_point}점
@@ -81,12 +83,17 @@ ${user.mem_point}점
     </c:forEach>
 </div>
 
-<h1>총 가격: ${totalPrice}원</h1>
+<div id ="price">
+    <h1>총 가격:${totalPrice}원</h1>
+</div>
+
 
 <button type="button" onclick="payment()">Pay</button>
 
 
 <script>
+    var totalPrice = Number("${totalPrice}");
+
     var Addr = "";
     var Addr2 = "";
     var detailAddr = document.getElementById("detailAddress");
@@ -97,30 +104,76 @@ ${user.mem_point}점
         }
         document.getElementById("cart_address").value += document.getElementById("detailAddress").value;
     };
+
     var phone = document.getElementById("phone");
     phone.onblur = function(e){
         document.getElementById("cart_phone").value = phone.value;
     };
+
     var mem_point= 0;
     var point = document.getElementById("mem_point")
     point.onblur = function(e){
+        if(point.value > totalPrice) {
+            alert("가진것보다 더 못씀!");
+            point.value = "";
+            mem_point = 0;
+            return;
+        }
+
         if(point.value.length == 0){
+            totalPrice += Number(mem_point);
             mem_point = 0;
         }else{
             mem_point = point.value;
+            totalPrice -= Number(mem_point);
         }
+        document.getElementById("price").innerHTML = "<h1> 총가격: "+totalPrice+"원 </h1>"
 
     }
-    var couponId= 0;
 
+    var couponId= 0;
+    var couponDiscount = 0;
     function delCoupon(){
         couponId = 0;
+        totalPrice += Number(couponDiscount);
+        document.getElementById("price").innerHTML = "<h1> 총가격: "+totalPrice+"원 </h1>"
     }
 
     function addCoupon(id){
+        if(mem_point != 0){
+            alert("포인트를 사용 하시려면 쿠폰을 먼저 등록해주세요");
+            totalPrice += Number(mem_point);
+            mem_point = 0
+            point.value = "";
+            document.getElementById("price").innerHTML = "<h1> 총가격: "+totalPrice+"원 </h1>"
+            return;
+        }
         var id = id.substring(3);
         couponId = id;
+
+        $.ajax({
+            url: "/coupons/member/getCoupon",
+            type:"post",
+            data:{
+                coupon_id:couponId,
+                totalPrice:totalPrice
+            },
+            dataType: "text",
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader(header, token);
+            },
+            success: function(data) {
+                couponDiscount = totalPrice - Number(data);
+                totalPrice = Number(data);
+                document.getElementById("price").innerHTML = "<h1> 총가격: "+data+"원 </h1>"
+            },
+            error: function() {
+                alert("error");
+            }
+        });
     }
+
     function show_New_Address(id){
         document.getElementById(id).style.display = "block";
         if(id == 'new_phone'){
@@ -201,10 +254,7 @@ ${user.mem_point}점
         var mem_phone = document.getElementById("cart_phone").value;
         var mem_address = document.getElementById("cart_address").value;
 
-        if(Number(mem_point) > Number("${user.mem_point}")) {
-            alert("가진것보다 더 못씀!");
-            return;
-        }
+
         if(mem_address == ""){
             alert("주소 입력해주세요");
             return;
@@ -216,6 +266,7 @@ ${user.mem_point}점
             console.log("번호: " + mem_phone);
             console.log("점수: " + mem_point);
             console.log("쿠폰: " + couponId);
+            alert("결제완료!");
             //ajax work to make paymnet
         }
 
