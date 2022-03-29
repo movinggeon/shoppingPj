@@ -19,6 +19,9 @@ public interface MembersDAO {
     public String pwCheck(String memId) throws Exception;
     public void modifyPw(HashMap<String, String> param) throws Exception;
     public void deleteMem(String memId) throws Exception;
-
+    public List<String> findId(String memEmail) throws Exception;
+    public int findIdCheck(String memEmail) throws Exception;
+    public int findPwCheck(HashMap<String, String> param) throws Exception;
+    public int findPw(HashMap<String, String> param) throws Exception;
 
 }

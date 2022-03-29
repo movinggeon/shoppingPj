@@ -1,6 +1,7 @@
 package com.group6.shopping.members.controllers;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -78,10 +79,22 @@ public class MembersController {
 		return "members/mypage/delete";
 	}
 
+	@RequestMapping(value = "/findId")
+	public String findId(HttpServletRequest request){
+		System.out.println("아이디 찾기 이동");
+		return "members/login/findId";
+	}
+
 	@RequestMapping(value = "/member/modifyPassword")
 	public String modifyPassword(HttpServletRequest request){
 		System.out.println("비밀번호 변경 이동");
 		return "members/mypage/modifyPassword";
+	}
+
+	@RequestMapping(value = "/findPw")
+	public String findPw(HttpServletRequest request){
+		System.out.println("비밀번호 찾기 이동");
+		return "members/login/findPw";
 	}
 
 	/* 이메일 인증 */
