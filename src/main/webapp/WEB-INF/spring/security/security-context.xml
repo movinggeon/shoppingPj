@@ -48,7 +48,7 @@
 	<bean id="loginSuccessHandler" class="com.group6.shopping.security.LoginSuccessHandler"/>
 	<bean id="logoutHandler" class="com.group6.shopping.security.LogoutHandler"/>
 	<bean id="authenticationEntryPoint" class="com.group6.shopping.security.AjaxAwareAuthenticationEntryPoint">
-		<constructor-arg value="/members/login"/>
+		<constructor-arg value="/login"/>
 	</bean>
 
 	<bean id="deniedHandler" class="com.group6.shopping.security.DeniedHandler"/>
