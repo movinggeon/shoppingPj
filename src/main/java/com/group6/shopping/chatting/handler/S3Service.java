@@ -9,6 +9,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
@@ -23,9 +24,15 @@ import java.util.Date;
 public class S3Service {
     final private AmazonS3 s3Client;
 
-    String bucketName = "sixstore";
-    String accessKey = "AKIA2NXMPLPRFNOLJ5OS";
-    String secretKey = "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";
+    @Value("${cloud.aws.s3.bucket}")
+    String bucketName ;
+
+    @Value("${cloud.aws.credentials.accessKey}")
+    String accessKey ;
+
+    @Value("${cloud.aws.credentials.secretKey}")
+    String secretKey ;
+
     String folderName = getFolder();
 
     public S3Service() {
