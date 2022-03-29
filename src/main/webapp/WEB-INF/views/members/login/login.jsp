@@ -27,5 +27,8 @@
 	<a href="/findId">아이디찾기</a>
 	<a href="/findPw">비밀번호찾기</a>
 </div>
+<a href="/members/join">회원가입</a>
+<a href="/members/findId">아이디찾기</a>
+<a href="/members/findPw">비밀번호찾기</a>
 </body>
 </html>

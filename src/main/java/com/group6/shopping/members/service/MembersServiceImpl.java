@@ -66,5 +66,25 @@ public class MembersServiceImpl implements MembersService{
 		membersDAO.deleteMem(memId);
 	}
 
+	@Override
+	public List<String> findId(String memEmail) throws Exception {
+		return membersDAO.findId(memEmail);
+	}
+
+	@Override
+	public int findIdCheck(String memEmail) throws Exception {
+		return membersDAO.findIdCheck(memEmail);
+	}
+
+	@Override
+	public int findPwCheck(HashMap<String, String> param) throws Exception {
+		return membersDAO.findPwCheck(param);
+	}
+
+	@Override
+	public void findPw(HashMap<String, String> param) throws Exception {
+		membersDAO.findPw(param);
+	}
+
 
 }
