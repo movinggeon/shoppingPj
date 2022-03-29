@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.CouponsDAO">
+	<select id="getAllCoupons" resultType="CouponsVO">
+		select * from coupons
+		where mem_id = #{mem_id} and coupon_valid_date >= curdate();
+	</select>
+
+	<update id="usedCoupon">
+		update coupons
+		set coupon_valid_date = '0'
+		where coupon_id = #{coupon_id}
+	</update>
+
+</mapper>
