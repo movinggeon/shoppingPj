@@ -103,7 +103,20 @@
 	
 	<h1>쿠폰 리스트</h1>
 	
-	
+	<c:forEach var="coupon" items="${couponList }" >
+		<div class="coupon_card">
+			<div class="cupon_date">
+				${coupon.coupon_valid_date }
+			</div>
+			<div class="cupon_name">
+				${coupon.coupon_desc }
+			</div>
+			<div class="cupon_discount">
+				${coupon.coupon_pct }
+				${coupon.coupon_price }
+			</div>
+		</div>
+	</c:forEach>
 	
 </body>
 </html>

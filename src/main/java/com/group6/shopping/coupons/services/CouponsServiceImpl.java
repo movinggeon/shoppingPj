@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.group6.shopping.batis.CouponsDAO;
 import com.group6.shopping.coupons.vo.CouponsVO;
-import com.group6.shopping.security.CustomMemDetails;
 
 @Service
 public class CouponsServiceImpl implements CouponsService{
@@ -17,8 +16,8 @@ public class CouponsServiceImpl implements CouponsService{
 
 
     @Override
-    public List<CouponsVO> getAllCoupons(CustomMemDetails user) throws Exception {
-        return couponsDAO.getAllCoupons(user);
+    public List<CouponsVO> getAllCoupons(String memId) throws Exception {
+        return couponsDAO.getAllCoupons(memId);
     }
 
     @Override
