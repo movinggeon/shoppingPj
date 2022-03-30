@@ -81,6 +81,58 @@
 		order by board_rate desc;
 	</select>
 
+<!-- 이벤트 메인페이지 진행중게시글 목록조회 -->
+	<select id="EventBoardslist" resultType="BoardsVO">
+		SELECT *
+			FROM boards
+			WHERE board_type = 'event'
+			AND date(now()) >= s_date
+			AND e_date >= date(now())
+			order by e_date;
+	</select>
+	
+	<!-- 이벤트 메인페이지 종료게시글 목록조회 -->
+	<select id="EndEventBoardslist" resultType="BoardsVO">
+		SELECT *
+			FROM boards
+			WHERE board_type = 'event'
+			AND date(now()) > e_date
+			order by e_date desc;
+	</select>
+	
 
+	<!-- 리뷰 메인페이지 게시글 목록조회 -->
+	<select id="ReviewBoardslist" resultType="BoardsVO">
+		SELECT *
+			FROM boards
+			where board_type = 'review'
+	</select>
+	
+	<!-- 이벤트 게시글 보기 -->
+	<select id="read" parameterType="int" resultType="BoardsVO">
+		SELECT *
+			FROM boards
+			WHERE board_id = #{board_id}	
+	
+	</select>
+	<!-- 이벤트 글등록 -->
+	 <select id="eventinsert">
+		insert into boards (board_id,mem_id,board_title,board_content,board_date,board_type,s_date,e_date)
+		values (null,#{mem_id},#{board_title},#{board_content},SYSDATE(),#{board_type},#{s_date},#{e_date})
+	</select> 
+	
+	
+	
+	<!-- 리뷰 글등록 -->
+	<select id="reviewinsert">
+	insert into boards
+	values (null, #{mem_id}, #{spec_id}, #{model_id}, #{board_rate}, #{board_title}, #{board_content}, SYSDATE(), #{board_type}, null, null)
+	</select>
+	
+	
+	<!--  이벤트글삭제 -->
+	<select id="delete">
+	 delete from boards WHERE board_id = #{board_id}
+	</select>
 
 </mapper>

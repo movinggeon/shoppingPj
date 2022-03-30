@@ -44,4 +44,53 @@ public class BoardsServiceImpl implements BoardsService{
     public List<Integer> boardRateList(ModelsVO modelsVO) throws Exception {
         return boardsDAO.boardRateList(modelsVO);
     }
+    
+  //리뷰 메인페이지 게시글 목록조회
+  	@Override
+  	public List<BoardsVO> ReviewBoardslist() throws Exception{
+  		return boardsDAO.ReviewBoardslist();
+  		
+  	}
+  	
+  	//이벤트 메인페이지 게시글 목록조회
+  		@Override
+  		public List<BoardsVO> EventBoardslist() throws Exception{
+  			return boardsDAO.EventBoardslist();
+  			
+  		}
+  		
+  	//이벤트 메인페이지 종료게시글 목록조회
+  		@Override
+  		public List<BoardsVO> EndEventBoardslist() throws Exception{
+  			return boardsDAO.EndEventBoardslist();
+  			
+  		}
+  		
+  		//게시글 조회
+  		@Override
+  	    public BoardsVO read(int board_id) throws Exception{
+  			return boardsDAO.read(board_id);
+  		}
+  		
+  	    //이벤트게시글 작성
+  		@Override
+  	    public void eventinsert(BoardsVO vo) throws Exception{
+  			boardsDAO.eventinsert(vo);
+  		}
+  		 //리뷰게시글 작성
+  		@Override
+  	    public void reviewinsert(BoardsVO vo) throws Exception{
+  			boardsDAO.reviewinsert(vo);
+  		}
+  	    //리뷰게시글 삭제
+  		@Override
+  	    public void delete(int board_id) throws Exception{
+  	    	boardsDAO.delete(board_id);
+  	    }
+  	    //이벤트 게시글 수정
+  		@Override
+  	    public void update(BoardsVO vo) throws Exception{
+  	    	boardsDAO.update(vo);
+  	    }
+  	
 }
