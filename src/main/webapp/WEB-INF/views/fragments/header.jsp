@@ -30,9 +30,7 @@
 <body>
 	<div class="wrapper">
 	<!-- Chat button -->
-	<div id="chat">
-		<button id="enterRoom" onclick="enterRoom()">asdfasdfasdf</button>
-	</div>
+	<div id="chat" onclick="enterRoom()"></div>
 
 	<!-- Side menu -->
 	<div class="menu_bg"></div>
@@ -47,7 +45,9 @@
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/event.png"><h4 class="left">이벤트</h4></a></li>
-			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">고객센터</h4></a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">관리자 페이지</h4></a></li>
+			</sec:authorize>
 		</ul>
 		<hr color="#ebebeb" size="1px" width="95%" />
 		<sec:authorize access="isAnonymous()">
@@ -55,7 +55,7 @@
 				<li><a href="/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
 			</ul>
 		</sec:authorize>
-		<sec:authorize access="hasRole('ROLE_MEMBER')">
+		<sec:authorize access="isAuthenticated()">
 			<ul class="m2">
 				<li>
 				<form action="/members/logout" method="post">
@@ -148,12 +148,14 @@
 						<li><a href="#">Event</a></li>
 					</ul>
 				</li>
-				<li>
-					<a href="#">고객센터</a>
-					<ul>
-						<li><a href="#">Service</a></li>
-					</ul>
-				</li>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li>
+						<a href="/admin">관리자</a>
+						<ul>
+							<li><a href="#">1:1상담</a></li>
+						</ul>
+					</li>
+				</sec:authorize>
 			</ul>
 
 			<ol class="nav_links">
@@ -168,12 +170,10 @@
 						<a href="/login"><i class="fa-solid fa-user"></i></a>
 					</li>
 				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_MEMBER')">
+				<sec:authorize access="isAuthenticated()">
 					<li class="user user_menu">
 						<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
 					</li>
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_MEMBER')">
 					<li class="user user_menu">
 						<form action="/members/logout" method="post">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
