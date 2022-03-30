@@ -23,15 +23,9 @@ import java.util.Date;
 public class S3Service {
     final private AmazonS3 s3Client;
 
-    /*@Value("${cloud.aws.s3.bucket}")*/
-    String bucketName="aa";
-
-   /* @Value("${cloud.aws.credentials.accessKey}")*/
-    String accessKey="aa";
-
-   /* @Value("${cloud.aws.credentials.secretKey}")*/
-    String secretKey="aa";
-
+    String bucketName = "aa";
+    String accessKey = "aa";
+    String secretKey = "aa";
     String folderName = getFolder();
 
     public S3Service() {
