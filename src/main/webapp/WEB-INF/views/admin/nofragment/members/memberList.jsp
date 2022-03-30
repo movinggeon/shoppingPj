@@ -42,10 +42,13 @@
  		<c:choose>
 			<c:when test="${auth eq 'ROLE_MEMBER' }">
 				<div style="text-align: center;">
+					<button onclick="">쿠폰지급</button><br>
+				</div>
+				<div style="text-align: center;">
 					<button onclick="deleteMem('${member.mem_id}', '${member.mem_auth }')">계정삭제</button><br>
 				</div>
 				<div style="text-align: center; padding-top: 10px;">
-					<button onclick="deleteMem('${member.mem_id}', '${member.mem_auth }')">계정차단</button>
+					<button onclick="">계정차단</button>
 				</div>
 			</c:when>
 			<c:otherwise>
