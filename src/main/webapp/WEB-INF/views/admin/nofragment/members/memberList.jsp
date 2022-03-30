@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,11 @@
 	<div class="member-card">
 		<div class="memName">
 			<div>
+				이름 : ${member.mem_name }
+			</div>
+		</div>
+		<div class="memId">
+			<div>
 				아이디 : ${member.mem_id }
 			</div>
 		</div>
@@ -31,9 +37,21 @@
 			이메일 : ${member.mem_email }
 		</div>
 	</div>
-	<div>
-		<button onclick="deleteMem('${member.mem_id}')">계정삭제</button>
-		<button>관리자권한으로 변경</button>
+	<div class="mem-btn" style="width: 60%;">
+ 		<c:set var="auth" value="${member.mem_auth }"/>
+ 		<c:choose>
+			<c:when test="${auth eq 'ROLE_MEMBER' }">
+				<div style="text-align: center;">
+					<button onclick="deleteMem('${member.mem_id}', '${member.mem_auth }')">계정삭제</button><br>
+				</div>
+				<div style="text-align: center; padding-top: 10px;">
+					<button onclick="deleteMem('${member.mem_id}', '${member.mem_auth }')">계정차단</button>
+				</div>
+			</c:when>
+			<c:otherwise>
+					<p style="text-align: center;">관리자 계정</p>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 </c:forEach>
@@ -44,11 +62,14 @@
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 
-    function deleteMem(param) {
+	//계정삭제
+    function deleteMem(mem_id, mem_auth) {
     	
-    	var mem_id =param;
-    	console.log(mem_id);
+    	var mem_auth = mem_auth.substr(5);
+    	var mem_id = mem_id;
     	
+    	if(confirm(mem_auth + " ( " + "아이디 : " + mem_id  + " ) " + "계정입니다. 정말로 삭제 하시겠습까?") == true){
+    		
            jQuery.ajax({
                "url": "/admin/delete/deleteMem",
                "type": "POST",
@@ -75,6 +96,10 @@
                }
 
            });
+           
+    	}else{
+    		return;
+    	}
             
     }
 </script>
