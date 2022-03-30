@@ -6,8 +6,14 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor@ToString
+@AllArgsConstructor
+@ToString
 public class CouponsVO {
-    private int coupon_id, coupon_pct, coupon_price;
-    private String mem_id, coupon_desc, coupon_valid_date;
+    private int coupon_id;
+    private String mem_id;
+    private String coupon_desc;
+    private int coupon_pct;
+    private int coupon_price;
+    private String coupon_valid_date;
+    
 }

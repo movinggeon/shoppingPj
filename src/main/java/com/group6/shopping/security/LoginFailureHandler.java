@@ -22,6 +22,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             msg = "Wrong id or password. Please re-enter";
         }
         request.setAttribute("msg", msg);
-        request.getRequestDispatcher("/members/login?error").forward(request, response);
+        request.getRequestDispatcher("/login?error").forward(request, response);
     }
 }

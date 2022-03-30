@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+div.member-context{
+	width: 90%;
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 1px solid black;
+}
+
+div.member-card{
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+button{
+	padding-left: auto;
+	padding-right: auto;
+}

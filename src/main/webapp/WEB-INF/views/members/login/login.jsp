@@ -23,6 +23,9 @@
 		<div> <input type="submit"/> </div> 
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 	</form>
+	<a href="/join">회원가입</a>
+	<a href="/findId">아이디찾기</a>
+	<a href="/findPw">비밀번호찾기</a>
 </div>
 </body>
 </html>

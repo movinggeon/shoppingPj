@@ -1,21 +1,30 @@
 package com.group6.shopping.join.controllers;
 
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group6.shopping.coupons.services.CouponsService;
+import com.group6.shopping.coupons.vo.CouponsVO;
 import com.group6.shopping.members.service.MembersService;
 import com.group6.shopping.members.vo.MembersVO;
 
 @RestController
 public class JoinRestController {
 
-    @Inject
+    @Autowired
     private MembersService membersService;
+    
+    @Autowired
+    private CouponsService couponsService;
 
     @PostMapping(value = "/join/idLookup")
     public HashMap<String, Object> idLookup(@RequestBody HashMap<String, Object> param) throws Exception {
@@ -44,8 +53,17 @@ public class JoinRestController {
 
     @PostMapping(value = "/join/joinProcess")
     public HashMap<String, Object> joinProcess(@RequestBody HashMap<String, Object> param) throws Exception {
+    	
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        cal.add(Calendar.MONTH, 1);
+        
+        String coupon_valid_date = df.format(cal.getTime());
+        String coupon_desc = "신규가입 쿠폰";
 
         HashMap<String, Object> result = new HashMap<String, Object>();
+        HashMap<String, Object> queryMap = new HashMap<String, Object>();
 
         String memName = (String) param.get("memName");
         String memId = (String) param.get("memId");
@@ -62,7 +80,13 @@ public class JoinRestController {
         memPhone = memPhone.substring(0, 3) + "-" + memPhone.substring(3, 7) + "-" + memPhone.substring(7, 11);
 
         MembersVO membersVO = new MembersVO(memName, memId, memPassword, memEmail, memPhone, memBirth, memPostCode, memAddress, memPoint, memAuth, 1);
+        queryMap.put("mem_id", memId);
+        queryMap.put("coupon_desc", coupon_desc);
+        queryMap.put("coupon_pct", 30);
+        queryMap.put("coupon_price", 0);
+        queryMap.put("coupon_valid_date", coupon_valid_date);
         membersService.insertMem(membersVO);
+        couponsService.insertCoupon(queryMap);
 
         result.put("success", "회원가입이 완료되었습니다.");
 

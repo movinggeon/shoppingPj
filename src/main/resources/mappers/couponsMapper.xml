@@ -13,4 +13,13 @@
 		where coupon_id = #{coupon_id}
 	</update>
 
+	<select id="countCoupon" resultType="int">
+		select count(*) from coupons
+		where mem_id = #{mem_id} and coupon_valid_date >= curdate();
+	</select>
+	
+	<insert id="insertCoupon">
+		insert into coupons (mem_id, coupon_desc, coupon_pct, coupon_price, coupon_valid_date)
+			values ( #{mem_id}, #{coupon_desc}, #{coupon_pct}, #{coupon_price}, #{coupon_valid_date});
+	</insert>
 </mapper>

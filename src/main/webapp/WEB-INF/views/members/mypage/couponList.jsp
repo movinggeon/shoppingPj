@@ -1,5 +1,4 @@
 <%@page import="com.group6.shopping.security.CustomMemDetails"%>
-<%@page import="java.util.Date"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -8,7 +7,7 @@
 <html>
 <head>
     <title>Title</title>
-	<link rel="stylesheet" href="/resources/static/css/mypage.css" type="text/css">
+	<link rel="stylesheet" href="/resources/static/css/couponList.css" type="text/css">
 	<%CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user"); %>
 </head>
 <body>
@@ -102,54 +101,22 @@
 		</div>
 	</div>
 	
-	<div class="cupon_info">
-		<div class="user_name">
-			<%=cs.getMem_name() %>님 안녕하세요
-		</div>
-		<div class="user_cupon">
-			쿠폰
-			<div style="padding-top: 30px">
-				<a href="/members/coupons">${couponEA }</a>개
+	<h1>쿠폰 리스트</h1>
+	
+	<c:forEach var="coupon" items="${couponList }" >
+		<div class="coupon_card">
+			<div class="cupon_date">
+				${coupon.coupon_valid_date }
+			</div>
+			<div class="cupon_name">
+				${coupon.coupon_desc }
+			</div>
+			<div class="cupon_discount">
+				${coupon.coupon_pct }
+				${coupon.coupon_price }
 			</div>
 		</div>
-		<div class="user_point">
-			포인트
-			<div style="padding-top: 30px">
-				<%=cs.getMem_point() %>P
-			</div>
-		</div>
-	</div>
+	</c:forEach>
 	
-	<div class="table_title">
-		<h3>최근주문 내역</h3>
-	</div>
-	
-	<table class="order_list">
-		<colgroup>
-			<col style="width:135px">
-			<col style="width:155px">
-			<col style="width:400px">
-			<col style="width:150px">
-			<col style="width:125px">
-			<col style="width:145px">
-			<col style="width:130px">
-		</colgroup>
-		<tr>
-			<th>주문일</th>
-			<th>주문번호</th>
-			<th>상품정보</th>
-			<th>수량</th>
-			<th>상품금액</th>
-			<th>진행상황</th>
-			<th>상품평</th>
-		</tr>
-		<tr>
-			<td colspan="7">주문하신 내역이 없습니다.</td>
-		</tr>
-	</table>
-	
-	<div class="like_title">
-		<h3>좋아요</h3>
-	</div>
 </body>
 </html>
