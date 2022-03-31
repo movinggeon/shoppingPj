@@ -9,7 +9,7 @@
 		
 	<security:http pattern="/resources/**" security="none"/>
 
-	<security:http entry-point-ref="authenticationEntryPoint">
+	<security:http entry-point-ref="authenticationEntryPoint" create-session="never">
 		<!---->
 		<!--<security:intercept-url pattern="/boards/**" access="permitAll"/>
 		<security:intercept-url pattern="/boards/admin/**" access="hasRole('ROLE_ADMIN')"/>

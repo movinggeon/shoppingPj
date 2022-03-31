@@ -197,37 +197,70 @@
 
 	<script>
 		var search = document.cookie;
-		console.log(search);
+		//console.log("original cookie: " + search);
 		var searchList = [];
 
 		var jession = search.indexOf("JSESSIONID");
+		//jsession 값이 있을경우
 		if(jession != -1){
 			var first = search.indexOf(';');
-			search = search.substring(jessfirst+2);
+			//jsession 값이 맨앞일때
+			if(jession == 0){
+				//jsession 값 뒤에 search cookie가 있을때
+				if(first != -1){
+					search = search.substring(first+2);
+				}else{//jsession 값만이 cookie에 있을때
+					search = "";
+				}
+			//jsession 값이 중간 혹은 맨뒤
+			}else{
+				//jsession 값 앞에있는 search cookie 자름
+				var search1 = search.substring(0, jession);
+				first = search.indexOf(';');
+				//jsession 값이 중간에 있을때
+				if(first != -1){
+					//jsession 부터 끝까지
+					search = search.substring(jession);
+					//jsession 뒤 ;가져옴
+					first = search.indexOf(';');
+					//jsession 뒤 search 값
+					var search2 = search.substring(first+2);
+					//jession 앞 search 와 뒤 search를 합침
+					search = search1 + search2;
+				//jesssion 값이 맨뒤에 있을떄
+				}else{
+					search = search1;
+				}
+			}
 		}
-		console.log("after cut: " + search);
+		//console.log("after cut: " + search);
 		for(var i = 0 ; i < 3; i++){
 			var first = search.indexOf('=');
 
 			if(first != -1){
 				var second = search.indexOf(';');
 				if(second == -1){
-					searchList[i] = search.substring(first+1);
+					var result = search.substring(first+1);
+					result = result.replaceAll('+', ' ');
+					searchList[i] = result;
 					break;
 				}else{
-					searchList[i] = search.substring(first+1, second);
+					var result = search.substring(first+1, second);
+					result = result.replaceAll('+', ' ');
+					searchList[i] = result;
 					search = search.substring(second+2);
 				}
 			}
 		}
-		console.log("searchList: " + searchList);
+		//console.log("searchList: " + searchList);
 		var listContainer = document.getElementById("searchHistory");
 		var list = "<ul><h4>최근검색어</h4>";
 		if(searchList.length == 0){
 			list += "<li>검색기록이 없습니다.</li>";
 		}else{
-			for(var j = 0; j < searchList.length; j++){
-				list += "<li>" + searchList[j] + "</li>";
+			for(var j = searchList.length -1; j >= 0; j--){
+				var space = searchList[j].replaceAll(' ', '+');
+				list += "<li><a href='/spec/searchItems?searchInput="+ space +"'>" + searchList[j] + "</a></li>";
 			}
 		}
 		list+= "</ul>";
@@ -235,6 +268,7 @@
 
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+
 		sessionStorage.setItem("mem_id","${user.mem_id}");
 		function enterRoom() {
 			var user = "${user.mem_id}";

@@ -130,7 +130,7 @@ public class SpecController {
         System.out.println("입력값: " + searchInput);
 
         Cookie[] cookies = request.getCookies();
-        Map<String, String> cookiesMap = new HashMap<>();
+        Map<String, String> cookiesMap = new LinkedHashMap<>();
         List<String> cookieKey = new ArrayList<>();
 
         for(Cookie c: cookies){
@@ -148,9 +148,9 @@ public class SpecController {
             String search3 = cookiesMap.get("search3");
             String search2 = cookiesMap.get("search2");
 
-            cookiesMap.put("search3" ,URLEncoder.encode(searchInput, "utf-8"));
-            cookiesMap.put("search2", search3);
             cookiesMap.put("search1", search2);
+            cookiesMap.put("search2", search3);
+            cookiesMap.put("search3" ,URLEncoder.encode(searchInput, "utf-8"));
         }
 
         for(Map.Entry<String, String> tmp : cookiesMap.entrySet()){
