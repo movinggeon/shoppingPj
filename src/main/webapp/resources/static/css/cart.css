@@ -9,8 +9,9 @@
 h1{
     margin-left: auto;
     margin-right: auto;
-    width:80%;
-    font-size: 50px
+    width:60%;
+    font-size: 40px;
+    text-align:left;
 }
 /*.wrapper2{
      height: auto;
@@ -28,11 +29,12 @@ h1{
     border-collapse: collapse;
     border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     background: none;
-    width:80%
-
-
+    width:60%;
 }
 .oneitem{
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
     border-top: 30px;
     height: 400px;
     background: none;
@@ -75,14 +77,14 @@ h1{
     width:60%;
     padding-top: 80px;
     height:50%;
-    font-size: 27px;
+    font-size: 22px;
     text-align: left;
     display:table-cell;
     vertical-align:middle;
 
 }
 .price{
-    font-size: 27px;
+    font-size: 22px;
     float: right;
     width:20%;
     padding-top: 80px;
@@ -92,7 +94,7 @@ h1{
 }
 .count{
     float: left;
-    font-size: 27px;
+    font-size: 22px;
     width:20%;
     padding-top: 80px;
     height:50%;
@@ -102,7 +104,7 @@ select{
     width:50px;
     height:50px;
     border:none;
-    font-size: 27px;
+    font-size: 22px;
     background-size:27px;
     background: url("../img/cartarrow.png") no-repeat 95% 50%;
     box-sizing: border-box;
@@ -115,7 +117,7 @@ select::-ms-expand {
     display: none;
 }
 .delete{
-    font-size: 15px;
+    font-size: 13px;
     color: steelblue;
     cursor:pointer;
 
@@ -127,7 +129,7 @@ select::-ms-expand {
 }
 .carehave{
     float: left;
-    font-size: 15px;
+    font-size: 13px;
     padding-top: 20px;
 }
 .finalblock{
@@ -156,11 +158,11 @@ select::-ms-expand {
 .goaddressbtn {
     display: inline-block;
     float: right;
-    width: 70%;
+    width: 60%;
     height: 50%;
     border-radius: 20px;
     background-color: #0071E3;
-    font-size: 23px;
+    font-size: 22px;
     font-weight: bold;
     color:white;
     border: 1px solid #ddd;
@@ -168,6 +170,6 @@ select::-ms-expand {
     cursor: pointer;
 }
 .finaltotalname{
-    font-size:27px;
+    font-size:22px;
     float:left;
 }
