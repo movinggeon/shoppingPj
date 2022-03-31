@@ -4,39 +4,49 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/static/css/cart.css" type="text/css">
 </head>
 <body>
 
 <h1>장바구니</h1>
 <hr>
 
+<div class="wrapcart">
 ${qtyError}<br>
 ${qtyZero}<br>
 <c:forEach items="${carts}" var="items">
-    <div id =${items.cart_id}>
-        ${items.productsVO.product_name} ${items.modelsVO.model_name}${items.specVO.spec_color} <br>
-        ${items.cart_id}
-        <span id ="pri${items.cart_id}">${items.cart_price * items.cart_qty}</span>
+    <div class="oneitem" id =${items.cart_id} >
+            <div class="imagebox">
+                <div class="image1"></div>
+            </div>
+           <div class="iteminfobox">
+                <div class="iteminfo">
+                ${items.productsVO.product_name} ${items.modelsVO.model_name}${items.specVO.spec_color} <br>
+                ${items.cart_id}
+                </div>
 
-        <select id="qty${items.cart_id}" onchange="updateQty(this.id, this.value)">
-            <c:forEach var="i" begin="1" end="${items.specVO.spec_qty}">
-                <c:choose>
-                    <c:when test="${i eq items.cart_qty}">
-                        <option value="${i}" selected>${i}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="${i}">${i}</option>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </select>
-        <div id="del${items.cart_id}" onclick="delCart(this.id)">
-            삭제
-        </div>
-        <hr>
+                 <span id ="pri${items.cart_id}">${items.cart_price * items.cart_qty}</span>
+
+                <select id="qty${items.cart_id}" onchange="updateQty(this.id, this.value)">
+                    <c:forEach var="i" begin="1" end="${items.specVO.spec_qty}">
+                        <c:choose>
+                            <c:when test="${i eq items.cart_qty}">
+                                <option value="${i}" selected>${i}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${i}">${i}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
+
+            <div id="del${items.cart_id}" onclick="delCart(this.id)">
+                삭제
+            </div>
+           </div>
     </div>
 </c:forEach>
-
+</div>
 
 
 <span id="totalPrice">
