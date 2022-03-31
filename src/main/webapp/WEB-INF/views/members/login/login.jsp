@@ -99,7 +99,8 @@
 		width: 100px;
 		height: 40px;
 		border-radius: 10px;
-		background:linear-gradient(to left,lightgrey,grey);
+		/*background:linear-gradient(to left,lightgrey,grey);*/
+		background-color: #0071E3;
 		font-size: 13px;
 		color:white;
 		border: 1px solid #ddd;
