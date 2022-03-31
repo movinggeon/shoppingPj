@@ -5,11 +5,12 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/static/css/cart.css" type="text/css">
+
 </head>
 <body>
-
+<div class="wrapper2">
 <h1>장바구니</h1>
-<hr>
+
 
 <div class="wrapcart">
 ${qtyError}<br>
@@ -20,13 +21,12 @@ ${qtyZero}<br>
                 <div class="image1"></div>
             </div>
            <div class="iteminfobox">
+
                 <div class="iteminfo">
-                ${items.productsVO.product_name} ${items.modelsVO.model_name}${items.specVO.spec_color} <br>
+                ${items.productsVO.product_name} ${items.modelsVO.model_name}${items.specVO.spec_color}
                 ${items.cart_id}
                 </div>
-
-                 <span id ="pri${items.cart_id}">${items.cart_price * items.cart_qty}</span>
-
+               <div class="count">
                 <select id="qty${items.cart_id}" onchange="updateQty(this.id, this.value)">
                     <c:forEach var="i" begin="1" end="${items.specVO.spec_qty}">
                         <c:choose>
@@ -39,21 +39,34 @@ ${qtyZero}<br>
                         </c:choose>
                     </c:forEach>
                 </select>
+               </div>
+               <div class="price">
+                   <span>₩</span>
+                   <span id ="pri${items.cart_id}">${items.cart_price * items.cart_qty}</span>
 
-            <div id="del${items.cart_id}" onclick="delCart(this.id)">
+            <div class= "delete" id="del${items.cart_id}" onclick="delCart(this.id)">
                 삭제
             </div>
+               </div>
            </div>
+            <div class="carebox">
+                <div class="carehave">보증있는지없는지</div>
+            </div>
     </div>
 </c:forEach>
+
+        <div class="finalblock">
+        <div class="finaltotal">
+            <span class="finaltotalname"> 총계</span>
+            <span id="totalPrice" class="totalPrice">
+                ${totalPrice}
+            </span>₩<br>
+        </div>
+        <div class="addressblock">
+            <button class="goaddressbtn" onclick="location.href='/carts/member/mailinginformation' ">주소지 설정</button>
+        </div>
+        </div>
 </div>
-
-
-<span id="totalPrice">
-    <h1 style="display: inline">${totalPrice}</h1>
-</span><h1 style="display: inline">원</h1><br>
-<a href="/carts/member/mailinginformation">주소지 설정</a>
-
 <script>
     function updateQty(id ,value){
         var cartId = id.substring(3);
@@ -105,6 +118,6 @@ ${qtyZero}<br>
         });
     }
 </script>
-
+</div>
 </body>
 </html>
