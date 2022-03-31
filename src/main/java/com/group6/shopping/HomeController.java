@@ -1,5 +1,8 @@
 package com.group6.shopping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.group6.shopping.carts.services.CartsService;
+
+import java.util.ArrayList;
 
 /**
  * Handles requests for the application home page.
@@ -24,6 +29,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session) throws Exception {
 		System.out.println("home");
+
 		return "home";
 	}
 }

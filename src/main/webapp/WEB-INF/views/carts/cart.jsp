@@ -42,7 +42,10 @@ ${qtyZero}<br>
 <span id="totalPrice">
     <h1 style="display: inline">${totalPrice}</h1>
 </span><h1 style="display: inline">원</h1><br>
-<a href="/carts/member/mailinginformation">주소지 설정</a>
+<c:if test="${totalPrice ne 0}">
+    <a href="/carts/member/mailinginformation">주소지 설정</a>
+</c:if>
+
 
 <script>
     function updateQty(id ,value){

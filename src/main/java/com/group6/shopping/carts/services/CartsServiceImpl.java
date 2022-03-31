@@ -34,7 +34,7 @@ public class CartsServiceImpl implements CartsService{
     }
 
     @Override
-    public int getTotal(String mem_id, String history) throws Exception {
+    public Integer getTotal(String mem_id, String history) throws Exception {
         return cartsDAO.getTotal(mem_id, history);
     }
 

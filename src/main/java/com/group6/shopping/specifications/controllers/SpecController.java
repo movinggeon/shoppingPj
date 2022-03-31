@@ -6,6 +6,7 @@ import com.group6.shopping.boards.vo.PagingVO;
 import com.group6.shopping.models.services.ModelsService;
 import com.group6.shopping.models.vo.ModelsVO;
 import com.group6.shopping.specifications.services.SpecService;
+import com.group6.shopping.specifications.vo.SearchSpecVO;
 import com.group6.shopping.specifications.vo.SpecDisplayVO;
 import com.group6.shopping.url.UrlHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.parser.Entity;
@@ -123,11 +125,64 @@ public class SpecController {
     }
 
     @RequestMapping("/searchItems")
-    public String searchItems(String searchInput){
-        System.out.println(searchInput);
+    public String searchItems(String searchInput, Model models, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("입력값: " + searchInput);
+
+        Cookie[] cookies = request.getCookies();
+        Map<String, String> cookiesMap = new HashMap<>();
+        List<String> cookieKey = new ArrayList<>();
+
+        for(Cookie c: cookies){
+            cookiesMap.put(c.getName(), c.getValue());
+            cookieKey.add(c.getName());
+        }
+
+        Cookie search;
+        if(!cookieKey.contains("search1")){
+            //search = new Cookie("search1", searchInput);
+            cookiesMap.put("search1", searchInput);
+        }else if(!cookieKey.contains("search2")){
+            //search = new Cookie("search2", searchInput);
+            cookiesMap.put("search2", searchInput);
+        }else if(!cookieKey.contains("search3")){
+            //search = new Cookie("search3", searchInput);
+            cookiesMap.put("search3", searchInput);
+        }else{
+            search = new Cookie("search3",searchInput);
+            
+
+        }
+
+
+
+
+
+
+        //찾아야하는 값 리스트
+        SearchSpecVO searchSpecVO = specService.searchSpec();
+        //검색어 정제
+        Map<String, Object> searchContext = specService.getSearchContext(searchSpecVO, searchInput);
+
+        int searchFail = 0;
+        String searchResult;
+        for(Map.Entry<String, Object> tmp : searchContext.entrySet()){
+            List<String> list = (List<String>) tmp.getValue();
+            if(list.size() == 0){
+                System.out.println(tmp.getKey() + " 없음");
+                searchFail++;
+            }
+        }
+        if(searchFail == 7){
+            models.addAttribute("resultNum", 0);
+            models.addAttribute("searchFail", "No Search Result");
+        }else{
+            //검색 결과
+            List<ModelsVO> resultModels = specService.getModel(searchContext);
+
+            models.addAttribute("resultNum", resultModels.size());
+            models.addAttribute("result", resultModels);
+        }
 
         return "spec/searchItems";
     }
-
-
 }

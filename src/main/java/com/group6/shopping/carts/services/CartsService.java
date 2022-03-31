@@ -11,7 +11,7 @@ public interface CartsService {
     public List<CartsVO> getCart(String mem_id, String history) throws Exception;
     public int deleteCart(CartsVO cartsVO) throws  Exception;
     public int updateQty(CartsVO cartsVO) throws Exception;
-    public int getTotal(String mem_id,String history) throws Exception;
+    public Integer getTotal(String mem_id,String history) throws Exception;
     public CartsVO getSingleCart(CartsVO cartsVO) throws Exception;
     public int updateCart(CartsVO cartsVO, int salePrice) throws Exception;
 

@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.group6.shopping.batis.SpecificationsDAO">
+	<resultMap id="ModelsVO" type="ModelsVO">
+		<result column="model_id" property="model_id" />
+		<result column="product_id" property="product_id" />
+		<result column="model_name" property="model_name" />
+		<collection property="productsVO" resultMap="ProductsVO"/>
+	</resultMap>
+	<resultMap id="ProductsVO" type="ProductsVO">
+		<result column="product_id" property="product_id"/>
+		<result column="product_name" property="product_name"/>
+	</resultMap>
+
 	<select id="getModels" resultType="SpecVO">
 		select *
 		from products p, models m, specifications s
@@ -61,5 +72,88 @@
 			  (select sId from
 			       (select spec_id as sId from carts where mem_id = #{mem_id} and cart_imp_uid is null) B);
 	</update>
+
+	<select id="searchSpec" resultType="string">
+		select ${spec}
+		from specifications s, models m, products p
+		where s.model_id = m.model_id and m.product_id = p.product_id
+		group by ${spec};
+	</select>
+
+	<select id = "getModel" resultMap="ModelsVO">
+		select m.model_id, m.model_name, p.product_name
+		from specifications s, models m, products p
+		where s.model_id = m.model_id and m.product_id = p.product_id
+			<if test="product_name.size != 0 or model_name.size != 0 or spec_processor.size != 0 or spec_memory.size != 0 or spec_display.size != 0
+			or spec_network.size != 0 or spec_color.size != 0">
+				and (
+				<if test="product_name.size != 0">
+				  p.product_name in
+				  <foreach collection="product_name" item="pname" open="(" close=")" separator=",">
+					  #{pname}
+				  </foreach>
+					<if test="model_name.size != 0 or spec_processor.size != 0 or spec_memory.size != 0 or spec_display.size != 0
+					or spec_network.size != 0 or spec_color.size != 0">
+						or
+					</if>
+				</if>
+				<if test="model_name.size != 0">
+					m.model_name in
+					<foreach collection="model_name" item="mname" open="(" close=")" separator=",">
+					  #{mname}
+					</foreach>
+					<if test="spec_processor.size != 0 or spec_memory.size != 0 or spec_display.size != 0
+						or spec_network.size != 0 or spec_color.size != 0">
+						or
+					</if>
+				</if>
+				<if test="spec_processor.size != 0">
+					s.spec_processor in
+					<foreach collection="spec_processor" item="processor" open="(" close=")" separator=",">
+						#{processor}
+					</foreach>
+					<if test="spec_memory.size != 0 or spec_display.size != 0
+							or spec_network.size != 0 or spec_color.size != 0">
+						or
+					</if>
+				</if>
+				<if test="spec_memory.size != 0">
+					s.spec_memory in
+					<foreach collection="spec_memory" item="memory" open="(" close=")" separator=",">
+						#{memory}
+					</foreach>
+					<if test="spec_display.size != 0 or spec_network.size != 0 or spec_color.size != 0">
+						or
+					</if>
+				</if>
+				<if test="spec_display.size != 0">
+					s.spec_display in
+					<foreach collection="spec_display" item="display" open="(" close=")" separator=",">
+						#{display}
+					</foreach>
+					<if test="spec_network.size != 0 or spec_color.size != 0">
+						or
+					</if>
+				</if>
+				<if test="spec_network.size != 0">
+					s.spec_network in
+					<foreach collection="spec_network" item="network" open="(" close=")" separator=",">
+						#{network}
+					</foreach>
+					<if test="spec_color.size != 0">
+						or
+					</if>
+				</if>
+				<if test="spec_color.size != 0">
+					s.spec_color in
+					<foreach collection="spec_color" item="color" open="(" close=")" separator=",">
+						#{color}
+					</foreach>
+				</if>
+				)
+			</if>
+		group by m.model_id
+		order by 1;
+	</select>
 
 </mapper>

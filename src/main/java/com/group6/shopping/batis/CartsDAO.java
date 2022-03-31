@@ -11,7 +11,7 @@ public interface CartsDAO {
     public List<CartsVO> getCart(@Param("mem_id") String mem_id, @Param("history") String history) throws Exception;
     public int deleteCart(CartsVO cartsVO) throws  Exception;
     public int updateQty(CartsVO cartsVO) throws Exception;
-    public int getTotal(@Param("mem_id") String mem_id, @Param("history") String history) throws Exception;
+    public Integer getTotal(@Param("mem_id") String mem_id, @Param("history") String history) throws Exception;
     public CartsVO getSingleCart(CartsVO cartsVO) throws Exception;
     public int updateCart(@Param("cartsVO") CartsVO cartsVO, @Param("salePrice") int salePrice) throws Exception;
 }

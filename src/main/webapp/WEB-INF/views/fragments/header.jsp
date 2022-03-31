@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<script
 			src="https://kit.fontawesome.com/6da1745729.js"
 			crossorigin="anonymous"
 	></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 	<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
@@ -26,9 +29,11 @@
 	<title>SMARTDC</title>
 </head>
 <body>
-	<div class="wrapper">
+<div class="wrapper">
 	<!-- Chat button -->
-	<div id="chat"></div>
+	<div id="chat">
+		<button id="enterRoom" onclick="enterRoom()">asdfasdfasdf</button>
+	</div>
 
 	<!-- Side menu -->
 	<div class="menu_bg"></div>
@@ -38,10 +43,10 @@
 		</div>
 
 		<ul class="m1">
-			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/smartphone.png"><h4 class="left">스마트폰</h4></a></li>
-			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/laptop.png"><h4 class="left">노트북</h4></a></li>
-			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
-			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
+			<li><a href="/spec/viewModels?product=sixPhone"><img src="${pageContext.request.contextPath}/resources/static/img/smartphone.png"><h4 class="left">스마트폰</h4></a></li>
+			<li><a href="/spec/viewModels?product=sixBook"><img src="${pageContext.request.contextPath}/resources/static/img/laptop.png"><h4 class="left">노트북</h4></a></li>
+			<li><a href="/spec/viewModels?product=sixTablet"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
+			<li><a href="/spec/viewModels?product=sixWatch"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/event.png"><h4 class="left">이벤트</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">고객센터</h4></a></li>
 		</ul>
@@ -51,16 +56,21 @@
 				<li><a href="/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
 			</ul>
 		</sec:authorize>
-		<sec:authorize access="hasRole('ROLE_MEMBER')">
+		<sec:authorize access="isAuthenticated()">
 			<ul class="m2">
-				<li>
-				<form action="/members/logout" method="post">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-					<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
-					<h4 class="left">로그아웃</h4>
-				</form>
+				<li class="user user_menu">
+					<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
 				</li>
-				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/truck.png"><h4 class="left">주문/배송조회</h4></a></li>
+				<li>
+					<a href="/carts/member/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+				</li>
+				<li>
+					<form action="/members/logout" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
+						<h4 class="left">로그아웃</h4>
+					</form>
+				</li>
 			</ul>
 		</sec:authorize>
 	</div>
@@ -69,7 +79,9 @@
 	<div id="mask"></div>
 	<div class="window">
 		<div class="win_wrap">
-			<input id="h_box" class="holder" type="text" placeholder="Search" value="" />
+			<form action="/spec/searchItems" method="get" id="search" autocomplete="off">
+				<input id="h_box" class="holder" type="text" placeholder="Search" value="" name="searchInput" onkeyup="enter()"/>
+			</form>
 			<div class="h_box">
 				<div class="h1" style="text-align: left;">
 					<ul>
@@ -107,35 +119,36 @@
 			</div>
 			<ul class="nav_menu">
 				<li>
-					<a href="#">스마트폰</a>
+				<li>
+					<a href="/spec/viewModels?product=sixPhone">스마트폰</a>
 					<ul>
-						<li><a href="#">Phone1</a></li>
-						<li><a href="#">Phone2</a></li>
-						<li><a href="#">Phone3</a></li>
+						<li><a href="/spec/chooseModel?model_id=1&category=new&currPage=1">SixPhone 3</a></li>
+						<li><a href="/spec/chooseModel?model_id=2&category=new&currPage=1">SixPhone 2</a></li>
+						<li><a href="/spec/chooseModel?model_id=3&category=new&currPage=1">SixPhone 1</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="">노트북</a>
+					<a href="/spec/viewModels?product=sixBook">노트북</a>
 					<ul>
-						<li><a href="#">Note1</a></li>
-						<li><a href="#">Note2</a></li>
-						<li><a href="#">Note3</a></li>
+						<li><a href="spec/chooseModel?model_id=4&category=new&currPage=1">PRO</a></li>
+						<li><a href="spec/chooseModel?model_id=5&category=new&currPage=1">EXP</a></li>
+						<li><a href="spec/chooseModel?model_id=6&category=new&currPage=1">Light</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="#">태블릿</a>
+					<a href="/spec/viewModels?product=sixTablet">태블릿</a>
 					<ul>
-						<li><a href="#">Tablet1</a></li>
-						<li><a href="#">Tablet2</a></li>
-						<li><a href="#">Tablet3</a></li>
+						<li><a href="/spec/chooseModel?model_id=7&category=new&currPage=1">Tablet PRO</a></li>
+						<li><a href="/spec/chooseModel?model_id=8&category=new&currPage=1">Tablet EXP</a></li>
+						<li><a href="/spec/chooseModel?model_id=9&category=new&currPage=1">Tablet Light</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="#">워치</a>
+					<a href="/spec/viewModels?product=sixWatch">워치</a>
 					<ul>
-						<li><a href="#">Watch1</a></li>
-						<li><a href="#">Watch2</a></li>
-						<li><a href="#">Watch3</a></li>
+						<li><a href="/spec/chooseModel?model_id=10&category=new&currPage=1">Watch 3</a></li>
+						<li><a href="/spec/chooseModel?model_id=11&category=new&currPage=1">Watch 2</a></li>
+						<li><a href="/spec/chooseModel?model_id=12&category=new&currPage=1">Watch 1</a></li>
 					</ul>
 				</li>
 				<li>
@@ -156,23 +169,21 @@
 				<li>
 					<a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
 				</li>
-				<li>
-					<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-				</li>
 				<sec:authorize access="isAnonymous()">
 					<li class="user user_menu">
 						<a href="/login"><i class="fa-solid fa-user"></i></a>
 					</li>
 				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_MEMBER')">
+				<sec:authorize access="isAuthenticated()">
 					<li class="user user_menu">
 						<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
 					</li>
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_MEMBER')">
+					<li>
+						<a href="/carts/member/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+					</li>
 					<li class="user user_menu">
 						<form action="/members/logout" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type="image" value="로그아웃">
 						</form>
 					</li>
@@ -188,6 +199,46 @@
 
 		</nav>
 	</header>
+
+	<script>
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		sessionStorage.setItem("mem_id","${user.mem_id}");
+		function enterRoom() {
+			var user = "${user.mem_id}";
+			console.log(user);
+			$.ajax({
+				//url: '/chat/member/createRoom'.
+				url: '/createRoom',
+				data: {mem_id : user},
+				type: 'post',
+				dataType: 'json',
+				beforeSend: function (xhr) {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+				},
+				success: function (res) {
+					location.href="/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
+				},
+				error: function (err) {
+					console.log(err);
+				}
+			});
+	}
+
+	$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
+		if (xhr.status == 403) {
+			window.location.href ="/login";
+		}
+	});
+
+	function enter(){
+		if(documnet.getElementById("h_box") == ""){
+			alert("값을 입력해주세요");
+			return;
+		}
+		document.getElementById("search").submit();
+	}
+	</script>
 </div>
 </body>
 </html>

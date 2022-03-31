@@ -4,51 +4,6 @@
 <head>
     <title>Title</title>
 
-    <style>
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-
-            /* 숨기기 */
-            z-index: -1;
-            opacity: 0;
-        }
-        .show {
-            opacity: 1;
-            z-index: 1000;
-            transition: all 0.5s;
-        }
-        .window {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .popup {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-
-            /* 임시 지정 */
-            width: 500px;
-            height: 500px;
-
-            /* 초기에 약간 아래에 배치 */
-            transform: translate(-50%, -40%);
-        }
-
-        .show .popup {
-            transform: translate(-50%, -50%);
-            transition: all 0.5s;
-        }
-    </style>
 </head>
 <body>
 <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
@@ -186,16 +141,6 @@
     <input type="hidden" name="spec_network" id="networkInput">  <!--input from user-->
 </form>
 
-<div class="background" >
-    <div class="window">
-        <button id="close">팝업닫기</button>
-        <div class="popup" id="modal-pop">
-        </div>
-        <div>
-            <div></div>
-        </div>
-    </div>
-</div>
 
 
 <script>
@@ -219,6 +164,7 @@
         //check whether user choose all of the options
         let userInput = $("#userPhone").serializeArray();
         for(i=3; i < userInput.length; i++){
+            console.log(userInput[i].value);
             if(userInput[i].value.length == 0){
                 return;
             }
@@ -268,7 +214,8 @@
             return;
         }
         if(Object.keys(userPhone).length == 0){
-            document.getElementById("modal-pop").innerText = "옵션을 선택헤주세요";
+            alert("옵션을 선택헤주세요");
+            //document.getElementById("modal-pop").innerText = "옵션을 선택헤주세요";
         }else{
             //modal work if user says yes to cart no then stays
             $.ajax({
@@ -284,11 +231,14 @@
                 },
                 success: function(data) {
                     //alert("장바구니로 이동 하시겠습니까?")
-                    document.getElementById("modal-pop").innerText = "장바구니로 이동 하시 겠습니까?";
+                    alert("장바구니로 이동");
+                    location.href="/carts/member/cart";
+                    //document.getElementById("modal-pop").innerText = "장바구니로 이동 하시 겠습니까?";
                 },
                 error:function(request){
                     if(request.status == 403) {
-                        document.getElementById("modal-pop").innerText = "로그인해주세요";
+                        alert("로그인 해주세요")
+                        //document.getElementById("modal-pop").innerText = "로그인해주세요";
                     }else{
                         alert(request.status);
                     }
