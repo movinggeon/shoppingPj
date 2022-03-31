@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.group6.shopping.carts.services.CartsService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Handles requests for the application home page.
@@ -27,8 +30,9 @@ public class HomeController {
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session) throws Exception {
+	public String home(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("home");
+
 
 		return "home";
 	}

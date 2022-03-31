@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -83,14 +84,8 @@
 				<input id="h_box" class="holder" type="text" placeholder="Search" value="" name="searchInput" onkeyup="enter()"/>
 			</form>
 			<div class="h_box">
-				<div class="h1" style="text-align: left;">
-					<ul>
-						<h4>최근 검색어</h4>
-						<li>워치</li>
-						<li>Teamsix</li>
-						<li></li>
-						<li></li>
-					</ul>
+				<div class="h1" id="searchHistory" style="text-align: left;">
+
 				</div>
 				<div class="h2" style="text-align: left;">
 					<ul>
@@ -201,6 +196,43 @@
 	</header>
 
 	<script>
+		var search = document.cookie;
+		console.log(search);
+		var searchList = [];
+
+		var jession = search.indexOf("JSESSIONID");
+		if(jession != -1){
+			var first = search.indexOf(';');
+			search = search.substring(jessfirst+2);
+		}
+		console.log("after cut: " + search);
+		for(var i = 0 ; i < 3; i++){
+			var first = search.indexOf('=');
+
+			if(first != -1){
+				var second = search.indexOf(';');
+				if(second == -1){
+					searchList[i] = search.substring(first+1);
+					break;
+				}else{
+					searchList[i] = search.substring(first+1, second);
+					search = search.substring(second+2);
+				}
+			}
+		}
+		console.log("searchList: " + searchList);
+		var listContainer = document.getElementById("searchHistory");
+		var list = "<ul><h4>최근검색어</h4>";
+		if(searchList.length == 0){
+			list += "<li>검색기록이 없습니다.</li>";
+		}else{
+			for(var j = 0; j < searchList.length; j++){
+				list += "<li>" + searchList[j] + "</li>";
+			}
+		}
+		list+= "</ul>";
+		listContainer.innerHTML = list;
+
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		sessionStorage.setItem("mem_id","${user.mem_id}");

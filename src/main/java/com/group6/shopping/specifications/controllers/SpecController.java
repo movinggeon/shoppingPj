@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.parser.Entity;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.util.*;
 
@@ -137,27 +138,27 @@ public class SpecController {
             cookieKey.add(c.getName());
         }
 
-        Cookie search;
         if(!cookieKey.contains("search1")){
-            //search = new Cookie("search1", searchInput);
-            cookiesMap.put("search1", searchInput);
+            cookiesMap.put("search1", URLEncoder.encode(searchInput, "utf-8"));
         }else if(!cookieKey.contains("search2")){
-            //search = new Cookie("search2", searchInput);
-            cookiesMap.put("search2", searchInput);
+            cookiesMap.put("search2", URLEncoder.encode(searchInput, "utf-8"));
         }else if(!cookieKey.contains("search3")){
-            //search = new Cookie("search3", searchInput);
-            cookiesMap.put("search3", searchInput);
+            cookiesMap.put("search3", URLEncoder.encode(searchInput, "utf-8"));
         }else{
-            search = new Cookie("search3",searchInput);
-            
+            String search3 = cookiesMap.get("search3");
+            String search2 = cookiesMap.get("search2");
 
+            cookiesMap.put("search3" ,URLEncoder.encode(searchInput, "utf-8"));
+            cookiesMap.put("search2", search3);
+            cookiesMap.put("search1", search2);
         }
 
-
-
-
-
-
+        for(Map.Entry<String, String> tmp : cookiesMap.entrySet()){
+            Cookie c = new Cookie(tmp.getKey(), tmp.getValue());
+            c.setPath("/");
+            c.setMaxAge(60*60*24*7);
+            response.addCookie(c);
+        }
         //찾아야하는 값 리스트
         SearchSpecVO searchSpecVO = specService.searchSpec();
         //검색어 정제
