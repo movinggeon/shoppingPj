@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".divTableCell").click(function(){
+		$("#memberList").click(function(){
 		    $(".context").load("/admin/nofragment/memberList?page=1");
 		});
 	});
@@ -29,7 +29,7 @@
   </div>
   <div class="divTableBody">
     <div class="divTableRow">
-      <div class="divTableCell">회원목록 </div>
+      <div class="divTableCell" id="memberList">회원목록 </div>
       <div class="divTableCell">결제목록</div>
       <div class="divTableCell">쿠폰생성</div>
       <div class="divTableCell">1:1상담</div>

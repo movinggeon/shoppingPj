@@ -31,6 +31,7 @@ public class AdminController {
 		memberList = membersService.getAllMembers();
 		
 		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberCount", memberList.size());
 		
 		return "admin/nofragment/members/memberList";
 	}
