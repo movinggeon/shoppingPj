@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <html>
 <head>
-    <!-- Required meta tags -->
+    <%--<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">--%>
     <!-- jQuery -->
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -21,37 +21,142 @@
     <title>Title</title>
 </head>
 <body>
-비밀번호 수정
-<div class="modifyPassword">
+<style>
+    @font-face {
+        font-family: "BBTreeGR";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
+        format("woff");
+        font-weight: normal;
+        font-style: normal;
+    }
+    .m_box {
+        width: 100%;
+    }
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col" class="form-control form-control-inline text-center">변경하실 비밀번호를 입력해주세요.<br>
-                    비밀번호(영문자,숫자,특수문자 조합 최소 8자)
-                </th>
-            </tr>
-            </thead>
-            <tbody>
+    .m_content {
+        margin: 0 auto;
+        max-width: 1110px;
+        text-align: left;
+        padding-left: 20px;
+        height: auto;
+        /*line-height: 48px;*/
+        font-size: 14px;
+    }
 
-            <tr>
-                <td><input type="password" id="memPassword"class="form-control form-control-inline text-center" placeholder="현재 비밀번호">
-                </td>
-            </tr>
-            <tr>
-                <td><input type="password" id="memPassword1"class="form-control form-control-inline text-center" placeholder="새 비밀번호"></td>
-            </tr>
-            <tr>
-                <td><input type="password" id="memPassword2"class="form-control form-control-inline text-center" placeholder="새 비밀번호 확인"></td>
-            </tr>
-            <tr>
-                <td><p id="passwordCheck"></p></td>
-            </tr>
-            </tbody>
-        </table>
-    <button type="button" id="pwUpdate" onclick="sendPwmodify()" class="btn btn-primary" >비밀번호 변경</button>
-    <a href="/members/member/modify" class="btn btn-default">취소</a>
+    .modify_password_form {
+        width: 50%;
+        border-collapse: collapse;
+        text-align: center;
+        margin : auto;
+    }
+    .modify_password_form tbody th {
+        width: 120px;
+        font-weight: bold;
+        vertical-align: middle;
+        /*border-bottom: 1px solid #ccc ;*/
 
+    }
+    .modify_password_form td {
+        width: 350px;
+        height: 45px;
+        vertical-align: middle;
+        /*border-bottom: 1px solid #ccc ;*/
+    }
+    .modify_password_form tbody {
+        font-weight: bold;
+        vertical-align: top;
+        border-top: 2px solid #000000;
+        border-bottom: 1px solid #ccc;
+    }
+    .input_modify_password {
+        width: 500px;
+        height: 32px;
+        font-size: 15px;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        padding-left: 10px;
+        background-color: rgb(233, 233, 233);
+        text-align: center;
+    }
+    .button_box{
+        width: 50%;
+        margin: auto;
+    }
+    .margin_top{
+        height: 100px;
+
+    }.margin_bottom{
+        height: 200px;
+
+     }.btn_password_modify {
+         width : 100px;
+         height : 35px;
+         border-radius: 8px;
+         background-color: #0071E3;
+         color : white;
+         border: 1px solid #ddd;
+         padding: 5px 5px;
+         cursor: pointer;
+         float: right;
+     }.btn_cancel {
+          width: 70px;
+          height : 35px;
+          border-radius: 8px;
+          background-color: #ababab;
+          border: 1px solid #ddd;
+          color : white;
+          padding: 5px 5px;
+          cursor: pointer;
+          float: right;
+      }
+</style>
+<div class="m_box">
+    <div class="m_content">
+        <%--<h2>비밀번호 수정</h2>--%>
+        <div class="margin_top">
+
+        </div>
+        <div class="modifyPassword">
+
+            <table class="modify_password_form">
+                <thead>
+                <tr>
+                    <th scope="col">변경하실 비밀번호를 입력해주세요.<br>
+                        비밀번호(영문자,숫자,특수문자 조합 최소 8자)
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+        <tr>
+            <td><p></p></td>
+        </tr>
+
+        <tr>
+            <td><input type="password" id="memPassword" class="input_modify_password" placeholder="현재 비밀번호">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="password" id="memPassword1" class="input_modify_password" placeholder="새 비밀번호"></td>
+        </tr>
+        <tr>
+            <td><input type="password" id="memPassword2" class="input_modify_password" placeholder="새 비밀번호 확인">
+
+        </tr>
+        <tr>
+            <td><p id="passwordCheck"></p></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="button_box">
+        <button type="button" class="btn_cancel" onclick="location.href='/members/member/modify'">취소</button>
+        <button type="button" id="pwUpdate" class="btn_password_modify" onclick="sendPwmodify()" class="btn btn-primary" >비밀번호 변경</button>
+    </div>
+            <div class="margin_bottom">
+
+            </div>
+</div>
+</div>
 </div>
 
 <!-- javascript -->
@@ -88,8 +193,10 @@
     function sendPwmodify() {
 
         var wrongPassword = !regPassword.test(memPassword1.value);
-
-        if (wrongPassword){
+        if (memPassword.value.length == 0){
+            alert('현재 비밀번호를 입력해주세요');
+        }
+        else if (wrongPassword){
             alert('잘못된 비밀번호 형식입니다.(특수문자는 @$!%*#? 중 선택)');
         }
         else if (memPassword1.value === memPassword2.value) {

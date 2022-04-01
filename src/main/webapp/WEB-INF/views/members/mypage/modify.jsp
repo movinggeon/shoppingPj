@@ -2,16 +2,12 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="com.group6.shopping.security.CustomMemDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -39,64 +35,154 @@
     String detailaddress =Imsi[1];
 
 %>
-<br><br><br>
+<style>
+    @font-face {
+        font-family: "BBTreeGR";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
+        format("woff");
+        font-weight: normal;
+        font-style: normal;
+    }
+    .m_box {
+        width: 100%;
+    }
 
-<h2>회원정보수정</h2>
-<h4>기본정보</h4>
-
-<div class="modify">
-<table class="table">
-    <thead>
-
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row">아이디</th>
-        <td><input type="text" style="border:0 solid black" id="memId" value=${user.mem_id} readonly></td>
-        <td>*ID는 수정이 불가능합니다</td>
-    </tr>
-    <tr>
-        <th scope="row">이름</th>
-        <td><input type="text" id="memName" value=${user.mem_name}></td>
-        <td><p id="nameCheck"></p></td>
-    </tr>
-    <tr>
-        <th scope="row">휴대폰번호</th>
-        <td><input type="text" id="memPhone" value=${user.mem_phone}></td>
-        <td><p id="phoneCheck"></p></td>
-    </tr>
-    <tr>
-        <th scope="row">이메일</th>
-        <td><input type="text" id="memEmail" value=${user.mem_email}></td>
-        <td><p id="emailCheck"></p></td>
-    </tr>
-    <tr>
-        <th scope="row">생년월일</th>
-        <td><input type="text" style="border:0 solid black" id="memBirth" value=${user.mem_birth} readonly></td>
-        <td>*생일쿠폰 발송으로 생년월일은 가입 이후 수정이 불가능합니다</td>
-    </tr>
-    <tr>
-        <th scope="row">주소</th>
-        <td><input type="text" size="50" id="postcode" value=${user.mem_post_code} disabled="disabled">
-            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" size="50" id="address" value="<%=address%>"  disabled="disabled"><br>
-            <input type="text" size="50" id="detailAddress" value="<%=detailaddress%>" >
-            <input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled">
-        </td>
-        <td><p id="addressCheck"></p></td>
-    </tr>
+ .m_content {
+        margin: 0 auto;
+        max-width: 1110px;
+        text-align: left;
+        padding-left: 20px;
+        height: auto;
+        /*line-height: 48px;*/
+        font-size: 13px;
+    }
 
 
-    </tbody>
-</table>
-    <button type="button" class="btn btn-primary" onclick="sendInfoModify()">정보수정</button>
+    table.modify_form {
+        width: 80%;
+        border-collapse: collapse;
+        margin : auto;
+    }
+    table.modify_form tbody th {
+        width: 120px;
+        font-weight: bold;
+        vertical-align: middle;
+        border-bottom: 1px solid #ccc ;
+    }
+    table.modify_form td {
+        width: 350px;
+        height: 50px;
+        vertical-align: middle;
+        border-bottom: 1px solid #ccc ;
+    }
+    table.modify_form tbody {
+        font-weight: bold;
+        vertical-align: top;
+        border-top: 2px solid #000000;
+    }
+     .btn_a {
+         /*display: inline-block;*/
+         width: 100px;
+         border-radius: 20px;
+         background-color: #ebebeb;
+         border: 1px solid #ddd;
+         padding: 5px 5px;
+         cursor: pointer;
+     }
+     .btn_b {
+         width : 100px;
+         border-radius: 4px;
+         background-color: #0071E3;
+         color : white;
+         border: 1px solid #ddd;
+         padding: 5px 5px;
+         cursor: pointer;
+         float: right;
+     }
+    .btn_c {
+        width : 100px;
+        border-radius: 4px;
+        background-color: #ebebeb;
+        border: 1px solid #ddd;
+        padding: 5px 5px;
+        cursor: pointer;
+        float: right;
+    }
+    .margin{
+        height: 200px;
+    }
+    .margin_a{
+        height: 100px;
+    }
+    .button_box{
+        width: 80%;
+        margin: auto;
+    }
+</style>
 
-    <c:if test="${URI ne '/members/member/modifyPassword'}">
-        <a href="/members/member/modifyPassword" class="btn btn-secondary">비밀번호 변경</a><br>
-    </c:if>
+
+<div class="m_box">
+    <div class="m_content">
+        <%--<h2>회원정보수정</h2>--%>
+        <div class="margin_a"></div>
+
+        <table class="modify_form">
+            <thead>
+            <tr>
+            <td colspan="3"><h2>기본정보</h2></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">아이디</th>
+                <td><input type="text" style="border:0 solid black" id="memId" value=${user.mem_id} readonly></td>
+                <td>*ID는 수정이 불가능합니다</td>
+            </tr>
+            <tr>
+                <th scope="row">이름</th>
+                <td> <input type="text" id="memName" value=${user.mem_name}></td>
+                <td><p id="nameCheck"></p></td>
+            </tr>
+            <tr>
+                <th scope="row">휴대폰번호</th>
+                <td><input type="text" id="memPhone" value=${user.mem_phone}></td>
+                <td><p id="phoneCheck"></p></td>
+            </tr>
+            <tr>
+                <th scope="row">이메일</th>
+                <td><input type="text" id="memEmail" value=${user.mem_email}></td>
+                <td><p id="emailCheck"></p></td>
+            </tr>
+            <tr>
+                <th scope="row">생년월일</th>
+                <td><input type="text" style="border:0 solid black" id="memBirth" value=${user.mem_birth} readonly></td>
+                <td>*생일쿠폰 발송으로 생년월일은 가입 이후 수정이 불가능합니다</td>
+            </tr>
+            <tr>
+                <th scope="row">주소</th>
+                <td>
+                    <input type="text"  id="postcode" value=${user.mem_post_code} disabled="disabled">
+                    <input type="button" class="btn_a" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" size="36" id="address" value="<%=address%>"  disabled="disabled"><br>
+                    <input type="text" size="36" id="detailAddress" value="<%=detailaddress%>" > <br>
+                    <input type="text" size="36" id="extraAddress" placeholder="참고항목" disabled="disabled">
+                </td>
+                <td><p id="addressCheck"></p></td>
+            </tr>
 
 
+            </tbody>
+        </table>
+        <div class="button_box">
+        <button type="button" class="btn_c" onclick="location.href='/members/member/modifyPassword'">비밀번호 변경</button>
+        <button type="button" class="btn_b" onclick="sendInfoModify()">정보수정</button>
+        </div>
+        <div class="margin">
+
+    </div>
 </div>
+
+
 
 
 <!-- javascript -->

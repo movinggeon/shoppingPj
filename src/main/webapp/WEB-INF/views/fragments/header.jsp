@@ -30,8 +30,8 @@
 <body>
 	<div class="wrapper">
 	<!-- Chat button -->
-	<div id="chat">
-		<button id="enterRoom" onclick="enterRoom()">asdfasdfasdf</button>
+	<div id="chat" onclick="enterRoom()">
+
 	</div>
 
 	<!-- Side menu -->

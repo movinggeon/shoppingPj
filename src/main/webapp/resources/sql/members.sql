@@ -15,3 +15,6 @@ CREATE TABLE members (
 
 COMMIT;
 select * from members;
+
+
+

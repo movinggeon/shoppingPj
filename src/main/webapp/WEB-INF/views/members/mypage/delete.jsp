@@ -3,12 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- jQuery -->
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -20,28 +15,123 @@
 
     <title>Title</title>
 </head>
+<style>
+    @font-face {
+        font-family: "BBTreeGR";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
+        format("woff");
+        font-weight: normal;
+        font-style: normal;
+    }
+    .m_box {
+        width: 100%;
+    }
 
-<h2>회원탈퇴</h2>
+    .m_content {
+        margin: 0 auto;
+        max-width: 1110px;
+        text-align: left;
+        padding-left: 20px;
+        height: auto;
+        /*line-height: 48px;*/
+        font-size: 14px;
+    }.deleteMem_form {
+         width: 50%;
+         border-collapse: collapse;
+         text-align: center;
+         margin : auto;
+     }
+    .deleteMem_form tbody th {
+        width: 120px;
+        font-weight: bold;
+        vertical-align: middle;
+        /*border-bottom: 1px solid #ccc ;*/
+
+    }
+    .deleteMem_form td {
+        width: 350px;
+        height: 45px;
+        vertical-align: middle;
+        /*border-bottom: 1px solid #ccc ;*/
+    }
+    .deleteMem_form tbody {
+        font-weight: bold;
+        vertical-align: top;
+        border-top: 2px solid #000000;
+        border-bottom: 1px solid #ccc;
+    }.input_deleteMem {
+         width: 500px;
+         height: 32px;
+         font-size: 15px;
+         border: 0;
+         border-radius: 15px;
+         outline: none;
+         padding-left: 10px;
+         background-color: rgb(233, 233, 233);
+         text-align: center;
+     }.btn_box{
+        width: 50%;
+        margin :auto;
+     }.margin_top{
+          height: 100px;
+
+      }.margin_bottom{
+           height: 200px;
+
+       }.btn_deleteMem {
+            width : 100px;
+            height : 35px;
+            border-radius: 8px;
+            background-color: #0071E3;
+            color : white;
+            border: 1px solid #ddd;
+            padding: 5px 5px;
+            cursor: pointer;
+            float: right;
+        }.btn_cancel {
+             width: 70px;
+             height : 35px;
+             border-radius: 8px;
+             background-color: #ababab;
+             border: 1px solid #ddd;
+             color : white;
+             padding: 5px 5px;
+             cursor: pointer;
+             float: right;
+         }
+
+</style>
+<div class="m_box">
+    <div class="m_content">
+<%--<h2>회원탈퇴</h2>--%>
 <div class = "delete">
-<table class="table">
+    <div class="margin_top">
+    </div>
+<table class="deleteMem_form">
     <thead>
     <tr>
-        <th scope="col" class="form-control form-control-inline text-center">탈퇴하시려면 현재 비밀번호를 입력해주세요</th>
+        <th scope="col" >탈퇴하시려면 현재 비밀번호를 입력해주세요</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td><input type="password" id="memPassword"class="form-control form-control-inline text-center" placeholder="현재 비밀번호">
+        <td><input type="password" class="input_deleteMem" id="memPassword" placeholder="현재 비밀번호">
         </td>
     </tr>
     <tr>
-        <td><input type="password" id="passwordReEnter"class="form-control form-control-inline text-center" placeholder="비밀번호 확인">
+        <td><input type="password" class="input_deleteMem" id="passwordReEnter" placeholder="비밀번호 확인">
         </td>
     </tr>
     </tbody>
 </table>
-<button type="button" id="pwUpdate" onclick="DeleteMem()" class="btn btn-primary" >회원탈퇴</button>
-<a href="/members/member/modify" class="btn btn-default">취소</a>
+    <div class="btn_box">
+        <button type="button" class="btn_cancel" onclick="location.href='/members/member/modify'">취소</button>
+        <button type="button" class="btn_deleteMem" id="pwUpdate" onclick="DeleteMem()" >회원탈퇴</button>
+    </div>
+    <div class="margin_bottom">
+    </div>
+        </div>
+    </div>
 </div>
 
 <!-- javascript -->

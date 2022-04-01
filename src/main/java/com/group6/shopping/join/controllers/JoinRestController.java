@@ -1,28 +1,26 @@
 package com.group6.shopping.join.controllers;
 
 
+import com.group6.shopping.coupons.services.CouponsService;
+import com.group6.shopping.members.service.MembersService;
+import com.group6.shopping.members.vo.MembersVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.group6.shopping.coupons.services.CouponsService;
-import com.group6.shopping.coupons.vo.CouponsVO;
-import com.group6.shopping.members.service.MembersService;
-import com.group6.shopping.members.vo.MembersVO;
-
 @RestController
 public class JoinRestController {
 
     @Autowired
     private MembersService membersService;
-    
+
     @Autowired
     private CouponsService couponsService;
 
@@ -53,12 +51,12 @@ public class JoinRestController {
 
     @PostMapping(value = "/join/joinProcess")
     public HashMap<String, Object> joinProcess(@RequestBody HashMap<String, Object> param) throws Exception {
-    	
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         cal.add(Calendar.MONTH, 1);
-        
+
         String coupon_valid_date = df.format(cal.getTime());
         String coupon_desc = "신규가입 쿠폰";
 
