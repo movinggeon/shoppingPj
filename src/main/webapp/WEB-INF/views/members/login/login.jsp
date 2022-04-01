@@ -160,7 +160,7 @@
 </div>
 <script>
 	// 카카오 초기화
-	Kakao.init('키는 나중에 넣겟음니다');
+	Kakao.init('4bc559a7fbc2dd50e2a25360f8815a30');
 	console.log(Kakao.isInitialized()); // sdk초기화여부판단
 	//카카오로그인
 	function kakaoLogin() {
