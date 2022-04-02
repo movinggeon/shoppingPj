@@ -14,6 +14,12 @@
 		$("#memberList").click(function(){
 		    $(".context").load("/admin/nofragment/memberList?page=1");
 		});
+		$("#createCoupon").click(function(){
+		    $(".context").load("/admin/nofragment/createCoupon");
+		});
+		$("#deleteCoupon").click(function(){
+		    $(".context").load("/admin/nofragment/CouponList?name=delete&page=1");
+		});
 	});
 </script>
 </head>
@@ -30,15 +36,21 @@
   <div class="divTableBody">
     <div class="divTableRow">
       <div class="divTableCell" id="memberList">회원목록 </div>
-      <div class="divTableCell">결제목록</div>
-      <div class="divTableCell">쿠폰생성</div>
-      <div class="divTableCell">1:1상담</div>
+      <div class="divTableCell" id="payList">결제목록</div>
+      <div class="divTableCell" id="createCoupon">쿠폰생성</div>
+      <div class="divTableCell" id="service">1:1상담</div>
       </div>
     <div class="divTableRow">
-      <div class="divTableCell">쿠폰지급</div>
+      <div class="divTableCell" id="sendCoupon"></div>
       <div class="divTableCell"></div>
-      <div class="divTableCell">이벤트생성</div>
-      <div class="divTableCell">제품등록</div>
+      <div class="divTableCell" id="deleteCoupon">쿠폰삭제</div>
+      <div class="divTableCell" id="createProduct">제품등록</div>
+    </div>
+    <div class="divTableRow">
+      <div class="divTableCell"></div>
+      <div class="divTableCell"></div>
+      <div class="divTableCell" id="createEvent">이벤트생성</div>
+      <div class="divTableCell"></div>
     </div>
   </div>
 </div>

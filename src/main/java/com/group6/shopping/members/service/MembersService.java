@@ -19,4 +19,5 @@ public interface MembersService {
     public void modifyPw(HashMap<String, String> param) throws Exception;
     public void deleteMem(String memId) throws Exception;
     public void updateEnableMem(@Param("mem_enable")int memEnable, @Param("mem_id")String memId) throws Exception;
+    public List<String> searchAdmin() throws Exception;
 }

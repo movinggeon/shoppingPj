@@ -80,16 +80,27 @@
     </c:if>
 </c:forEach>
 
-<div>
-	<div>
-		<button type="button" id="1">222</button>
-	</div>
+<div class="div-pagingBtn">
+	<div style="display: flex; padding-left: auto; padding-right: auto;">
+	<c:set var="doneLoop" value="false"/>
+	   <c:forEach var="i" begin="1" end="${totalPage }" varStatus="status">
+	     <c:if test="${not doneLoop}">
+	     	<div>
+				<button type="button" class="pagingBtn" onclick="sendPage('${i}')">${i }</button>
+			</div>
+           <c:if test="${i eq newArrival.pbNum}">
+             <c:set var="doneLoop" value="true" />
+           </c:if>   
+	     </c:if>
+	   </c:forEach>
+	  </div>
 </div>
+   
 <script type="text/javascript">
 	
-$("#1").click(function(){
-    $(".context").load("/admin/nofragment/memberList?page=2");
-});
+	function sendPage(pageNum) {
+		$(".context").load("/admin/nofragment/memberList?page=" + pageNum);
+	}
 
 	//csrf 토큰값 받기
 	var token = $("meta[name='_csrf']").attr("content");

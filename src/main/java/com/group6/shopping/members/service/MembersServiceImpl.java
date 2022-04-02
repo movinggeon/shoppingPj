@@ -71,4 +71,9 @@ public class MembersServiceImpl implements MembersService{
 	public void updateEnableMem(@Param("mem_enable")int memEnable, @Param("mem_id")String memId) throws Exception {
 		membersDAO.updateEnableMem(memEnable, memId);
 	}
+	
+	@Override
+	public List<String> searchAdmin() throws Exception {
+		return membersDAO.searchAdmin();
+	}
 }
