@@ -1,6 +1,7 @@
 package com.group6.shopping.batis;
 
 import com.group6.shopping.carts.vo.CartsVO;
+import com.group6.shopping.models.vo.ModelsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -14,4 +15,5 @@ public interface CartsDAO {
     public Integer getTotal(@Param("mem_id") String mem_id, @Param("history") String history) throws Exception;
     public CartsVO getSingleCart(CartsVO cartsVO) throws Exception;
     public int updateCart(@Param("cartsVO") CartsVO cartsVO, @Param("salePrice") int salePrice) throws Exception;
+    public List<ModelsVO> getPopularItem(int totalshow) throws Exception;
 }

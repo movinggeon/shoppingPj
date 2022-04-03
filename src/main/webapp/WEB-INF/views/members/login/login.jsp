@@ -18,7 +18,7 @@
 	<h2>${error}</h2>
 	<h2>${logout}</h2>
 	<form action="/login" method="post">
-		<div> <input type="text" name="username" /> </div>
+		<div> <input type="text" name=" username" /> </div>
 		<div> <input type="password" name="password" /> </div>
 		<div> <input type="submit"/> </div>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

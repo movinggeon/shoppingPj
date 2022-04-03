@@ -20,5 +20,8 @@ public interface SpecService {
     public int updateSpecQty(CustomMemDetails user) throws Exception;
     public SearchSpecVO searchSpec() throws Exception;
     public Map<String, Object> getSearchContext(SearchSpecVO searchSpecVO, String searchInput) throws Exception;
+    public List<String> getFieldList(String searchInputLower, List<String> field);
     public List<ModelsVO> getModel(Map<String, Object> searchContext) throws Exception;
+    public Map<Integer, Integer> orderByModelCount(List<ModelsVO> modelsVOList);
+
 }

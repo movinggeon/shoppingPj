@@ -31,6 +31,8 @@
 		<result column="model_id" property="model_id" />
 		<result column="product_id" property="product_id" />
 		<result column="model_name" property="model_name" />
+
+		<collection property="productsVO" resultMap="ProductsVO"/>
 	</resultMap>
 	<resultMap id="ProductsVO" type="ProductsVO">
 		<result column="product_id" property="product_id"/>
@@ -87,6 +89,15 @@
 							   from carts
 							   where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null) B );
 	</update>
+
+	<select id="getPopularItem" resultMap="ModelsVO">
+		select p.product_name, m.model_name, m.model_id, count(*)
+		from carts c, specifications s, models m, products p
+		where c.spec_id = s.spec_id and s.model_id = m.model_id and p.product_id = m.product_id
+		group by model_id
+		order by 4 desc
+		limit ${totalShow};
+	</select>
 
 
 </mapper>

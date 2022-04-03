@@ -127,7 +127,7 @@ public class SpecController {
 
     @RequestMapping("/searchItems")
     public String searchItems(String searchInput, Model models, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.println("입력값: " + searchInput);
+        //System.out.println("입력값: " + searchInput);
 
         Cookie[] cookies = request.getCookies();
         Map<String, String> cookiesMap = new LinkedHashMap<>();
@@ -169,7 +169,6 @@ public class SpecController {
         for(Map.Entry<String, Object> tmp : searchContext.entrySet()){
             List<String> list = (List<String>) tmp.getValue();
             if(list.size() == 0){
-                System.out.println(tmp.getKey() + " 없음");
                 searchFail++;
             }
         }

@@ -240,31 +240,105 @@
 			if(first != -1){
 				var second = search.indexOf(';');
 				if(second == -1){
+					var name = search.substring(first-7,first);
 					var result = search.substring(first+1);
 					result = result.replaceAll('+', ' ');
-					searchList[i] = result;
+					searchList[i] = name + "/" + result;
 					break;
 				}else{
+					var name = search.substring(first-7,first);
 					var result = search.substring(first+1, second);
 					result = result.replaceAll('+', ' ');
-					searchList[i] = result;
+					searchList[i] = name + "/" + result;
 					search = search.substring(second+2);
 				}
 			}
 		}
-		//console.log("searchList: " + searchList);
 		var listContainer = document.getElementById("searchHistory");
-		var list = "<ul><h4>최근검색어</h4>";
+		console.log(searchList);
+		console.log(searchList.length);
+		var list = "<ul id='historyParent'><h4>최근검색어&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span onclick='delAllHistory()'>x</span></h4>";
 		if(searchList.length == 0){
 			list += "<li>검색기록이 없습니다.</li>";
 		}else{
 			for(var j = searchList.length -1; j >= 0; j--){
-				var space = searchList[j].replaceAll(' ', '+');
-				list += "<li><a href='/spec/searchItems?searchInput="+ space +"'>" + searchList[j] + "</a></li>";
+				var split = searchList[j].split('/');
+				var name = split[0];
+				var result = split[1];
+				var input = result.replaceAll(" ", "+")
+				if(input.length > 15){
+					input = input.substring(13) + "...";
+				}
+				list += "<li id="+searchList[j]+"><a href='/spec/searchItems?searchInput="+input+"'>" +result+
+                    "</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
 			}
 		}
 		list+= "</ul>";
 		listContainer.innerHTML = list;
+
+		function removeItem(arr, value) {
+			var index = arr.indexOf(value);
+			if (index > -1) {
+				arr.splice(index, 1);
+			}
+			return arr;
+		}
+
+		function delHistory(id){
+			var split = id.split('/');
+			var name = split[0];
+			console.log(name);
+
+			document.getElementById(id).remove();
+			document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+			searchList = removeItem(searchList, id);
+			console.log(searchList);
+
+			//var cookieId = Number(name.substring(name.length-1));
+			/*
+			var todayDate = new Date();
+			todayDate.setDate(todayDate.getDate() + 7);
+			if(searchList.length == 3){
+				if(cookieId <= 2){
+					document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+					var split = searchList[2].split('/');
+					var value = split[1];
+					document.cookie = "search2" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+				}
+				if(cookieId == 1){
+					document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+					var split = searchList[1].split('/');
+					var value = split[1];
+					console.log(value);
+					document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+				}
+			}
+			if(searchList.length == 2){
+				if(cookieId == 1){
+					var split = searchList[1].split('/');
+					document.cookie = 'search2=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+					var value = split[1];
+					console.log(value);
+					document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+				}
+			}
+			*/
+			var ulParent = document.getElementById('historyParent');
+			if (ulParent.children.length == 1) {
+				ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+			}
+		}
+
+        function delAllHistory() {
+			var ulParent = document.getElementById('historyParent');
+			for(var i = 0; i < searchList.length; i++){
+				var split = searchList[i].split('/');
+				var name = split[0];
+				document.getElementById(searchList[i]).remove();
+				document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+			}
+			ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+		}
 
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
