@@ -1,11 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jhkwa
-  Date: 2022-04-05
-  Time: 오전 2:38
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Title</title>
@@ -173,9 +168,11 @@
     <div class="search_box">
         <div class="search_view">
             <div class="search_in">
-                <input class="search_Val" type="text" value="${searchInput}">
-                <button class="search_vclose" onclick="delVal()"></button>
-                <button class="search_vbtn"></button>
+            <form action="/spec/searchItems" method="get" autocomplete="off">
+                <input class="search_Val" type="text" name="searchInput" value="${searchInput}">
+                <button type="button" class="search_vclose" onclick="delVal()"></button>
+                <button type="submit" class="search_vbtn" ></button>
+            </form>
             </div>
         </div>
     </div>
@@ -186,17 +183,17 @@
         </div>
     </div>
 
-    ${searchFail}
-    <div class="container">
-        <a href="">
-            <div class="product_list">
-                <img src="../img/phone_4.png" alt="">
-                <p>xPhone</p>
-                <h4>SN-0123</h4>
-            </div>
-        </a>
+
+    <div class="container" style="margin-bottom: 60px">
+        <h3>${searchFail}</h3>
+        <c:forEach var="model" items="${result}">
+            <a href="/spec/chooseModel?model_id=${model.model_id}&category=new&currPage=1">
+                <div class="product_list">
+                    <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png"  alt="">
+                    <p>${model.productsVO.product_name} ${model.model_name}</p>
+                </div>
+            </a>
+        </c:forEach>
     </div>
-
-
 </body>
 </html>

@@ -129,7 +129,7 @@ public class SpecController {
 
     @RequestMapping("/searchItems")
     public String searchItems(String searchInput, Model models, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        //System.out.println("입력값: " + searchInput);
+       // System.out.println("입력값: " + searchInput);
 
         Cookie[] cookies = request.getCookies();
         Map<String, String> cookiesMap = new LinkedHashMap<>();
@@ -177,15 +177,17 @@ public class SpecController {
         if(searchFail == 7){
             models.addAttribute("resultNum", 0);
             models.addAttribute("searchFail", "No Search Result");
+            System.out.println("실패");
         }else{
             //검색 결과
             List<ModelsVO> resultModels = specService.getModel(searchContext);
 
-            models.addAttribute("searchInput", searchInput);
+
             models.addAttribute("resultNum", resultModels.size());
             models.addAttribute("result", resultModels);
         }
 
+        models.addAttribute("searchInput", searchInput);
         return "spec/searchItems2";
         //return "spec/searchItems";
     }

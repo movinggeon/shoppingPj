@@ -372,11 +372,13 @@
 	}
 
 	function enter(){
-		if(document.getElementById("h_box") == ""){
-			alert("값을 입력해주세요");
-			return;
+		if (window.event.keyCode == 13) {
+			if(document.getElementById("h_box") == ""){
+				alert("값을 입력해주세요");
+				return;
+			}
+			document.getElementById("search").submit();
 		}
-		document.getElementById("search").submit();
 	}
 	</script>
 </div>
