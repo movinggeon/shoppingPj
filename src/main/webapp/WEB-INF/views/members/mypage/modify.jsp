@@ -33,20 +33,17 @@
     CustomMemDetails cs =(CustomMemDetails) session.getAttribute("user");
  
 	String imsi_address = "";
-	String[] imsi = new String[2];
 	String address = "";
 	String detailaddress = "";
+	int tokenizer;
 	
  	if(cs.getMem_address().length() > 0){
-    	imsi_address = cs.getMem_address(); //+ " ";
-	    imsi = imsi_address.split("!");
-	    address =imsi[0];
-	    detailaddress =imsi[1];
+		tokenizer = cs.getMem_address().indexOf('!');
+		address = cs.getMem_address().substring(0, tokenizer);
+		detailaddress = cs.getMem_address().substring(tokenizer + 1);
 	}
- 
 %>
 <br><br><br>
-
 <h2>회원정보수정</h2>
 <h4>기본정보</h4>
 
@@ -58,32 +55,32 @@
     <tbody>
     <tr>
         <th scope="row">아이디</th>
-        <td><input type="text" style="border:0 solid black" id="memId" value=${user.mem_id} readonly></td>
+        <td><input type="text" style="border:0 solid black" id="memId" value="${user.mem_id}" readonly></td>
         <td>*ID는 수정이 불가능합니다</td>
     </tr>
     <tr>
         <th scope="row">이름</th>
-        <td><input type="text" id="memName" value=${user.mem_name}></td>
+        <td><input type="text" id="memName" value="${user.mem_name}"></td>
         <td><p id="nameCheck"></p></td>
     </tr>
     <tr>
         <th scope="row">휴대폰번호</th>
-        <td><input type="text" id="memPhone" value=${user.mem_phone}></td>
+        <td><input type="text" id="memPhone" value="${user.mem_phone}"></td>
         <td><p id="phoneCheck"></p></td>
     </tr>
     <tr>
         <th scope="row">이메일</th>
-        <td><input type="text" id="memEmail" value=${user.mem_email}></td>
+        <td><input type="text" id="memEmail" value="${user.mem_email}"></td>
         <td><p id="emailCheck"></p></td>
     </tr>
     <tr>
         <th scope="row">생년월일</th>
-        <td><input type="text" style="border:0 solid black" id="memBirth" value=${user.mem_birth} readonly></td>
+        <td><input type="text" style="border:0 solid black" id="memBirth" value="${user.mem_birth}" readonly></td>
         <td>*생일쿠폰 발송으로 생년월일은 가입 이후 수정이 불가능합니다</td>
     </tr>
     <tr>
         <th scope="row">주소</th>
-        <td><input type="text" size="50" id="postcode" value=${user.mem_post_code} disabled="disabled">
+        <td><input type="text" size="50" id="postcode" value="${user.mem_post_code}" disabled="disabled">
             <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
             <input type="text" size="50" id="address" value="<%=address%>"  disabled="disabled"><br>
             <input type="text" size="50" id="detailAddress" value="<%=detailaddress%>" >

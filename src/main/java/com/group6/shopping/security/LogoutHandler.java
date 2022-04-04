@@ -1,16 +1,14 @@
 package com.group6.shopping.security;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 public class LogoutHandler implements LogoutSuccessHandler {
     @Override
@@ -25,8 +23,8 @@ public class LogoutHandler implements LogoutSuccessHandler {
         	System.out.println("LogoutHandler -> 회원정보 있음");
             session.removeAttribute("user");
             //new SecurityContextLogoutHandler().logout(request,response,auth);
-        }
 
+        }
         response.sendRedirect(defaultUrl);
     }
 }
