@@ -125,9 +125,9 @@
 				<li>
 					<a href="/spec/viewModels?product=sixBook">노트북</a>
 					<ul>
-						<li><a href="spec/chooseModel?model_id=4&category=new&currPage=1">PRO</a></li>
-						<li><a href="spec/chooseModel?model_id=5&category=new&currPage=1">EXP</a></li>
-						<li><a href="spec/chooseModel?model_id=6&category=new&currPage=1">Light</a></li>
+						<li><a href="/spec/chooseModel?model_id=4&category=new&currPage=1">PRO</a></li>
+						<li><a href="/spec/chooseModel?model_id=5&category=new&currPage=1">EXP</a></li>
+						<li><a href="/spec/chooseModel?model_id=6&category=new&currPage=1">Light</a></li>
 					</ul>
 				</li>
 				<li>
@@ -266,8 +266,8 @@
 				var name = split[0];
 				var result = split[1];
 				var input = result.replaceAll(" ", "+")
-				if(input.length > 15){
-					input = input.substring(13) + "...";
+				if(result.length > 20){
+					result = input.substring(0,21) + "...";
 				}
 				list += "<li id="+searchList[j]+"><a href='/spec/searchItems?searchInput="+input+"'>" +result+
                     "</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
@@ -287,7 +287,6 @@
 		function delHistory(id){
 			var split = id.split('/');
 			var name = split[0];
-			console.log(name);
 
 			document.getElementById(id).remove();
 			document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';

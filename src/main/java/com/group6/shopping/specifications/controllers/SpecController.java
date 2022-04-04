@@ -122,7 +122,8 @@ public class SpecController {
             models.addAttribute("boardList", boardsVOList);
             models.addAttribute("page", pTmp);
         }
-        return "spec/chooseModel";
+        return "/spec/chooseModel2";
+        //return "spec/chooseModel";
     }
 
     @RequestMapping("/searchItems")

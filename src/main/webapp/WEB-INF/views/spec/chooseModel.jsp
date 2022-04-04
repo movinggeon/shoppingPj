@@ -72,10 +72,10 @@
     <h3>${numOfBoards}</h3>
     평균 평점<br><br>
     <c:forEach var="i" begin="1" end="${roundRate}">
-        <span class="iconify" data-icon="ion:heart-sharp" style="color: #0075ff;" data-width="25"></span>
+        <span class="iconify" data-icon="ion:heart-sharp" style="color: #0071ef;" data-width="25"></span>
     </c:forEach>
     <c:forEach var="j" begin="${roundRate+1}" end="5">
-        <span class="iconify" data-icon="ion:heart-outline" style="color: #0075ff;" data-width="25"></span>
+        <span class="iconify" data-icon="ion:heart-outline" style="color: #0071ef;" data-width="25"></span>
     </c:forEach>
     <h3>${avgRate} / 5</h3>
     <div id ="category">
@@ -86,7 +86,7 @@
     </div>
     <%--후기글--%>
     <c:forEach var="rate" items="${rateList}">
-        ${rate.key} : <progress value="${(rate.value / numOfBoards) * 100}" min="0" max="100"></progress> (${rate.value})<br>
+        ${rate.key} : <progress value="${(rate.value / numOfBoards) * 100}" min="0" max="100" style="color:#0071ef;"></progress> (${rate.value})<br>
     </c:forEach>
     <c:forEach var="board" items="${boardList}">
         ${board.board_id} ${board.board_title} ${board.board_rate} <br>
