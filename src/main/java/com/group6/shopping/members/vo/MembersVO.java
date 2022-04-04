@@ -20,4 +20,5 @@ public class MembersVO {
     private int mem_point;
     private String mem_auth;
     private int mem_enable;
+
 }

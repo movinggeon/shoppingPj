@@ -1,48 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<!-- 데이터베이스 연결 --> 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521/xe" /> 
-		<property name="username" value="teamsix"/> 
-		<property name="password" value="six"/> 
+	<!-- 데이터베이스 연결 -->
+	<!--mysql -rds 설정-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="false">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://teamsix.cltsh3mcdtjy.ap-northeast-2.rds.amazonaws.com:3307/clothes?serverTimezone=Asia/Seoul&amp;useSSL=false" />
+		<property name="username" value="teamsix"/>
+		<property name="password" value="teamsixxx"/>
 	</bean>
-	
-	<!-- SqlSession --> 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+
+	<!-- SqlSession -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		
+
 		<!-- MyBatis 설정 파일의 위치를 지정합니다. -->
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-		
+
 		<!-- SQL 파일의 위치를 지정합니다. -->
-		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
-		
+		<property name="mapperLocations" value="classpath:/mappers/*.xml" />
+
 	</bean>
-	
+
 	<!-- SqlSession -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache"> 
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" /> 
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
+
+<!-- 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.group6.shopping.members.dao.MembersDAO"/>
+	</bean> -->
+
 	<!-- 트랜잭션 매니저 bean 을 등록합니다. -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
-		<property name="dataSource" ref="dataSource" /> 
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
-	<!-- 아노테이션 기반의 트랜잭션을 사용합니다. --> 
-	<tx:annotation-driven transaction-manager="transactionManager"/> 
-	
- 	<context:component-scan base-package="com.group6.shopping.members.dao"></context:component-scan>
-	<context:component-scan base-package="com.group6.shopping.members.service"></context:component-scan>
+
+	<!-- 아노테이션 기반의 트랜잭션을 사용합니다. -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.group6.shopping.batis"/>
+	</bean>
+
+	<!--<context:component-scan base-package="com.group6.shopping.members.dao"/>-->
+	<!--<context:component-scan base-package="com.group6.shopping.members.service"/>-->
+
+	<!-- gmail설정 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/> <!-- 메일서버 호스트 -->
+		<property name="port" value="587"/> <!-- 465 or 587메일서버 포트번호 -->
+		<property name="username" value="clothes.test.teamsix@gmail.com"/> <!-- 자신의 이메일 아이디 -->
+		<property name="password" value="Teamsixxx0606"/> <!-- 자신의 비밀번호 -->
+		<!-- 보안연결 SSL과 관련된 설정 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+
+			</props>
+		</property>
+	</bean>
+
 </beans>
