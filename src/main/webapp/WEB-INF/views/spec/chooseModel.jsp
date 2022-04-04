@@ -208,7 +208,7 @@
     function addCart(){
         //Object.keys(userPhone).length == 0
         //toCart == 0
-        console.log(userPhone.spec_id);
+        //console.log(userPhone.spec_id);
         if(userPhone.spec_qty <= 0){
             alert("수량이 부족합니다.");
             return;

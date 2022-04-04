@@ -196,6 +196,15 @@
 	</header>
 
 	<script>
+/*		$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
+
+			alert("수발");
+			if (xhr.status == 403) {
+				window.location.href ="/login";
+			}
+		});*/
+
+
 		var search = document.cookie;
 		//console.log("original cookie: " + search);
 		var searchList = [];
@@ -362,14 +371,8 @@
 			});
 	}
 
-	$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
-		if (xhr.status == 403) {
-			window.location.href ="/login";
-		}
-	});
-
 	function enter(){
-		if(documnet.getElementById("h_box") == ""){
+		if(document.getElementById("h_box") == ""){
 			alert("값을 입력해주세요");
 			return;
 		}

@@ -87,16 +87,13 @@
         text-align: left;
         padding-left: 2px;
     }
-
     .product_item_2 {
         padding-left: 35px;
         overflow-y: scroll;
     }
-
     .product_item_2::-webkit-scrollbar {
         display: none;
     }
-
     .ck_v:hover {
         border: 1px solid #86868b;
     }
@@ -367,11 +364,12 @@
             <hr class="produc_hr" />
             <br />
             <p>원하는 프로세서를 선택하세요.</p>
+            <div id="processor">
                 <c:forEach var="i" begin="0" end="${specDisplayVO.spec_processor.size()-1}">
                     <c:if test="${i%2 eq 0}">
-                        <div class="ck_box">
+                        <div class="ck_box" >
                     </c:if>
-                            <div class="ck_v" style="font-size: 20px; font-weight: 500">
+                            <div class="ck_v" id="${specDisplayVO.spec_processor[i]}" onclick="clickEvent(this.id, 'processorInput')" style="font-size: 20px; font-weight: 500">
                                 ${specDisplayVO.spec_processor[i]}
                             </div>
                     <c:choose>
@@ -383,15 +381,17 @@
                         </c:when>
                     </c:choose>
                 </c:forEach>
+            </div>
             <hr class="produc_hr" />
             <br />
             <p>원하는 용량을 선택하세요.</p>
+            <div id="memory">
                 <c:forEach var="i" begin="0" end="${specDisplayVO.spec_memory.size()-1}">
                     <c:if test="${i%2 eq 0}">
                         <div class="ck_box">
                     </c:if>
-                    <div class="ck_v" style="font-size: 20px; font-weight: 500">
-                            ${specDisplayVO.spec_memory[i]}
+                    <div class="ck_v" id="${specDisplayVO.spec_memory[i]}" onclick="clickEvent(this.id, 'memoryInput')" style="font-size: 20px; font-weight: 500">
+                            ${specDisplayVO.spec_memory[i]} GB
                     </div>
                     <c:choose>
                         <c:when test="${i%2 eq 1}">
@@ -402,14 +402,16 @@
                         </c:when>
                      </c:choose>
                 </c:forEach>
+            </div>
             <hr class="produc_hr" />
             <br />
             <p>원하시는 네트워크를 선택하세요</p>
+            <div id="network">
             <c:forEach var="i" begin="0" end="${specDisplayVO.spec_network.size()-1}">
                 <c:if test="${i%2 eq 0}">
-                    <div class="ck_box">
+                    <div class="ck_box" >
                 </c:if>
-                <div class="ck_v" style="font-size: 20px; font-weight: 500">
+                <div class="ck_v" id="${specDisplayVO.spec_network[i]}" onclick="clickEvent(this.id, 'networkInput')" style="font-size: 20px; font-weight: 500">
                         ${specDisplayVO.spec_network[i]}
                 </div>
                 <c:choose>
@@ -421,22 +423,37 @@
                     </c:when>
                 </c:choose>
             </c:forEach>
+            </div>
             <hr class="produc_hr" />
             <br />
             <p>보증을 추가하시겠습니까?</p>
-            <div class="ck_box">
-                <div class="ck_v">아니오</div>
-                <div class="ck_v">예</div>
+            <div id="care">
+                <div class="ck_box" >
+                    <div id="-1" onclick="clickEvent(this.id, 'careInput')" class="ck_v">아니오</div>
+                    <div id="-2" onclick="clickEvent(this.id, 'careInput')" class="ck_v">예</div>
+                </div>
             </div>
             <div class="bill_box">
                 <div class="bill_ck">
-                    <h1>\1,200,000</h1>
+                    <div id="totalPrice">
+                        <c:choose>
+                            <c:when test="${specDisplayVO.spec_price[0] == specDisplayVO.spec_price[1]}">
+                                <h1>₩${specDisplayVO.spec_price[0]}</h1>
+                            </c:when>
+                            <c:otherwise>
+                                <h1>₩${specDisplayVO.spec_price[0]} ~ ₩${specDisplayVO.spec_price[1]}</h1>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div id="totalQty">
+
+                    </div>
                     <h5>
                         VAT 비용포함<br />
                         최대 12개월 신용카드 할부
                     </h5>
                 </div>
-                <button class="basketc_btn" style="padding: 10px 0">
+                <button class="basketc_btn" onclick="addCart()" style="padding: 10px 0">
                     장바구니에 담기
                 </button>
             </div>
@@ -590,6 +607,7 @@
         <input type="hidden" name="spec_memory" id="memoryInput">  <!--input from user-->
         <input type="hidden" name="spec_network" id="networkInput">  <!--input from user-->
     </form>
+        <input type="hidden" id="qtyResult" value="">
     <script>
         // 상품 체크
         function clickEvent(id, input){
@@ -610,7 +628,95 @@
                     }
                 }
             }
-            //console.log(parents[2] == undefined);
+
+            let userInput = $("#userPhone").serializeArray();
+            for(i=3; i < userInput.length; i++){
+                console.log(userInput[i].value);
+                if(userInput[i].value.length == 0){
+                    return;
+                }
+            }
+            specCheck();
+        }
+
+        var userPhone = {};
+        function specCheck(){
+            //bring the record of spec (qty, price)
+            //form userPhone to json
+
+            let userInput = $("#userPhone").serializeArray();
+            let phone = {}
+            for(i=0; i < userInput.length; i++){
+                phone[userInput[i].name] = userInput[i].value;
+            }
+            $.ajax({
+                url:"/spec/findSpec",
+                type:"post",
+                dataType:"json",
+                data: JSON.stringify(phone),
+                contentType: "application/json;charset=utf-8",
+                beforeSend : function(xhr)
+                {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                    xhr.setRequestHeader(header, token);
+                },
+                success:function(specVO){
+                    userPhone = _.cloneDeep(specVO);
+
+                    var care = { cart_isCare : document.getElementById("careInput").value };
+                    userPhone = Object.assign(userPhone, care);
+                    document.getElementById("totalPrice").innerHTML = "<h1>₩"+ specVO.spec_price +"</h1>";
+                    document.getElementById("qtyResult").value = specVO.spec_qty;
+                    document.getElementById("totalQty").innerHTML = specVO.spec_qty +"개 남았습니다.";
+                },
+                error:function(){
+                    alert("error");
+                }
+            });
+        }
+
+        function addCart(){
+            //Object.keys(userPhone).length == 0
+            //toCart == 0
+            //console.log(userPhone.spec_id);
+            var delayStopper = document.getElementById("qtyResult").value;
+
+            if(userPhone.spec_qty <= 0){
+                alert("수량이 부족합니다.");
+                return;
+            }
+            if(Object.keys(userPhone).length == 0){
+                alert("옵션을 선택헤주세요");
+            }else{
+                if(delayStopper == "" || Number(delayStopper) != Number(userPhone.spec_qty)){
+                    alert("잠시만 기다려주세요");
+                    return;
+                }
+                //modal work if user says yes to cart no then stays
+                $.ajax({
+                    url: "/carts/member/addCart",
+                    type:"post",
+                    data:
+                        JSON.stringify(userPhone),
+                    dataType: "text",
+                    contentType: "application/json;charset=utf-8",
+                    beforeSend : function(xhr)
+                    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success: function(data) {
+                        alert("장바구니로 이동");
+                        location.href="/carts/member/cart";
+                    },
+                    error:function(request){
+                        if(request.status == 403) {
+                            alert("로그인 해주세요")
+                            location.href ="/login";
+                        }else{
+                            alert(request.status);
+                        }
+                    }
+                });
+            }
         }
 
 
