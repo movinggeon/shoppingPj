@@ -307,9 +307,27 @@
         background-color: #d9d9d9;
     }
 
-/*    .vert{
-        -webkit-transform: rotate(270deg);
-    }*/
+    .btn_a {
+        display: inline-block;
+        width: 40px;
+        border-radius: 20px;
+        background-color: #ebebeb;
+        border: 1px solid #ddd;
+        padding: 5px 5px;
+        cursor: pointer;
+    }
+
+    .btn_b {
+        color: white;
+        display: inline-block;
+        width: 40px;
+        height: 35px;
+        border-radius: 20px;
+        background-color: #0071ef;
+        border: 1px solid #0071ef;
+        padding: 5px 5px;
+        cursor: pointer;
+    }
 </style>
 
 <main class="main-content"></main>
@@ -436,7 +454,7 @@
         </div>
     </div>
 
-    <div class="review_box">
+    <div class="review_box" style="margin-bottom: 5px;">
         <div class="review">
             <a name="reviewPoint"/>
             <!--Review overall Info -->
@@ -498,13 +516,42 @@
                 </c:forEach>
             </div>
             <!--paging-->
-            <div class="rev_paging">
-
+            <div class="rev_paging" style="text-align: center; margin-top: 30px">
+                <c:choose>
+                    <c:when test="${pageError ne null}">
+                        ${pageError}
+                    </c:when>
+                    <c:otherwise>
+                        <%-- 일번 페이지가 아닐 경우 --%>
+                        <c:if test="${page.currPage ne 1}">
+                            <%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${1}#reviewPoint"><button class="btn_a"> << </button></a>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage-1}#reviewPoint"><button class="btn_a"> < </button></a>
+                        </c:if>
+                        <c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
+                            <%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
+                            <c:choose>
+                                <c:when test="${i eq page.currPage}">
+                                    <button class="btn_b">${i}</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${i}#reviewPoint"><button class="btn_a">${i}</button></a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <%--현재 페이지가 마지막 페이지가 아닐 경우--%>
+                        <c:if test="${page.currPage ne page.totalPage}">
+                            <%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage+1}#reviewPoint"><button class="btn_a"> > </button></a>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.totalPage}#reviewPoint"><button class="btn_a"> >> </button></a>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
 
-    <div class="que_box">
+    <div class="que_box" style="margin-top: 50px">
         <div class="que_list">
             <h3>자주묻는질문</h3>
 
@@ -513,27 +560,27 @@
                     <span>구입 후 배송은 언제되나요?</span>
                 </div>
                 <div class="anw">
-            <span
-            >주문하시면 배송날짜를 알려드립니다. 또한, 지역에 따라 지연될
-              경우 알림 문자로 알려드립니다.</span
-            >
+                <span
+                >주문하시면 배송날짜를 알려드립니다. 또한, 지역에 따라 지연될
+                  경우 알림 문자로 알려드립니다.</span
+                >
                 </div>
                 <div class="que">
                     <span>반품이 가능한가요?</span>
                 </div>
                 <div class="anw">
-            <span
-            >모든 제품이 양호한 상태여야 하며, 구입 후 1주일 안으로 신청시
-              반품이 가능합니다.</span
-            >
+                <span
+                >모든 제품이 양호한 상태여야 하며, 구입 후 1주일 안으로 신청시
+                  반품이 가능합니다.</span
+                >
                 </div>
                 <div class="que">
                     <span>제품 구입하는 경우 포인트 혜택을 받을 수 있나요?</span>
                 </div>
                 <div class="anw">
-            <span
-            >가입 후 구매시 5000P 포인트 혜택을 받으실 수 있습니다.</span
-            >
+                <span
+                >가입 후 구매시 5000P 포인트 혜택을 받으실 수 있습니다.</span
+                >
                 </div>
             </div>
         </div>
