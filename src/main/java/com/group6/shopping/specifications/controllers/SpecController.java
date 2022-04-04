@@ -181,10 +181,12 @@ public class SpecController {
             //검색 결과
             List<ModelsVO> resultModels = specService.getModel(searchContext);
 
+            models.addAttribute("searchInput", searchInput);
             models.addAttribute("resultNum", resultModels.size());
             models.addAttribute("result", resultModels);
         }
 
-        return "spec/searchItems";
+        return "spec/searchItems2";
+        //return "spec/searchItems";
     }
 }
