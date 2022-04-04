@@ -154,6 +154,7 @@
 		<a href="/findId" style="font-size: 14px; margin-right:10px;">아이디찾기</a>
 		<a href="/findPw" style="font-size: 14px;">비밀번호찾기</a>
 	</div>
+<<<<<<< HEAD
 <%--	<ul>
 		<li onclick="kakaoLogout();">
 			<a href="javascript:void(0)">
@@ -161,6 +162,8 @@
 			</a>
 		</li>
 	</ul>--%>
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 
 </div>
@@ -174,16 +177,22 @@
 
 		Kakao.Auth.login({
 			success: function(response) {
+<<<<<<< HEAD
 /*				var accessToken=Kakao.Auth.getAccessToken('4bc559a7fbc2dd50e2a25360f8815a30');
 				Kakao.Auth.setAccessToken(accessToken);
 				console.log(accessToken);*/
 
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 				Kakao.API.request({ // 사용자 정보 가져오기
 					url: '/v2/user/me',
 					success: (response) => {
 						console.log(response);
 						var kakaoid = response.id+"KAKAO";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 						console.log(kakaoid);
 						jQuery.ajax({
 							"type" : "post",
@@ -242,7 +251,11 @@
 		});
 	}
 
+<<<<<<< HEAD
 	function createHiddenLoginForm(kakaoid/*,accessToken*/){
+=======
+	function createHiddenLoginForm(kakaoid){
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 		var frm = document.createElement('form');
 		frm.setAttribute('method', 'post');
 		frm.setAttribute('action', '/login');
@@ -265,22 +278,29 @@
 		hiddenInput3.setAttribute('name',"${_csrf.parameterName}");
 		hiddenInput3.setAttribute('value',"${_csrf.token}");
 
+<<<<<<< HEAD
 /*		//토큰
 		var hiddenInput4 = document.createElement('input');
 		hiddenInput4.setAttribute('type','hidden');
 		hiddenInput4.setAttribute('name','accessToken');
 		hiddenInput4.setAttribute('value',accessToken);*/
 
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 		frm.appendChild(hiddenInput);
 		frm.appendChild(hiddenInput2);
 		frm.appendChild(hiddenInput3);
+<<<<<<< HEAD
 /*		frm.appendChild(hiddenInput4);*/
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 		document.body.appendChild(frm);
 		frm.submit();
 
 	}
+<<<<<<< HEAD
 /*
 	function kakaoLogout() {
 	/!*	Kakao.init('4bc559a7fbc2dd50e2a25360f8815a30');
@@ -298,5 +318,9 @@
 <a href="/members/join">회원가입</a>
 <a href="/members/findId">아이디찾기</a>
 <a href="/members/findPw">비밀번호찾기</a>
+=======
+
+</script>
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 </body>
 </html>

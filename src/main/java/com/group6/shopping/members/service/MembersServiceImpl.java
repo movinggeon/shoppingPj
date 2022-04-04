@@ -76,6 +76,7 @@ public class MembersServiceImpl implements MembersService{
 	public List<String> searchAdmin() throws Exception {
 		return membersDAO.searchAdmin();
 	}
+<<<<<<< HEAD
 
 	public List<String> findId(String memEmail) throws Exception {
 		return membersDAO.findId(memEmail);
@@ -96,4 +97,6 @@ public class MembersServiceImpl implements MembersService{
 		membersDAO.findPw(param);
 	}
 
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 }

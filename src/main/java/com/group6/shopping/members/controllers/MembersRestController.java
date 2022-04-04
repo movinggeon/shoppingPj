@@ -3,6 +3,7 @@ package com.group6.shopping.members.controllers;
 import com.group6.shopping.members.service.MembersService;
 import com.group6.shopping.members.vo.MembersVO;
 import com.group6.shopping.security.CustomMemDetails;
+<<<<<<< HEAD
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,6 +21,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 @RestController
 @RequestMapping("/members")
@@ -30,6 +42,7 @@ public class MembersRestController {
 
     @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -143,6 +156,8 @@ public class MembersRestController {
 //    }
 >>>>>>> origin/chaeyeon1
 >>>>>>> a91597cf2819d60b7cdbdffc480cedc368c00a90
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
     @PostMapping(value = "member/modify/modifyProcess")
 
@@ -231,6 +246,7 @@ public class MembersRestController {
 
         return result;
     }
+<<<<<<< HEAD
 
     @PostMapping(value = "/findId/sendFindId")
     public HashMap<String, Object> sendFindId(@RequestBody HashMap<String, Object> param) throws Exception {
@@ -325,5 +341,7 @@ public class MembersRestController {
         }
         return sb.toString();
     }
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 }
 

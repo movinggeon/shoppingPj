@@ -31,6 +31,7 @@
 <%
 
     CustomMemDetails cs =(CustomMemDetails) session.getAttribute("user");
+<<<<<<< HEAD
  
 	String imsi_address = "";
 	String address = "";
@@ -44,6 +45,18 @@
 	}
 %>
 <br><br><br>
+=======
+
+    String imsi_address = cs.getMem_address();
+
+    String[] Imsi = imsi_address.split("!");
+    String address =Imsi[0];
+    String detailaddress =Imsi[1];
+
+%>
+<br><br><br>
+
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 <h2>회원정보수정</h2>
 <h4>기본정보</h4>
 
@@ -55,32 +68,56 @@
     <tbody>
     <tr>
         <th scope="row">아이디</th>
+<<<<<<< HEAD
         <td><input type="text" style="border:0 solid black" id="memId" value="${user.mem_id}" readonly></td>
+=======
+        <td><input type="text" style="border:0 solid black" id="memId" value=${user.mem_id} readonly></td>
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
         <td>*ID는 수정이 불가능합니다</td>
     </tr>
     <tr>
         <th scope="row">이름</th>
+<<<<<<< HEAD
         <td><input type="text" id="memName" value="${user.mem_name}"></td>
+=======
+        <td><input type="text" id="memName" value=${user.mem_name}></td>
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
         <td><p id="nameCheck"></p></td>
     </tr>
     <tr>
         <th scope="row">휴대폰번호</th>
+<<<<<<< HEAD
         <td><input type="text" id="memPhone" value="${user.mem_phone}"></td>
+=======
+        <td><input type="text" id="memPhone" value=${user.mem_phone}></td>
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
         <td><p id="phoneCheck"></p></td>
     </tr>
     <tr>
         <th scope="row">이메일</th>
+<<<<<<< HEAD
         <td><input type="text" id="memEmail" value="${user.mem_email}"></td>
+=======
+        <td><input type="text" id="memEmail" value=${user.mem_email}></td>
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
         <td><p id="emailCheck"></p></td>
     </tr>
     <tr>
         <th scope="row">생년월일</th>
+<<<<<<< HEAD
         <td><input type="text" style="border:0 solid black" id="memBirth" value="${user.mem_birth}" readonly></td>
+=======
+        <td><input type="text" style="border:0 solid black" id="memBirth" value=${user.mem_birth} readonly></td>
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
         <td>*생일쿠폰 발송으로 생년월일은 가입 이후 수정이 불가능합니다</td>
     </tr>
     <tr>
         <th scope="row">주소</th>
+<<<<<<< HEAD
         <td><input type="text" size="50" id="postcode" value="${user.mem_post_code}" disabled="disabled">
+=======
+        <td><input type="text" size="50" id="postcode" value=${user.mem_post_code} disabled="disabled">
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
             <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
             <input type="text" size="50" id="address" value="<%=address%>"  disabled="disabled"><br>
             <input type="text" size="50" id="detailAddress" value="<%=detailaddress%>" >
@@ -101,6 +138,10 @@
 
 </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 <!-- javascript -->
 <script type="text/javascript">
 
@@ -121,6 +162,10 @@
     var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
     //회원이름 정보 확인
     memName.onblur = function (e) {
         if(memName.value.length == 0){
@@ -282,5 +327,9 @@
 
 </script>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 </body>
 </html>

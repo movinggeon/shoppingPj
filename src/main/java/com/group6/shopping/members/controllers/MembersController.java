@@ -2,12 +2,15 @@ package com.group6.shopping.members.controllers;
 
 import java.io.IOException;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Random;
 >>>>>>> a91597cf2819d60b7cdbdffc480cedc368c00a90
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,9 +51,15 @@ public class MembersController {
 	public String mypage(HttpSession session, Model model) throws Exception {
 		
 		System.out.println("mypage로 이동");
+<<<<<<< HEAD
 		
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 		
+=======
+		
+		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
+		
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 		int count = couponsService.countCoupon(cs.getMem_id());
 		
 		System.out.println(count);
@@ -63,6 +72,7 @@ public class MembersController {
 	public String modify(HttpServletRequest request) {
 		System.out.println("modify 호출");
 		return "members/mypage/modify";
+<<<<<<< HEAD
 	}
 	@RequestMapping(value ="/member/delete")
 	public String delete(HttpServletRequest requet){
@@ -75,6 +85,14 @@ public class MembersController {
 		System.out.println("아이디 찾기 이동");
 		return "members/login/findId";
 	}
+=======
+	}
+	@RequestMapping(value ="/member/delete")
+	public String delete(HttpServletRequest requet){
+		System.out.println("회원탈퇴 이동");
+		return "members/mypage/delete";
+	}
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 	@RequestMapping(value = "/member/modifyPassword")
 	public String modifyPassword(HttpServletRequest request){
@@ -86,6 +104,7 @@ public class MembersController {
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@RequestMapping(value = "/findPw")
 	public String findPw(HttpServletRequest request){
@@ -136,6 +155,10 @@ public class MembersController {
 		LogoutHandler logoutHandler = new LogoutHandler();
 		logoutHandler.onLogoutSuccess(request, response, auth);
 >>>>>>> origin/chaeyeon1
+=======
+		LogoutHandler logoutHandler = new LogoutHandler();
+		logoutHandler.onLogoutSuccess(request, response, auth);
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 	}
 
 }

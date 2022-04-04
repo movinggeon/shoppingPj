@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Title</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="/resources/static/css/cart.css" type="text/css">
 
 </head>
@@ -67,6 +68,48 @@ ${qtyZero}<br>
         </div>
         </div>
 </div>
+=======
+</head>
+<body>
+
+<h1>장바구니</h1>
+<hr>
+
+${qtyError}<br>
+${qtyZero}<br>
+<c:forEach items="${carts}" var="items">
+    <div id =${items.cart_id}>
+        ${items.productsVO.product_name} ${items.modelsVO.model_name}${items.specVO.spec_color} <br>
+        ${items.cart_id}
+        <span id ="pri${items.cart_id}">${items.cart_price * items.cart_qty}</span>
+
+        <select id="qty${items.cart_id}" onchange="updateQty(this.id, this.value)">
+            <c:forEach var="i" begin="1" end="${items.specVO.spec_qty}">
+                <c:choose>
+                    <c:when test="${i eq items.cart_qty}">
+                        <option value="${i}" selected>${i}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${i}">${i}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select>
+        <div id="del${items.cart_id}" onclick="delCart(this.id)">
+            삭제
+        </div>
+        <hr>
+    </div>
+</c:forEach>
+
+
+
+<span id="totalPrice">
+    <h1 style="display: inline">${totalPrice}</h1>
+</span><h1 style="display: inline">원</h1><br>
+<a href="/carts/member/mailinginformation">주소지 설정</a>
+
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 <script>
     function updateQty(id ,value){
         var cartId = id.substring(3);
@@ -118,6 +161,12 @@ ${qtyZero}<br>
         });
     }
 </script>
+<<<<<<< HEAD
 </div>
 </body>
 </html>
+=======
+
+</body>
+</html>
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463

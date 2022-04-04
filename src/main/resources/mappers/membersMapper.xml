@@ -51,18 +51,25 @@
 		SET mem_password=#{mem_password}
 		WHERE mem_id=#{mem_id}
 	</update>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 	<delete id="deleteMem">
 		DELETE
 		FROM members
 		WHERE mem_id=#{mem_id}
 	</delete>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<select id="findId" resultType="String">
 =======
 
 	<select id="findId" resultType="String">
 >>>>>>> a91597cf2819d60b7cdbdffc480cedc368c00a90
+=======
+		<select id="findId" resultType="String">
+>>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 		SELECT mem_id
 		FROM members
 		WHERE mem_email=#{mem_email}
