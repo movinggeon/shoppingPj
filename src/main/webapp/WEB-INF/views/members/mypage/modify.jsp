@@ -31,13 +31,19 @@
 <%
 
     CustomMemDetails cs =(CustomMemDetails) session.getAttribute("user");
-
-    String imsi_address = cs.getMem_address();
-
-    String[] Imsi = imsi_address.split("!");
-    String address =Imsi[0];
-    String detailaddress =Imsi[1];
-
+ 
+	String imsi_address = "";
+	String[] imsi = new String[2];
+	String address = "";
+	String detailaddress = "";
+	
+ 	if(cs.getMem_address().length() > 0){
+    	imsi_address = cs.getMem_address(); //+ " ";
+	    imsi = imsi_address.split("!");
+	    address =imsi[0];
+	    detailaddress =imsi[1];
+	}
+ 
 %>
 <br><br><br>
 
@@ -98,7 +104,6 @@
 
 </div>
 
-
 <!-- javascript -->
 <script type="text/javascript">
 
@@ -117,7 +122,6 @@
     //전화번호
     var memPhone = document.querySelector('#memPhone');
     var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/;
-
 
 
     //회원이름 정보 확인
@@ -280,7 +284,6 @@
     }
 
 </script>
-
 
 </body>
 </html>
