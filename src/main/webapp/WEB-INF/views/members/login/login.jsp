@@ -154,13 +154,6 @@
 		<a href="/findId" style="font-size: 14px; margin-right:10px;">아이디찾기</a>
 		<a href="/findPw" style="font-size: 14px;">비밀번호찾기</a>
 	</div>
-<%--	<ul>
-		<li onclick="kakaoLogout();">
-			<a href="javascript:void(0)">
-				<span>카카오 로그아웃</span>
-			</a>
-		</li>
-	</ul>--%>
 
 
 </div>
@@ -174,16 +167,11 @@
 
 		Kakao.Auth.login({
 			success: function(response) {
-/*				var accessToken=Kakao.Auth.getAccessToken('4bc559a7fbc2dd50e2a25360f8815a30');
-				Kakao.Auth.setAccessToken(accessToken);
-				console.log(accessToken);*/
-
 				Kakao.API.request({ // 사용자 정보 가져오기
 					url: '/v2/user/me',
 					success: (response) => {
 						console.log(response);
 						var kakaoid = response.id+"KAKAO";
-
 						console.log(kakaoid);
 						jQuery.ajax({
 							"type" : "post",
@@ -242,7 +230,7 @@
 		});
 	}
 
-	function createHiddenLoginForm(kakaoid/*,accessToken*/){
+	function createHiddenLoginForm(kakaoid){
 		var frm = document.createElement('form');
 		frm.setAttribute('method', 'post');
 		frm.setAttribute('action', '/login');
@@ -265,34 +253,15 @@
 		hiddenInput3.setAttribute('name',"${_csrf.parameterName}");
 		hiddenInput3.setAttribute('value',"${_csrf.token}");
 
-/*		//토큰
-		var hiddenInput4 = document.createElement('input');
-		hiddenInput4.setAttribute('type','hidden');
-		hiddenInput4.setAttribute('name','accessToken');
-		hiddenInput4.setAttribute('value',accessToken);*/
-
 
 		frm.appendChild(hiddenInput);
 		frm.appendChild(hiddenInput2);
 		frm.appendChild(hiddenInput3);
-/*		frm.appendChild(hiddenInput4);*/
 
 		document.body.appendChild(frm);
 		frm.submit();
 
 	}
-/*
-	function kakaoLogout() {
-	/!*	Kakao.init('4bc559a7fbc2dd50e2a25360f8815a30');
-		Kakao.isInitialized();*!/
-		if (!Kakao.Auth.getAccessToken('4bc559a7fbc2dd50e2a25360f8815a30')){
-			console.log('로그인안됨');
-			return;
-		}
-		Kakao.Auth.logout(function(){
-			console.log(Kakao.Auth.getAccessToken('4bc559a7fbc2dd50e2a25360f8815a30'));
-		});
-	}*/
 
 </script>
 </body>

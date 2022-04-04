@@ -34,4 +34,19 @@ public class CouponsServiceImpl implements CouponsService{
     public void insertCoupon(HashMap<String, Object> param) throws Exception {
     	couponsDAO.insertCoupon(param);
     }
+    
+    @Override
+    public void createCoupon(HashMap<String, Object> param) throws Exception {
+    	couponsDAO.createCoupon(param);
+    }
+    
+    @Override
+    public List<CouponsVO> getAdminCoupons(String memId) throws Exception {
+    	return couponsDAO.getAdminCoupons(memId);
+    }
+    
+    @Override
+    public void deleteCoupon(String couponDecs) throws Exception {
+    	couponsDAO.deleteCoupon(couponDecs);
+    }
 }

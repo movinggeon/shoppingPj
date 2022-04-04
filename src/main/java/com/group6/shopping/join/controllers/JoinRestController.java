@@ -80,12 +80,13 @@ public class JoinRestController {
         memPhone = memPhone.substring(0, 3) + "-" + memPhone.substring(3, 7) + "-" + memPhone.substring(7, 11);
 
         MembersVO membersVO = new MembersVO(memName, memId, memPassword, memEmail, memPhone, memBirth, memPostCode, memAddress, memPoint, memAuth, 1);
+        membersService.insertMem(membersVO);
+        
         queryMap.put("mem_id", memId);
         queryMap.put("coupon_desc", coupon_desc);
         queryMap.put("coupon_pct", 30);
         queryMap.put("coupon_price", 0);
         queryMap.put("coupon_valid_date", coupon_valid_date);
-        membersService.insertMem(membersVO);
         couponsService.insertCoupon(queryMap);
 
         result.put("success", "회원가입이 완료되었습니다.");

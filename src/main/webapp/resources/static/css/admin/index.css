@@ -16,6 +16,13 @@ div.minimalistBlack {
   font-size: 13px;
   text-align: center;
 }
+.divTable.minimalistBlack .divTableBody .divTableCell p{
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	width: 50%;
+}
 .divTable.minimalistBlack .divTableHeading {
   background: #CFCFCF;
   background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
@@ -50,3 +57,7 @@ div.context{
 .divTableHeading { display: table-header-group;}
 .divTableFoot { display: table-footer-group;}
 .divTableBody { display: table-row-group;}
+
+.divTableCell p:hover {
+	cursor: pointer;
+}
