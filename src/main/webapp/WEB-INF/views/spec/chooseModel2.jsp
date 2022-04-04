@@ -64,18 +64,6 @@
         font-size: 12px;
         cursor: pointer;
     }
-
-    .md_v {
-        box-sizing: border-box;
-        width: 430px;
-        height: 82px;
-        border: 1px solid #d2d2d7;
-        border-radius: 10px;
-        line-height: 82px;
-        font-size: 15px;
-        padding-left: 18px;
-        margin-bottom: 10px;
-    }
     .ck_box {
         display: flex;
         width: 430px;
@@ -109,7 +97,6 @@
         display: none;
     }
 
-    .md_v:hover,
     .ck_v:hover {
         border: 1px solid #86868b;
     }
@@ -339,7 +326,7 @@
 
     <div class="container">
         <div class="product_item product_item_1">
-            <img src="../img/img9.jpg" alt="" />
+            <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="" />
             <!-- <p>무료배송</p><p>무료반품</p> -->
         </div>
         <div class="product_item product_item_2">
@@ -356,11 +343,12 @@
                 </c:choose>
             </h5>
             <p style="margin-top: 10px; text-align: left">색상을 선택하세요.</p>
+            <div id = "price">
                 <c:forEach var="i" begin="0" end="${specDisplayVO.spec_color.size()-1}">
                     <c:if test="${i%2 eq 0}">
                     <div class="ck_box">
                     </c:if>
-                        <div class="ck_v">
+                        <div class="ck_v" id="${specDisplayVO.spec_color[i]}" onclick="clickEvent(this.id, 'colorInput')" >
                             <div style="width: 30px; height: 30px; background-color:
                                 ${specDisplayVO.spec_color[i]};border-radius: 50%;margin: 20px auto 0 auto;">
                                     ${specDisplayVO.spec_color[i]}
@@ -375,6 +363,7 @@
                             </c:when>
                         </c:choose>
                 </c:forEach>
+            </div>
             <hr class="produc_hr" />
             <br />
             <p>원하는 프로세서를 선택하세요.</p>
@@ -464,7 +453,10 @@
 
                 <div class="reviewNum" style="float: left; width: 33%;">
                     후기글<br>
-                    <h2>${numOfBoards} 개</h2>
+                    <h2>
+                        <span class="iconify" data-icon="ion:people-outline" style="color: #dee1e6;" data-width="40"></span>
+                    </h2>
+                    <h3>${numOfBoards} 개</h3>
                 </div>
                 <div class="reviewRate" style="float: left; width: 33%;">
                     평균 평점<br>
@@ -560,37 +552,67 @@
                     <span>구입 후 배송은 언제되나요?</span>
                 </div>
                 <div class="anw">
-                <span
-                >주문하시면 배송날짜를 알려드립니다. 또한, 지역에 따라 지연될
-                  경우 알림 문자로 알려드립니다.</span
-                >
+                    <span>
+                      주문하시면 배송날짜를 알려드립니다. 또한, 지역에 따라 지연될
+                      경우 알림 문자로 알려드립니다.
+                    </span>
                 </div>
                 <div class="que">
                     <span>반품이 가능한가요?</span>
                 </div>
                 <div class="anw">
-                <span
-                >모든 제품이 양호한 상태여야 하며, 구입 후 1주일 안으로 신청시
-                  반품이 가능합니다.</span
-                >
+                    <span>
+                      모든 제품이 양호한 상태여야 하며, 구입 후 1주일 안으로 신청시
+                      반품이 가능합니다.
+                    </span>
                 </div>
                 <div class="que">
                     <span>제품 구입하는 경우 포인트 혜택을 받을 수 있나요?</span>
                 </div>
                 <div class="anw">
-                <span
-                >가입 후 구매시 5000P 포인트 혜택을 받으실 수 있습니다.</span
-                >
+                    <span>
+                        가입 후 구매시 5000P 포인트 혜택을 받으실 수 있습니다.
+                    </span>
                 </div>
             </div>
         </div>
     </div>
+
+    <form id="userPhone">
+        <input type="hidden" name="model_id" id="modelIdInput" value="${specDisplayVO.model_id}">
+        <input type="hidden" name="spec_display" id="displayInput" value="${specDisplayVO.spec_display[0]}">
+        <input type="hidden" name="spec_weight" id="weigthInput" value="${specDisplayVO.spec_weight[0]}">
+
+        <input type="hidden" name="isCare" id="careInput">
+
+        <input type="hidden" name="spec_color" id="colorInput"> <!--input from user-->
+        <input type="hidden" name="spec_processor" id="processorInput"> <!--input from user-->
+        <input type="hidden" name="spec_memory" id="memoryInput">  <!--input from user-->
+        <input type="hidden" name="spec_network" id="networkInput">  <!--input from user-->
+    </form>
     <script>
         // 상품 체크
-        $(".md_v, .ck_v").on("click", function (e) {
-            e.preventDefault();
-            $(this).toggleClass("check");
-        });
+        function clickEvent(id, input){
+            //console.log("frome id: " + id);
+            //console.log("from input: " + input);
+            var currentChoice = document.getElementById(id);
+            document.getElementById(input).value = id;
+
+            currentChoice.className = 'ck_v check';
+            var grandParent = currentChoice.parentElement.parentElement;
+            var parents = grandParent.children;
+
+            for(var i=0; i<parents.length;i++){
+                var kids = parents[i].children;
+                for(var j=0;j<kids.length;j++){
+                    if(kids[j].id != id) {
+                        kids[j].className = 'ck_v';
+                    }
+                }
+            }
+            //console.log(parents[2] == undefined);
+        }
+
 
         // 자주묻는질문
         $(".que").click(function () {

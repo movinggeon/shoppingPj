@@ -255,8 +255,6 @@
 			}
 		}
 		var listContainer = document.getElementById("searchHistory");
-		console.log(searchList);
-		console.log(searchList.length);
 		var list = "<ul id='historyParent'><h4>최근검색어&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span onclick='delAllHistory()'>x</span></h4>";
 		if(searchList.length == 0){
 			list += "<li>검색기록이 없습니다.</li>";
