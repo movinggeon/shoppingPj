@@ -15,12 +15,12 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/main.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/footer.css" />
-    <script src="${pageContext.request.contextPath}/resources/static/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/static/js/header.js" defer></script>
+
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <script src="main.js"></script>
+    <script src="header.js" defer></script>
     <title>SMARTDC</title>
 </head>
 <body>
@@ -306,17 +306,13 @@
         color: #333;
         background-color: #d9d9d9;
     }
-
-/*    .vert{
-        -webkit-transform: rotate(270deg);
-    }*/
 </style>
 
-<main class="main-content"></main>
+<main class="main-content">
 
     <div style="margin-top: 60px"></div>
     <div class="top_nav">
-        <div class="topp">${specDisplayVO.product_name} > ${specDisplayVO.product_name} ${specDisplayVO.model_name}</div>
+        <div class="topp">스마트폰 > Phone1 > xPhone Pro</div>
     </div>
 
     <div class="container">
@@ -326,94 +322,101 @@
         </div>
         <div class="product_item product_item_2">
             <p style="color: rgb(251, 41, 41); font-size: 15px">NEW</p>
-            <h1>${specDisplayVO.product_name} ${specDisplayVO.model_name} 구입하기</h1>
+            <h1>xPhone Pro 구입하기</h1>
             <h5>
-                <c:choose>
-                    <c:when test="${specDisplayVO.spec_price[0] == specDisplayVO.spec_price[1]}">
-                        <h3>₩${specDisplayVO.spec_price[0]}</h3>
-                    </c:when>
-                    <c:otherwise>
-                        <h3>₩${specDisplayVO.spec_price[0]} ~ ₩${specDisplayVO.spec_price[1]}</h3>
-                    </c:otherwise>
-                </c:choose>
+                지금 사전 주문하기<br />
+                xPhone 이후 모델 보상 판매하고 더 저렴하게
             </h5>
-            <p style="margin-top: 10px; text-align: left">색상을 선택하세요.</p>
-                <c:forEach var="i" begin="0" end="${specDisplayVO.spec_color.size()-1}">
-                    <c:if test="${i%2 eq 0}">
-                    <div class="ck_box">
-                    </c:if>
-                        <div class="ck_v">
-                            <div style="width: 30px; height: 30px; background-color:
-                                ${specDisplayVO.spec_color[i]};border-radius: 50%;margin: 20px auto 0 auto;">
-                                    ${specDisplayVO.spec_color[i]}
-                            </div>
-                        </div>
-                        <c:choose>
-                            <c:when test="${i%2 eq 1}">
-                                </div>
-                            </c:when>
-                            <c:when test="${i eq specDisplayVO.spec_color.size()-1}">
-                                </div>
-                            </c:when>
-                        </c:choose>
-                </c:forEach>
+            <p>원하는 모델을 선택하세요.</p>
+            <div class="model" style="margin-top: 10px">
+                <div class="md_v">xPhone Pro1</div>
+                <div class="md_v">xPhone Pro2</div>
+            </div>
             <hr class="produc_hr" />
             <br />
-            <p>원하는 프로세서를 선택하세요.</p>
-                <c:forEach var="i" begin="0" end="${specDisplayVO.spec_processor.size()-1}">
-                    <c:if test="${i%2 eq 0}">
-                        <div class="ck_box">
-                    </c:if>
-                            <div class="ck_v" style="font-size: 20px; font-weight: 500">
-                                ${specDisplayVO.spec_processor[i]}
-                            </div>
-                    <c:choose>
-                        <c:when test="${i%2 eq 1}">
-                            </div>
-                        </c:when>
-                        <c:when test="${i eq specDisplayVO.spec_processor.size()-1}">
-                            </div>
-                        </c:when>
-                    </c:choose>
-                </c:forEach>
+            <p style="margin-top: 10px; text-align: left">색상을 선택하세요.</p>
+            <div class="ck_box">
+                <div class="ck_v">
+                    <div
+                            style="
+                width: 30px;
+                height: 30px;
+                background-color: green;
+                border-radius: 50%;
+                margin: 20px auto 0 auto;
+              "
+                    >
+                        그린
+                    </div>
+                </div>
+                <div class="ck_v">
+                    <div
+                            style="
+                width: 30px;
+                height: 30px;
+                background-color: silver;
+                border-radius: 50%;
+                margin: 20px auto 0 auto;
+              "
+                    >
+                        실버
+                    </div>
+                </div>
+            </div>
+            <div class="ck_box">
+                <div class="ck_v">
+                    <div
+                            style="
+                width: 30px;
+                height: 30px;
+                background-color: skyblue;
+                border-radius: 50%;
+                margin: 20px auto 0 auto;
+              "
+                    >
+                        블루
+                    </div>
+                </div>
+                <div class="ck_v">
+                    <div
+                            style="
+                width: 30px;
+                height: 30px;
+                background-color: pink;
+                border-radius: 50%;
+                margin: 20px auto 0 auto;
+              "
+                    >
+                        핑크
+                    </div>
+                </div>
+            </div>
             <hr class="produc_hr" />
             <br />
             <p>원하는 용량을 선택하세요.</p>
-                <c:forEach var="i" begin="0" end="${specDisplayVO.spec_memory.size()-1}">
-                    <c:if test="${i%2 eq 0}">
-                        <div class="ck_box">
-                    </c:if>
-                    <div class="ck_v" style="font-size: 20px; font-weight: 500">
-                            ${specDisplayVO.spec_memory[i]}
-                    </div>
-                    <c:choose>
-                        <c:when test="${i%2 eq 1}">
-                            </div>
-                        </c:when>
-                        <c:when test="${i eq specDisplayVO.spec_memory.size()-1}">
-                            </div>
-                        </c:when>
-                     </c:choose>
-                </c:forEach>
+            <div class="ck_box">
+                <div class="ck_v" style="font-size: 20px; font-weight: 500">
+                    128GB
+                </div>
+                <div class="ck_v" style="font-size: 20px; font-weight: 500">
+                    256GB
+                </div>
+            </div>
+            <div class="ck_box">
+                <div class="ck_v" style="font-size: 20px; font-weight: 500">
+                    512GB
+                </div>
+                <div class="ck_v" style="font-size: 20px; font-weight: 500">
+                    1TB
+                </div>
+            </div>
             <hr class="produc_hr" />
             <br />
-            <p>원하시는 네트워크를 선택하세요</p>
-            <c:forEach var="i" begin="0" end="${specDisplayVO.spec_network.size()-1}">
-                <c:if test="${i%2 eq 0}">
-                    <div class="ck_box">
-                </c:if>
-                <div class="ck_v" style="font-size: 20px; font-weight: 500">
-                        ${specDisplayVO.spec_network[i]}
-                </div>
-                <c:choose>
-                    <c:when test="${i%2 eq 1}">
-                        </div>
-                    </c:when>
-                    <c:when test="${i eq specDisplayVO.spec_network.size()-1}">
-                        </div>
-                    </c:when>
-                </c:choose>
-            </c:forEach>
+            <p>보상 판매할 xPhone이 있으신가요?</p>
+            <div class="ck_box">
+                <div class="ck_v">아니오</div>
+                <div class="ck_v">예</div>
+            </div>
             <hr class="produc_hr" />
             <br />
             <p>보증을 추가하시겠습니까?</p>
@@ -435,72 +438,108 @@
             </div>
         </div>
     </div>
+    <div style="height: 100px; text-align: center; margin-top: 120px">
+        상세페이지
+    </div>
+
 
     <div class="review_box">
         <div class="review">
-            <a name="reviewPoint"/>
-            <!--Review overall Info -->
-            <hr class="hr_wr" style="margin-top: 80px;" />
-            <h1 style="text-align: center; margin-top: 30px;">모델 리뷰</h1>
-            <div class="revInfo" style="height: 100px;text-align: center; margin-top: 20px; margin-bottom: 60px;">
-
-                <div class="reviewNum" style="float: left; width: 33%;">
-                    후기글<br>
-                    <h2>${numOfBoards} 개</h2>
-                </div>
-                <div class="reviewRate" style="float: left; width: 33%;">
-                    평균 평점<br>
-                    <h2>
-                    <c:forEach var="i" begin="1" end="${roundRate}">
-                        <span class="iconify" data-icon="ion:heart-sharp" style="color: #0071ef;" data-width="25"></span>
-                    </c:forEach>
-                    <c:forEach var="j" begin="${roundRate+1}" end="5">
-                        <span class="iconify" data-icon="ion:heart-outline" style="color: #0071ef;" data-width="25"></span>
-                    </c:forEach>
-                    </h2>
-                    <h3>${avgRate} / 5</h3>
-                </div>
-                <div class="reviewAvgRate" style="float: left; width: 33%;">
-                    <c:forEach var="rate" items="${rateList}">
-                        <div style="height: 30px;">
-                            ${rate.key}점 <progress class="vert" value="${(rate.value / numOfBoards) * 100}" min="0" max="100" style="color:#0071ef;"></progress> (${rate.value})
-                        </div>
-                    </c:forEach>
-                </div>
+            <div class="rev_top">
+                <span class="rank00"><a href="">랭킹순</a></span> |
+                <span class="recent00"><a href="">최신순</a></span>
+                <span class="review_w"
+                ><i class="fa-solid fa-pen-to-square"></i
+                ><a href="상품평폼.html">상품평 작성</a></span
+                >
             </div>
-            <br>
-            <!-- Review Category -->
+            <!-- <hr style="margin-top: -5px" /> -->
             <div class="rev_score">
-                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=new&currPage=${1}#reviewPoint">최신순</a></span>|
-                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=old&currPage=${1}#reviewPoint">오래된순</a></span>|
-                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=high&currPage=${1}#reviewPoint">높은 별점순</a></span>|
-                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=low&currPage=${1}#reviewPoint">낮은 별점순</a></span>
+          <span><a href="">전체(6건)</a></span
+          >|<span><a href="">5점(6)</a></span
+            >|<span><a href="">4점(0)</a></span
+            >|<span><a href="">3점(0)</a></span
+            >|<span><a href="">2점(0)</a></span
+            >|<span><a href="">1점(0)</a></span>
             </div>
-            <!--Reviews-->
             <div class="rev_all">
-                <c:forEach var="board" items="${boardList}">
-                    <div class="rev_write">
-                        <c:forEach var="i" begin="1" end="${board.board_rate}">
-                            <span class="iconify" data-icon="ion:star" style="color: #f6d054;" data-width="13"></span>
-                        </c:forEach>
-                        <c:forEach var="j" begin="${board.board_rate+1}" end="5">
-                            <span class="iconify" data-icon="ion:star-outline" style="color: #f6d054;" data-width="13"></span>
-                        </c:forEach>
-                        <span> ${board.board_rate}</span>
-                        <h3>${board.board_title}</h3>
-                        <div>${board.board_content}</div>
-                        <div class="info_wr">
-                            <span style="padding-right: 30px">${board.mem_id}</span>
-                            <span>${board.board_date}</span>
-                        </div>
+                <div class="rev_write">
+                    <span class="star">★★★★★</span><span>5</span>
+                    <h3>퀵 배송</h3>
+                    <div>배송도 빠르고 제품도 만족합니다 :)</div>
+                    <div class="info_wr">
+              <span style="padding-right: 30px">pje8****</span
+              ><span>2022.03.29</span>
                     </div>
-                    <hr class="hr_wr" />
-                </c:forEach>
-            </div>
-            <!--paging-->
-            <div class="rev_paging">
+                </div>
+                <hr class="hr_wr" />
+                <div class="rev_write">
+                    <span class="star">★★★★★</span><span>5</span>
+                    <h3>잘 받았습니다~</h3>
+                    <div>색상이 너무 예쁘네요~!!!</div>
+                    <div class="info_wr">
+              <span style="padding-right: 30px">bnt0****</span
+              ><span>2022.03.22</span>
+                    </div>
+                </div>
+                <hr class="hr_wr" />
+                <div class="rev_write">
+                    <span class="star">★★★★★</span><span>5</span>
+                    <h3>아이들이 좋아합니다</h3>
+                    <div>많이 파세요~~</div>
+                    <div class="info_wr">
+              <span style="padding-right: 30px">sky****</span
+              ><span>2022.03.20</span>
+                    </div>
+                </div>
+                <hr class="hr_wr" />
 
+                <div id="rev_wr" style="display: none">
+                    <div>
+                        <div class="rev_write">
+                            <span class="star">★★★★★</span><span>5</span>
+                            <h3>리뷰타이틀</h3>
+                            <div>배송도 빠르고 제품도 만족합니다 :)</div>
+                            <div class="info_wr">
+                  <span style="padding-right: 30px">good****</span
+                  ><span>2022.02.29</span>
+                            </div>
+                        </div>
+                        <hr class="hr_wr" />
+                        <div class="rev_write">
+                            <span class="star">★★★★★</span><span>5</span>
+                            <h3>리뷰타이틀</h3>
+                            <div>배송도 빠르고 제품도 만족합니다 :)</div>
+                            <div class="info_wr">
+                  <span style="padding-right: 30px">bur****</span
+                  ><span>2022.02.23</span>
+                            </div>
+                        </div>
+                        <hr class="hr_wr" />
+                        <div class="rev_write">
+                            <span class="star">★★★★★</span><span>5</span>
+                            <h3>리뷰타이틀</h3>
+                            <div>배송도 빠르고 제품도 만족합니다 :)</div>
+                            <div class="info_wr">
+                  <span style="padding-right: 30px">kr****</span
+                  ><span>2022.02.10</span>
+                            </div>
+                        </div>
+                        <hr class="hr_wr" />
+                    </div>
+                </div>
+
+                <div
+                        class="btn_wr"
+                        id="more_wr"
+                        onclick="if(rev_wr.style.display=='none')
+      {rev_wr.style.display='';more_wr.innerText='∧ 접기'}
+      else {rev_wr.style.display='none';more_wr.innerText='∨ 펼치기'}"
+                >
+                    <span>∨ 펼치기</span>
+                </div>
             </div>
+            <!--rev_all-->
         </div>
     </div>
 
