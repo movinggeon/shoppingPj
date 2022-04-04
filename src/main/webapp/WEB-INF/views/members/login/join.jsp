@@ -163,7 +163,9 @@
 			if(memId.value.length == 0){
 				idCheck.innerHTML = "아이디를 입력해주세요.";
 			}else if(memId.value.length < 5){
-				idCheck.innerHTML = "5~11자 입력해주세요."
+				idCheck.innerHTML = "5~11자 입력해주세요.";
+			}else if(memId.value.match(/\w+KAKAO/)){
+				idCheck.innerHTML ="id 끝에 KAKAO를 사용할수 없습니다";
 			}else{
 				idCheck.innerHTML = null;
 			}

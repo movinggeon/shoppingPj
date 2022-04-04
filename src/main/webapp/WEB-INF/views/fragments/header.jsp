@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<script
 			src="https://kit.fontawesome.com/6da1745729.js"
 			crossorigin="anonymous"
@@ -28,7 +28,7 @@
 	<title>SMARTDC</title>
 </head>
 <body>
-	<div class="wrapper">
+<div class="wrapper">
 	<!-- Chat button -->
 	<div id="chat" onclick="enterRoom()"></div>
 
@@ -58,11 +58,11 @@
 		<sec:authorize access="isAuthenticated()">
 			<ul class="m2">
 				<li>
-				<form action="/members/logout" method="post">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-					<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
-					<h4 class="left">로그아웃</h4>
-				</form>
+					<form action="/members/logout" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
+						<h4 class="left">로그아웃</h4>
+					</form>
 				</li>
 				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/truck.png"><h4 class="left">주문/배송조회</h4></a></li>
 			</ul>
@@ -176,7 +176,7 @@
 					</li>
 					<li class="user user_menu">
 						<form action="/members/logout" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type="image" value="로그아웃">
 						</form>
 					</li>
@@ -192,32 +192,32 @@
 
 		</nav>
 	</header>
-	
-<script>
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    sessionStorage.setItem("mem_id","${user.mem_id}");
-    function enterRoom() {
-        var user = "${user.mem_id}";
-        console.log(user);
-        $.ajax({
-            //url: '/chat/member/createRoom'.
-            url: '/createRoom',
-            data: {mem_id : user},
-            type: 'post',
-            dataType: 'json',
-            beforeSend: function (xhr) {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-                xhr.setRequestHeader(header, token);
-            },
-            success: function (res) {
-                location.href="/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    }
-</script>
+
+	<script>
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		sessionStorage.setItem("mem_id","${user.mem_id}");
+		function enterRoom() {
+			var user = "${user.mem_id}";
+			console.log(user);
+			$.ajax({
+				//url: '/chat/member/createRoom'.
+				url: '/createRoom',
+				data: {mem_id : user},
+				type: 'post',
+				dataType: 'json',
+				beforeSend: function (xhr) {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+				},
+				success: function (res) {
+					location.href="/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
+				},
+				error: function (err) {
+					console.log(err);
+				}
+			});
+		}
+	</script>
 </div>
 </body>
 </html>

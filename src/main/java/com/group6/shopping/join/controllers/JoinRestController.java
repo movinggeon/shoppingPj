@@ -93,4 +93,70 @@ public class JoinRestController {
 
         return result;
     }
+
+    @PostMapping(value = "/join/kakaoProcess")
+    public HashMap<String, Object> kakaoProcess(@RequestBody HashMap<String, Object> param) throws Exception {
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        cal1.add(Calendar.MONTH, 1);
+
+        String coupon_valid_date = df.format(cal1.getTime());
+        String coupon_desc = "신규가입 쿠폰";
+
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        HashMap<String, Object> queryMap = new HashMap<String, Object>();
+
+        String memName = (String) param.get("memName");
+        String memId = (String) param.get("memId");
+        String memEmail = (String) param.get("memEmail");
+
+        System.out.println("카카오컨트롤러호출");
+        System.out.println(memName);
+        System.out.println(memId);
+        System.out.println(memEmail);
+
+        String memPassword = "kakao";
+        String memPhone = "";
+        String memBirth = "";
+        String memPostCode = "";
+        String memAddress = "";
+        String memAuth = "ROLE_MEMBER";
+        int memPoint = 0;
+
+
+        MembersVO membersVO = new MembersVO(memName, memId, memPassword, memEmail, memPhone, memBirth, memPostCode, memAddress, memPoint, memAuth, 1);
+        queryMap.put("mem_id", memId);
+        queryMap.put("coupon_desc", coupon_desc);
+        queryMap.put("coupon_pct", 30);
+        queryMap.put("coupon_price", 0);
+        queryMap.put("coupon_valid_date", coupon_valid_date);
+        membersService.insertMem(membersVO);
+        couponsService.insertCoupon(queryMap);
+
+        return result;
+    }
+    @PostMapping(value = "/join/kakaoidLookup")
+    public HashMap<String, Object> kakaoidLookup(@RequestBody HashMap<String, Object> param) throws Exception {
+
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        String memId = (String) param.get("memId");
+        String lookupResult = membersService.lookupId(memId);
+
+        System.out.println("카카오 아이디 중복 체크");
+        System.out.println(memId);
+
+        if (memId.isEmpty()) {
+            result.put("error", "아이디를 입력해주세요.");
+        } else if (lookupResult == null) {
+            result.put("kakaoid", memId);
+            result.put("success", true);
+        } else {
+            result.put("idExists", true);
+            result.put("kakaoid",memId);
+        }
+        return result;
+    }
+
 }

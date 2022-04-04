@@ -78,9 +78,6 @@ public class SocketHandler extends TextWebSocketHandler {
 
         ByteBuffer byteBuffer = message.getPayload();
 
-
-
-
         byte[] bytes =new byte[byteBuffer.remaining()];
      /*   String uploadFolderPath = getFolder();*/
 
