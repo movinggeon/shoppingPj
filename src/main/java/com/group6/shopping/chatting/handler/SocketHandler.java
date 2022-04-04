@@ -1,5 +1,6 @@
 package com.group6.shopping.chatting.handler;
 
+import com.group6.shopping.chatting.vo.Room;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,6 +25,7 @@ public class SocketHandler extends TextWebSocketHandler {
     @Autowired
     private S3Service s3Service;
 
+    List<Room> roomList = new ArrayList<Room>();
     List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
     SimpleDateFormat date = new SimpleDateFormat ( "yyyy-MM-dd-HH-mm-ss");
     private static final String FILE_UPLOAD_PATH = "C:/sixstore/";
@@ -38,34 +40,51 @@ public class SocketHandler extends TextWebSocketHandler {
 
         String rN = (String) obj.get("roomNumber"); //방의 번호를 받는다.
         String msgType = (String) obj.get("type"); //메시지의 타입을 확인한다.
-       /* System.out.println(obj.get("userName"));*/
-        
+        /* System.out.println(obj.get("userName"));*/
+
         HashMap<String, Object> temp = new HashMap<String, Object>();
-        if(rls.size() > 0) {
-            for(int i=0; i<rls.size(); i++) {
+        if (rls.size() > 0) {
+            for (int i = 0; i < rls.size(); i++) {
                 String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호를 가져와서
-                if(roomNumber.equals(rN)) { //같은값의 방이 존재한다면
+                if (roomNumber.equals(rN)) { //같은값의 방이 존재한다면
                     temp = rls.get(i); //해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다.
                     fileUploadIdx = i;
                     fileUploadSession = (String) obj.get("sessionId");
-                    username=(String)obj.get("userName");
+                    username = (String) obj.get("userName");
                     break;
                 }
             }
-            if(!msgType.equals("fileUpload")) { //메시지의 타입이 파일업로드가 아닐때만 전송한다.
+            if (!msgType.equals("fileUpload")) { //메시지의 타입이 파일업로드가 아닐때만 전송한다.
                 //해당 방의 세션들만 찾아서 메시지를 발송해준다.
-                for(String k : temp.keySet()) {
-                    if(k.equals("roomNumber")) { //다만 방번호일 경우에는 건너뛴다.
+                for (String k : temp.keySet()) {
+                    if (k.equals("roomNumber")) { //다만 방번호일 경우에는 건너뛴다.
                         continue;
                     }
 
                     WebSocketSession wss = (WebSocketSession) temp.get(k);
-                    if(wss != null) {
+                    if (wss != null) {
                         try {
                             wss.sendMessage(new TextMessage(obj.toJSONString()));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
+                }
+            }
+            if (msgType.equals("remove")) {
+                System.out.println("일단 여기까진 오니?");
+                String rNremove = (String) obj.get("roomNumber");
+                int rNremove2=Integer.parseInt(rNremove);
+                System.out.println("지울방번호:"+rNremove);
+
+                for (int i = 0; i < rls.size(); i++) {
+                    String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호를 가져와서
+                    if (roomNumber.equals(rNremove)) { //같은값의 방이 존재한다면
+                        System.out.println("여기서 방번호를 지워주자");
+                        /*rls.remove("roomNumber",rNremove);*/
+                        temp.remove("roomNumber",rNremove);
+                        roomList.remove(rNremove2);
+                        break;
                     }
                 }
             }
@@ -216,6 +235,7 @@ public class SocketHandler extends TextWebSocketHandler {
             for(int i=0; i<rls.size(); i++) {
                 rls.get(i).remove(session.getId());
             }
+
         }
         super.afterConnectionClosed(session, status);
     }
