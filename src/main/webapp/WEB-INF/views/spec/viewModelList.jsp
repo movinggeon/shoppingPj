@@ -6,8 +6,6 @@
     <title>Title</title>
 </head>
 <body>
-<% String str = "asd"; %>
-<%=str%>
     <c:forEach items="${specDisplayVOList}" var="list">
         <form action="/spec/chooseModel" method="get">
             <input type = "hidden" value="${list.model_id}" name="model_id">

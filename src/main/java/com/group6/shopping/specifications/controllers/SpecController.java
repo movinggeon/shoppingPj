@@ -57,7 +57,8 @@ public class SpecController {
 
         models.addAttribute("specDisplayVOList",specDisplayVOList);
 
-        return "spec/viewModelList";
+        return "/spec/viewModelList2";
+        //return "spec/viewModelList";
     }
 
     @RequestMapping("/chooseModel")
