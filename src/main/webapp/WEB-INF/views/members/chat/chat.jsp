@@ -43,6 +43,7 @@
         </tr>
         </table>
     </div>
+    <button onclick=" disconnect()" id="finishBtn" class="finishBtn"></button>
 
 
 </div>
@@ -200,6 +201,20 @@
         $('#fileUpload').val("");
         $('#file_route').val("");
     }
+    function disconnect(){
+        $("#chating").append("<div class='wait'>=====연결이 종료되었습니다=====</div>")
+
+        var option = {
+            type: "remove",
+            roomNumber: $("#roomNumber").val(),
+            sessionId: $("#sessionId").val(),
+            userName: $("#userName").val(),
+        }
+        ws.send(JSON.stringify(option));
+        ws.close();
+    }
+
+
 </script>
 
 </body>
