@@ -20,4 +20,8 @@ public interface MembersService {
     public void deleteMem(String memId) throws Exception;
     public void updateEnableMem(@Param("mem_enable")int memEnable, @Param("mem_id")String memId) throws Exception;
     public List<String> searchAdmin() throws Exception;
+    public List<String> findId(String memEmail) throws Exception;
+    public int findIdCheck(String memEmail) throws Exception;
+    public int findPwCheck(HashMap<String, String> param) throws Exception;
+    public void findPw(HashMap<String, String> param) throws Exception;
 }
