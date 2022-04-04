@@ -44,4 +44,9 @@ public class CouponsServiceImpl implements CouponsService{
     public List<CouponsVO> getAdminCoupons(String memId) throws Exception {
     	return couponsDAO.getAdminCoupons(memId);
     }
+    
+    @Override
+    public void deleteCoupon(String couponDecs) throws Exception {
+    	couponsDAO.deleteCoupon(couponDecs);
+    }
 }

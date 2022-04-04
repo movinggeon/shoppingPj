@@ -1,5 +1,9 @@
 package com.group6.shopping.admin.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,8 +71,6 @@ public class AdminRestController {
     	List<String> adminList = membersService.searchAdmin();
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	
-    	System.out.println(param);
-    	
     	String coupon_desc = (String) param.get("coupon_desc");
     	int coupon_pct = Integer.parseInt((String)param.get("coupon_pct"));
     	int coupon_price = Integer.parseInt((String)param.get("coupon_price"));
@@ -92,6 +94,51 @@ public class AdminRestController {
     	}else {
     		result.put("error", "관리자 계정이 없음");
     	}
+    	return result;
+    }
+    
+    
+    @PostMapping(value = "/admin/coupons/deleteCoupon")
+    public HashMap<String, Object> deleteCoupon(@RequestBody HashMap<String, Object> param) throws Exception{
+    	
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	
+    	String couponDesc = (String) param.get("coupon_desc");
+    	
+    	couponsService.deleteCoupon(couponDesc);
+    	
+    	result.put("success", "쿠폰삭제완료");
+    	
+    	return result;
+    }
+    
+    @PostMapping(value = "/admin/coupons/giveCoupon")
+    public HashMap<String, Object> giveCoupon(@RequestBody HashMap<String, Object> param) throws Exception{
+    	
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	HashMap<String, Object> queryMap = new HashMap<String, Object>();
+    	
+    	String memId = (String) param.get("mem_id");
+    	String coupon_desc = (String) param.get("coupon_desc");
+    	int coupon_pct = Integer.parseInt((String)param.get("coupon_pct"));
+    	int coupon_price = Integer.parseInt((String)param.get("coupon_price"));
+    	String coupon_valid_date = (String) param.get("coupon_valid_date");
+    	
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        cal.add(Calendar.MONTH, Integer.parseInt(coupon_valid_date));
+        coupon_valid_date = df.format(cal.getTime());
+        
+        queryMap.put("mem_id", memId);
+        queryMap.put("coupon_desc", coupon_desc);
+        queryMap.put("coupon_pct", coupon_pct);
+        queryMap.put("coupon_price", coupon_price);
+        queryMap.put("coupon_valid_date", coupon_valid_date);
+        couponsService.insertCoupon(queryMap);
+        
+        result.put("success", "쿠폰지급 완료");
+        
     	return result;
     }
 }

@@ -49,7 +49,7 @@ public class AdminController {
 		return "admin/nofragment/coupons/createCoupon";
 	}
 	
-	@RequestMapping(value = "/admin/nofragment/CouponList")
+	@RequestMapping(value = "/admin/nofragment/couponList")
 	public String couopnList(HttpSession session, Model model) throws Exception {
 		
 		List<CouponsVO> couponList = new ArrayList<CouponsVO>();

@@ -12,4 +12,5 @@ public interface CouponsDAO {
     public void insertCoupon(HashMap<String, Object> param) throws Exception;
     public void createCoupon(HashMap<String, Object> param) throws Exception;
     public List<CouponsVO> getAdminCoupons(String memId) throws Exception;
+    public void deleteCoupon(String couponDecs) throws Exception;
 }

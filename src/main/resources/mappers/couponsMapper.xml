@@ -32,4 +32,10 @@
 		select * from coupons
 		where mem_id = #{mem_id};
 	</select>
+	
+	<delete id="deleteCoupon">
+		DELETE
+		FROM coupons
+		WHERE coupon_desc = #{coupon_decs}
+	</delete>
 </mapper>

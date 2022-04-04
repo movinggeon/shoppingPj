@@ -48,7 +48,7 @@
 		 		<c:choose>
 					<c:when test="${auth eq 'ROLE_MEMBER' }">
 						<div style="text-align: center;">
-							<button onclick="">쿠폰지급</button><br>
+							<button onclick="openCoupon('${memberList.get(i).getMem_id()}')">쿠폰지급</button><br>
 						</div>
 						<div style="text-align: center; padding-top: 10px;">
 							<c:set var="enableState" value="${memberList.get(i).getMem_enable() }"></c:set>
@@ -70,6 +70,9 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+		</div>
+		<div class="context-coupon" id="${memberList.get(i).getMem_id() }" style="margin-bottom: 15px;">
+		
 		</div>
 		<c:if test="${i eq ( memberCount -1 ) }">
 			<c:set var="loop_flag" value="true" />
@@ -97,11 +100,13 @@
 </div>
    
 <script type="text/javascript">
-	
+
+	function openCoupon(mem_id) {
+		$("#" + mem_id ).load("/admin/nofragment/couponList?name=give&page=1" + "&query_id=" + mem_id + "&return_page=${param.page}");
+	}
 	function sendPage(pageNum) {
 		$(".context").load("/admin/nofragment/memberList?page=" + pageNum);
 	}
-
 	//csrf 토큰값 받기
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -218,7 +223,7 @@
 
                if (jsonData.success) {
                    alert(jsonData.success);
-                   $(".context").load("/admin/nofragment/memberList?page=1");
+                   $(".context").load("/admin/nofragment/memberList?page=${param.page}");
                }
                else {
                    alert("에러");
