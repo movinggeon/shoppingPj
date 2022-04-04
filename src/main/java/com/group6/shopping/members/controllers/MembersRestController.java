@@ -1,16 +1,17 @@
 package com.group6.shopping.members.controllers;
 
 import com.group6.shopping.members.service.MembersService;
+import com.group6.shopping.members.vo.MembersVO;
 import com.group6.shopping.security.CustomMemDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 @RestController
 @RequestMapping("/members")
@@ -110,3 +111,4 @@ public class MembersRestController {
         return result;
     }
 }
+

@@ -53,9 +53,7 @@
 
             if (jsonData.success) {
                 alert(jsonData.success);
-
                 location.href = "/login";
-
             }
             else {
                 alert(jsonData.error);
@@ -66,8 +64,4 @@
     }
 </script>
 </body>
-
 </html>
-
-
-

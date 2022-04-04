@@ -51,15 +51,12 @@
 		SET mem_password=#{mem_password}
 		WHERE mem_id=#{mem_id}
 	</update>
-
 	<delete id="deleteMem">
 		DELETE
 		FROM members
 		WHERE mem_id=#{mem_id}
 	</delete>
-
-	<select id="findId" resultType="String">
-
+		<select id="findId" resultType="String">
 		SELECT mem_id
 		FROM members
 		WHERE mem_email=#{mem_email}
@@ -81,5 +78,17 @@
 		SELECT count(*)
 		FROM members
 		WHERE mem_id=#{mem_id} AND mem_email=#{mem_email}
+	</select>
+	
+	<update id="updateEnableMem">
+		UPDATE members
+		SET mem_enable = #{mem_enable}
+		WHERE mem_id=#{mem_id}
+	</update>
+	
+	<select id="searchAdmin" resultType="String">
+		SELECT mem_id
+		FROM members
+		WHERE mem_auth = 'ROLE_ADMIN'
 	</select>
 </mapper>

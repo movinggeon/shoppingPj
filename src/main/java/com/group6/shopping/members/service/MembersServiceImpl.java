@@ -1,13 +1,16 @@
 package com.group6.shopping.members.service;
 
-import com.group6.shopping.batis.MembersDAO;
-import com.group6.shopping.members.vo.MembersVO;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
+import com.group6.shopping.batis.MembersDAO;
+import com.group6.shopping.members.vo.MembersVO;
 
 @Service("memberService")
 public class MembersServiceImpl implements MembersService{
@@ -64,7 +67,13 @@ public class MembersServiceImpl implements MembersService{
 		membersDAO.deleteMem(memId);
 	}
 
-
-
-
+	@Override
+	public void updateEnableMem(@Param("mem_enable")int memEnable, @Param("mem_id")String memId) throws Exception {
+		membersDAO.updateEnableMem(memEnable, memId);
+	}
+	
+	@Override
+	public List<String> searchAdmin() throws Exception {
+		return membersDAO.searchAdmin();
+	}
 }

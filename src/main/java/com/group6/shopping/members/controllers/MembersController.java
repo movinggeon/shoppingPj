@@ -1,8 +1,12 @@
 package com.group6.shopping.members.controllers;
 
-import com.group6.shopping.coupons.services.CouponsService;
-import com.group6.shopping.security.CustomMemDetails;
-import com.group6.shopping.security.LogoutHandler;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,11 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import com.group6.shopping.coupons.services.CouponsService;
+import com.group6.shopping.security.CustomMemDetails;
+import com.group6.shopping.security.LogoutHandler;
 
 @Controller
 @RequestMapping("/members")
@@ -61,7 +63,6 @@ public class MembersController {
 		return "members/mypage/delete";
 	}
 
-
 	@RequestMapping(value = "/member/modifyPassword")
 	public String modifyPassword(HttpServletRequest request){
 		System.out.println("비밀번호 변경 이동");
@@ -72,12 +73,8 @@ public class MembersController {
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-
-
-
 		LogoutHandler logoutHandler = new LogoutHandler();
 		logoutHandler.onLogoutSuccess(request, response, auth);
-
 	}
 
 }

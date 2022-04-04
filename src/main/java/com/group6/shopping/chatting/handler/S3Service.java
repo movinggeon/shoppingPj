@@ -23,9 +23,9 @@ import java.util.Date;
 public class S3Service {
     final private AmazonS3 s3Client;
 
-    String bucketName = "sixstore";
-    String accessKey = "AKIA2NXMPLPRFNOLJ5OS";
-    String secretKey = "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";
+    String bucketName = "aa";
+    String accessKey = "aa";
+    String secretKey = "aa";
     String folderName = getFolder();
 
     public S3Service() {

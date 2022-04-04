@@ -25,16 +25,20 @@
 <body>
 
 <%
-
     CustomMemDetails cs =(CustomMemDetails) session.getAttribute("user");
-
-    String imsi_address = cs.getMem_address();
-
-    String[] Imsi = imsi_address.split("!");
-    String address =Imsi[0];
-    String detailaddress =Imsi[1];
-
+ 
+	String imsi_address = "";
+	String address = "";
+	String detailaddress = "";
+	int tokenizer;
+	
+ 	if(cs.getMem_address().length() > 0){
+		tokenizer = cs.getMem_address().indexOf('!');
+		address = cs.getMem_address().substring(0, tokenizer);
+		detailaddress = cs.getMem_address().substring(tokenizer + 1);
+	}
 %>
+
 <style>
     @font-face {
         font-family: "BBTreeGR";
