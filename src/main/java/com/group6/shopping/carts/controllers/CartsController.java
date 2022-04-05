@@ -55,7 +55,8 @@ public class CartsController {
 
         models.addAttribute("carts", cartsVOList);
         models.addAttribute("totalPrice", totalPrice);
-        return "/carts/cart";
+        return "/carts/cart2";
+        //return "/carts/cart";
     }
 
     @RequestMapping("/member/mailinginformation")
