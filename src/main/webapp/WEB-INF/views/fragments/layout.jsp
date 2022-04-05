@@ -17,7 +17,7 @@
 </div>
 
 <div></div>
-<div>
+<div style="min-height: 700px;">
 	<tiles:insertAttribute name="body" />
 </div>
 
