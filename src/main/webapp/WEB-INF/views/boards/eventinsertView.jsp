@@ -47,7 +47,7 @@
 
 <h1>이벤트 글 작성하기</h1>
 
-<form action="/boards/eventinsert" method="get">
+<form action="/boards/eventinsert" method="post">
 	<div>
 
 		<input type ="hidden" name="mem_id" value="${user.mem_id}"> ${user.mem_id}
@@ -55,7 +55,7 @@
 		<input type ="text" name="board_title">
 		<label>내용</label>
 		<input type ="text" name="board_content">
-		<input type ="file" name="file_title">
+		
 		<input type ="hidden" name="board_type" value="event">
 		<p>시작날짜
         <input type="text" id="datepicker1" name="s_date" readonly>

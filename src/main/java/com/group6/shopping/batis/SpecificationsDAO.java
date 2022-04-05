@@ -16,5 +16,5 @@ public interface SpecificationsDAO {
     public Integer getMinPrice( @Param("product")String product, @Param("model") String model) throws Exception;
     public SpecVO getSpec(SpecVO specVO) throws Exception;
     public int updateSpecQty(CustomMemDetails user) throws Exception;
-
+    
 }

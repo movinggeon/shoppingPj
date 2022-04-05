@@ -32,7 +32,7 @@ $(function () {
             $header.show();
         })
         .mouseout(function () {
-            $header.stop().animate({ height: "65px" }, 200);
+            $header.stop().animate({ height: "66px" }, 200);
             $("#mask, .window").hide();
         });
 });

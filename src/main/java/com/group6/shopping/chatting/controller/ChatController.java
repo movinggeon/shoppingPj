@@ -18,14 +18,6 @@ public class ChatController {
     List<Room> roomList = new ArrayList<Room>();
     static int roomNumber = 0;
 
-/*    @RequestMapping("/chat")
-    public ModelAndView chat() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("chat/chat");
-        return mv;
-    }
-*/
-
    //방페이지 return
     @RequestMapping("/room")
     public ModelAndView room() {

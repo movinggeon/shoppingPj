@@ -20,6 +20,22 @@
 	
 	<insert id="insertCoupon">
 		insert into coupons (mem_id, coupon_desc, coupon_pct, coupon_price, coupon_valid_date)
-			values ( #{mem_id}, #{coupon_desc}, #{coupon_pct}, #{coupon_price}, #{coupon_valid_date});
+			values ( #{mem_id}, #{coupon_desc}, #{coupon_pct}, #{coupon_price}, #{coupon_valid_date})
 	</insert>
+	
+	<insert id="createCoupon">
+		INSERT INTO coupons (mem_id, coupon_desc, coupon_pct, coupon_price, coupon_valid_date)
+			VALUES ( #{mem_id}, #{coupon_desc}, #{coupon_pct}, #{coupon_price}, #{coupon_valid_date} )
+	</insert>
+	
+	<select id="getAdminCoupons" resultType="CouponsVO">
+		select * from coupons
+		where mem_id = #{mem_id};
+	</select>
+	
+	<delete id="deleteCoupon">
+		DELETE
+		FROM coupons
+		WHERE coupon_desc = #{coupon_decs}
+	</delete>
 </mapper>
