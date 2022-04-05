@@ -125,35 +125,36 @@
 			</div>
 			<ul class="nav_menu">
 				<li>
-					<a href="#">스마트폰</a>
+				<li>
+					<a href="/spec/viewModels?product=sixPhone">스마트폰</a>
 					<ul>
-						<li><a href="#">Phone1</a></li>
-						<li><a href="#">Phone2</a></li>
-						<li><a href="#">Phone3</a></li>
+						<li><a href="/spec/chooseModel?model_id=1&category=new&currPage=1">SixPhone 3</a></li>
+						<li><a href="/spec/chooseModel?model_id=2&category=new&currPage=1">SixPhone 2</a></li>
+						<li><a href="/spec/chooseModel?model_id=3&category=new&currPage=1">SixPhone 1</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="">노트북</a>
+					<a href="/spec/viewModels?product=sixBook">노트북</a>
 					<ul>
-						<li><a href="#">Note1</a></li>
-						<li><a href="#">Note2</a></li>
-						<li><a href="#">Note3</a></li>
+						<li><a href="/spec/chooseModel?model_id=4&category=new&currPage=1">PRO</a></li>
+						<li><a href="/spec/chooseModel?model_id=5&category=new&currPage=1">EXP</a></li>
+						<li><a href="/spec/chooseModel?model_id=6&category=new&currPage=1">Light</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="#">태블릿</a>
+					<a href="/spec/viewModels?product=sixTablet">태블릿</a>
 					<ul>
-						<li><a href="#">Tablet1</a></li>
-						<li><a href="#">Tablet2</a></li>
-						<li><a href="#">Tablet3</a></li>
+						<li><a href="/spec/chooseModel?model_id=7&category=new&currPage=1">Tablet PRO</a></li>
+						<li><a href="/spec/chooseModel?model_id=8&category=new&currPage=1">Tablet EXP</a></li>
+						<li><a href="/spec/chooseModel?model_id=9&category=new&currPage=1">Tablet Light</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="#">워치</a>
+					<a href="/spec/viewModels?product=sixWatch">워치</a>
 					<ul>
-						<li><a href="#">Watch1</a></li>
-						<li><a href="#">Watch2</a></li>
-						<li><a href="#">Watch3</a></li>
+						<li><a href="/spec/chooseModel?model_id=10&category=new&currPage=1">Watch 3</a></li>
+						<li><a href="/spec/chooseModel?model_id=11&category=new&currPage=1">Watch 2</a></li>
+						<li><a href="/spec/chooseModel?model_id=12&category=new&currPage=1">Watch 1</a></li>
 					</ul>
 				</li>
 				<li>
@@ -214,6 +215,10 @@
 									<sec:authorize access="hasRole('ROLE_ADMIN')">
 										<a href="${pageContext.request.contextPath}/admin">관리자</a>
 										<a href="#">1:1 상담</a>
+										<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+											<input type="submit" value="로그아웃">
+										</form>
 									</sec:authorize>
 								</div>
 							</div>
@@ -231,9 +236,7 @@
 
 		</nav>
 	</header>
-
-	<script>
-		var token = $("meta[name='_csrf']").attr("content");
+<%--   		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		sessionStorage.setItem("mem_id","${user.mem_id}");
 		function enterRoom() {
@@ -256,6 +259,179 @@
 				}
 			});
 		}
+ --%>
+	<script>
+	/*		$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
+	alert("수발");
+	if (xhr.status == 403) {
+		window.location.href ="/login";
+	}
+});*/
+var search = document.cookie;
+//console.log("original cookie: " + search);
+var searchList = [];
+var jession = search.indexOf("JSESSIONID");
+//jsession 값이 있을경우
+if(jession != -1){
+	var first = search.indexOf(';');
+	//jsession 값이 맨앞일때
+	if(jession == 0){
+		//jsession 값 뒤에 search cookie가 있을때
+		if(first != -1){
+			search = search.substring(first+2);
+		}else{//jsession 값만이 cookie에 있을때
+			search = "";
+		}
+	//jsession 값이 중간 혹은 맨뒤
+	}else{
+		//jsession 값 앞에있는 search cookie 자름
+		var search1 = search.substring(0, jession);
+		first = search.indexOf(';');
+		//jsession 값이 중간에 있을때
+		if(first != -1){
+			//jsession 부터 끝까지
+			search = search.substring(jession);
+			//jsession 뒤 ;가져옴
+			first = search.indexOf(';');
+			//jsession 뒤 search 값
+			var search2 = search.substring(first+2);
+			//jession 앞 search 와 뒤 search를 합침
+			search = search1 + search2;
+		//jesssion 값이 맨뒤에 있을떄
+		}else{
+			search = search1;
+		}
+	}
+}
+//console.log("after cut: " + search);
+for(var i = 0 ; i < 3; i++){
+	var first = search.indexOf('=');
+	if(first != -1){
+		var second = search.indexOf(';');
+		if(second == -1){
+			var name = search.substring(first-7,first);
+			var result = search.substring(first+1);
+			result = result.replaceAll('+', ' ');
+			searchList[i] = name + "/" + result;
+			break;
+		}else{
+			var name = search.substring(first-7,first);
+			var result = search.substring(first+1, second);
+			result = result.replaceAll('+', ' ');
+			searchList[i] = name + "/" + result;
+			search = search.substring(second+2);
+		}
+	}
+}
+var listContainer = document.getElementById("searchHistory");
+var list = "<ul id='historyParent'><h4>최근검색어&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span onclick='delAllHistory()'>x</span></h4>";
+if(searchList.length == 0){
+	list += "<li>검색기록이 없습니다.</li>";
+}else{
+	for(var j = searchList.length -1; j >= 0; j--){
+		var split = searchList[j].split('/');
+		var name = split[0];
+		var result = split[1];
+		var input = result.replaceAll(" ", "+")
+		if(result.length > 20){
+			result = input.substring(0,21) + "...";
+		}
+		list += "<li id="+searchList[j]+"><a href='/spec/searchItems?searchInput="+input+"'>" +result+
+            "</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
+	}
+}
+list+= "</ul>";
+listContainer.innerHTML = list;
+function removeItem(arr, value) {
+	var index = arr.indexOf(value);
+	if (index > -1) {
+		arr.splice(index, 1);
+	}
+	return arr;
+}
+function delHistory(id){
+		var split = id.split('/');
+		var name = split[0];
+		document.getElementById(id).remove();
+		document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+		searchList = removeItem(searchList, id);
+		console.log(searchList);
+		//var cookieId = Number(name.substring(name.length-1));
+		/*
+		var todayDate = new Date();
+		todayDate.setDate(todayDate.getDate() + 7);
+		if(searchList.length == 3){
+			if(cookieId <= 2){
+				document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+				var split = searchList[2].split('/');
+				var value = split[1];
+				document.cookie = "search2" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+			}
+			if(cookieId == 1){
+				document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+				var split = searchList[1].split('/');
+				var value = split[1];
+				console.log(value);
+				document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+			}
+		}
+		if(searchList.length == 2){
+			if(cookieId == 1){
+				var split = searchList[1].split('/');
+				document.cookie = 'search2=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+				var value = split[1];
+				console.log(value);
+				document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+			}
+		}
+		*/
+		var ulParent = document.getElementById('historyParent');
+		if (ulParent.children.length == 1) {
+			ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+		}
+	}
+	function delAllHistory() {
+		var ulParent = document.getElementById('historyParent');
+		for(var i = 0; i < searchList.length; i++){
+			var split = searchList[i].split('/');
+			var name = split[0];
+			document.getElementById(searchList[i]).remove();
+			document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+		}
+		ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+	}
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	sessionStorage.setItem("mem_id","${user.mem_id}");
+	function enterRoom() {
+		var user = "${user.mem_id}";
+		console.log(user);
+		$.ajax({
+			//url: '/chat/member/createRoom'.
+			url: '/createRoom',
+			data: {mem_id : user},
+			type: 'post',
+			dataType: 'json',
+			beforeSend: function (xhr) {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+			},
+			success: function (res) {
+				location.href="/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+	}
+	function enter(){
+	if (window.event.keyCode == 13) {
+		if(document.getElementById("h_box") == ""){
+			alert("값을 입력해주세요");
+			return;
+			}
+		document.getElementById("search").submit();
+		}
+	}
 	</script>
 </div>
 </body>

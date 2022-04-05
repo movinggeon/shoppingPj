@@ -6,6 +6,7 @@ import com.group6.shopping.boards.vo.PagingVO;
 import com.group6.shopping.models.services.ModelsService;
 import com.group6.shopping.models.vo.ModelsVO;
 import com.group6.shopping.specifications.services.SpecService;
+import com.group6.shopping.specifications.vo.SearchSpecVO;
 import com.group6.shopping.specifications.vo.SpecDisplayVO;
 import com.group6.shopping.url.UrlHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.parser.Entity;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.util.*;
 
@@ -54,7 +57,8 @@ public class SpecController {
 
         models.addAttribute("specDisplayVOList",specDisplayVOList);
 
-        return "spec/viewModelList";
+        return "/spec/viewModelList2";
+        //return "spec/viewModelList";
     }
 
     @RequestMapping("/chooseModel")
@@ -119,15 +123,72 @@ public class SpecController {
             models.addAttribute("boardList", boardsVOList);
             models.addAttribute("page", pTmp);
         }
-        return "spec/chooseModel";
+        return "/spec/chooseModel2";
+        //return "spec/chooseModel";
     }
 
     @RequestMapping("/searchItems")
-    public String searchItems(String searchInput){
-        System.out.println(searchInput);
+    public String searchItems(String searchInput, Model models, HttpServletRequest request, HttpServletResponse response) throws Exception {
+       // System.out.println("입력값: " + searchInput);
 
-        return "spec/searchItems";
+        Cookie[] cookies = request.getCookies();
+        Map<String, String> cookiesMap = new LinkedHashMap<>();
+        List<String> cookieKey = new ArrayList<>();
+
+        for(Cookie c: cookies){
+            cookiesMap.put(c.getName(), c.getValue());
+            cookieKey.add(c.getName());
+        }
+
+        if(!cookieKey.contains("search1")){
+            cookiesMap.put("search1", URLEncoder.encode(searchInput, "utf-8"));
+        }else if(!cookieKey.contains("search2")){
+            cookiesMap.put("search2", URLEncoder.encode(searchInput, "utf-8"));
+        }else if(!cookieKey.contains("search3")){
+            cookiesMap.put("search3", URLEncoder.encode(searchInput, "utf-8"));
+        }else{
+            String search3 = cookiesMap.get("search3");
+            String search2 = cookiesMap.get("search2");
+
+            cookiesMap.put("search1", search2);
+            cookiesMap.put("search2", search3);
+            cookiesMap.put("search3" ,URLEncoder.encode(searchInput, "utf-8"));
+        }
+
+        for(Map.Entry<String, String> tmp : cookiesMap.entrySet()){
+            Cookie c = new Cookie(tmp.getKey(), tmp.getValue());
+            c.setPath("/");
+            c.setMaxAge(60*60*24*7);
+            response.addCookie(c);
+        }
+        //찾아야하는 값 리스트
+        SearchSpecVO searchSpecVO = specService.searchSpec();
+        //검색어 정제
+        Map<String, Object> searchContext = specService.getSearchContext(searchSpecVO, searchInput);
+
+        int searchFail = 0;
+        String searchResult;
+        for(Map.Entry<String, Object> tmp : searchContext.entrySet()){
+            List<String> list = (List<String>) tmp.getValue();
+            if(list.size() == 0){
+                searchFail++;
+            }
+        }
+        if(searchFail == 7){
+            models.addAttribute("resultNum", 0);
+            models.addAttribute("searchFail", "No Search Result");
+            System.out.println("실패");
+        }else{
+            //검색 결과
+            List<ModelsVO> resultModels = specService.getModel(searchContext);
+
+
+            models.addAttribute("resultNum", resultModels.size());
+            models.addAttribute("result", resultModels);
+        }
+
+        models.addAttribute("searchInput", searchInput);
+        return "spec/searchItems2";
+        //return "spec/searchItems";
     }
-
-
 }
