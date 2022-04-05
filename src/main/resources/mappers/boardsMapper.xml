@@ -82,7 +82,7 @@
 	</select>
 
 <!-- 이벤트 메인페이지 진행중게시글 목록조회 -->
-	<select id="EventBoardslist" resultType="BoardsVO">
+	 <select id="EventBoardslist" resultType="BoardsVO">
 		SELECT *
 			FROM boards
 			WHERE board_type = 'event'
@@ -90,6 +90,7 @@
 			AND e_date >= date(now())
 			order by e_date;
 	</select>
+
 	
 	<!-- 이벤트 메인페이지 종료게시글 목록조회 -->
 	<select id="EndEventBoardslist" resultType="BoardsVO">
@@ -127,6 +128,7 @@
 	<select id="reviewinsert">
 	insert into boards
 	values (null, #{mem_id}, #{spec_id}, #{model_id}, #{board_rate}, #{board_title}, #{board_content}, SYSDATE(), #{board_type}, null, null)
+
 	</select>
 	
 	

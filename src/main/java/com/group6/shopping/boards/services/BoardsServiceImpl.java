@@ -6,14 +6,17 @@ import com.group6.shopping.boards.vo.PagingVO;
 import com.group6.shopping.models.vo.ModelsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class BoardsServiceImpl implements BoardsService{
-    @Autowired
+    
+	@Autowired
     private BoardsDAO boardsDAO;
+	
 
     @Override
     public List<BoardsVO> getModelBoards(ModelsVO modelsVO, PagingVO pagingVO, Map<String, String> cateMap) throws Exception {
@@ -92,5 +95,7 @@ public class BoardsServiceImpl implements BoardsService{
   	    public void update(BoardsVO vo) throws Exception{
   	    	boardsDAO.update(vo);
   	    }
-  	
+  		
+  		
+  		
 }

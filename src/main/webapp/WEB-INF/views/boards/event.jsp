@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +89,40 @@
 	line-height: 48px;
 	font-size: 11px;
 	color: gray;
+	display: flex;
+}
+
+.eventbox1 {
+	margin: 10px;
+	width: 300px;
+	height: 48px;
+	border: 1px solid #323332;
+	font-size: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e43680;
+	
+}
+.eventbox2 {
+	margin: 10px;
+	width: 300px;
+	height: 48px;
+	border: 1px solid #323332;
+	font-size: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.eventday {
+	margin: 10px;
+	width: 200px;
+	height: 48px;
+	font-size: 11px;
+	display: flex;
+	justify-content: left;
 }
 
 .event_info {
@@ -100,19 +135,37 @@
 	font-size: 13px;
 }
 </style>
+
+
 		<div style="margin-top: 48px"></div>
 		<div class="top_nav">
 			<div class="topp">이벤트 > Event</div>
 		</div>
-		<div>
-			<li><a href="/boards/event">진행중인 이벤트 ${user.mem_id}</a> <span></span></li>
-			<li><a href="/boards/endevent">종료된 이벤트  </a> <span></span></li>
+		<div class="topp">
+			<div class="eventday">
+				오늘날짜 :
+				<!-- 현재날짜 -->
+				<c:set var="today" value="<%=new java.util.Date()%>" />
+
+				<c:set var="date">
+					<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />
+				</c:set>
+				<c:out value="${date}" />
+
+			</div>
+			<a class="eventbox1" href="/boards/event">진행중인 이벤트 ${user.mem_id}</a>
+
+			<a class="eventbox2" href="/boards/endevent">종료된 이벤트 </a>
+
 		</div>
 		<div class="event_container">
+
+
+
 			<c:forEach items="${eventboardlist}" var="event" begin="0" end="5">
 				<div class="event_list">
-					<a href="/boards/readView?board_id=${event.board_id}"> 
-					<img src="/resources/static/eventimg/${event.board_content}.jpg" alt="" />
+					<a href="/boards/readView?board_id=${event.board_id}"> <img
+						src="/resources/static/eventimg/${event.board_content}.jpg" alt="" />
 					</a>
 					<div class="event_info">
 						<a href="/boards/readView?board_id=${event.board_id}">
@@ -121,6 +174,7 @@
 							</h3>
 						</a>
 						<p>
+							이벤트 기간 :
 							<c:out value="${event.s_date}" />
 							~
 							<c:out value="${event.e_date}" />
@@ -131,11 +185,11 @@
 		</div>
 
 		<div class="page">1 / 2 / 3 / 4 / 5 ...</div>
-		
-		<c:set var="memid" value="${user.mem_id}"/>
-	<c:if test="${memid eq 'asd12321'}">
-	<a href="/boards/eventinsertView">이벤트글쓰기</a>
-	</c:if> 
+
+		<c:set var="memid" value="${user.mem_id}" />
+		<c:if test="${memid eq 'asd12321'}">
+			<a href="/boards/eventinsertView">이벤트글쓰기</a>
+		</c:if>
 	</main>
 </body>
 </html>

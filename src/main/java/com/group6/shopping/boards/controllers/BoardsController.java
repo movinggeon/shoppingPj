@@ -3,9 +3,11 @@ package com.group6.shopping.boards.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group6.shopping.boards.services.BoardsService;
@@ -34,7 +36,7 @@ public class BoardsController {
     	  return "boards/event"; 
     	  }
     	 
-    	  //이벤트 메인페이지 진행중게시글 목록조회
+    	  //이벤트 메인페이지 종료게시글 목록조회
     	  
     	  @GetMapping(value = "/endevent") 
     	  public String EndEventBoardslist(Model model) throws Exception 
@@ -52,7 +54,7 @@ public class BoardsController {
     			return "boards/review";
     		}
     		
-    	//게시판글 조회
+    	//게시글 보기
     	@RequestMapping(value = "/readView")
     	public String read(BoardsVO boardsVO, Model model) throws Exception{
     		System.out.println("/readView22");
@@ -64,14 +66,14 @@ public class BoardsController {
     		return "boards/readView";
     	}
     	
-    	
+    	//리뷰글쓰기
     	@RequestMapping(value = "/insertView")
     	public String insertView(BoardsVO boardsVO, Model model) throws Exception{
     		
     		System.out.println("/insertView");
     		return "boards/insertView";
     	}
-    	
+    	//이벤트 글쓰기
     	@RequestMapping(value = "/eventinsertView")
     	public String eventinsertView(BoardsVO boardsVO, Model model) throws Exception{
     		
@@ -79,7 +81,7 @@ public class BoardsController {
     		return "boards/eventinsertView";
     	}
     		
-    		
+    	//이벤트글쓰기	
     	@RequestMapping(value = "/eventinsert")
     	public String eventinsert(BoardsVO boardsVO, RedirectAttributes rttr) throws Exception{
     		System.out.println("/eventinsert클릭");

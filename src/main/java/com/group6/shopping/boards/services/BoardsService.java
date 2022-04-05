@@ -35,4 +35,6 @@ public interface BoardsService {
     public void delete(int board_id) throws Exception;
     //게시글 수정
     public void update(BoardsVO vo) throws Exception;
+    
+   
 }

@@ -146,7 +146,7 @@
 					<a href="#">이벤트</a>
 					<ul>
 						<li><a href="/boards/event">Event</a></li>
-						<li><a href="/boards/review">리뷰</a></li>
+						<li><a href="/boards/boardAllList">리뷰</a></li>
 					</ul>
 				</li>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">

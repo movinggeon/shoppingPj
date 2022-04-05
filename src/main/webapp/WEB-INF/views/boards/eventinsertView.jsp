@@ -55,13 +55,17 @@
 		<input type ="text" name="board_title">
 		<label>내용</label>
 		<input type ="text" name="board_content">
+		<input type ="file" name="file_title">
 		<input type ="hidden" name="board_type" value="event">
 		<p>시작날짜
         <input type="text" id="datepicker1" name="s_date" readonly>
        종료날짜
         <input type="text" id="datepicker2" name="e_date" readonly></p>
+        
+        
 	</div>
 
+ 
    
 <button type="button" >취소</button>
 <button type="submit" >등록</button>
