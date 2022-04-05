@@ -15,6 +15,7 @@ public class CustomMemDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String memId) {
 		//System.out.println("loaduserByusername");
+		System.out.println(memId);
 		CustomMemDetails members = null;
 		
 		try {

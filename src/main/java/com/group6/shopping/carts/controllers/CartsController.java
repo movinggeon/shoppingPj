@@ -7,11 +7,13 @@ import com.group6.shopping.coupons.vo.CouponsVO;
 import com.group6.shopping.models.services.ModelsService;
 import com.group6.shopping.security.CustomMemDetails;
 import com.group6.shopping.specifications.vo.SpecVO;
+import com.group6.shopping.url.UrlHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Iterator;
 import java.util.List;
@@ -53,16 +55,21 @@ public class CartsController {
 
         models.addAttribute("carts", cartsVOList);
         models.addAttribute("totalPrice", totalPrice);
-        return "/carts/cart";
+        return "/carts/cart2";
+        //return "/carts/cart";
     }
 
     @RequestMapping("/member/mailinginformation")
-    public String mailingInformation(Model models, HttpSession session) throws Exception {
+    public String mailingInformation(Model models, HttpSession session, HttpServletResponse response) throws Exception {
         CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
 
         List<CouponsVO> couponsVOList = couponsService.getAllCoupons(user.getMem_id());
-        int totalPrice = cartsService.getTotal(user.getMem_id(), "null");
-        user.getClass().getName();
+        Integer totalPrice = cartsService.getTotal(user.getMem_id(), "null");
+        if(totalPrice == null){
+            UrlHandler.alert(response, "Wrong Url");
+            return "home";
+        }
+
         models.addAttribute("coupons", couponsVOList);
         models.addAttribute("totalPrice", totalPrice);
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,6 @@
 <body>
 	<div class="wrapper">
 	<div class="main-content">
-
 		<!-- banner -->
 		<div class="slider">
 			<div>
@@ -86,28 +86,28 @@
 
 			<div class="conbox con2">
 				<section class="subImg2">
-					<a href="">
+					<a href="/spec/chooseModel?model_id=${recommendList[0].model_id}&category=new&currPage=1">
 						<div class="item2 item2_3"></div>
-						<h3>전문 케어 서비스를 만나보세요</h3>
+						<h3>${recommendList[0].productsVO.product_name} ${recommendList[0].model_name}</h3>
 					</a>
 					<div class="sub_wrap2">
-						<a href="">
+						<a href="/spec/chooseModel?model_id=${recommendList[1].model_id}&category=new&currPage=1">
 							<div class="item2 item2_1"></div>
-							<h3>안심보증케어1</h3>
+							<h3>${recommendList[1].productsVO.product_name} ${recommendList[1].model_name}</h3>
 						</a>
-						<a href="">
+						<a href="/spec/chooseModel?model_id=${recommendList[2].model_id}&category=new&currPage=1">
 							<div class="item2 item2_2"></div>
-							<h3>안심보증케어3</h3>
+							<h3>${recommendList[2].productsVO.product_name} ${recommendList[2].model_name}</h3>
 						</a>
 					</div>
 					<div class="sub_wrap2">
-						<a href="">
+						<a href="/spec/chooseModel?model_id=${recommendList[3].model_id}&category=new&currPage=1">
 							<div class="item2 item2_4"></div>
-							<h3>안심보증케어2</h3>
+							<h3>${recommendList[3].productsVO.product_name} ${recommendList[3].model_name}</h3>
 						</a>
-						<a href="">
+						<a href="/spec/chooseModel?model_id=${recommendList[4].model_id}&category=new&currPage=1">
 							<div class="item2 item2_5"></div>
-							<h3>안심보증케어4</h3>
+							<h3>${recommendList[4].productsVO.product_name} ${recommendList[4].model_name}</h3>
 						</a>
 					</div>
 				</section>
