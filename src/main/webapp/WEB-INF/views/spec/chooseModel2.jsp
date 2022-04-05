@@ -429,8 +429,8 @@
             <p>보증을 추가하시겠습니까?</p>
             <div id="care">
                 <div class="ck_box" >
-                    <div id="-1" onclick="clickEvent(this.id, 'careInput')" class="ck_v">아니오</div>
-                    <div id="-2" onclick="clickEvent(this.id, 'careInput')" class="ck_v">예</div>
+                    <div id="-2" onclick="clickEvent(this.id, 'careInput')" class="ck_v">아니오</div>
+                    <div id="-1" onclick="clickEvent(this.id, 'careInput')" class="ck_v">예</div>
                 </div>
             </div>
             <div class="bill_box">
@@ -641,6 +641,7 @@
 
         var userPhone = {};
         function specCheck(){
+            //console.log("여기");
             //bring the record of spec (qty, price)
             //form userPhone to json
 
@@ -649,6 +650,7 @@
             for(i=0; i < userInput.length; i++){
                 phone[userInput[i].name] = userInput[i].value;
             }
+            console.log(phone);
             $.ajax({
                 url:"/spec/findSpec",
                 type:"post",

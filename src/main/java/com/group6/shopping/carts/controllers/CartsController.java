@@ -72,17 +72,4 @@ public class CartsController {
 
         return "/carts/cart";
     }
-
-    @RequestMapping("/member/mailinginformation")
-    public String mailingInformation(Model models, HttpSession session) throws Exception {
-        CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
-
-        List<CouponsVO> couponsVOList = couponsService.getAllCoupons(user.getMem_id());
-        int totalPrice = cartsService.getTotal(user.getMem_id(), "null");
-        user.getClass().getName();
-        models.addAttribute("coupons", couponsVOList);
-        models.addAttribute("totalPrice", totalPrice);
-
-        return "/carts/mailing";
-    }
 }

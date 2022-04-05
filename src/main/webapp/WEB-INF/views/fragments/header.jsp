@@ -33,7 +33,6 @@
 <div class="wrapper">
 	<!-- Chat button -->
 	<div id="chat">
-		<button id="enterRoom" onclick="enterRoom()">asdfasdfasdf</button>
 	</div>
 
 	<!-- Side menu -->
@@ -49,7 +48,9 @@
 			<li><a href="/spec/viewModels?product=sixTablet"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
 			<li><a href="/spec/viewModels?product=sixWatch"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/event.png"><h4 class="left">이벤트</h4></a></li>
-			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">고객센터</h4></a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">관리자 페이지</h4></a></li>
+			</sec:authorize>
 		</ul>
 		<hr color="#ebebeb" size="1px" width="95%" />
 		<sec:authorize access="isAnonymous()">
@@ -57,20 +58,40 @@
 				<li><a href="/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
 			</ul>
 		</sec:authorize>
-		<sec:authorize access="isAuthenticated()">
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<ul class="m2">
-				<li class="user user_menu">
-					<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
+				<li class="m2_btn">
+					<a href="${pageContext.request.contextPath}/members/member/mypage">
+						<img src="${pageContext.request.contextPath}/resources/static/img/user.png">
+						<h4 class="left mypage_btn">마이페이지</h4>
+					</a>
 				</li>
-				<li>
+				<li class="m2_btn">
 					<a href="/carts/member/cart"><i class="fa-solid fa-cart-shopping"></i></a>
 				</li>
-				<li>
-					<form action="/members/logout" method="post">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
-						<h4 class="left">로그아웃</h4>
-					</form>
+				<li class="m2_btn">
+					<a href="${pageContext.request.contextPath}/members/logout">
+						<img src="${pageContext.request.contextPath}/resources/static/img/logout.png">
+						<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn_side">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type="submit" value="로그아웃">
+						</form>
+					</a>
+				</li>
+			</ul>
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<ul class="m2">
+				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/admin1.png"><h4 class="left">관리자</h4></a></li>
+				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">1:1 상담</h4></a></li>
+				<li class="m2_btn">
+					<a href="${pageContext.request.contextPath}/members/logout">
+						<img src="${pageContext.request.contextPath}/resources/static/img/logout.png">
+						<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn_side">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type="submit" value="로그아웃">
+						</form>
+					</a>
 				</li>
 			</ul>
 		</sec:authorize>
@@ -152,38 +173,61 @@
 						<li><a href="#">Event</a></li>
 					</ul>
 				</li>
-				<li>
-					<a href="#">고객센터</a>
+			</ul>
+
+			<ul class="nav_links_1">
+
+				<a href="#" class="search_btn">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</a>
+
+				<li class="users_cart">
+					<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
 					<ul>
-						<li><a href="#">Service</a></li>
+						<li>
+							<div style="padding-top:20px;">
+								<div>
+									<a href="${pageContext.request.contextPath}/carts/member/cart">Cart</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+
+				<li class="users_log">
+					<a href="#"><i class="fa-solid fa-user"></i></a>
+					<ul>
+						<li>
+							<div style="padding-top:20px;">
+								<div>
+									<sec:authorize access="isAnonymous()">
+										<a href="${pageContext.request.contextPath}/login">Login</a>
+										<a href="${pageContext.request.contextPath}/join">Join</a>
+									</sec:authorize>
+
+									<sec:authorize access="hasRole('ROLE_MEMBER')">
+										<a href="${pageContext.request.contextPath}/members/member/mypage">Mypage</a>
+										<a href="${pageContext.request.contextPath}/members/logout">
+											<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+												<input type="submit" value="Logout">
+											</form>
+										</a>
+									</sec:authorize>
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<a href="${pageContext.request.contextPath}/admin">관리자</a>
+										<a href="#">1:1 상담</a>
+										<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+											<input type="submit" value="로그아웃">
+										</form>
+									</sec:authorize>
+								</div>
+							</div>
+						</li>
 					</ul>
 				</li>
 			</ul>
-
-			<ol class="nav_links">
-				<li>
-					<a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-				</li>
-				<sec:authorize access="isAnonymous()">
-					<li class="user user_menu">
-						<a href="/login"><i class="fa-solid fa-user"></i></a>
-					</li>
-				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-					<li class="user user_menu">
-						<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
-					</li>
-					<li>
-						<a href="/carts/member/cart"><i class="fa-solid fa-cart-shopping"></i></a>
-					</li>
-					<li class="user user_menu">
-						<form action="/members/logout" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<input type="image" value="로그아웃">
-						</form>
-					</li>
-				</sec:authorize>
-			</ol>
 
 			<a href="#" class="menu_find">
 				<i class="fa-solid fa-magnifying-glass"></i>
@@ -196,13 +240,13 @@
 	</header>
 
 	<script>
-/*		$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
+		/*		$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
 
-			alert("수발");
-			if (xhr.status == 403) {
-				window.location.href ="/login";
-			}
-		});*/
+                    alert("수발");
+                    if (xhr.status == 403) {
+                        window.location.href ="/login";
+                    }
+                });*/
 
 
 		var search = document.cookie;
@@ -221,7 +265,7 @@
 				}else{//jsession 값만이 cookie에 있을때
 					search = "";
 				}
-			//jsession 값이 중간 혹은 맨뒤
+				//jsession 값이 중간 혹은 맨뒤
 			}else{
 				//jsession 값 앞에있는 search cookie 자름
 				var search1 = search.substring(0, jession);
@@ -236,7 +280,7 @@
 					var search2 = search.substring(first+2);
 					//jession 앞 search 와 뒤 search를 합침
 					search = search1 + search2;
-				//jesssion 값이 맨뒤에 있을떄
+					//jesssion 값이 맨뒤에 있을떄
 				}else{
 					search = search1;
 				}
@@ -277,7 +321,7 @@
 					result = input.substring(0,21) + "...";
 				}
 				list += "<li id="+searchList[j]+"><a href='/spec/searchItems?searchInput="+input+"'>" +result+
-                    "</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
+						"</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
 			}
 		}
 		list+= "</ul>";
@@ -335,7 +379,7 @@
 			}
 		}
 
-        function delAllHistory() {
+		function delAllHistory() {
 			var ulParent = document.getElementById('historyParent');
 			for(var i = 0; i < searchList.length; i++){
 				var split = searchList[i].split('/');
@@ -369,17 +413,17 @@
 					console.log(err);
 				}
 			});
-	}
-
-	function enter(){
-		if (window.event.keyCode == 13) {
-			if(document.getElementById("h_box") == ""){
-				alert("값을 입력해주세요");
-				return;
-			}
-			document.getElementById("search").submit();
 		}
-	}
+
+		function enter(){
+			if (window.event.keyCode == 13) {
+				if(document.getElementById("h_box") == ""){
+					alert("값을 입력해주세요");
+					return;
+				}
+				document.getElementById("search").submit();
+			}
+		}
 	</script>
 </div>
 </body>

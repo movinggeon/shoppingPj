@@ -24,6 +24,7 @@ public class SpecRestController {
 
     @RequestMapping("/findSpec")
     public SpecVO findSpec(@RequestBody SpecVO specVO) throws Exception {
+        System.out.println("왔음");
         return specService.getSpec(specVO);
     }
 }
