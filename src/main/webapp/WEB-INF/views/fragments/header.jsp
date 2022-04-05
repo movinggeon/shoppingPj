@@ -45,28 +45,42 @@
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/event.png"><h4 class="left">이벤트</h4></a></li>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">관리자 페이지</h4></a></li>
-			</sec:authorize>
+
 		</ul>
 		<hr color="#ebebeb" size="1px" width="95%" />
 		<sec:authorize access="isAnonymous()">
 			<ul class="m2">
-				<li><a href="/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
+				<li><a href="${pageContext.request.contextPath}/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
 			</ul>
 		</sec:authorize>
-		<sec:authorize access="isAuthenticated()">
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<ul class="m2">
-				<li>
-					<form action="/members/logout" method="post">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
-						<h4 class="left">로그아웃</h4>
-					</form>
+				<li class="m2_btn">
+					<a href="${pageContext.request.contextPath}/members/member/mypage">
+						<img src="${pageContext.request.contextPath}/resources/static/img/user.png">
+						<h4 class="left mypage_btn">마이페이지</h4>
+					</a>
 				</li>
-				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/truck.png"><h4 class="left">주문/배송조회</h4></a></li>
+				<li class="m2_btn">
+					<a href="${pageContext.request.contextPath}/members/logout">
+						<img src="${pageContext.request.contextPath}/resources/static/img/logout.png">
+						<h4 class="left">
+							<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn_side">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<input type="submit" value="로그아웃">
+							</form>
+						</h4>
+					</a>
+				</li>
 			</ul>
 		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<ul class="m2">
+				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/admin1.png"><h4 class="left">관리자</h4></a></li>
+				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">1:1 상담</h4></a></li>
+			</ul>
+		</sec:authorize>
+
 	</div>
 
 	<!-- Search box -->
@@ -148,40 +162,65 @@
 						<li><a href="#">Event</a></li>
 					</ul>
 				</li>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li>
-						<a href="/admin">관리자</a>
-						<ul>
-							<li><a href="#">1:1상담</a></li>
-						</ul>
-					</li>
-				</sec:authorize>
+<%--				<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+<%--					<li>--%>
+<%--						<a href="/admin">관리자</a>--%>
+<%--						<ul>--%>
+<%--							<li><a href="#">1:1상담</a></li>--%>
+<%--						</ul>--%>
+<%--					</li>--%>
+<%--				</sec:authorize>--%>
 			</ul>
 
-			<ol class="nav_links">
-				<li>
-					<a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-				</li>
-				<li>
+			<ul class="nav_links_1">
+
+				<a href="#" class="search_btn">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</a>
+
+				<li class="users_cart">
 					<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+					<ul>
+						<li>
+							<div style="padding-top:20px;">
+								<div>
+									<a href="${pageContext.request.contextPath}/carts/member/cart">Cart</a>
+								</div>
+							</div>
+						</li>
+					</ul>
 				</li>
-				<sec:authorize access="isAnonymous()">
-					<li class="user user_menu">
-						<a href="/login"><i class="fa-solid fa-user"></i></a>
-					</li>
-				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-					<li class="user user_menu">
-						<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
-					</li>
-					<li class="user user_menu">
-						<form action="/members/logout" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<input type="image" value="로그아웃">
-						</form>
-					</li>
-				</sec:authorize>
-			</ol>
+
+				<li class="users_log">
+					<a href="#"><i class="fa-solid fa-user"></i></a>
+					<ul>
+						<li>
+							<div style="padding-top:20px;">
+								<div>
+									<sec:authorize access="isAnonymous()">
+										<a href="${pageContext.request.contextPath}/login">Login</a>
+										<a href="${pageContext.request.contextPath}/join">Join</a>
+									</sec:authorize>
+
+									<sec:authorize access="hasRole('ROLE_MEMBER')">
+										<a href="${pageContext.request.contextPath}/members/member/mypage">Mypage</a>
+										<a href="${pageContext.request.contextPath}/members/logout">
+											<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+												<input type="submit" value="Logout">
+											</form>
+										</a>
+									</sec:authorize>
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<a href="${pageContext.request.contextPath}/admin">관리자</a>
+										<a href="#">1:1 상담</a>
+									</sec:authorize>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
 
 			<a href="#" class="menu_find">
 				<i class="fa-solid fa-magnifying-glass"></i>

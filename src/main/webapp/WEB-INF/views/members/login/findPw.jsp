@@ -33,15 +33,7 @@
 
     function sendFindPw(){
         jQuery.ajax({
-<<<<<<< HEAD
-<<<<<<< HEAD
             "url": "/findPw/sendFindPw",
-=======
-            "url": "/members/findPw/sendFindPw",
->>>>>>> a91597cf2819d60b7cdbdffc480cedc368c00a90
-=======
-            "url": "/findPw/sendFindPw",
->>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
             "type": "POST",
             "contentType": "application/json; charset=utf-8;",
             "data": JSON.stringify({
@@ -61,15 +53,7 @@
 
             if (jsonData.success) {
                 alert(jsonData.success);
-<<<<<<< HEAD
-<<<<<<< HEAD
                 location.href = "/login";
-=======
-                location.href = "/members/login";
->>>>>>> a91597cf2819d60b7cdbdffc480cedc368c00a90
-=======
-                location.href = "/login";
->>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
             }
             else {
                 alert(jsonData.error);
@@ -80,12 +64,4 @@
     }
 </script>
 </body>
-<<<<<<< HEAD
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> a91597cf2819d60b7cdbdffc480cedc368c00a90
-=======
-</html>
->>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463

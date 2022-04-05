@@ -1,16 +1,6 @@
 package com.group6.shopping.members.controllers;
 
 import java.io.IOException;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import java.security.Principal;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Random;
->>>>>>> a91597cf2819d60b7cdbdffc480cedc368c00a90
-=======
->>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,15 +41,9 @@ public class MembersController {
 	public String mypage(HttpSession session, Model model) throws Exception {
 		
 		System.out.println("mypage로 이동");
-<<<<<<< HEAD
 		
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 		
-=======
-		
-		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
-		
->>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 		int count = couponsService.countCoupon(cs.getMem_id());
 		
 		System.out.println(count);
@@ -72,27 +56,12 @@ public class MembersController {
 	public String modify(HttpServletRequest request) {
 		System.out.println("modify 호출");
 		return "members/mypage/modify";
-<<<<<<< HEAD
 	}
 	@RequestMapping(value ="/member/delete")
 	public String delete(HttpServletRequest requet){
 		System.out.println("회원탈퇴 이동");
 		return "members/mypage/delete";
 	}
-
-	@RequestMapping(value = "/findId")
-	public String findId(HttpServletRequest request){
-		System.out.println("아이디 찾기 이동");
-		return "members/login/findId";
-	}
-=======
-	}
-	@RequestMapping(value ="/member/delete")
-	public String delete(HttpServletRequest requet){
-		System.out.println("회원탈퇴 이동");
-		return "members/mypage/delete";
-	}
->>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 
 	@RequestMapping(value = "/member/modifyPassword")
 	public String modifyPassword(HttpServletRequest request){
@@ -104,61 +73,8 @@ public class MembersController {
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@RequestMapping(value = "/findPw")
-	public String findPw(HttpServletRequest request){
-		System.out.println("비밀번호 찾기 이동");
-		return "members/login/findPw";
-	}
-
-	/* 이메일 인증 */
-	@RequestMapping(value="/mailCheck", method= RequestMethod.GET)
-	@ResponseBody
-	public String mailCheckGET(String email) throws Exception{
-
-		/* 뷰(View)로부터 넘어온 데이터 확인 */
-		System.out.println("이메일 데이터 전송확인");
-		System.out.println("인증번호:"+email);
-		/*인증번호 생성*/
-		Random random=new Random();
-		int checkNum=random.nextInt(888888)+111111;
-		System.out.println("인증번호:"+checkNum);
-
-		/*이메일 인증*/
-		String setFrom="clothes.test.teamsix@gmail.com";
-		String toMail=email;
-		String title="SIX STORE 회원가입 인증 메일입니다.";
-		String content=
-				"홈페이지를 방문해 주셔서 감사합니다"+
-						"<br><br>"+
-						"회원님의 인증번호는 "+checkNum	+"입니다."+
-						"<br>"+
-						"해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
-
-		try{
-
-			MimeMessage message=mailSender.createMimeMessage();
-			MimeMessageHelper helper =new MimeMessageHelper(message, true,"utf-8");
-			helper.setFrom(setFrom);
-			helper.setTo(toMail);
-			helper.setSubject(title);
-			helper.setText(content,true);
-			mailSender.send(message);
-
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		String num=Integer.toString(checkNum);
-		return num;
-=======
 		LogoutHandler logoutHandler = new LogoutHandler();
 		logoutHandler.onLogoutSuccess(request, response, auth);
->>>>>>> origin/chaeyeon1
-=======
-		LogoutHandler logoutHandler = new LogoutHandler();
-		logoutHandler.onLogoutSuccess(request, response, auth);
->>>>>>> 32feb2bff50dcec39d042566e7c7477c0c32d463
 	}
 
 }
