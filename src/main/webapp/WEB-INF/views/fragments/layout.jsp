@@ -12,12 +12,12 @@
 </head>
 <body>
 
-<div style="height: 80px">
+<div style="height: 66px">
   <tiles:insertAttribute name="header" />
 </div>
 
 <div></div>
-<div style="min-height: 700px;">
+<div style="min-height: 700px">
 	<tiles:insertAttribute name="body" />
 </div>
 

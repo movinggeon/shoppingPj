@@ -13,4 +13,16 @@ public class LoginController {
 		System.out.println("loginController 호출됨");
 		return "members/login/login";
 	}
+	
+	@RequestMapping(value = "/findId")
+	public String findId(HttpServletRequest request){
+		System.out.println("아이디 찾기 이동");
+		return "members/login/findId";
+	}
+	
+	@RequestMapping(value = "/findPw")
+	public String findPw(HttpServletRequest request){
+		System.out.println("비밀번호 찾기 이동");
+		return "members/login/findPw";
+	}
 }

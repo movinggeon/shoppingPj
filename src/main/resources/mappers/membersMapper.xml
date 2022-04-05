@@ -56,4 +56,39 @@
 		FROM members
 		WHERE mem_id=#{mem_id}
 	</delete>
+		<select id="findId" resultType="String">
+		SELECT mem_id
+		FROM members
+		WHERE mem_email=#{mem_email}
+	</select>
+
+	<select id="findIdCheck" resultType="int">
+		SELECT count(*)
+		FROM members
+		WHERE mem_email=#{mem_email}
+	</select>
+
+	<update id="findPw">
+		UPDATE members
+		SET mem_password=#{mem_password}
+		WHERE mem_id=#{mem_id} AND mem_email=#{mem_email}
+	</update>
+
+	<select id="findPwCheck" resultType="int">
+		SELECT count(*)
+		FROM members
+		WHERE mem_id=#{mem_id} AND mem_email=#{mem_email}
+	</select>
+	
+	<update id="updateEnableMem">
+		UPDATE members
+		SET mem_enable = #{mem_enable}
+		WHERE mem_id=#{mem_id}
+	</update>
+	
+	<select id="searchAdmin" resultType="String">
+		SELECT mem_id
+		FROM members
+		WHERE mem_auth = 'ROLE_ADMIN'
+	</select>
 </mapper>

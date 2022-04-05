@@ -81,4 +81,6 @@
 		order by board_rate desc;
 	</select>
 
+
+
 </mapper>

@@ -46,7 +46,6 @@ ${qtyZero}<br>
     <a href="/carts/member/mailinginformation">주소지 설정</a>
 </c:if>
 
-
 <script>
     function updateQty(id ,value){
         var cartId = id.substring(3);
