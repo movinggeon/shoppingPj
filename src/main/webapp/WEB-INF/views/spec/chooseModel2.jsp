@@ -312,15 +312,6 @@
         padding: 5px 5px;
         cursor: pointer;
     }
-    .like-content {
-        display: inline-block;
-        width: 100%;
-        margin: 40px 0 0;
-        padding: 40px 0 0;
-        font-size: 18px;
-        border-top: 10px dashed #eee;
-        text-align: center;
-    }
     .like-content span {
         color: #9d9da4;
         font-family: monospace;
@@ -785,6 +776,13 @@
                 $(this).children('.fa-heart').addClass('animate-like');
             });
         });
+
+       /* $(function(){
+            $(document).one('click', '.like-review', function(e) {
+                $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> Like');
+                $(this).children('.fa-heart').removeClass('animate-like');
+            });
+        });*/
     </script>
 </body>
 </html>
