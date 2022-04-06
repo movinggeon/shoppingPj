@@ -50,6 +50,15 @@ public class ChatController {
         return roomList;
     }
 
+    //방지우기
+    @RequestMapping("/deleteroom")
+    public @ResponseBody List<Room> deleteRoom(@RequestParam HashMap<String, Object> params){
+        System.out.println(roomList);
+        return roomList;
+
+    }
+
+
     //채팅방
     // "/admin/moveChating"
     @RequestMapping("/moveChating")
