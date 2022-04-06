@@ -1,10 +1,15 @@
 package com.group6.shopping.chatting.vo;
 
+import lombok.*;
+
+@Getter
+@Setter@NoArgsConstructor@AllArgsConstructor@ToString
 public class Room {
     int roomNumber;
     String roomName;
+    String userSessionId;
 
-    public int getRoomNumber() {
+/*    public int getRoomNumber() {
         return roomNumber;
     }
     public void setRoomNumber(int roomNumber) {
@@ -20,5 +25,5 @@ public class Room {
     @Override
     public String toString() {
         return "Room [roomNumber=" + roomNumber + ", roomName=" + roomName + "]";
-    }
+    }*/
 }

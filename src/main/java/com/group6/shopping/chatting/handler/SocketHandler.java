@@ -1,5 +1,6 @@
 package com.group6.shopping.chatting.handler;
 
+import com.group6.shopping.chatting.vo.Room;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -19,7 +20,7 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.*;
 @Component
-public class SocketHandler extends TextWebSocketHandler {
+public class SocketHandler extends TextWebSocketHandler implements RoomList {
 
     @Autowired
     private S3Service s3Service;
@@ -155,6 +156,7 @@ public class SocketHandler extends TextWebSocketHandler {
         boolean flag = false;
         int canchat=0;
         String url = session.getUri().toString();
+
         String roomNumber = url.split("/chating/")[1];
         int idx = rls.size(); //방의 사이즈를 조사한다.
         if(rls.size() > 0) {
@@ -215,6 +217,13 @@ public class SocketHandler extends TextWebSocketHandler {
         if(rls.size() > 0) { //소켓이 종료되면 해당 세션값들을 찾아서 지운다.
             for(int i=0; i<rls.size(); i++) {
                 rls.get(i).remove(session.getId());
+            }
+        }
+        Iterator iter = roomList.iterator();
+        while(iter.hasNext()){
+            Room tmp = (Room) iter.next();
+            if(tmp.getUserSessionId().equals(session.getId())){
+                iter.remove();
             }
         }
         super.afterConnectionClosed(session, status);

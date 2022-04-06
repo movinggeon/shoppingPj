@@ -74,6 +74,7 @@
                     var si = d.sessionId != null ? d.sessionId : "";
                     if(si != ''){
                         $("#sessionId").val(si);
+                        SettingSessionId(si);
                     }
                 }else if(d.type == "message"){
                     	
@@ -118,6 +119,27 @@
         document.addEventListener("keypress", function(e){
             if(e.keyCode == 13){ //enter press
                 senChat();
+            }
+        });
+    }
+
+    function SettingSessionId(sId){
+        $.ajax({
+            url: "updateRoom",
+            type:"post",
+            data:{
+                sId:sId
+            },
+            dataType: "text",
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader(header, token);
+            },
+            success: function(data) {
+                alert("성공");
+            },
+            error: function() {
+                alert("error");
             }
         });
     }
