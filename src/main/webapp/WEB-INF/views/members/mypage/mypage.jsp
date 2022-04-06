@@ -18,7 +18,7 @@
 		<div class="menu_header">
 			<ul>
 				<li>
-					<a href="#">좋아요</a>
+					<a href="/likes/members/likeslist">좋아요</a>
 				</li>
 				<li>
 					<a href="#">주문관리</a>
