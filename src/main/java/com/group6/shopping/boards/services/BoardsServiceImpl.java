@@ -44,4 +44,9 @@ public class BoardsServiceImpl implements BoardsService{
     public List<Integer> boardRateList(ModelsVO modelsVO) throws Exception {
         return boardsDAO.boardRateList(modelsVO);
     }
+
+    @Override
+    public BoardsVO viewBoard(String board_id) throws Exception {
+        return boardsDAO.viewBoard(board_id);
+    }
 }

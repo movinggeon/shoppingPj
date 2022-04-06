@@ -514,8 +514,10 @@
                             <span class="iconify" data-icon="ion:star-outline" style="color: #f6d054;" data-width="13"></span>
                         </c:forEach>
                         <span> ${board.board_rate}</span>
-                        <h3>${board.board_title}</h3>
-                        <div>${board.board_content}</div>
+                        <a href="/boards/viewBoard?board_id=${board.board_id}">
+                            <h3>${board.board_title}</h3>
+                            <div>${board.board_content}</div>
+                        </a>
                         <div class="info_wr">
                             <span style="padding-right: 30px">${board.mem_id}</span>
                             <span>${board.board_date}</span>

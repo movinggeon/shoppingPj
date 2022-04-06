@@ -23,6 +23,6 @@ public class BoardsVO {
     private ModelsVO modelsVO;
     private ProductsVO productsVO;
 
-    //private List<RepliesVO> repliesVOList;
-    //private List<FilesVO> filesVOList;
+    private List<RepliesVO> repliesVOList;
+    private List<FilesVO> filesVOList;
 }
