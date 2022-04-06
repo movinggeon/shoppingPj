@@ -43,7 +43,6 @@
         </tr>
         </table>
     </div>
-    <button onclick=" disconnect()" id="finishBtn" class="finishBtn"></button>
 
 
 </div>
@@ -75,6 +74,7 @@
                     var si = d.sessionId != null ? d.sessionId : "";
                     if(si != ''){
                         $("#sessionId").val(si);
+                        SettingSessionId(si);
                     }
                 }else if(d.type == "message"){
                     	
@@ -132,6 +132,25 @@
         }else{
             $("#chating").append("<div class='wait'>=====연결될때까지 잠시만 기다려 주세요=====</div>");
         }
+    }
+    function SettingSessionId(sId){
+        $.ajax({
+            url:"updateroom",
+            type:"post",
+            data:{
+                sId:sId
+            },
+            dataType:"text",
+            beforeSend :function(xhr)
+            {
+                xhr.setRequestHeader(header,token);
+            },
+            success: function(data){
+            },
+            error:function(){
+                alert("error");
+            }
+        });
     }
 
     function senChat(){
@@ -200,18 +219,6 @@
         }
         $('#fileUpload').val("");
         $('#file_route').val("");
-    }
-    function disconnect(){
-        $("#chating").append("<div class='wait'>=====연결이 종료되었습니다=====</div>")
-
-        var option = {
-            type: "remove",
-            roomNumber: $("#roomNumber").val(),
-            sessionId: $("#sessionId").val(),
-            userName: $("#userName").val(),
-        }
-        ws.send(JSON.stringify(option));
-        ws.close();
     }
 
 
