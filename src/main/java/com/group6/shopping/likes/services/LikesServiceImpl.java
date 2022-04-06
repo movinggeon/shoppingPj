@@ -23,8 +23,8 @@ public class LikesServiceImpl implements LikesService{
         likesDAO.likeinsert(param);
     }
     @Override
-    public void likedelete(int spec_id, String mem_id) throws Exception{
-        likesDAO.likedelete(spec_id, mem_id);
+    public void likedelete(HashMap<String, Object>param) throws Exception {
+        likesDAO.likedelete(param);
     }
     @Override
     public List<LikesVO> LikeList(String memId) throws Exception{

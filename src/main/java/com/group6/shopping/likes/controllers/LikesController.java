@@ -2,10 +2,7 @@ package com.group6.shopping.likes.controllers;
 
 import com.group6.shopping.likes.services.LikesService;
 import com.group6.shopping.likes.vo.LikesVO;
-import com.group6.shopping.models.services.ModelsService;
 import com.group6.shopping.security.CustomMemDetails;
-import com.group6.shopping.specifications.services.SpecService;
-import com.group6.shopping.specifications.vo.SpecDisplayVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

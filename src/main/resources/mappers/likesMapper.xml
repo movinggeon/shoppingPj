@@ -22,21 +22,22 @@
         <result column="product_id" property="product_id"/>
         <result column="product_name" property="product_name"/>
     </resultMap>
-    <select id="getAlllikes" resultType="LikesVO">
-        select * from likes
-        where mem_id = #{mem_id}
-    </select>
 
-    <insert id="likeinsert">
-        insert into likes(spec_id, mem_id)
-        values (#{spec_id},#{mem_id})
-    </insert>
+<select id="getAlllikes" resultType="LikesVO">
+    select * from likes
+    where mem_id = #{mem_id}
+</select>
 
-    <delete id="likedelete">
-        DELETE
-        FROM likes
-        WHERE spec_id=#{spec_id} and mem_id=#{mem_id}
-    </delete>
+<insert id="likeinsert">
+    insert into likes(mem_id, model_id)
+    values (#{mem_id}, #{model_id})
+</insert>
+
+<delete id="likedelete">
+    DELETE
+    FROM likes
+    WHERE mem_id=#{mem_id} and model_id=#{model_id}
+</delete>
 
     <select id="LikeList" resultMap="LikesVO">
         select *
