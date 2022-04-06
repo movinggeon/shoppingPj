@@ -26,9 +26,6 @@ public class ChatController implements RoomList {
     public ModelAndView room() {
         System.out.println("room 도착");
         ModelAndView mv = new ModelAndView();
-        for(Room tmp : roomList){
-            System.out.println(tmp.toString());
-        }
         mv.setViewName("admin/chat/room");
         mv.addObject("roomList", roomList);
         return mv;

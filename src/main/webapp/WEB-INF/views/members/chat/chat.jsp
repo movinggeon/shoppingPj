@@ -136,7 +136,7 @@
                 xhr.setRequestHeader(header, token);
             },
             success: function(data) {
-                alert("성공");
+                //alert("성공");
             },
             error: function() {
                 alert("error");
