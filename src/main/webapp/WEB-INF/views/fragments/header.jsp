@@ -400,12 +400,16 @@ function delHistory(id){
 		}
 		ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
 	}
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
+    //csrf 토큰값 받기
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    
 	sessionStorage.setItem("mem_id","${user.mem_id}");
 	function enterRoom() {
 		var user = "${user.mem_id}";
 		console.log(user);
+		console.log(token);
+		console.log(header);
 		$.ajax({
 			//url: '/chat/member/createRoom'.
 			url: '/createRoom',
@@ -423,6 +427,7 @@ function delHistory(id){
 			}
 		});
 	}
+	
 	function enter(){
 	if (window.event.keyCode == 13) {
 		if(document.getElementById("h_box") == ""){

@@ -13,4 +13,5 @@ public class LikesVO {
     private int like_id;
     private int spec_id;
     private String mem_id;
+    private int model_id;
 }

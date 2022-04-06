@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
@@ -13,6 +14,7 @@
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
     />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
@@ -22,6 +24,12 @@
     <script src="${pageContext.request.contextPath}/resources/static/js/main.js"></script>
     <script src="${pageContext.request.contextPath}/resources/static/js/header.js" defer></script>
     <title>SMARTDC</title>
+    <% String model_id = request.getParameter("model_id"); %>
+    <% List<String> modelIdList = (List)request.getAttribute("modelIdList"); %>
+    <% boolean likeState = false; %>
+    <% if( modelIdList != null && modelIdList.contains(model_id)){%>
+    <% 		likeState = true;%>
+    <% }%>
 </head>
 <body>
 <style>
@@ -316,6 +324,9 @@
         color: #9d9da4;
         font-family: monospace;
     }
+    .like-content {
+    	text-align: center;
+    }
     .like-content .btn-secondary {
         display: block;
         margin: 40px auto 0px;
@@ -350,7 +361,6 @@
         100% { transform: scale(1); }
     }
 </style>
-
 <main class="main-content"></main>
 
     <div style="margin-top: 60px"></div>
@@ -491,14 +501,19 @@
                     </h5>
                 </div>
                 <button class="basketc_btn" onclick="addCart()" style="padding: 10px 0">
-                    장바구니에 담기
+                   장바구니에  담기
                 </button>
                 <div class="like-content">
-                <button class="btn-secondary like-review">
-                    <i class="fa fa-heart" aria-hidden="true"></i> Like
-                </button>
-
-            </div>
+                	<c:set var="likeState" value="<%=likeState %>"></c:set>
+                	<c:choose>
+	                	<c:when test="${likeState }">
+							<span class="iconify" data-icon="flat-color-icons:like" style="font-size: 60px;" id="like"></span> <!--  onclick="clickLike()" -->
+						</c:when>
+						<c:otherwise>
+							<span class="iconify" data-icon="icon-park-outline:like" style="font-size: 60px;" id="dislike"></span>
+						</c:otherwise>
+					</c:choose>
+            	</div>
             </div>
         </div>
     </div>
@@ -770,19 +785,100 @@
             $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
         });
 
-        $(function(){
-            $(document).one('click', '.like-review', function(e) {
-                $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+ /*        $(function(){
+            $(document).on('click', '.like-review', function(e) {
+                $(this).html('<i class="fa fa-heart" aria-hidden="true" id="like"></i> You liked this');
                 $(this).children('.fa-heart').addClass('animate-like');
             });
         });
 
-       /* $(function(){
+        $(function(){
             $(document).one('click', '.like-review', function(e) {
-                $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> Like');
+                $(this).html('<i class="fa fa-heart" aria-hidden="true" id="dislike"></i> Like');
                 $(this).children('.fa-heart').removeClass('animate-like');
             });
-        });*/
+        }); */
+        
+	    //csrf 토큰값 받기
+	    var token = $("meta[name='_csrf']").attr("content");
+	    var header = $("meta[name='_csrf_header']").attr("content");
+	    
+      	//좋아요    	
+        $(document).on("click","#like", function(){
+
+       	    var likeState = $(this).attr("id");
+       	    console.log('좋아요 상태 -> ' + likeState);
+       	    
+    	  	if(likeState = 'like'){
+	               jQuery.ajax({
+	                   "url": "/likes/member/likedelete",
+	                   "type": "POST",
+	                   "contentType": "application/json; charset=utf-8;",
+	                   "data": JSON.stringify({
+	                	   "model_id":${param.model_id},
+	                   }),
+	                   beforeSend : function(xhr)
+	                   {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	                       xhr.setRequestHeader(header, token);
+	                   },
+	                   "dataType": "json"
+	               }).done(function(data) {
+	                   data = JSON.stringify(data);
+	                   jsonData = JSON.parse(data);
+	
+	                   //console.log(jsonData);
+	
+	                   if (jsonData.success) {
+	                       console.log(jsonData.success);
+	                       $('#like').remove();
+	                       $('.like-content').append('<span class="iconify" data-icon="icon-park-outline:like" style="font-size: 60px;" id="dislike"></span>');
+	                   }
+	                   else {
+	                       alert("에러");
+	                   }
+	
+	               });
+ 	  			}
+       	});
+	    
+      	//좋아요 취소    	
+        $(document).on("click","#dislike", function(){
+
+       	    var likeState = $(this).attr("id");
+       	    console.log('좋아요 상태 -> ' + likeState);
+       	    
+    	  	if(likeState = 'dislike'){
+    	  		
+	               jQuery.ajax({
+	                   "url": "/likes/member/likeinsert",
+	                   "type": "POST",
+	                   "contentType": "application/json; charset=utf-8;",
+	                   "data": JSON.stringify({
+	                	   "model_id":${param.model_id},
+	                   }),
+	                   beforeSend : function(xhr)
+	                   {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	                       xhr.setRequestHeader(header, token);
+	                   },
+	                   "dataType": "json"
+	               }).done(function(data) {
+	                   data = JSON.stringify(data);
+	                   jsonData = JSON.parse(data);
+	
+	                   //console.log(jsonData);
+	
+	                   if (jsonData.success) {
+	                       console.log(jsonData.success);
+	                       $('#dislike').remove();
+	                       $('.like-content').append('<span class="iconify" data-icon="flat-color-icons:like" style="font-size: 60px;" id="like"></span>');
+	                   }
+	                   else {
+	                       alert("에러");
+	                   }
+	
+	               });
+ 	  			}
+       	});
     </script>
 </body>
 </html>
