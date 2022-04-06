@@ -20,12 +20,12 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.*;
 @Component
-public class SocketHandler extends TextWebSocketHandler {
+public class SocketHandler extends TextWebSocketHandler implements RoomList {
 
     @Autowired
     private S3Service s3Service;
 
-    List<Room> roomList = new ArrayList<Room>();
+
     List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
     SimpleDateFormat date = new SimpleDateFormat ( "yyyy-MM-dd-HH-mm-ss");
     private static final String FILE_UPLOAD_PATH = "C:/sixstore/";
@@ -68,23 +68,6 @@ public class SocketHandler extends TextWebSocketHandler {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
-                }
-            }
-            if (msgType.equals("remove")) {
-                System.out.println("일단 여기까진 오니?");
-                String rNremove = (String) obj.get("roomNumber");
-                int rNremove2=Integer.parseInt(rNremove);
-                System.out.println("지울방번호:"+rNremove);
-
-                for (int i = 0; i < rls.size(); i++) {
-                    String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호를 가져와서
-                    if (roomNumber.equals(rNremove)) { //같은값의 방이 존재한다면
-                        System.out.println("여기서 방번호를 지워주자");
-                        /*rls.remove("roomNumber",rNremove);*/
-                        temp.remove("roomNumber",rNremove);
-                        roomList.remove(rNremove2);
-                        break;
                     }
                 }
             }
@@ -234,10 +217,20 @@ public class SocketHandler extends TextWebSocketHandler {
         if(rls.size() > 0) { //소켓이 종료되면 해당 세션값들을 찾아서 지운다.
             for(int i=0; i<rls.size(); i++) {
                 rls.get(i).remove(session.getId());
+                rls.remove(i);
             }
 
         }
-        super.afterConnectionClosed(session, status);
+        Iterator iter=roomList.iterator();
+        while(iter.hasNext()) {
+            Room tmp=(Room)iter.next();
+            if(tmp.getUserSessionId().equals(session.getId())){
+                iter.remove();
+            }
+        }
+
+
+            super.afterConnectionClosed(session, status);
     }
 
     private static JSONObject jsonToObjectParser(String jsonStr) {
