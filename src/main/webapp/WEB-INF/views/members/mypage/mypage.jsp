@@ -18,7 +18,7 @@
 		<div class="menu_header">
 			<ul>
 				<li>
-					<a href="/likes/members/likeslist">좋아요</a>
+					<a href="#">좋아요</a>
 				</li>
 				<li>
 					<a href="#">주문관리</a>
@@ -42,7 +42,7 @@
 			<div class="inner">
 				<ul>
 					<li>
-						<a href="#">Clothes</a>
+						<a href="/likes/members/likeslist">MY ♡ ITEM</a>
 					</li>
 					<li>
 						<a href="#">Brands</a>
