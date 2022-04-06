@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
-<%@ page session="false" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -32,8 +31,7 @@
 <body>
 <div class="wrapper">
 	<!-- Chat button -->
-	<div id="chat">
-	</div>
+	<div id="chat" onclick="enterRoom()"></div>
 
 	<!-- Side menu -->
 	<div class="menu_bg"></div>
@@ -43,19 +41,17 @@
 		</div>
 
 		<ul class="m1">
-			<li><a href="/spec/viewModels?product=sixPhone"><img src="${pageContext.request.contextPath}/resources/static/img/smartphone.png"><h4 class="left">스마트폰</h4></a></li>
-			<li><a href="/spec/viewModels?product=sixBook"><img src="${pageContext.request.contextPath}/resources/static/img/laptop.png"><h4 class="left">노트북</h4></a></li>
-			<li><a href="/spec/viewModels?product=sixTablet"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
-			<li><a href="/spec/viewModels?product=sixWatch"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
+			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/smartphone.png"><h4 class="left">스마트폰</h4></a></li>
+			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/laptop.png"><h4 class="left">노트북</h4></a></li>
+			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
+			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/event.png"><h4 class="left">이벤트</h4></a></li>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">관리자 페이지</h4></a></li>
-			</sec:authorize>
+
 		</ul>
 		<hr color="#ebebeb" size="1px" width="95%" />
 		<sec:authorize access="isAnonymous()">
 			<ul class="m2">
-				<li><a href="/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
+				<li><a href="${pageContext.request.contextPath}/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
 			</ul>
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_MEMBER')">
@@ -67,15 +63,14 @@
 					</a>
 				</li>
 				<li class="m2_btn">
-					<a href="/carts/member/cart"><i class="fa-solid fa-cart-shopping"></i></a>
-				</li>
-				<li class="m2_btn">
 					<a href="${pageContext.request.contextPath}/members/logout">
 						<img src="${pageContext.request.contextPath}/resources/static/img/logout.png">
-						<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn_side">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<input type="submit" value="로그아웃">
-						</form>
+						<h4 class="left">
+							<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn_side">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<input type="submit" value="로그아웃">
+							</form>
+						</h4>
 					</a>
 				</li>
 			</ul>
@@ -84,17 +79,9 @@
 			<ul class="m2">
 				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/admin1.png"><h4 class="left">관리자</h4></a></li>
 				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">1:1 상담</h4></a></li>
-				<li class="m2_btn">
-					<a href="${pageContext.request.contextPath}/members/logout">
-						<img src="${pageContext.request.contextPath}/resources/static/img/logout.png">
-						<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn_side">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<input type="submit" value="로그아웃">
-						</form>
-					</a>
-				</li>
 			</ul>
 		</sec:authorize>
+
 	</div>
 
 	<!-- Search box -->
@@ -106,7 +93,6 @@
 			</form>
 			<div class="h_box">
 				<div class="h1" id="searchHistory" style="text-align: left;">
-
 				</div>
 				<div class="h2" style="text-align: left;">
 					<ul>
@@ -173,6 +159,14 @@
 						<li><a href="#">Event</a></li>
 					</ul>
 				</li>
+				<%--				<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+				<%--					<li>--%>
+				<%--						<a href="/admin">관리자</a>--%>
+				<%--						<ul>--%>
+				<%--							<li><a href="#">1:1상담</a></li>--%>
+				<%--						</ul>--%>
+				<%--					</li>--%>
+				<%--				</sec:authorize>--%>
 			</ul>
 
 			<ul class="nav_links_1">
@@ -216,7 +210,7 @@
 									</sec:authorize>
 									<sec:authorize access="hasRole('ROLE_ADMIN')">
 										<a href="${pageContext.request.contextPath}/admin">관리자</a>
-										<a href="#">1:1 상담</a>
+										<a href="${pageContext.request.contextPath}/room">1:1 상담</a>
 										<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 											<input type="submit" value="로그아웃">
@@ -238,21 +232,10 @@
 
 		</nav>
 	</header>
-
 	<script>
-		/*		$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
-
-                    alert("수발");
-                    if (xhr.status == 403) {
-                        window.location.href ="/login";
-                    }
-                });*/
-
-
 		var search = document.cookie;
 		//console.log("original cookie: " + search);
 		var searchList = [];
-
 		var jession = search.indexOf("JSESSIONID");
 		//jsession 값이 있을경우
 		if(jession != -1){
@@ -289,7 +272,6 @@
 		//console.log("after cut: " + search);
 		for(var i = 0 ; i < 3; i++){
 			var first = search.indexOf('=');
-
 			if(first != -1){
 				var second = search.indexOf(';');
 				if(second == -1){
@@ -326,7 +308,6 @@
 		}
 		list+= "</ul>";
 		listContainer.innerHTML = list;
-
 		function removeItem(arr, value) {
 			var index = arr.indexOf(value);
 			if (index > -1) {
@@ -334,51 +315,18 @@
 			}
 			return arr;
 		}
-
 		function delHistory(id){
 			var split = id.split('/');
 			var name = split[0];
-
 			document.getElementById(id).remove();
 			document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
 			searchList = removeItem(searchList, id);
 			console.log(searchList);
-
-			//var cookieId = Number(name.substring(name.length-1));
-			/*
-			var todayDate = new Date();
-			todayDate.setDate(todayDate.getDate() + 7);
-			if(searchList.length == 3){
-				if(cookieId <= 2){
-					document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-					var split = searchList[2].split('/');
-					var value = split[1];
-					document.cookie = "search2" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
-				}
-				if(cookieId == 1){
-					document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-					var split = searchList[1].split('/');
-					var value = split[1];
-					console.log(value);
-					document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
-				}
-			}
-			if(searchList.length == 2){
-				if(cookieId == 1){
-					var split = searchList[1].split('/');
-					document.cookie = 'search2=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-					var value = split[1];
-					console.log(value);
-					document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
-				}
-			}
-			*/
 			var ulParent = document.getElementById('historyParent');
 			if (ulParent.children.length == 1) {
 				ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
 			}
 		}
-
 		function delAllHistory() {
 			var ulParent = document.getElementById('historyParent');
 			for(var i = 0; i < searchList.length; i++){
@@ -389,10 +337,8 @@
 			}
 			ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
 		}
-
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
-
 		sessionStorage.setItem("mem_id","${user.mem_id}");
 		function enterRoom() {
 			var user = "${user.mem_id}";
@@ -414,7 +360,6 @@
 				}
 			});
 		}
-
 		function enter(){
 			if (window.event.keyCode == 13) {
 				if(document.getElementById("h_box") == ""){

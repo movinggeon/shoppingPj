@@ -9,7 +9,6 @@
 
         <link rel="stylesheet" href="/resources/static/css/footer.css" type="text/css"/>
         <script src="/resources/static/js/header.js" defer></script>--%>
-
     <style>
         @font-face {
             font-family: "BBTreeGR";
@@ -203,8 +202,7 @@
                 <div class="iteminfobox">
 
                     <div class="iteminfo">
-                            ${items.productsVO.product_name} ${items.modelsVO.model_name}${items.specVO.spec_color}
-                            ${items.cart_id}
+                            ${items.productsVO.product_name} ${items.modelsVO.model_name} ${items.specVO.spec_color}
                     </div>
                     <div class="count">
                         <select id="qty${items.cart_id}" onchange="updateQty(this.id, this.value)">
@@ -230,7 +228,17 @@
                     </div>
                 </div>
                 <div class="carebox">
-                    <div class="carehave">보증있는지없는지</div>
+                    <div class="carehave">
+                            ${items.productsVO.product_name} ${items.modelsVO.model_name}
+                        <c:choose>
+                            <c:when test="${items.cart_isCare eq -1}">
+                                케어 서비스 선택됨
+                            </c:when>
+                            <c:otherwise>
+                                케어 서비스 선택 안됨
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
         </c:forEach>

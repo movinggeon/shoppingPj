@@ -5,108 +5,196 @@
     <title>Title</title>
 </head>
 
+<style>
+    .m_box {
+        width: 100%;
+    }
+    .m_content {
+        margin: 0 auto;
+        max-width: 1110px;
+        height: auto;
+    }
+
+    .box {
+        width: 400px;
+        height: 100px;
+        border: solid 1px #d2d2d7;
+        border-radius: 10px;
+        text-align : center;
+        padding : 10px 0;
+        margin-top:30px;
+        margin-bottom: 10px;
+    }
+
+    .box:hover {
+        border: 1px solid #86868b;
+    }
+    .check {
+        border: 1px solid #306fdb;
+    }
+
+    .join_details{
+        display: none;
+    }
+
+    .btn_addressCheck {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        border-radius: 20px;
+        background-color: #ebebeb;
+        border: 1px solid #ddd;
+
+        padding: 5px 5px;
+        cursor: pointer;
+    }
+
+    .btn_b {
+        color: white;
+        display: inline-block;
+        width: 200px;
+        height: 60px;
+        border-radius: 20px;
+        background-color: #0071ef;
+        border: 1px solid #0071ef;
+        font-size: 23px;
+        font-weight: bold;
+        padding: 5px 5px;
+        cursor: pointer;
+    }
+
+    .join_addressNum_input{
+        width : 300px;
+        height: 30px;
+        border-right: 0px;
+        border-left: 0px;
+        border-top:0px;
+        border-bottop:0px;
+        border-radius: 8px;
+    }
+    .join_address_input{
+        width : 400px;
+        height: 30px;
+        border-right: 0px;
+        border-left: 0px;
+        border-top:0px;
+        border-bottop:0px;
+        border-radius: 8px;
+    }
+
+    .phone_input{
+        width : 200px;
+        height: 20px;
+        border: solid 1px #d2d2d7;
+        border-radius: 8px;
+    }
+</style>
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <body>
+<div class="m_box">
+    <div class="m_content">
+        <h1>주소 전화번호 정보</h1>
 
-<h1>주소 전화번호 정보</h1>
-<hr>
+        <div class="box" id="mem_addres" onclick="hide_New_address('new_address' ,this.id, 'new_mem_addres')">
+            <h3>기존 주소 사용</h3>
+            ${tmpAddr}
+            ${user.mem_post_code}
+        </div>
 
-<div id="mem_addres" onclick="hide_New_address('new_address')">
-    <h3>기존 주소 사용</h3>
-    ${user.mem_address}
-    ${user.mem_post_code}
-    기본값
-</div>
+        <div class="box" id="new_mem_addres" onclick="show_New_Address('new_address', this.id, 'mem_addres')" style="height: 70px;">
+            <h3>새주소 사용</h3>
+        </div>
 
-<br>
+        <div class="join_details" id="new_address">
+            <input type="text" id="postcode" class="join_addressNum_input" placeholder="우편번호" disabled="disabled">
+            <input type="button" class="btn_addressCheck" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+            <input type="text" id="address" class="join_address_input" placeholder="주소" disabled="disabled"><br>
+            <input type="text" id="detailAddress" class="join_address_input" placeholder="상세주소" value="aa"><br>
+            <input type="text" id="extraAddress" class="join_address_input" placeholder="참고항목" disabled="disabled"><br>
+        </div>
 
-<div id="click_new_address" onclick="show_New_Address('new_address')">
-    <h3>새주소 사용</h3>
-</div>
+        <h1 style="margin-top: 30px">연락처를 알려주세요</h1>
 
-<div id="new_address" style="display: none">
-    주소<br>
-    <input type="text" id="postcode" placeholder="우편번호" disabled="disabled">
-    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-    <input type="text" id="address" placeholder="주소" disabled="disabled"><br>
-    <input type="text" id="detailAddress" maxlength="80" placeholder="상세주소" value="aa">
-    <input type="text" id="extraAddress" placeholder="참고항목" disabled="disabled">
-    <p id="addressCheck"></p><br>
-</div>
+        <div class="box" id="mem_phone" onclick="hide_New_address('new_phone', this.id, 'new_mem_phone')" style="height: 70px;">
+            <h3>기존 번호 사용</h3>
+            ${user.mem_phone}
+        </div>
 
-<hr>
+        <div class="box" id="new_mem_phone" onclick="show_New_Address('new_phone', this.id, 'mem_phone')" style="height: 70px;">
+            <h3>새번호 사용</h3>
+            <div id="new_phone" style="display: none">
+                <input class="phone_input" type="number" name="phone" id ="phone">
+            </div>
+        </div> 입력하시는 전화번호는 주문 후 변경할 수 없으므로 맞는 번호인지 확인해 주십시오.
+
+        <form action="payment" method="post">
+            <input type="hidden" name="cart_address" id="cart_address" value="${tmpAddr}!${user.mem_post_code}">
+            <input type="hidden" name="cart_phone" id="cart_phone" value="${user.mem_phone}">
+            <input type="hidden" name="coupon_price" id="coupon_price">
+            <input type="hidden" name="coupon_pct" id="coupon_pct">
+        </form>
+
+        <h1 style="margin-top: 30px">포인트 & 쿠폰 사용하세요</h1>
+
+        <div class="box" id="point" >
+            <div style="text-align: left; margin-left: 50px;">
+                <h2>${user.mem_point}원</h2>
+            </div>
+            <div>
+                <input class="phone_input" type="number" id="mem_point" value="">
+                <button type="button" class="btn_addressCheck" onclick="usePoint()">사용</button>
+            </div>
+        </div>
+        <form>
+            <div class = "box">
+                <br>
+                <h3>쿠폰 리스트 확인 하기</h3>
+            </div>
+        </form>
+        <button type="button" class="btn_addressCheck" onclick="delCoupon()">쿠폰 취소</button>
+        <div id="mem_coupon_list">
+            <c:forEach var="list" items="${coupons}">
+                <div id = "cop${list.coupon_id}" onclick="addCoupon(this.id)">
+                ${list.coupon_id} ${list.coupon_desc}
+                <c:choose>
+                    <c:when test="${list.coupon_pct eq 0}">
+                        ${list.coupon_price}원
+                    </c:when>
+                    <c:otherwise>
+                        ${list.coupon_pct}%
+                    </c:otherwise>
+                </c:choose>
+                ${list.coupon_valid_date}
+                </div>
+            </c:forEach>
+        </div>
+
+        <div id="originalPrice">
+            <h1>가격  : ${totalPrice}원</h1>
+        </div>
+
+        <div style="font-size: 15px; color: gray">
+        사용된 포인트:
+        <span id = "pointUsed">
+
+        </span><br>
+
+        사용된 쿠폰 :
+        <span id="couponUsed">
+        </span>
 
 
-<div id="mem_phone" onclick="hide_New_address('new_phone')">
-    <h3>기존 번호 사용</h3>
-    ${user.mem_phone}
-</div>
+        </div>
 
-<div onclick="show_New_Address('new_phone')">
-    <h3>새번호 사용</h3>
-    <div id="new_phone" style="display: none">
-        <input type="number" name="phone" id ="phone">
+        <div id ="price">
+            <h1>총 가격:${totalPrice}원</h1>
+        </div>
+
+
+        <button class="btn_b" type="button" onclick="payment()">Pay</button>
     </div>
 </div>
-
-
-
-<form action="payment" method="post">
-    <input type="hidden" name="cart_address" id="cart_address" value="${user.mem_address}/${user.mem_post_code}">
-    <input type="hidden" name="cart_phone" id="cart_phone" value="${user.mem_phone}">
-    <input type="hidden" name="coupon_price" id="coupon_price">
-    <input type="hidden" name="coupon_pct" id="coupon_pct">
-</form>
-
-${user.mem_point}점
-<div id="point">
-    사용하고 싶은 점수: <input type="number" id="mem_point" value="">
-    <button type="button" onclick="usePoint()">사용</button>
-</div>
-
-현재 가지고 있는 쿠폰 리스트
-*쿠폰은 최대 하나만 사용 가능합니다. 만들기 귀찮잖아요.
-<button type="button" onclick="delCoupon()">쿠폰 취소</button>
-<div id="mem_coupon_list">
-    <c:forEach var="list" items="${coupons}">
-        <div id = "cop${list.coupon_id}" onclick="addCoupon(this.id)">
-        ${list.coupon_id} ${list.coupon_desc}
-        <c:choose>
-            <c:when test="${list.coupon_pct eq 0}">
-                ${list.coupon_price}원
-            </c:when>
-            <c:otherwise>
-                ${list.coupon_pct}%
-            </c:otherwise>
-        </c:choose>
-        ${list.coupon_valid_date}
-        </div>
-    </c:forEach>
-</div>
-
-<div id="originalPrice">
-    <h1>원래 가격: ${totalPrice}원</h1>
-</div>
-
------------------------
-사용된 점수
-<div id = "pointUsed">
-
-</div>
-------------------------
-사용된 쿠폰
-<div id="couponUsed">
-
-
-</div>
-
-<div id ="price">
-    <h1>총 가격:${totalPrice}원</h1>
-</div>
-
-
-<button type="button" onclick="payment()">Pay</button>
-
 
 <script>
     var totalPrice = Number("${totalPrice}");
@@ -156,7 +244,7 @@ ${user.mem_point}점
         mem_point = point.value;
         totalPrice -= Number(mem_point);
 
-        document.getElementById("pointUsed").innerHTML = point.value;
+        document.getElementById("pointUsed").innerHTML = point.value + "원";
         point.value = "";
 
         document.getElementById("price").innerHTML = "<h1> 총가격: "+totalPrice+"원 </h1>"
@@ -217,7 +305,7 @@ ${user.mem_point}점
                 if(data.fail == ""){
                     couponDiscount = totalPrice - Number(data.success);
                     totalPrice = Number(data.success);
-                    document.getElementById("couponUsed").innerHTML = id + " : " + couponDiscount;
+                    document.getElementById("couponUsed").innerHTML = couponDiscount + "원";
                     document.getElementById("price").innerHTML = "<h1> 총가격: "+data.success+"원 </h1>";
                 }else{
                     alert(data.fail);
@@ -230,8 +318,12 @@ ${user.mem_point}점
         });
     }
 
-    function show_New_Address(id){
+    function show_New_Address(id, id2, id3){
         document.getElementById(id).style.display = "block";
+
+        document.getElementById(id2).className = 'box check';
+        document.getElementById(id3).className = 'box';
+
         if(id == 'new_phone'){
             document.getElementById("cart_phone").value = "";
         }else{
@@ -241,8 +333,11 @@ ${user.mem_point}점
 
     }
 
-   function hide_New_address(id){
+   function hide_New_address(id, id2, id3){
         document.getElementById(id).style.display = "none";
+
+       document.getElementById(id2).className = 'box check';
+       document.getElementById(id3).className ='box';
         if(id == 'new_phone'){
             document.getElementById("cart_phone").value = "${user.mem_phone}";
             document.getElementById("phone").value = "";
@@ -308,7 +403,6 @@ ${user.mem_point}점
     function payment(){
         var mem_phone = document.getElementById("cart_phone").value;
         var mem_address = document.getElementById("cart_address").value;
-        var totalDiscount = couponDiscount + mem_point;
 
 
         if(mem_address == ""){
