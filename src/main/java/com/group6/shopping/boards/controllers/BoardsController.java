@@ -3,7 +3,6 @@ package com.group6.shopping.boards.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +11,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group6.shopping.boards.services.BoardsService;
 import com.group6.shopping.boards.vo.BoardsVO;
+import com.group6.shopping.boards.vo.EventPagingVO;
+import com.group6.shopping.boards.vo.PagingVO;
 
 @Controller
 @RequestMapping("/boards")
@@ -29,30 +30,50 @@ public class BoardsController {
     	
     	 //이벤트 메인페이지 진행중게시글 목록조회
     	  
-    	  @GetMapping(value = "/event") 
-    	  public String EventBoardslist(Model model)
-    	  throws Exception { System.out.println("/event");
-    	  model.addAttribute("eventboardlist", boardsservice.EventBoardslist());
-    	  return "boards/event"; 
-    	  }
-    	 
+		
+    	  @GetMapping("/event")
+      	public String EventBoardslist(EventPagingVO vo, Model model
+      			, @RequestParam(value="nowPage", required=false)String nowPage
+      			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
+      		
+      		int total = boardsservice.countBoard();
+      		if (nowPage == null && cntPerPage == null) {
+      			nowPage = "1";
+      			cntPerPage = "6";
+      		} else if (nowPage == null) {
+      			nowPage = "1";
+      		} else if (cntPerPage == null) { 
+      			cntPerPage = "6";
+      		}
+      		vo = new EventPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+      		model.addAttribute("paging", vo);
+      		model.addAttribute("eventboardlist", boardsservice.EventBoardslist(vo));
+      		return "boards/event";
+      	}
+      
+
+     	
     	  //이벤트 메인페이지 종료게시글 목록조회
     	  
-    	  @GetMapping(value = "/endevent") 
-    	  public String EndEventBoardslist(Model model) throws Exception 
-    	  {System.out.println("/endevent");
-    	  model.addAttribute("endeventboardlist", boardsservice.EndEventBoardslist());
-    	  return "boards/endevent"; 
-    	  }
-    	
-    	//리뷰 메인페이지 게시글 목록조회
-    		@GetMapping(value = "/review")
-    		public String ReviewBoardslist(Model model) throws Exception {
-    			System.out.println("/review");
-    			model.addAttribute("reviewboardlist", boardsservice.ReviewBoardslist());
-    			
-    			return "boards/review";
-    		}
+    	  @GetMapping("/endevent")
+      	public String EndEventBoardslist(EventPagingVO vo, Model model
+      			, @RequestParam(value="nowPage", required=false)String nowPage
+      			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
+      		
+      		int total = boardsservice.endcountBoard();
+      		if (nowPage == null && cntPerPage == null) {
+      			nowPage = "1";
+      			cntPerPage = "6";
+      		} else if (nowPage == null) {
+      			nowPage = "1";
+      		} else if (cntPerPage == null) { 
+      			cntPerPage = "6";
+      		}
+      		vo = new EventPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+      		model.addAttribute("paging", vo);
+      		model.addAttribute("endeventboardlist", boardsservice.EndEventBoardslist(vo));
+      		return "boards/endevent";
+      	}
     		
     	//게시글 보기
     	@RequestMapping(value = "/readView")
@@ -108,5 +129,4 @@ public class BoardsController {
     	}
     	
     	
-    }
-
+}

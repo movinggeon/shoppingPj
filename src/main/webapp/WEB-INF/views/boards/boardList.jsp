@@ -160,9 +160,7 @@
 		</div>
 		<div class="event_container">
 
-
-
-			<c:forEach items="${eventboardlist}" var="event" begin="0" end="5">
+		<c:forEach items="${eventboardlist}" var="event" begin="0" end="5">
 				<div class="event_list">
 					<a href="/boards/readView?board_id=${event.board_id}"> <img
 						src="/resources/static/eventimg/${event.board_content}.jpg" alt="" />
@@ -184,9 +182,10 @@
 			</c:forEach>
 		</div>
 
-		<div class="page">		
+		<div class="page">1 / 2 / 3 / 4 / 5 ...</div>
+<div class="page">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="/boards/event?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			<a href="/boards/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -194,16 +193,14 @@
 					<b>[${p }] </b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/boards/event?nowPage=${p }&cntPerPage=${paging.cntPerPage}">[${p }]</a>
+					<a href="/boards/boardList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">[${p }]</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="/boards/event?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			<a href="/boards/boardList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
-	</div>	
-		
-		
+	</div>
 		<c:set var="memid" value="${user.mem_id}" />
 		<c:if test="${memid eq 'asd12321'}">
 			<a href="/boards/eventinsertView">이벤트글쓰기</a>

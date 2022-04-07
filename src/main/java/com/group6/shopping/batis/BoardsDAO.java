@@ -1,6 +1,7 @@
 package com.group6.shopping.batis;
 
 import com.group6.shopping.boards.vo.BoardsVO;
+import com.group6.shopping.boards.vo.EventPagingVO;
 import com.group6.shopping.boards.vo.PagingVO;
 import com.group6.shopping.models.vo.ModelsVO;
 import org.apache.ibatis.annotations.Param;
@@ -19,9 +20,9 @@ public interface BoardsDAO {
   //리뷰 메인페이지 게시글 목록조회
     public List<BoardsVO> ReviewBoardslist() throws Exception;
   //이벤트 메인페이지 게시글 목록조회
-    public List<BoardsVO> EventBoardslist() throws Exception;
+	public List<BoardsVO> EventBoardslist(EventPagingVO vo);
   //이벤트 메인페이지 종료게시글 목록조회
-    public List<BoardsVO> EndEventBoardslist() throws Exception;
+    public List<BoardsVO> EndEventBoardslist(EventPagingVO vo);
     //이벤트 게시글 조회
     public BoardsVO read(int board_id) throws Exception;
     //이벤트 게시글 작성
@@ -32,6 +33,8 @@ public interface BoardsDAO {
     public void delete(int board_id) throws Exception;
     //이벤트 게시글 수정
     public void update(BoardsVO vo) throws Exception;
+	public int countBoard();
+	public int endcountBoard();
    
     
 }

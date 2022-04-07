@@ -47,7 +47,7 @@
 
 <h1>이벤트 글 작성하기</h1>
 
-<form action="/boards/eventinsert" method="post">
+<form action="/boards/eventinsert" method="get">
 	<div>
 
 		<input type ="hidden" name="mem_id" value="${user.mem_id}"> ${user.mem_id}
