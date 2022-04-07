@@ -18,13 +18,12 @@ import java.util.stream.Collectors;
 //admin, members 권한별로 url 지정하기
 @Controller
 public class ChatController implements RoomList {
-    //List<Room> roomList = new ArrayList<Room>();
+ /*   List<Room> roomList = new ArrayList<Room>();*/
     static int roomNumber = 0;
 
    //방페이지 return
     @RequestMapping("/room")
     public ModelAndView room() {
-        System.out.println("room 도착");
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/chat/room");
         mv.addObject("roomList", roomList);
@@ -47,25 +46,25 @@ public class ChatController implements RoomList {
         return room;
     }
 
-    @RequestMapping("/updateRoom")
-    @ResponseBody
-    public String updateRoom(String sId, HttpSession session){
-        CustomMemDetails cs = (CustomMemDetails) session.getAttribute("user");
-        for(Room tmp : roomList){
-            if(tmp.getRoomName().equals(cs.getMem_id())){
-                tmp.setUserSessionId(sId);
-            }
-        }
-
-        return "";
-    }
-
     //방가져오기
     // "/admin/getRoom"
     @RequestMapping("/getRoom")
     public @ResponseBody List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
         return roomList;
     }
+
+    //방지우기
+    @RequestMapping("/updateroom")
+    public @ResponseBody String updateRoom(String sId, HttpSession session){
+        CustomMemDetails cs=(CustomMemDetails) session.getAttribute("user");
+        for(Room tmp:roomList){
+            if(tmp.getRoomName().equals(cs.getMem_id())){
+                tmp.setUserSessionId(sId);
+            }
+        }
+        return "";
+    }
+
 
     //채팅방
     // "/admin/moveChating"

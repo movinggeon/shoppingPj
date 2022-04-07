@@ -40,12 +40,6 @@ public class HomeController {
 	@Autowired
 	private ModelsService modelsService;
 
-	@RequestMapping("/tmp")
-	public String tmp(){
-
-		return "/spec/chooseModel2";
-	}
-
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model models, HttpServletRequest request) throws Exception {
 		System.out.println("home");

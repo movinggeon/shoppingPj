@@ -21,4 +21,5 @@ public interface SpecificationsDAO {
     public List<String> searchSpec(String spec) throws Exception;
     public List<ModelsVO> getModel(Map<String, Object> searchContext) throws Exception;
 
+
 }

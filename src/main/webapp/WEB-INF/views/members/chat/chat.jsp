@@ -154,6 +154,25 @@
             $("#chating").append("<div class='wait'>=====연결될때까지 잠시만 기다려 주세요=====</div>");
         }
     }
+    function SettingSessionId(sId){
+        $.ajax({
+            url:"updateroom",
+            type:"post",
+            data:{
+                sId:sId
+            },
+            dataType:"text",
+            beforeSend :function(xhr)
+            {
+                xhr.setRequestHeader(header,token);
+            },
+            success: function(data){
+            },
+            error:function(){
+                alert("error");
+            }
+        });
+    }
 
     function senChat(){
         var file =  $('#fileUpload').val();
@@ -222,6 +241,8 @@
         $('#fileUpload').val("");
         $('#file_route').val("");
     }
+
+
 </script>
 
 </body>

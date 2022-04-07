@@ -3,8 +3,11 @@ package com.group6.shopping.specifications.controllers;
 import com.group6.shopping.boards.services.BoardsService;
 import com.group6.shopping.boards.vo.BoardsVO;
 import com.group6.shopping.boards.vo.PagingVO;
+import com.group6.shopping.likes.services.LikesService;
+import com.group6.shopping.likes.vo.LikesVO;
 import com.group6.shopping.models.services.ModelsService;
 import com.group6.shopping.models.vo.ModelsVO;
+import com.group6.shopping.security.CustomMemDetails;
 import com.group6.shopping.specifications.services.SpecService;
 import com.group6.shopping.specifications.vo.SearchSpecVO;
 import com.group6.shopping.specifications.vo.SpecDisplayVO;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.html.parser.Entity;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -33,6 +37,8 @@ public class SpecController {
     private ModelsService modelsService;
     @Autowired
     private BoardsService boardsService;
+    @Autowired
+    private LikesService likesService;
 
     @RequestMapping("/viewModels")
     public String viewModels(HttpServletResponse response, Model models, String product) throws Exception {
@@ -62,7 +68,7 @@ public class SpecController {
     }
 
     @RequestMapping("/chooseModel")
-    public String chooseModel(HttpServletResponse response, Model models, ModelsVO modelsVO, PagingVO pagingVO, String category) throws Exception {
+    public String chooseModel(HttpServletResponse response, Model models, ModelsVO modelsVO, PagingVO pagingVO, String category, HttpSession session) throws Exception {
         ModelsVO mTmp = modelsService.getModel(modelsVO);
 
         if(mTmp == null){
@@ -122,6 +128,25 @@ public class SpecController {
             models.addAttribute("roundRate", roundRate);
             models.addAttribute("boardList", boardsVOList);
             models.addAttribute("page", pTmp);
+        }
+
+        //좋아요
+        List<LikesVO> likeList = new ArrayList<LikesVO>();
+
+        CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
+        List<String> modelIdList = new ArrayList<String>();
+        if(cs != null) {
+
+        	likeList = likesService.getAlllikes(cs.getMem_id());
+        	for(int i = 0; i < likeList.size(); i++) {
+
+        		modelIdList.add( likeList.get(i).getModel_id() + "" );
+
+        	}
+
+        	if(modelIdList.size() > 0) {
+        		models.addAttribute("modelIdList", modelIdList);
+        	}
         }
         return "/spec/chooseModel2";
         //return "spec/chooseModel";

@@ -25,6 +25,7 @@ public class SocketHandler extends TextWebSocketHandler implements RoomList {
     @Autowired
     private S3Service s3Service;
 
+
     List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
     SimpleDateFormat date = new SimpleDateFormat ( "yyyy-MM-dd-HH-mm-ss");
     private static final String FILE_UPLOAD_PATH = "C:/sixstore/";
@@ -39,29 +40,29 @@ public class SocketHandler extends TextWebSocketHandler implements RoomList {
 
         String rN = (String) obj.get("roomNumber"); //방의 번호를 받는다.
         String msgType = (String) obj.get("type"); //메시지의 타입을 확인한다.
-       /* System.out.println(obj.get("userName"));*/
-        
+        /* System.out.println(obj.get("userName"));*/
+
         HashMap<String, Object> temp = new HashMap<String, Object>();
-        if(rls.size() > 0) {
-            for(int i=0; i<rls.size(); i++) {
+        if (rls.size() > 0) {
+            for (int i = 0; i < rls.size(); i++) {
                 String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호를 가져와서
-                if(roomNumber.equals(rN)) { //같은값의 방이 존재한다면
+                if (roomNumber.equals(rN)) { //같은값의 방이 존재한다면
                     temp = rls.get(i); //해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다.
                     fileUploadIdx = i;
                     fileUploadSession = (String) obj.get("sessionId");
-                    username=(String)obj.get("userName");
+                    username = (String) obj.get("userName");
                     break;
                 }
             }
-            if(!msgType.equals("fileUpload")) { //메시지의 타입이 파일업로드가 아닐때만 전송한다.
+            if (!msgType.equals("fileUpload")) { //메시지의 타입이 파일업로드가 아닐때만 전송한다.
                 //해당 방의 세션들만 찾아서 메시지를 발송해준다.
-                for(String k : temp.keySet()) {
-                    if(k.equals("roomNumber")) { //다만 방번호일 경우에는 건너뛴다.
+                for (String k : temp.keySet()) {
+                    if (k.equals("roomNumber")) { //다만 방번호일 경우에는 건너뛴다.
                         continue;
                     }
 
                     WebSocketSession wss = (WebSocketSession) temp.get(k);
-                    if(wss != null) {
+                    if (wss != null) {
                         try {
                             wss.sendMessage(new TextMessage(obj.toJSONString()));
                         } catch (IOException e) {
@@ -156,7 +157,6 @@ public class SocketHandler extends TextWebSocketHandler implements RoomList {
         boolean flag = false;
         int canchat=0;
         String url = session.getUri().toString();
-
         String roomNumber = url.split("/chating/")[1];
         int idx = rls.size(); //방의 사이즈를 조사한다.
         if(rls.size() > 0) {
@@ -217,16 +217,20 @@ public class SocketHandler extends TextWebSocketHandler implements RoomList {
         if(rls.size() > 0) { //소켓이 종료되면 해당 세션값들을 찾아서 지운다.
             for(int i=0; i<rls.size(); i++) {
                 rls.get(i).remove(session.getId());
+                rls.remove(i);
             }
+
         }
-        Iterator iter = roomList.iterator();
-        while(iter.hasNext()){
-            Room tmp = (Room) iter.next();
+        Iterator iter=roomList.iterator();
+        while(iter.hasNext()) {
+            Room tmp=(Room)iter.next();
             if(tmp.getUserSessionId().equals(session.getId())){
                 iter.remove();
             }
         }
-        super.afterConnectionClosed(session, status);
+
+
+            super.afterConnectionClosed(session, status);
     }
 
     private static JSONObject jsonToObjectParser(String jsonStr) {

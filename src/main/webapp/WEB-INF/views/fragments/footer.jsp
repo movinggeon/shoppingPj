@@ -22,6 +22,6 @@
 				Copyright © 2000-2023 SMARTDC. All Rights Reserved.
 			</div>
 		</footer>
-	</div>
+<%--	</div>--%>
 </body>
 </html>

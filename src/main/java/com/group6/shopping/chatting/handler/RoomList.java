@@ -6,5 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface RoomList {
-    static final List<Room> roomList = new ArrayList<>();
+    static final List<Room> roomList=new ArrayList<>();
 }
+
