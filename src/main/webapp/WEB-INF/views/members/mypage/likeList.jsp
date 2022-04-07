@@ -93,13 +93,12 @@
 </style>
 <body>
 
-<h1>좋아요 리스트</h1>
-
-
 <div style="margin-top:17px"></div>
-<div class="main-content">
 
+<div class="main-content">
+    <h1>좋아요 리스트</h1>
     <div class="container">
+
         <c:forEach items="${likeList}" var="like">
             <div class="product_list">
                 <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="">
