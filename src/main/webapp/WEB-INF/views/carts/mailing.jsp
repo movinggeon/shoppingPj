@@ -217,7 +217,6 @@
     };
 
     var mem_point= 0;
-    var user_point = Number("${user.mem_point}");
     var point = document.getElementById("mem_point");
     function usePoint(){
         if(point.value == ""){
@@ -241,11 +240,9 @@
 
         if(mem_point != 0){
             totalPrice += Number(mem_point);
-            user_point += Number(mem_point);
         }
         mem_point = point.value;
         totalPrice -= Number(mem_point);
-        user_point -= Number(mem_point);
 
         document.getElementById("pointUsed").innerHTML = point.value + "원";
         point.value = "";
@@ -254,9 +251,6 @@
 
     }
 
-/*    point.onblur = function(e){
-
-    }*/
 
     var couponId= 0;
     var couponDiscount = 0;
