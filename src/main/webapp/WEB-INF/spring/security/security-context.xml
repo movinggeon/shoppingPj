@@ -30,10 +30,10 @@
 		<security:access-denied-handler ref="deniedHandler"/>
 		<!-- 최대 한 개의 세션만 생성되도록 -->
 		<security:session-management invalid-session-url="/">
-			<security:concurrency-control max-sessions="1"
-										  expired-url="/members/login"
-										  error-if-maximum-exceeded="true" />
-		</security:session-management>
+            <security:concurrency-control max-sessions="1"
+            							  expired-url="/login"
+            							  error-if-maximum-exceeded="true" />
+        </security:session-management>
 
 	</security:http>
 
@@ -48,7 +48,7 @@
 	<bean id="loginSuccessHandler" class="com.group6.shopping.security.LoginSuccessHandler"/>
 	<bean id="logoutHandler" class="com.group6.shopping.security.LogoutHandler"/>
 	<bean id="authenticationEntryPoint" class="com.group6.shopping.security.AjaxAwareAuthenticationEntryPoint">
-		<constructor-arg value="/members/login"/>
+		<constructor-arg value="/login"/>
 	</bean>
 
 	<bean id="deniedHandler" class="com.group6.shopping.security.DeniedHandler"/>

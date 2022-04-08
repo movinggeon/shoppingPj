@@ -122,6 +122,27 @@
         });
     }
 
+    function SettingSessionId(sId){
+        $.ajax({
+            url: "updateRoom",
+            type:"post",
+            data:{
+                sId:sId
+            },
+            dataType: "text",
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader(header, token);
+            },
+            success: function(data) {
+                //alert("성공");
+            },
+            error: function() {
+                alert("error");
+            }
+        });
+    }
+
     function chatName(){
         var userName = $("#userName").val();
 

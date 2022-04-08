@@ -156,7 +156,8 @@
 				<li>
 					<a href="#">이벤트</a>
 					<ul>
-						<li><a href="#">Event</a></li>
+						<li><a href="/boards/event">Event</a></li>
+						<li><a href="/boards/boardList">리뷰</a></li>
 					</ul>
 				</li>
 			</ul>
