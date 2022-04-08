@@ -34,6 +34,6 @@ public class CouponsController {
 
 		model.addAttribute("couponEA", count);
 
-		return "members/mypage/couponList";
+		return "members/mypage/nofragment/couponList";
 	}
 }

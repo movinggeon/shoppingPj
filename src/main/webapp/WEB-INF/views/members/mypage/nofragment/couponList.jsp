@@ -11,7 +11,7 @@
 	<%CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user"); %>
 </head>
 <body>
-
+<%-- 
 	<h1 class="sub_title">MY PAGE</h1>
 	
 	<div class="sub_menu">
@@ -101,12 +101,7 @@
 			</div>
 		</div>
 	</div>
-	
-	<h1>쿠폰 리스트</h1>
-	
-
-
-
+	 --%>
 		<div class="coupon_box">
 			<div class="coupon_box_title">
 			사용가능 쿠폰
