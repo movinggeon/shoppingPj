@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.ReceiptsDAO">
+	
+	<insert id="insertReceipts" useGeneratedKeys="true" keyProperty="receipt_id">
+		INSERT INTO receipts(receipt_imp_uid, receipt_merchant_uid, receipt_price, receipt_discount, receipt_date, receipt_address, receipt_phone, mem_id, coupon_id, receipt_point)
+			VALUES (#{receipt_imp_uid}, #{receipt_merchant_uid}, #{receipt_price}, #{receipt_discount}, #{receipt_date}, #{receipt_address}, #{receipt_phone}, #{mem_id}, #{coupon_id}, #{receipt_point})
+	</insert>
+</mapper>

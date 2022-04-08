@@ -53,4 +53,9 @@ public class CartsServiceImpl implements CartsService{
     public List<ModelsVO> getPopularItem(int totalshow) throws Exception {
         return cartsDAO.getPopularItem(totalshow);
     }
+    
+    @Override
+    public void updateRecId(HashMap<String, Object> param) throws Exception {
+    	cartsDAO.updateRecId(param);
+    }
 }

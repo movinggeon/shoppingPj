@@ -16,4 +16,5 @@ public interface CartsDAO {
     public CartsVO getSingleCart(CartsVO cartsVO) throws Exception;
     public int updateCart(@Param("cartsVO") CartsVO cartsVO, @Param("salePrice") int salePrice) throws Exception;
     public List<ModelsVO> getPopularItem(int totalshow) throws Exception;
+    public void updateRecId(HashMap<String, Object> param) throws Exception;
 }

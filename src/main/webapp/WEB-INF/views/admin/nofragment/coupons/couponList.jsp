@@ -67,6 +67,7 @@
 			
 			<div class="div-pagingBtn">
 				<div style="display: flex; padding-left: auto; padding-right: auto;">
+				<%--페이징 --%>
 				<c:set var="doneLoop" value="false"/>
 				   <c:forEach var="i" begin="1" end="${totalPage }" varStatus="status">
 				     <c:if test="${not doneLoop}">

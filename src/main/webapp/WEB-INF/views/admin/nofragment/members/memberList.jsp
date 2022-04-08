@@ -83,22 +83,48 @@
     </c:if>
 </c:forEach>
 
+
 <div class="div-pagingBtn">
 	<div style="display: flex; padding-left: auto; padding-right: auto;">
-	<c:set var="doneLoop" value="false"/>
-	   <c:forEach var="i" begin="1" end="${totalPage }" varStatus="status">
-	     <c:if test="${not doneLoop}">
-	     	<div>
-				<button type="button" class="pagingBtn" onclick="sendPage('${i}')">${i }</button>
-			</div>
-           <c:if test="${i eq newArrival.pbNum}">
-             <c:set var="doneLoop" value="true" />
-           </c:if>   
-	     </c:if>
-	   </c:forEach>
+		<%--페이징 --%>
+		<c:set var="doneLoop" value="false"/>
+		   <c:forEach var="i" begin="1" end="${totalPage }" varStatus="status">
+		     <c:if test="${not doneLoop}">
+		     	<div>
+					<button type="button" class="pagingBtn" onclick="sendPage('${i}')">${i }</button>
+				</div>
+	           <c:if test="${i eq newArrival.pbNum}">
+	             <c:set var="doneLoop" value="true" />
+	           </c:if>   
+		     </c:if>
+		   </c:forEach>
 	  </div>
 </div>
-   
+<!--
+ <%-- 일번 페이지가 아닐 경우 --%>
+ <c:if test="${page.currPage ne 1}">
+     맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동
+     <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${1}#reviewPoint"><button class="btn_a"> << </button></a>
+     <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage-1}#reviewPoint"><button class="btn_a"> < </button></a>
+ </c:if>
+ <c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
+     만약 현재 페이지일 경우 이동 링크를 제공하지 않음
+     <c:choose>
+         <c:when test="${i eq page.currPage}">
+             <button class="btn_b">${i}</button>
+         </c:when>
+         <c:otherwise>
+             <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${i}#reviewPoint"><button class="btn_a">${i}</button></a>
+         </c:otherwise>
+     </c:choose>
+ </c:forEach>
+ 현재 페이지가 마지막 페이지가 아닐 경우
+ <c:if test="${page.currPage ne page.totalPage}">
+     현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동
+     <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage+1}#reviewPoint"><button class="btn_a"> > </button></a>
+     <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.totalPage}#reviewPoint"><button class="btn_a"> >> </button></a>
+ </c:if>
+ -->
 <script type="text/javascript">
 
 	function openCoupon(mem_id) {

@@ -3,6 +3,10 @@
 <html>
 <head>
     <title>Title</title>
+    
+     <!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 </head>
 
 <style>
@@ -88,6 +92,55 @@
         border: solid 1px #d2d2d7;
         border-radius: 8px;
     }
+    .coupon_card {
+        border : 1px solid #171717;
+        width : 30%;
+        margin : auto;
+    }
+    .coupon_box{
+        width : 50%;
+        margin : auto;
+    }
+    .coupon_box_title{
+        width: 100%;
+        height: 100px;
+        /*border-top : 2px solid #171717;
+        border-left: 2px solid #171717;
+        border-right: 2px solid #171717;*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+    .couponNum {
+        width: 100%;
+        height: 50px;
+        vertical-align: bottom;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+    }
+    .coupon_card_box {
+        margin-top: 10px;
+        width :100%;
+        border-top : 2px solid #171717;
+    }
+    .coupon_table {
+        width :100%;
+        border-bottom : 1px solid #171717;
+        border-collapse: collapse;
+    }
+    .coupon_table td {
+        border-bottom : 1px solid #171717;
+        text-align: center;
+        vertical-align: middle;
+        height: 30px;
+
+    }
+    .coupon_table th {
+        border-bottom : 1px solid #171717;
+        height : 40px;
+    }
 </style>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -129,7 +182,7 @@
         </div> 입력하시는 전화번호는 주문 후 변경할 수 없으므로 맞는 번호인지 확인해 주십시오.
 
         <form action="payment" method="post">
-            <input type="hidden" name="cart_address" id="cart_address" value="${tmpAddr}!${user.mem_post_code}">
+            <input type="hidden" name="cart_address" id="cart_address" value="${user.mem_address}!${user.mem_post_code}">
             <input type="hidden" name="cart_phone" id="cart_phone" value="${user.mem_phone}">
             <input type="hidden" name="coupon_price" id="coupon_price">
             <input type="hidden" name="coupon_pct" id="coupon_pct">
@@ -146,28 +199,41 @@
                 <button type="button" class="btn_addressCheck" onclick="usePoint()">사용</button>
             </div>
         </div>
-        <form>
-            <div class = "box">
-                <br>
-                <h3>쿠폰 리스트 확인 하기</h3>
-            </div>
-        </form>
+
         <button type="button" class="btn_addressCheck" onclick="delCoupon()">쿠폰 취소</button>
-        <div id="mem_coupon_list">
-            <c:forEach var="list" items="${coupons}">
-                <div id = "cop${list.coupon_id}" onclick="addCoupon(this.id)">
-                ${list.coupon_id} ${list.coupon_desc}
-                <c:choose>
-                    <c:when test="${list.coupon_pct eq 0}">
-                        ${list.coupon_price}원
-                    </c:when>
-                    <c:otherwise>
-                        ${list.coupon_pct}%
-                    </c:otherwise>
-                </c:choose>
-                ${list.coupon_valid_date}
-                </div>
-            </c:forEach>
+        <div class="coupon_card_box">
+            <table class="coupon_table">
+                <thead>
+                <tr>
+                    <th>쿠폰번호</th>
+                    <th>쿠폰명</th>
+                    <th>혜택</th>
+                    <th>적용대상</th>
+                    <th>사용기간</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var="list" items="${coupons}">
+                        <tr  id = "cop${list.coupon_id}" onclick="addCoupon(this.id)">
+                            <td>${list.coupon_id}</td>
+                            <td>${list.coupon_desc}</td>
+
+                            <c:choose>
+                                <c:when test="${list.coupon_pct eq 0}">
+                                    <td>${list.coupon_price}원</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>${list.coupon_pct}%</td>
+                                </c:otherwise>
+                            </c:choose>
+                            <td>전체대상</td>
+                            <td>~${list.coupon_valid_date}</td>
+                        </tr>
+                    </c:forEach>
+
+                </tbody>
+            </table>
         </div>
 
         <div id="originalPrice">
@@ -412,14 +478,96 @@
             alert("번호 입력해주세요");
             return;
         } else{
-            alert("결제완료!");
-            console.log(totalPrice);
-            //ajax work to make paymnet
+        	
+            //결제AIP 구현
+            
+            //console.log(totalPrice);
+            
+            var address = mem_address.split('!');
+            var postCode = address[2];          
+        	var today = new Date();
+        	var uuid = uuidv4();
+        	var discount = Number("${totalPrice}") - totalPrice;
+        	
+        	console.log(discount);
+            	
+    	    IMP.init("imp12077457"); // 예: imp00000000
+    		  // IMP.request_pay(param, callback) 결제창 호출
+    		  
+    	    IMP.request_pay({
+    	        pg : 'html5_inicis',
+    	        pay_method : 'kakaopay', //card(신용카드), trans(실시간계좌이체), vbank(가상계좌), phone(휴대폰소액결제)
+    	        merchant_uid : uuid, //상점에서 관리하시는 고유 주문번호를 전달
+    	        name : 'SMARTDC 온라인 샵',
+    	        amount : totalPrice,
+    	        buyer_email : '${user.mem_email}',
+    	        buyer_name : '${user.mem_name}',
+    	        buyer_tel : mem_phone,
+    	        buyer_addr : address[0] + " " + address[1],
+    	        buyer_postcode : postCode,
+    	    }, function(rsp) {
+    	        if ( rsp.success ) {
+    	        	console.log(rsp);
+    	        	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+    	        	jQuery.ajax({
+    	        		url: "/carts/member/payment", //cross-domain error가 발생하지 않도록 주의해주세요
+    	        		type: 'POST',
+    	        		contentType: 'application/json',
+    	        		dataType: 'json',
+    					beforeSend : function(xhr)
+    					{   
+    						xhr.setRequestHeader(header, token);
+    					},
+    	        		data: JSON.stringify({
+    	        			
+    	    	    		imp_uid : rsp.imp_uid,
+    	    	    		merchant_uid : rsp.merchant_uid,
+    	    	    		totalPrice : rsp.paid_amount,
+    	    	    		
+    	    	    		//기타 필요한 데이터가 있으면 추가 전달
+    	    	    		buyer_id : '${user.mem_id}',
+    	        	        buyer_tel : mem_phone,
+    	        	        buyer_addr : address[0] + " " + address[1],
+    	        	        buyer_tel : mem_phone,
+    	        	        buyer_postcode : postCode,
+    	        	        buyer_discount : discount,
+    	        	        buyer_point : mem_point,
+    	        	        buyer_coupon_id : couponId,
+    	        		})
+    	        	}).done(function(data) {
+    	        		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+    					data = JSON.stringify(data);
+    					jsonData = JSON.parse(data);
+
+    					//console.log(jsonData);
+
+    					if(jsonData.success){
+    						console.log(jsonData.success);
+    						
+    	        		} else {
+    	        			//[3] 아직 제대로 결제가 되지 않았습니다.
+    	        			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+    	        		}
+    	        	});
+    	        } else {
+    	            var msg = '결제에 실패하였습니다.';
+    	            msg += '에러내용 : ' + rsp.error_msg;
+    	            
+    	            alert(msg);
+    	        }
+    	    });
+  
         }
 
 
     }
 
+    function uuidv4() {
+    	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    	    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    	    return v.toString(16);
+    	  });
+    	}
 </script>
 
 </body>
