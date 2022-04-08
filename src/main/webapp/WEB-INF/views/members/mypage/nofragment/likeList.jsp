@@ -10,7 +10,7 @@
     <%CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user"); %>
 </head>
 <style>
-    .container{
+    .container2{
         display: grid;
         grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
         margin:30px auto 50px auto;
@@ -89,16 +89,18 @@
     .info_hr{
         height: 1px;border-style: solid;border-width: 1px 0 0 0;border-color: #b9b9b9;width: 80%;
     }
-
+    h1{
+        text-align: center;
+    }
 </style>
 <body>
 
 <div style="margin-top:17px"></div>
 
-<div class="main-content">
 
-    <div class="container">
 
+<h1>좋아요 리스트</h1>
+<div class="container2">
         <c:forEach items="${likeList}" var="like">
             <div class="product_list">
                 <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="">
