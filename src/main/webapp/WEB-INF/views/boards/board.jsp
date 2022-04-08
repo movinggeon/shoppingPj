@@ -52,13 +52,14 @@
     var rep_id = Number("${rep_id + 1}");
     var mem_id = "${user.mem_id}";
     function enterReply() {
-        console.log(rep_id);
-        console.log(mem_id);
+        //console.log(rep_id);
+        //console.log(mem_id);
 
         //현재 시간 값 받아오기
         var date = 'yyyy-mm-dd hh:mm:ss';
+        var rep = document.getElementById("reply").value;
 
-        var reply = "<span id='repContent"+rep_id+"'>" + document.getElementById("reply").value + "</span>";
+        var reply = "<span id='repContent"+rep_id+"'>" + rep + "</span>";
         const repSpace = document.getElementById("repSpace");
 
         //const userPic;

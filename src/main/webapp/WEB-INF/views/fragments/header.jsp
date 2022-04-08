@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,9 +99,13 @@
 				<div class="h2" style="text-align: left;">
 					<ul>
 						<h4>인기 검색어</h4>
-						<li><span>1</span> 스마트폰</li>
-						<li><span>2</span> 태블릿</li>
-						<li><span>3</span> 노트북</li>
+						<c:forEach var="i" begin="0" end="${fn:length(likesList)-1}">
+							<a href="/spec/chooseModel?model_id=${likesList[i].model_id}&category=new&currPage=1">
+								<li>
+									<span>${i+1}</span>${likesList[i].productsVO.product_name} ${likesList[i].modelsVO.model_name}
+								</li>
+							</a>
+						</c:forEach>
 					</ul>
 				</div>
 
@@ -159,14 +165,6 @@
 						<li><a href="#">Event</a></li>
 					</ul>
 				</li>
-				<%--				<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-				<%--					<li>--%>
-				<%--						<a href="/admin">관리자</a>--%>
-				<%--						<ul>--%>
-				<%--							<li><a href="#">1:1상담</a></li>--%>
-				<%--						</ul>--%>
-				<%--					</li>--%>
-				<%--				</sec:authorize>--%>
 			</ul>
 
 			<ul class="nav_links_1">

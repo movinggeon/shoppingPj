@@ -88,6 +88,55 @@
         border: solid 1px #d2d2d7;
         border-radius: 8px;
     }
+    .coupon_card {
+        border : 1px solid #171717;
+        width : 30%;
+        margin : auto;
+    }
+    .coupon_box{
+        width : 50%;
+        margin : auto;
+    }
+    .coupon_box_title{
+        width: 100%;
+        height: 100px;
+        /*border-top : 2px solid #171717;
+        border-left: 2px solid #171717;
+        border-right: 2px solid #171717;*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+    .couponNum {
+        width: 100%;
+        height: 50px;
+        vertical-align: bottom;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+    }
+    .coupon_card_box {
+        margin-top: 10px;
+        width :100%;
+        border-top : 2px solid #171717;
+    }
+    .coupon_table {
+        width :100%;
+        border-bottom : 1px solid #171717;
+        border-collapse: collapse;
+    }
+    .coupon_table td {
+        border-bottom : 1px solid #171717;
+        text-align: center;
+        vertical-align: middle;
+        height: 30px;
+
+    }
+    .coupon_table th {
+        border-bottom : 1px solid #171717;
+        height : 40px;
+    }
 </style>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -146,28 +195,41 @@
                 <button type="button" class="btn_addressCheck" onclick="usePoint()">사용</button>
             </div>
         </div>
-        <form>
-            <div class = "box">
-                <br>
-                <h3>쿠폰 리스트 확인 하기</h3>
-            </div>
-        </form>
+
         <button type="button" class="btn_addressCheck" onclick="delCoupon()">쿠폰 취소</button>
-        <div id="mem_coupon_list">
-            <c:forEach var="list" items="${coupons}">
-                <div id = "cop${list.coupon_id}" onclick="addCoupon(this.id)">
-                ${list.coupon_id} ${list.coupon_desc}
-                <c:choose>
-                    <c:when test="${list.coupon_pct eq 0}">
-                        ${list.coupon_price}원
-                    </c:when>
-                    <c:otherwise>
-                        ${list.coupon_pct}%
-                    </c:otherwise>
-                </c:choose>
-                ${list.coupon_valid_date}
-                </div>
-            </c:forEach>
+        <div class="coupon_card_box">
+            <table class="coupon_table">
+                <thead>
+                <tr>
+                    <th>쿠폰번호</th>
+                    <th>쿠폰명</th>
+                    <th>혜택</th>
+                    <th>적용대상</th>
+                    <th>사용기간</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var="list" items="${coupons}">
+                        <tr  id = "cop${list.coupon_id}" onclick="addCoupon(this.id)">
+                            <td>${list.coupon_id}</td>
+                            <td>${list.coupon_desc}</td>
+
+                            <c:choose>
+                                <c:when test="${list.coupon_pct eq 0}">
+                                    <td>${list.coupon_price}원</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>${list.coupon_pct}%</td>
+                                </c:otherwise>
+                            </c:choose>
+                            <td>전체대상</td>
+                            <td>~${list.coupon_valid_date}</td>
+                        </tr>
+                    </c:forEach>
+
+                </tbody>
+            </table>
         </div>
 
         <div id="originalPrice">

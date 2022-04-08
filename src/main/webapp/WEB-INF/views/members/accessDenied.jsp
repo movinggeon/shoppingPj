@@ -4,6 +4,9 @@
     <title>Title</title>
 </head>
 <body>
-your access has been denied
+<div style="text-align: center;">
+    <h1>Access Denied</h1>
+<img src="${pageContext.request.contextPath}/resources/static/img/invalid.png">
+</div>
 </body>
 </html>

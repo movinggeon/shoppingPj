@@ -10,4 +10,6 @@ public interface LikesDAO {
     public void likeinsert(HashMap<String, Object> param) throws Exception;
     public void likedelete(HashMap<String, Object>param) throws Exception;
     public List<LikesVO> LikeList(String memId) throws Exception;
+    public List<LikesVO> mostLikedList() throws Exception;
+
 }

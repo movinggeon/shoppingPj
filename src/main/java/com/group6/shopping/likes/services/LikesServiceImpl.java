@@ -30,4 +30,9 @@ public class LikesServiceImpl implements LikesService{
     public List<LikesVO> LikeList(String memId) throws Exception{
         return likesDAO.LikeList(memId);
     }
+
+    @Override
+    public List<LikesVO> mostLikedList() throws Exception {
+        return likesDAO.mostLikedList();
+    }
 }
