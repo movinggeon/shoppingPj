@@ -476,8 +476,8 @@
             <p>보증을 추가하시겠습니까?</p>
             <div id="care">
                 <div class="ck_box" >
-                    <div id="-1" onclick="clickEvent(this.id, 'careInput')" class="ck_v">아니오</div>
-                    <div id="-2" onclick="clickEvent(this.id, 'careInput')" class="ck_v">예</div>
+                    <div id="-2" onclick="clickEvent(this.id, 'careInput')" class="ck_v">아니오</div>
+                    <div id="-1" onclick="clickEvent(this.id, 'careInput')" class="ck_v">예</div>
                 </div>
             </div>
             <div class="bill_box">
@@ -572,8 +572,10 @@
                             <span class="iconify" data-icon="ion:star-outline" style="color: #f6d054;" data-width="13"></span>
                         </c:forEach>
                         <span> ${board.board_rate}</span>
-                        <h3>${board.board_title}</h3>
-                        <div>${board.board_content}</div>
+                        <a href="/boards/viewBoard?board_id=${board.board_id}">
+                            <h3>${board.board_title}</h3>
+                            <div>${board.board_content}</div>
+                        </a>
                         <div class="info_wr">
                             <span style="padding-right: 30px">${board.mem_id}</span>
                             <span>${board.board_date}</span>
@@ -699,6 +701,7 @@
 
         var userPhone = {};
         function specCheck(){
+            //console.log("여기");
             //bring the record of spec (qty, price)
             //form userPhone to json
 
@@ -707,6 +710,7 @@
             for(i=0; i < userInput.length; i++){
                 phone[userInput[i].name] = userInput[i].value;
             }
+            console.log(phone);
             $.ajax({
                 url:"/spec/findSpec",
                 type:"post",

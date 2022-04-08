@@ -11,6 +11,7 @@
 	<%CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user"); %>
 </head>
 <body>
+<%-- 
 	<h1 class="sub_title">MY PAGE</h1>
 	
 	<div class="sub_menu">
@@ -100,23 +101,52 @@
 			</div>
 		</div>
 	</div>
-	
-	<h1>쿠폰 리스트</h1>
-	
-	<c:forEach var="coupon" items="${couponList }" >
-		<div class="coupon_card">
-			<div class="cupon_date">
-				${coupon.coupon_valid_date }
+	 --%>
+		<div class="coupon_box">
+			<div class="coupon_box_title">
+			사용가능 쿠폰
 			</div>
-			<div class="cupon_name">
-				${coupon.coupon_desc }
+			<div class="couponNum">
+				총 ${couponEA}개
 			</div>
-			<div class="cupon_discount">
-				${coupon.coupon_pct }
-				${coupon.coupon_price }
+			<div class="coupon_card_box">
+				<table class="coupon_table">
+					<thead>
+						<tr>
+							<th>쿠폰번호</th>
+							<th>쿠폰명</th>
+							<th>혜택</th>
+							<th>적용대상</th>
+							<th>사용기간</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					<c:forEach var="coupon" items="${couponList }" >
+						<tr>
+							<td>${coupon.coupon_id }</td>
+							<td>${coupon.coupon_desc }</td>
+
+							<c:set var="couponPrice" value="${coupon.coupon_pct}"></c:set>
+							<c:choose>
+							<c:when test="${couponPrice == 0}">
+								<td>${coupon.coupon_price }원</td>
+							</c:when>
+							<c:otherwise>
+								<td>${coupon.coupon_pct }% 할인</td>
+							</c:otherwise>
+							</c:choose>
+							<td>전체대상</td>
+							<td>~${coupon.coupon_valid_date}</td>
+						</tr>
+					</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
-	</c:forEach>
+
+
+
 	
 </body>
 </html>

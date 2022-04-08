@@ -16,5 +16,4 @@ public interface CartsService {
     public CartsVO getSingleCart(CartsVO cartsVO) throws Exception;
     public int updateCart(CartsVO cartsVO, int salePrice) throws Exception;
     public List<ModelsVO> getPopularItem(int totalshow) throws Exception;
-
 }

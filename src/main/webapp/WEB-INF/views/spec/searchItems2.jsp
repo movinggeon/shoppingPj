@@ -185,15 +185,21 @@
 
 
     <div class="container" style="margin-bottom: 60px">
-        <h3>${searchFail}</h3>
-        <c:forEach var="model" items="${result}">
-            <a href="/spec/chooseModel?model_id=${model.model_id}&category=new&currPage=1">
-                <div class="product_list">
-                    <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png"  alt="">
-                    <p>${model.productsVO.product_name} ${model.model_name}</p>
-                </div>
-            </a>
-        </c:forEach>
+        <c:choose>
+            <c:when test="${searchFail ne null}">
+                <h3>${searchFail}</h3>
+            </c:when>
+            <c:otherwise>
+                <c:forEach var="model" items="${result}">
+                    <a href="/spec/chooseModel?model_id=${model.model_id}&category=new&currPage=1">
+                        <div class="product_list">
+                            <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png"  alt="">
+                            <p>${model.productsVO.product_name} ${model.model_name}</p>
+                        </div>
+                    </a>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
     </div>
 </body>
 </html>

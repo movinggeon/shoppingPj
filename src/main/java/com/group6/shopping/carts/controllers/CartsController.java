@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 @Controller
 @RequestMapping("/carts")
@@ -63,6 +64,10 @@ public class CartsController {
     public String mailingInformation(Model models, HttpSession session, HttpServletResponse response) throws Exception {
         CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
 
+        StringTokenizer st = new StringTokenizer(user.getMem_address(), "!");
+        String tmpAddr = st.nextToken() + " " + st.nextToken();
+
+
         List<CouponsVO> couponsVOList = couponsService.getAllCoupons(user.getMem_id());
         Integer totalPrice = cartsService.getTotal(user.getMem_id(), "null");
         if(totalPrice == null){
@@ -70,6 +75,7 @@ public class CartsController {
             return "home";
         }
 
+        models.addAttribute("tmpAddr", tmpAddr);
         models.addAttribute("coupons", couponsVOList);
         models.addAttribute("totalPrice", totalPrice);
 

@@ -297,7 +297,7 @@
 					휴대폰<br>번호
 				</div>
 				<div class="join_details">
-					<input type="text" class="input_join" id="memPhone" placeholder="휴대폰번호입력(01012341234)">
+					<input type="number" class="input_join" id="memPhone" placeholder="휴대폰번호입력(01012341234)">
 				</div>
 				<div class="join_check" id="phoneCheck"></div>
 			</div>

@@ -15,4 +15,5 @@ public interface BoardsService {
     public double avgOfBoardRate(ModelsVO modelsVO) throws Exception;
     public List<Integer> numOfBoardRate(ModelsVO modelsVo) throws Exception;
     public List<Integer> boardRateList(ModelsVO modelsVO) throws Exception;
+    public BoardsVO viewBoard(String board_id) throws Exception;
 }

@@ -85,34 +85,34 @@
 					</section>
 				</div>
 
-			<div class="conbox con2">
-				<section class="subImg2">
-					<a href="/spec/chooseModel?model_id=${recommendList[0].model_id}&category=new&currPage=1">
-						<div class="item2 item2_3"></div>
-						<h3>${recommendList[0].productsVO.product_name} ${recommendList[0].model_name}</h3>
-					</a>
-					<div class="sub_wrap2">
-						<a href="/spec/chooseModel?model_id=${recommendList[1].model_id}&category=new&currPage=1">
-							<div class="item2 item2_1"></div>
-							<h3>${recommendList[1].productsVO.product_name} ${recommendList[1].model_name}</h3>
+				<div class="conbox con2">
+					<section class="subImg2">
+						<a href="/spec/chooseModel?model_id=${recommendList[0].model_id}&category=new&currPage=1">
+							<div class="item2 item2_3"></div>
+							<h3>${recommendList[0].productsVO.product_name} ${recommendList[0].model_name}</h3>
 						</a>
-						<a href="/spec/chooseModel?model_id=${recommendList[2].model_id}&category=new&currPage=1">
-							<div class="item2 item2_2"></div>
-							<h3>${recommendList[2].productsVO.product_name} ${recommendList[2].model_name}</h3>
-						</a>
-					</div>
-					<div class="sub_wrap2">
-						<a href="/spec/chooseModel?model_id=${recommendList[3].model_id}&category=new&currPage=1">
-							<div class="item2 item2_4"></div>
-							<h3>${recommendList[3].productsVO.product_name} ${recommendList[3].model_name}</h3>
-						</a>
-						<a href="/spec/chooseModel?model_id=${recommendList[4].model_id}&category=new&currPage=1">
-							<div class="item2 item2_5"></div>
-							<h3>${recommendList[4].productsVO.product_name} ${recommendList[4].model_name}</h3>
-						</a>
-					</div>
-				</section>
-			</div>
+						<div class="sub_wrap2">
+							<a href="/spec/chooseModel?model_id=${recommendList[1].model_id}&category=new&currPage=1">
+								<div class="item2 item2_1"></div>
+								<h3>${recommendList[1].productsVO.product_name} ${recommendList[1].model_name}</h3>
+							</a>
+							<a href="/spec/chooseModel?model_id=${recommendList[2].model_id}&category=new&currPage=1">
+								<div class="item2 item2_2"></div>
+								<h3>${recommendList[2].productsVO.product_name} ${recommendList[2].model_name}</h3>
+							</a>
+						</div>
+						<div class="sub_wrap2">
+							<a href="/spec/chooseModel?model_id=${recommendList[3].model_id}&category=new&currPage=1">
+								<div class="item2 item2_4"></div>
+								<h3>${recommendList[3].productsVO.product_name} ${recommendList[3].model_name}</h3>
+							</a>
+							<a href="/spec/chooseModel?model_id=${recommendList[4].model_id}&category=new&currPage=1">
+								<div class="item2 item2_5"></div>
+								<h3>${recommendList[4].productsVO.product_name} ${recommendList[4].model_name}</h3>
+							</a>
+						</div>
+					</section>
+				</div>
 
 				<div class="conbox con3">
 					<div class="subImg3">

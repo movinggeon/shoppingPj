@@ -347,10 +347,11 @@
 					location.href="/chat/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
 				},
 				error: function (err) {
-					alert('로그인 후 이용해주세요.')
+					alert('로그인 후 이용해주세요.');
 					console.log(err);
 				}
 			});
+
 		}
 		function enter(){
 			if (window.event.keyCode == 13) {
