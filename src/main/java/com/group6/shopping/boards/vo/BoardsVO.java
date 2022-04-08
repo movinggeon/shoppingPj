@@ -1,7 +1,11 @@
 package com.group6.shopping.boards.vo;
 
+import java.util.List;
+
+import com.group6.shopping.files.vo.FilesVO;
 import com.group6.shopping.models.vo.ModelsVO;
 import com.group6.shopping.products.vo.ProductsVO;
+import com.group6.shopping.replies.vo.RepliesVO;
 import com.group6.shopping.specifications.vo.SpecVO;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +28,6 @@ public class BoardsVO {
     private ModelsVO modelsVO;
     private ProductsVO productsVO;
 
-    //private List<RepliesVO> repliesVOList;
-    //private List<FilesVO> filesVOList;
+    private List<RepliesVO> repliesVOList;
+    private List<FilesVO> filesVOList;
 }

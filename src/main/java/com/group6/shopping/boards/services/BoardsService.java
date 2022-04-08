@@ -15,6 +15,7 @@ public interface BoardsService {
     public double avgOfBoardRate(ModelsVO modelsVO) throws Exception;
     public List<Integer> numOfBoardRate(ModelsVO modelsVo) throws Exception;
     public List<Integer> boardRateList(ModelsVO modelsVO) throws Exception;
+
     
     
 	//이벤트 메인페이지 게시글 목록조회
@@ -36,4 +37,6 @@ public interface BoardsService {
     //종료이벤트갯수
     public int endcountBoard();
    
+    public BoardsVO viewBoard(String board_id) throws Exception;
+
 }

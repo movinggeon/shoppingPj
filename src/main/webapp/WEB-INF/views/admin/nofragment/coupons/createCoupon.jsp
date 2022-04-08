@@ -8,18 +8,69 @@
 <meta charset="UTF-8">
 <meta name="_csrf" content="${_csrf.token}"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>
-<link rel="stylesheet" href="/resources/static/css/admin/nofragment/createCoupon.css" type="text/css">
+<%--<link rel="stylesheet" href="/resources/static/css/admin/nofragment/createCoupon.css" type="text/css">--%>
 <title>Insert title here</title>
 </head>
+<style>
+	@font-face {
+		font-family: "BBTreeGR";
+		src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
+		format("woff");
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	.input_coupon{
+		width: 200px;
+		height: 32px;
+		font-size: 15px;
+		border: 0;
+		border-radius: 15px;
+		outline: none;
+		padding-left: 10px;
+		background-color: rgb(233, 233, 233);
+		text-align: center;
+		margin-bottom:10px;
+	}
+
+	.couponwrap{
+		text-align: center;
+		width: 35%;
+		margin: auto;
+	}
+	.make{
+		font-size: 15px;
+		width: 375px;
+		margin: auto;
+		text-align: left;
+	}
+	.createbtn {
+		margin-top: 10px;
+		width : 100px;
+		height : 35px;
+		border-radius: 8px;
+		background-color: #0071E3;
+		color : white;
+		border: 1px solid #ddd;
+		padding: 5px 5px;
+		cursor: pointer;
+		font-weight: bold;
+	}
+</style>
 <body>
+<div class="couponwrap">
 <h1>쿠폰 생성</h1>
-<div>
-	쿠폰 이름 : <input id="coupon_desc" type="text"><br>
-	할인율(%) : <input id="coupon_pct" type="text" value="0">(%)<br>
-	할인가격 : <input id="coupon_price" type="text" value="0">원 할인<br>
-	유효기간(개월) : <input id="coupon_valid_date" type="text" value="0"><br>
-	<button type="button" onclick="createCoupon()">등록</button>
-	
+<div class="make">
+
+	쿠폰 이름 : &nbsp &nbsp &nbsp <input id="coupon_desc" class="input_coupon" type="text"><br>
+	할인율(%) : &nbsp &nbsp &nbsp<input id="coupon_pct" class="input_coupon" type="text" value="0">(%)<br>
+	할인가격 :  &nbsp &nbsp &nbsp &nbsp<input id="coupon_price" class="input_coupon" type="text" value="0">원 할인<br>
+	유효기간(개월) : <input id="coupon_valid_date" class="input_coupon" type="text" value="0"><br>
+
+	</div>
+	<button type="button" class="createbtn" onclick="createCoupon()">등록</button>
+</div>
+
 	<script type="text/javascript">
 	function createCoupon() {
 

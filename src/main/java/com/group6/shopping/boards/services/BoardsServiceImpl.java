@@ -101,4 +101,10 @@ public class BoardsServiceImpl implements BoardsService {
 		return boardsDAO.endcountBoard();
 	}
 
+
+    @Override
+    public BoardsVO viewBoard(String board_id) throws Exception {
+        return boardsDAO.viewBoard(board_id);
+    }
+
 }

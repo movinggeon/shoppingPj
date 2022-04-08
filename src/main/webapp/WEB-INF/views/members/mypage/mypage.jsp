@@ -42,7 +42,7 @@
 			<div class="inner">
 				<ul>
 					<li>
-						<a href="#">Clothes</a>
+						<a href="/likes/members/likeslist">MY ♡ ITEM</a>
 					</li>
 					<li>
 						<a href="#">Brands</a>

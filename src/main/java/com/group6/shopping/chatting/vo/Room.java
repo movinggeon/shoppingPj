@@ -1,24 +1,18 @@
 package com.group6.shopping.chatting.vo;
 
+import lombok.*;
+
+import java.util.List;
+
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Room {
     int roomNumber;
     String roomName;
+    String userSessionId;
 
-    public int getRoomNumber() {
-        return roomNumber;
-    }
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-    public String getRoomName() {
-        return roomName;
-    }
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    @Override
-    public String toString() {
-        return "Room [roomNumber=" + roomNumber + ", roomName=" + roomName + "]";
-    }
 }

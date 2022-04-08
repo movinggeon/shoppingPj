@@ -21,10 +21,12 @@ public class AdminController {
 
 	@Autowired
 	MembersService membersService;
-	
+
+
 	@Autowired
 	CouponsService couponsService;
-	
+
+
 	@RequestMapping(value = "/admin")
 	public String accessAdmin() {
 
@@ -33,37 +35,37 @@ public class AdminController {
 
 	@RequestMapping(value = "/admin/nofragment/memberList")
 	public String memberList(Model model) throws Exception {
-		
+
 		List<MembersVO> memberList = new ArrayList<MembersVO>();
 		memberList = membersService.getAllMembers();
-		
+
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("memberCount", memberList.size());
-		
+
 		return "admin/nofragment/members/memberList";
 	}
-	
+
 	@RequestMapping(value = "/admin/nofragment/createCoupon")
 	public String createCoupon(Model model) throws Exception {
-		
+
 		return "admin/nofragment/coupons/createCoupon";
 	}
-	
+
 	@RequestMapping(value = "/admin/nofragment/couponList")
 	public String couopnList(HttpSession session, Model model) throws Exception {
-		
+
 		List<CouponsVO> couponList = new ArrayList<CouponsVO>();
-		
+
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 		String memId = cs.getMem_id();
-		
+
 		System.out.println("접속한 관리자 계정 -> " + memId);
-		
+
 		couponList = couponsService.getAdminCoupons(memId);
-		
+
 		model.addAttribute("couponList", couponList);
 		model.addAttribute("couponCount", couponList.size());
-		
+
 		return "admin/nofragment/coupons/couponList";
 	}
 }

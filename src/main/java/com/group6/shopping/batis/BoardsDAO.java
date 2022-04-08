@@ -16,6 +16,7 @@ public interface BoardsDAO {
     public double avgOfBoardRate(ModelsVO modelsVO) throws Exception;
     public List<Integer> numOfBoardRate(ModelsVO modelsVo) throws Exception;
     public List<Integer> boardRateList(ModelsVO modelsVO) throws Exception;
+
     
   //리뷰 메인페이지 게시글 목록조회
     public List<BoardsVO> ReviewBoardslist() throws Exception;
@@ -37,4 +38,7 @@ public interface BoardsDAO {
 	public int endcountBoard();
    
     
+
+    public BoardsVO viewBoard(String board_id) throws Exception;
+
 }
