@@ -7,6 +7,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/spec")
 public class SpecRestController {
@@ -16,6 +24,7 @@ public class SpecRestController {
 
     @RequestMapping("/findSpec")
     public SpecVO findSpec(@RequestBody SpecVO specVO) throws Exception {
+        System.out.println("왔음");
         return specService.getSpec(specVO);
     }
 }

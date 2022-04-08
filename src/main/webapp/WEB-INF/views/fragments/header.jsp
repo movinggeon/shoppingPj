@@ -13,6 +13,7 @@
 			src="https://kit.fontawesome.com/6da1745729.js"
 			crossorigin="anonymous"
 	></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 	<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
@@ -45,44 +46,53 @@
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/event.png"><h4 class="left">이벤트</h4></a></li>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">관리자 페이지</h4></a></li>
-			</sec:authorize>
+
 		</ul>
 		<hr color="#ebebeb" size="1px" width="95%" />
 		<sec:authorize access="isAnonymous()">
 			<ul class="m2">
-				<li><a href="/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
+				<li><a href="${pageContext.request.contextPath}/login"><img src="${pageContext.request.contextPath}/resources/static/img/user.png"><h4 class="left">로그인</h4></a></li>
 			</ul>
 		</sec:authorize>
-		<sec:authorize access="isAuthenticated()">
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<ul class="m2">
-				<li>
-					<form action="/members/logout" method="post">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						<input type="image" src="${pageContext.request.contextPath}/resources/static/img/user.png">
-						<h4 class="left">로그아웃</h4>
-					</form>
+				<li class="m2_btn">
+					<a href="${pageContext.request.contextPath}/members/member/mypage">
+						<img src="${pageContext.request.contextPath}/resources/static/img/user.png">
+						<h4 class="left mypage_btn">마이페이지</h4>
+					</a>
 				</li>
-				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/truck.png"><h4 class="left">주문/배송조회</h4></a></li>
+				<li class="m2_btn">
+					<a href="${pageContext.request.contextPath}/members/logout">
+						<img src="${pageContext.request.contextPath}/resources/static/img/logout.png">
+						<h4 class="left">
+							<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn_side">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<input type="submit" value="로그아웃">
+							</form>
+						</h4>
+					</a>
+				</li>
 			</ul>
 		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<ul class="m2">
+				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/admin1.png"><h4 class="left">관리자</h4></a></li>
+				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">1:1 상담</h4></a></li>
+			</ul>
+		</sec:authorize>
+
 	</div>
 
 	<!-- Search box -->
 	<div id="mask"></div>
 	<div class="window">
 		<div class="win_wrap">
-			<input id="h_box" class="holder" type="text" placeholder="Search" value="" />
+			<form action="/spec/searchItems" method="get" id="search" autocomplete="off">
+				<input id="h_box" class="holder" type="text" placeholder="Search" value="" name="searchInput" onkeyup="enter()"/>
+			</form>
 			<div class="h_box">
-				<div class="h1" style="text-align: left;">
-					<ul>
-						<h4>최근 검색어</h4>
-						<li>워치</li>
-						<li>Teamsix</li>
-						<li></li>
-						<li></li>
-					</ul>
+				<div class="h1" id="searchHistory" style="text-align: left;">
 				</div>
 				<div class="h2" style="text-align: left;">
 					<ul>
@@ -111,35 +121,36 @@
 			</div>
 			<ul class="nav_menu">
 				<li>
-					<a href="#">스마트폰</a>
+				<li>
+					<a href="/spec/viewModels?product=sixPhone">스마트폰</a>
 					<ul>
-						<li><a href="#">Phone1</a></li>
-						<li><a href="#">Phone2</a></li>
-						<li><a href="#">Phone3</a></li>
+						<li><a href="/spec/chooseModel?model_id=1&category=new&currPage=1">SixPhone 3</a></li>
+						<li><a href="/spec/chooseModel?model_id=2&category=new&currPage=1">SixPhone 2</a></li>
+						<li><a href="/spec/chooseModel?model_id=3&category=new&currPage=1">SixPhone 1</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="">노트북</a>
+					<a href="/spec/viewModels?product=sixBook">노트북</a>
 					<ul>
-						<li><a href="#">Note1</a></li>
-						<li><a href="#">Note2</a></li>
-						<li><a href="#">Note3</a></li>
+						<li><a href="/spec/chooseModel?model_id=4&category=new&currPage=1">PRO</a></li>
+						<li><a href="/spec/chooseModel?model_id=5&category=new&currPage=1">EXP</a></li>
+						<li><a href="/spec/chooseModel?model_id=6&category=new&currPage=1">Light</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="#">태블릿</a>
+					<a href="/spec/viewModels?product=sixTablet">태블릿</a>
 					<ul>
-						<li><a href="#">Tablet1</a></li>
-						<li><a href="#">Tablet2</a></li>
-						<li><a href="#">Tablet3</a></li>
+						<li><a href="/spec/chooseModel?model_id=7&category=new&currPage=1">Tablet PRO</a></li>
+						<li><a href="/spec/chooseModel?model_id=8&category=new&currPage=1">Tablet EXP</a></li>
+						<li><a href="/spec/chooseModel?model_id=9&category=new&currPage=1">Tablet Light</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="#">워치</a>
+					<a href="/spec/viewModels?product=sixWatch">워치</a>
 					<ul>
-						<li><a href="#">Watch1</a></li>
-						<li><a href="#">Watch2</a></li>
-						<li><a href="#">Watch3</a></li>
+						<li><a href="/spec/chooseModel?model_id=10&category=new&currPage=1">Watch 3</a></li>
+						<li><a href="/spec/chooseModel?model_id=11&category=new&currPage=1">Watch 2</a></li>
+						<li><a href="/spec/chooseModel?model_id=12&category=new&currPage=1">Watch 1</a></li>
 					</ul>
 				</li>
 				<li>
@@ -148,40 +159,69 @@
 						<li><a href="#">Event</a></li>
 					</ul>
 				</li>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li>
-						<a href="/admin">관리자</a>
-						<ul>
-							<li><a href="#">1:1상담</a></li>
-						</ul>
-					</li>
-				</sec:authorize>
+				<%--				<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+				<%--					<li>--%>
+				<%--						<a href="/admin">관리자</a>--%>
+				<%--						<ul>--%>
+				<%--							<li><a href="#">1:1상담</a></li>--%>
+				<%--						</ul>--%>
+				<%--					</li>--%>
+				<%--				</sec:authorize>--%>
 			</ul>
 
-			<ol class="nav_links">
-				<li>
-					<a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-				</li>
-				<li>
+			<ul class="nav_links_1">
+
+				<a href="#" class="search_btn">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</a>
+
+				<li class="users_cart">
 					<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+					<ul>
+						<li>
+							<div style="padding-top:20px;">
+								<div>
+									<a href="${pageContext.request.contextPath}/carts/member/cart">Cart</a>
+								</div>
+							</div>
+						</li>
+					</ul>
 				</li>
-				<sec:authorize access="isAnonymous()">
-					<li class="user user_menu">
-						<a href="/login"><i class="fa-solid fa-user"></i></a>
-					</li>
-				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-					<li class="user user_menu">
-						<a href="/members/member/mypage"><i class="fa-solid fa-user"></i></a>
-					</li>
-					<li class="user user_menu">
-						<form action="/members/logout" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<input type="image" value="로그아웃">
-						</form>
-					</li>
-				</sec:authorize>
-			</ol>
+
+				<li class="users_log">
+					<a href="#"><i class="fa-solid fa-user"></i></a>
+					<ul>
+						<li>
+							<div style="padding-top:20px;">
+								<div>
+									<sec:authorize access="isAnonymous()">
+										<a href="${pageContext.request.contextPath}/login">Login</a>
+										<a href="${pageContext.request.contextPath}/join">Join</a>
+									</sec:authorize>
+
+									<sec:authorize access="hasRole('ROLE_MEMBER')">
+										<a href="${pageContext.request.contextPath}/members/member/mypage">Mypage</a>
+										<a href="${pageContext.request.contextPath}/members/logout">
+											<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+												<input type="submit" value="Logout">
+											</form>
+										</a>
+									</sec:authorize>
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<a href="${pageContext.request.contextPath}/admin">관리자</a>
+										<a href="${pageContext.request.contextPath}/room">1:1 상담</a>
+										<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+											<input type="submit" value="로그아웃">
+										</form>
+									</sec:authorize>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
 
 			<a href="#" class="menu_find">
 				<i class="fa-solid fa-magnifying-glass"></i>
@@ -192,8 +232,111 @@
 
 		</nav>
 	</header>
-
 	<script>
+		var search = document.cookie;
+		//console.log("original cookie: " + search);
+		var searchList = [];
+		var jession = search.indexOf("JSESSIONID");
+		//jsession 값이 있을경우
+		if(jession != -1){
+			var first = search.indexOf(';');
+			//jsession 값이 맨앞일때
+			if(jession == 0){
+				//jsession 값 뒤에 search cookie가 있을때
+				if(first != -1){
+					search = search.substring(first+2);
+				}else{//jsession 값만이 cookie에 있을때
+					search = "";
+				}
+				//jsession 값이 중간 혹은 맨뒤
+			}else{
+				//jsession 값 앞에있는 search cookie 자름
+				var search1 = search.substring(0, jession);
+				first = search.indexOf(';');
+				//jsession 값이 중간에 있을때
+				if(first != -1){
+					//jsession 부터 끝까지
+					search = search.substring(jession);
+					//jsession 뒤 ;가져옴
+					first = search.indexOf(';');
+					//jsession 뒤 search 값
+					var search2 = search.substring(first+2);
+					//jession 앞 search 와 뒤 search를 합침
+					search = search1 + search2;
+					//jesssion 값이 맨뒤에 있을떄
+				}else{
+					search = search1;
+				}
+			}
+		}
+		//console.log("after cut: " + search);
+		for(var i = 0 ; i < 3; i++){
+			var first = search.indexOf('=');
+			if(first != -1){
+				var second = search.indexOf(';');
+				if(second == -1){
+					var name = search.substring(first-7,first);
+					var result = search.substring(first+1);
+					result = result.replaceAll('+', ' ');
+					searchList[i] = name + "/" + result;
+					break;
+				}else{
+					var name = search.substring(first-7,first);
+					var result = search.substring(first+1, second);
+					result = result.replaceAll('+', ' ');
+					searchList[i] = name + "/" + result;
+					search = search.substring(second+2);
+				}
+			}
+		}
+		var listContainer = document.getElementById("searchHistory");
+		var list = "<ul id='historyParent'><h4>최근검색어&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span onclick='delAllHistory()'>x</span></h4>";
+		if(searchList.length == 0){
+			list += "<li>검색기록이 없습니다.</li>";
+		}else{
+			for(var j = searchList.length -1; j >= 0; j--){
+				var split = searchList[j].split('/');
+				var name = split[0];
+				var result = split[1];
+				var input = result.replaceAll(" ", "+")
+				if(result.length > 20){
+					result = input.substring(0,21) + "...";
+				}
+				list += "<li id="+searchList[j]+"><a href='/spec/searchItems?searchInput="+input+"'>" +result+
+						"</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
+			}
+		}
+		list+= "</ul>";
+		listContainer.innerHTML = list;
+		function removeItem(arr, value) {
+			var index = arr.indexOf(value);
+			if (index > -1) {
+				arr.splice(index, 1);
+			}
+			return arr;
+		}
+		function delHistory(id){
+			var split = id.split('/');
+			var name = split[0];
+			document.getElementById(id).remove();
+			document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+			searchList = removeItem(searchList, id);
+			console.log(searchList);
+			var ulParent = document.getElementById('historyParent');
+			if (ulParent.children.length == 1) {
+				ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+			}
+		}
+		function delAllHistory() {
+			var ulParent = document.getElementById('historyParent');
+			for(var i = 0; i < searchList.length; i++){
+				var split = searchList[i].split('/');
+				var name = split[0];
+				document.getElementById(searchList[i]).remove();
+				document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+			}
+			ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+		}
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		sessionStorage.setItem("mem_id","${user.mem_id}");
@@ -216,6 +359,15 @@
 					console.log(err);
 				}
 			});
+		}
+		function enter(){
+			if (window.event.keyCode == 13) {
+				if(document.getElementById("h_box") == ""){
+					alert("값을 입력해주세요");
+					return;
+				}
+				document.getElementById("search").submit();
+			}
 		}
 	</script>
 </div>

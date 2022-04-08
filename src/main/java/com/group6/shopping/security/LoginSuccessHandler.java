@@ -32,7 +32,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         //authenticaiton에 로그인 정보가 있을 경우
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userDetails = (UserDetails) auth.getPrincipal();
-            //System.out.println("username is: " + userDetails.getUsername());
+            System.out.println("username is: " + userDetails.getUsername());
             session.setAttribute("user", userDetails);
         }
 
