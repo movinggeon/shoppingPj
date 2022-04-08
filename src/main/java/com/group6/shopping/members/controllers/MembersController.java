@@ -1,12 +1,10 @@
 package com.group6.shopping.members.controllers;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.group6.shopping.coupons.services.CouponsService;
+import com.group6.shopping.likes.services.LikesService;
+import com.group6.shopping.likes.vo.LikesVO;
+import com.group6.shopping.security.CustomMemDetails;
+import com.group6.shopping.security.LogoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.group6.shopping.coupons.services.CouponsService;
-import com.group6.shopping.security.CustomMemDetails;
-import com.group6.shopping.security.LogoutHandler;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/members")
@@ -25,6 +26,9 @@ public class MembersController {
 	
 	@Autowired
 	private CouponsService couponsService;
+
+	@Autowired
+	private LikesService likesService;
 
 	@GetMapping(value = "/")
 	public String accessMember(Model model) throws Exception {
@@ -45,7 +49,11 @@ public class MembersController {
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 		
 		int count = couponsService.countCoupon(cs.getMem_id());
-		
+
+
+		List<LikesVO> likesVOList = likesService.LikeList(cs.getMem_id());
+		model.addAttribute("likeList",likesVOList);
+
 		System.out.println(count);
 		model.addAttribute("couponEA", count);
 		

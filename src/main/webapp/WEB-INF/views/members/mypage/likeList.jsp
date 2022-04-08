@@ -19,7 +19,9 @@
     .product_list{
         margin:10px;
         padding: 0 8px;
-        min-width: 200px;height: 450px;border:1px solid #b9b9b9;
+        min-width: 200px;
+        height: 450px;
+        border:1px solid #b9b9b9;
         border-top-left-radius: 30px;
         border-bottom-right-radius: 30px;
     }
