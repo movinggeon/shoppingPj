@@ -24,27 +24,35 @@ public class CouponsServiceImpl implements CouponsService{
     public int usedCoupon(CouponsVO couponsVO) throws Exception {
         return couponsDAO.usedCoupon(couponsVO);
     }
-    
+
+    @Override
+    public CouponsVO getCoupon(CouponsVO couponsVO) throws Exception {
+        return couponsDAO.getCoupon(couponsVO);
+    }
+
+
     @Override
     public int countCoupon(String memId) throws Exception {
     	return couponsDAO.countCoupon(memId);
     }
-    
+
+
     @Override
     public void insertCoupon(HashMap<String, Object> param) throws Exception {
     	couponsDAO.insertCoupon(param);
     }
-    
+
+
     @Override
     public void createCoupon(HashMap<String, Object> param) throws Exception {
     	couponsDAO.createCoupon(param);
     }
-    
+
     @Override
     public List<CouponsVO> getAdminCoupons(String memId) throws Exception {
     	return couponsDAO.getAdminCoupons(memId);
     }
-    
+
     @Override
     public void deleteCoupon(String couponDecs) throws Exception {
     	couponsDAO.deleteCoupon(couponDecs);

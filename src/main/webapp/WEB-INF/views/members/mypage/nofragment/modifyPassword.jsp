@@ -149,7 +149,6 @@
         </tbody>
     </table>
     <div class="button_box">
-        <button type="button" class="btn_cancel" onclick="location.href='/members/member/modify'">취소</button>
         <button type="button" id="pwUpdate" class="btn_password_modify" onclick="sendPwmodify()" class="btn btn-primary" >비밀번호 변경</button>
     </div>
             <div class="margin_bottom">

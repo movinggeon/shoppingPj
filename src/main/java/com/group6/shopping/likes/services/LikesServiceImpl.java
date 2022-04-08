@@ -26,4 +26,8 @@ public class LikesServiceImpl implements LikesService{
     public void likedelete(HashMap<String, Object>param) throws Exception {
         likesDAO.likedelete(param);
     }
+    @Override
+    public List<LikesVO> LikeList(String memId) throws Exception{
+        return likesDAO.LikeList(memId);
+    }
 }

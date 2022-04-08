@@ -129,21 +129,21 @@ public class SpecController {
             models.addAttribute("boardList", boardsVOList);
             models.addAttribute("page", pTmp);
         }
-        
+
         //좋아요
         List<LikesVO> likeList = new ArrayList<LikesVO>();
-        
+
         CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
         List<String> modelIdList = new ArrayList<String>();
         if(cs != null) {
-        	
+
         	likeList = likesService.getAlllikes(cs.getMem_id());
         	for(int i = 0; i < likeList.size(); i++) {
-        		
+
         		modelIdList.add( likeList.get(i).getModel_id() + "" );
-        		
+
         	}
-        	
+
         	if(modelIdList.size() > 0) {
         		models.addAttribute("modelIdList", modelIdList);
         	}
@@ -212,7 +212,7 @@ public class SpecController {
             models.addAttribute("result", resultModels);
         }
 
-        models.addAttribute("searchInput", searchInput);     
+        models.addAttribute("searchInput", searchInput);
         return "spec/searchItems2";
         //return "spec/searchItems";
     }

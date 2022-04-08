@@ -2,6 +2,7 @@ package com.group6.shopping.carts.services;
 
 import com.group6.shopping.batis.CartsDAO;
 import com.group6.shopping.carts.vo.CartsVO;
+import com.group6.shopping.models.vo.ModelsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class CartsServiceImpl implements CartsService{
     }
 
     @Override
-    public int getTotal(String mem_id, String history) throws Exception {
+    public Integer getTotal(String mem_id, String history) throws Exception {
         return cartsDAO.getTotal(mem_id, history);
     }
 
@@ -46,5 +47,10 @@ public class CartsServiceImpl implements CartsService{
     @Override
     public int updateCart(CartsVO cartsVO, int salePrice) throws Exception {
         return cartsDAO.updateCart(cartsVO, salePrice);
+    }
+
+    @Override
+    public List<ModelsVO> getPopularItem(int totalshow) throws Exception {
+        return cartsDAO.getPopularItem(totalshow);
     }
 }

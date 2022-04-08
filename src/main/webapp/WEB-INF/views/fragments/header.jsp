@@ -13,6 +13,7 @@
 			src="https://kit.fontawesome.com/6da1745729.js"
 			crossorigin="anonymous"
 	></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 	<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
@@ -87,16 +88,11 @@
 	<div id="mask"></div>
 	<div class="window">
 		<div class="win_wrap">
-			<input id="h_box" class="holder" type="text" placeholder="Search" value="" />
+			<form action="/spec/searchItems" method="get" id="search" autocomplete="off">
+				<input id="h_box" class="holder" type="text" placeholder="Search" value="" name="searchInput" onkeyup="enter()"/>
+			</form>
 			<div class="h_box">
-				<div class="h1" style="text-align: left;">
-					<ul>
-						<h4>최근 검색어</h4>
-						<li>워치</li>
-						<li>Teamsix</li>
-						<li></li>
-						<li></li>
-					</ul>
+				<div class="h1" id="searchHistory" style="text-align: left;">
 				</div>
 				<div class="h2" style="text-align: left;">
 					<ul>
@@ -163,14 +159,14 @@
 						<li><a href="#">Event</a></li>
 					</ul>
 				</li>
-<%--				<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-<%--					<li>--%>
-<%--						<a href="/admin">관리자</a>--%>
-<%--						<ul>--%>
-<%--							<li><a href="#">1:1상담</a></li>--%>
-<%--						</ul>--%>
-<%--					</li>--%>
-<%--				</sec:authorize>--%>
+				<%--				<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+				<%--					<li>--%>
+				<%--						<a href="/admin">관리자</a>--%>
+				<%--						<ul>--%>
+				<%--							<li><a href="#">1:1상담</a></li>--%>
+				<%--						</ul>--%>
+				<%--					</li>--%>
+				<%--				</sec:authorize>--%>
 			</ul>
 
 			<ul class="nav_links_1">
@@ -214,7 +210,7 @@
 									</sec:authorize>
 									<sec:authorize access="hasRole('ROLE_ADMIN')">
 										<a href="${pageContext.request.contextPath}/admin">관리자</a>
-										<a href="#">1:1 상담</a>
+										<a href="${pageContext.request.contextPath}/room">1:1 상담</a>
 										<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 											<input type="submit" value="로그아웃">
@@ -236,7 +232,112 @@
 
 		</nav>
 	</header>
-<%--   		var token = $("meta[name='_csrf']").attr("content");
+	<script>
+		var search = document.cookie;
+		//console.log("original cookie: " + search);
+		var searchList = [];
+		var jession = search.indexOf("JSESSIONID");
+		//jsession 값이 있을경우
+		if(jession != -1){
+			var first = search.indexOf(';');
+			//jsession 값이 맨앞일때
+			if(jession == 0){
+				//jsession 값 뒤에 search cookie가 있을때
+				if(first != -1){
+					search = search.substring(first+2);
+				}else{//jsession 값만이 cookie에 있을때
+					search = "";
+				}
+				//jsession 값이 중간 혹은 맨뒤
+			}else{
+				//jsession 값 앞에있는 search cookie 자름
+				var search1 = search.substring(0, jession);
+				first = search.indexOf(';');
+				//jsession 값이 중간에 있을때
+				if(first != -1){
+					//jsession 부터 끝까지
+					search = search.substring(jession);
+					//jsession 뒤 ;가져옴
+					first = search.indexOf(';');
+					//jsession 뒤 search 값
+					var search2 = search.substring(first+2);
+					//jession 앞 search 와 뒤 search를 합침
+					search = search1 + search2;
+					//jesssion 값이 맨뒤에 있을떄
+				}else{
+					search = search1;
+				}
+			}
+		}
+		//console.log("after cut: " + search);
+		for(var i = 0 ; i < 3; i++){
+			var first = search.indexOf('=');
+			if(first != -1){
+				var second = search.indexOf(';');
+				if(second == -1){
+					var name = search.substring(first-7,first);
+					var result = search.substring(first+1);
+					result = result.replaceAll('+', ' ');
+					searchList[i] = name + "/" + result;
+					break;
+				}else{
+					var name = search.substring(first-7,first);
+					var result = search.substring(first+1, second);
+					result = result.replaceAll('+', ' ');
+					searchList[i] = name + "/" + result;
+					search = search.substring(second+2);
+				}
+			}
+		}
+		var listContainer = document.getElementById("searchHistory");
+		var list = "<ul id='historyParent'><h4>최근검색어&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span onclick='delAllHistory()'>x</span></h4>";
+		if(searchList.length == 0){
+			list += "<li>검색기록이 없습니다.</li>";
+		}else{
+			for(var j = searchList.length -1; j >= 0; j--){
+				var split = searchList[j].split('/');
+				var name = split[0];
+				var result = split[1];
+				var input = result.replaceAll(" ", "+")
+				if(result.length > 20){
+					result = input.substring(0,21) + "...";
+				}
+				list += "<li id="+searchList[j]+"><a href='/spec/searchItems?searchInput="+input+"'>" +result+
+						"</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
+			}
+		}
+		list+= "</ul>";
+		listContainer.innerHTML = list;
+		function removeItem(arr, value) {
+			var index = arr.indexOf(value);
+			if (index > -1) {
+				arr.splice(index, 1);
+			}
+			return arr;
+		}
+		function delHistory(id){
+			var split = id.split('/');
+			var name = split[0];
+			document.getElementById(id).remove();
+			document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+			searchList = removeItem(searchList, id);
+			console.log(searchList);
+			var ulParent = document.getElementById('historyParent');
+			if (ulParent.children.length == 1) {
+				ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+			}
+		}
+		function delAllHistory() {
+			var ulParent = document.getElementById('historyParent');
+			for(var i = 0; i < searchList.length; i++){
+				var split = searchList[i].split('/');
+				var name = split[0];
+				document.getElementById(searchList[i]).remove();
+				document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
+			}
+			ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
+		}
+		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		sessionStorage.setItem("mem_id","${user.mem_id}");
 		function enterRoom() {
@@ -258,185 +359,17 @@
 					console.log(err);
 				}
 			});
+
 		}
- --%>
-	<script>
-	/*		$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
-	alert("수발");
-	if (xhr.status == 403) {
-		window.location.href ="/login";
-	}
-});*/
-var search = document.cookie;
-//console.log("original cookie: " + search);
-var searchList = [];
-var jession = search.indexOf("JSESSIONID");
-//jsession 값이 있을경우
-if(jession != -1){
-	var first = search.indexOf(';');
-	//jsession 값이 맨앞일때
-	if(jession == 0){
-		//jsession 값 뒤에 search cookie가 있을때
-		if(first != -1){
-			search = search.substring(first+2);
-		}else{//jsession 값만이 cookie에 있을때
-			search = "";
-		}
-	//jsession 값이 중간 혹은 맨뒤
-	}else{
-		//jsession 값 앞에있는 search cookie 자름
-		var search1 = search.substring(0, jession);
-		first = search.indexOf(';');
-		//jsession 값이 중간에 있을때
-		if(first != -1){
-			//jsession 부터 끝까지
-			search = search.substring(jession);
-			//jsession 뒤 ;가져옴
-			first = search.indexOf(';');
-			//jsession 뒤 search 값
-			var search2 = search.substring(first+2);
-			//jession 앞 search 와 뒤 search를 합침
-			search = search1 + search2;
-		//jesssion 값이 맨뒤에 있을떄
-		}else{
-			search = search1;
-		}
-	}
-}
-//console.log("after cut: " + search);
-for(var i = 0 ; i < 3; i++){
-	var first = search.indexOf('=');
-	if(first != -1){
-		var second = search.indexOf(';');
-		if(second == -1){
-			var name = search.substring(first-7,first);
-			var result = search.substring(first+1);
-			result = result.replaceAll('+', ' ');
-			searchList[i] = name + "/" + result;
-			break;
-		}else{
-			var name = search.substring(first-7,first);
-			var result = search.substring(first+1, second);
-			result = result.replaceAll('+', ' ');
-			searchList[i] = name + "/" + result;
-			search = search.substring(second+2);
-		}
-	}
-}
-var listContainer = document.getElementById("searchHistory");
-var list = "<ul id='historyParent'><h4>최근검색어&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span onclick='delAllHistory()'>x</span></h4>";
-if(searchList.length == 0){
-	list += "<li>검색기록이 없습니다.</li>";
-}else{
-	for(var j = searchList.length -1; j >= 0; j--){
-		var split = searchList[j].split('/');
-		var name = split[0];
-		var result = split[1];
-		var input = result.replaceAll(" ", "+")
-		if(result.length > 20){
-			result = input.substring(0,21) + "...";
-		}
-		list += "<li id="+searchList[j]+"><a href='/spec/searchItems?searchInput="+input+"'>" +result+
-            "</a><span id="+searchList[j]+" onclick='delHistory(this.id)'> x </span></li>";
-	}
-}
-list+= "</ul>";
-listContainer.innerHTML = list;
-function removeItem(arr, value) {
-	var index = arr.indexOf(value);
-	if (index > -1) {
-		arr.splice(index, 1);
-	}
-	return arr;
-}
-function delHistory(id){
-		var split = id.split('/');
-		var name = split[0];
-		document.getElementById(id).remove();
-		document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-		searchList = removeItem(searchList, id);
-		console.log(searchList);
-		//var cookieId = Number(name.substring(name.length-1));
-		/*
-		var todayDate = new Date();
-		todayDate.setDate(todayDate.getDate() + 7);
-		if(searchList.length == 3){
-			if(cookieId <= 2){
-				document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-				var split = searchList[2].split('/');
-				var value = split[1];
-				document.cookie = "search2" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
-			}
-			if(cookieId == 1){
-				document.cookie = 'search3=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-				var split = searchList[1].split('/');
-				var value = split[1];
-				console.log(value);
-				document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+		function enter(){
+			if (window.event.keyCode == 13) {
+				if(document.getElementById("h_box") == ""){
+					alert("값을 입력해주세요");
+					return;
+				}
+				document.getElementById("search").submit();
 			}
 		}
-		if(searchList.length == 2){
-			if(cookieId == 1){
-				var split = searchList[1].split('/');
-				document.cookie = 'search2=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-				var value = split[1];
-				console.log(value);
-				document.cookie = "search1" + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
-			}
-		}
-		*/
-		var ulParent = document.getElementById('historyParent');
-		if (ulParent.children.length == 1) {
-			ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
-		}
-	}
-	function delAllHistory() {
-		var ulParent = document.getElementById('historyParent');
-		for(var i = 0; i < searchList.length; i++){
-			var split = searchList[i].split('/');
-			var name = split[0];
-			document.getElementById(searchList[i]).remove();
-			document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/';
-		}
-		ulParent.innerHTML = "<h4>최근검색어</h4><li>검색기록이 없습니다.</li>";
-	}
-    //csrf 토큰값 받기
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    
-	sessionStorage.setItem("mem_id","${user.mem_id}");
-	function enterRoom() {
-		var user = "${user.mem_id}";
-		console.log(user);
-		console.log(token);
-		console.log(header);
-		$.ajax({
-			//url: '/chat/member/createRoom'.
-			url: '/createRoom',
-			data: {mem_id : user},
-			type: 'post',
-			dataType: 'json',
-			beforeSend: function (xhr) {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-				xhr.setRequestHeader(header, token);
-			},
-			success: function (res) {
-				location.href="/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
-			},
-			error: function (err) {
-				console.log(err);
-			}
-		});
-	}
-	
-	function enter(){
-	if (window.event.keyCode == 13) {
-		if(document.getElementById("h_box") == ""){
-			alert("값을 입력해주세요");
-			return;
-			}
-		document.getElementById("search").submit();
-		}
-	}
 	</script>
 </div>
 </body>

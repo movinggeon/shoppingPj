@@ -13,20 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-/*@RequestMapping("/likes")*/
-@RequestMapping("/members")
+@RequestMapping("/likes")
+
 public class LikesController {
     @Autowired
     private LikesService likesService;
 
-    @RequestMapping(value = "/likeslist")
+    @RequestMapping(value = "/members/likeslist")
     public String likeList(HttpSession session, Model model) throws Exception {
-        List<LikesVO> likeList=new ArrayList<LikesVO>();
         CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
         String memId = cs.getMem_id();
-        System.out.println("접속한유저" + memId);
-        likeList=likesService.getAlllikes(memId);
-        model.addAttribute("likeList",likeList);
-        return "members/mypage/likeList";
+        List<LikesVO> likesVOList = likesService.LikeList(memId);
+        model.addAttribute("likeList",likesVOList);
+        return "members/mypage/nofragment/likeList";
     }
 }
