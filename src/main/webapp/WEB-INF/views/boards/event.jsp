@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,8 +104,8 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #e43680;
-	
 }
+
 .eventbox2 {
 	margin: 10px;
 	width: 300px;
@@ -113,7 +115,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
 }
 
 .eventday {
@@ -136,11 +137,11 @@
 }
 </style>
 
-
 		<div style="margin-top: 48px"></div>
 		<div class="top_nav">
 			<div class="topp">이벤트 > Event</div>
 		</div>
+		
 		<div class="topp">
 			<div class="eventday">
 				오늘날짜 :
@@ -151,17 +152,12 @@
 					<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />
 				</c:set>
 				<c:out value="${date}" />
-
 			</div>
-			<a class="eventbox1" href="/boards/event">진행중인 이벤트 ${user.mem_id}</a>
-
-			<a class="eventbox2" href="/boards/endevent">종료된 이벤트 </a>
-
+			<a class="eventbox1" href="/boards/event">진행중인 이벤트 </a> <a
+				class="eventbox2" href="/boards/endevent">종료된 이벤트 </a>
 		</div>
+		
 		<div class="event_container">
-
-
-
 			<c:forEach items="${eventboardlist}" var="event" begin="0" end="5">
 				<div class="event_list">
 					<a href="/boards/readView?board_id=${event.board_id}"> <img
@@ -184,30 +180,25 @@
 			</c:forEach>
 		</div>
 
-		<div class="page">		
-		<c:if test="${paging.startPage != 1 }">
-			<a href="/boards/event?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == paging.nowPage }">
-					<b>[${p }] </b>
-				</c:when>
-				<c:when test="${p != paging.nowPage }">
-					<a href="/boards/event?nowPage=${p }&cntPerPage=${paging.cntPerPage}">[${p }]</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="/boards/event?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
-		</c:if>
-	</div>	
-		
-		
-		<c:set var="memid" value="${user.mem_id}" />
-		<c:if test="${memid eq 'asd12321'}">
-			<a href="/boards/eventinsertView">이벤트글쓰기</a>
-		</c:if>
+		<div class="page">
+			<c:if test="${paging.startPage != 1 }">
+				<a href="/boards/event?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			</c:if>
+			<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+				var="p">
+				<c:choose>
+					<c:when test="${p == paging.nowPage }">
+						<b>[${p }] </b>
+					</c:when>
+					<c:when test="${p != paging.nowPage }">
+						<a href="/boards/event?nowPage=${p }&cntPerPage=${paging.cntPerPage}">[${p }]</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${paging.endPage != paging.lastPage}">
+				<a href="/boards/event?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			</c:if>
+		</div>
 	</main>
 </body>
 </html>

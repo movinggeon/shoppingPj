@@ -156,14 +156,14 @@
 	</select>
 
 
-<!-- 총 게시글 갯수 출력 -->
+<!-- 진행중 이벤트 총 게시글 갯수 출력 -->
 <select id="countBoard" resultType="int">
 	SELECT COUNT(*) FROM boards where board_type = 'event'
 			AND date(now()) >= s_date
 			AND e_date >= date(now())
 </select>
 
-<!-- 총 게시글 갯수 출력 -->
+<!-- 종료이벤트 총 게시글 갯수 출력 -->
 <select id="endcountBoard" resultType="int">
 	SELECT COUNT(*) FROM boards 
 			WHERE board_type = 'event'

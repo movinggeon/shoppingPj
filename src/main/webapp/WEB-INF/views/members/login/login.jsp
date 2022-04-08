@@ -33,11 +33,7 @@
 
 	.loginwrapper{
 		height: auto;
-<<<<<<< HEAD
-		margin-top: 10%;
-=======
 		margin-top: 8%;
->>>>>>> a68d1d0dd883c657be6c9bdbed0c3474ae904850
 		margin-bottom: 10%;
 	}
 	.loginbox{
@@ -128,24 +124,13 @@
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-<div>
-<c:if test="${not empty msg}">
-    ${msg}
-</c:if>
-<div class="loginwrapper">
-=======
-
 
 <div class="loginwrapper">
-
 	<div id="login Error" style="text-align: center;">
 		<c:if test="${not empty msg}">
 			<h1>${msg}</h1>
 		</c:if>
 	</div>
-
->>>>>>> a68d1d0dd883c657be6c9bdbed0c3474ae904850
 	<div class="loginbox">
 		<div class="loginname">로그인</div>
 		<h2>${error}</h2>
