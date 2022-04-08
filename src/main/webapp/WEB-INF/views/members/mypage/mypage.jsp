@@ -296,7 +296,7 @@
 			<div class="inner">
 				<ul>
 					<li>
-						<span id="likeList">MY ♡ ITEM</span>
+						<span  id="likeList" style="cursor:pointer">MY ♡ ITEM</span>
 					</li>
 				</ul>
 				<ul>
@@ -309,18 +309,18 @@
 				</ul>
 				<ul>
 					<li>
-						<span id="couponList">쿠폰</span>
+						<span id="couponList" style="cursor:pointer">쿠폰</span>
 					</li>
 				</ul>
 				<ul>
 					<li>
-       					<span id="modifyMem">회원정보수정</span>
+       					<span  id="modifyMem" style="cursor:pointer">회원정보수정</span>
 					</li>
 					<li>
-       					<span id="modifyPwMem">비밀번호 변경</span>
+       					<span  id="modifyPwMem" style="cursor:pointer" >비밀번호 변경</span>
 					</li>
 					<li>
-   						<span id="deleteMem">회원탈퇴</span>
+   						<span  id="deleteMem" style="cursor:pointer">회원탈퇴</span>
 					</li>
 				</ul>
 				<ul>

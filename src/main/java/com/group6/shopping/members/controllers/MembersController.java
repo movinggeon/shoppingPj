@@ -44,7 +44,7 @@ public class MembersController {
 	@RequestMapping(value="/member/mypage")
 	public String mypage(HttpSession session, Model model) throws Exception {
 		
-		System.out.println("mypage로 이동");
+		/*System.out.println("mypage로 이동");*/
 		
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 		
@@ -54,7 +54,7 @@ public class MembersController {
 		List<LikesVO> likesVOList = likesService.LikeList(cs.getMem_id());
 		model.addAttribute("likeList",likesVOList);
 
-		System.out.println(count);
+		/*System.out.println(count);*/
 		model.addAttribute("couponEA", count);
 		
 		return "members/mypage/mypage";
@@ -62,18 +62,18 @@ public class MembersController {
 
 	@RequestMapping(value = "/member/modify")
 	public String modify(HttpServletRequest request) {
-		System.out.println("modify 호출");
+		/*System.out.println("modify 호출");*/
 		return "members/mypage/nofragment/modify";
 	}
 	@RequestMapping(value ="/member/delete")
 	public String delete(HttpServletRequest requet){
-		System.out.println("회원탈퇴 이동");
+		/*System.out.println("회원탈퇴 이동");*/
 		return "members/mypage/nofragment/delete";
 	}
 
 	@RequestMapping(value = "/member/modifyPassword")
 	public String modifyPassword(HttpServletRequest request){
-		System.out.println("비밀번호 변경 이동");
+		/*System.out.println("비밀번호 변경 이동");*/
 		return "members/mypage/nofragment/modifyPassword";
 	}
 	
