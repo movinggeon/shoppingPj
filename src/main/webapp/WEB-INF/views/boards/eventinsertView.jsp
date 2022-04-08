@@ -47,10 +47,10 @@
 
 <h1>이벤트 글 작성하기</h1>
 
-<form action="/boards/eventinsert" method="get">
+<form action="/boards/eventinsert" method="post">
 	<div>
 
-		<input type ="hidden" name="mem_id" value="${user.mem_id}"> ${user.mem_id}
+		<input type ="hidden" name="mem_id" value="${user.mem_id}">
 		<label>제목</label>
 		<input type ="text" name="board_title">
 		<label>내용</label>
@@ -61,7 +61,7 @@
         <input type="text" id="datepicker1" name="s_date" readonly>
        종료날짜
         <input type="text" id="datepicker2" name="e_date" readonly></p>
-        
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         
 	</div>
 

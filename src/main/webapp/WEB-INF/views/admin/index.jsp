@@ -49,7 +49,7 @@
     <div class="divTableRow">
       <div class="divTableCell"></div>
       <div class="divTableCell"></div>
-      <div class="divTableCell" id="createEvent"><p>이벤트생성</p></div>
+      <div class="divTableCell" id="createEvent"><p><a href="/boards/eventinsertView">이벤트생성</a></p></div>
       <div class="divTableCell"></div>
     </div>
   </div>

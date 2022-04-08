@@ -141,7 +141,7 @@
 		</div>
 		<div class="topp">
 			<div class="eventday"></div>
-			<a class="eventbox2" href="/boards/event">진행중인 이벤트 ${user.mem_id}</a>
+			<a class="eventbox2" href="/boards/event">진행중인 이벤트 </a>
 
 			<a class="eventbox1" href="/boards/endevent">종료된 이벤트 </a>
 		</div>
@@ -149,7 +149,7 @@
 			<c:forEach items="${endeventboardlist}" var="event" begin="0" end="5">
 				<div class="event_list">
 					<a href="/boards/readView?board_id=${event.board_id}"> <img
-						src="/resources/static/eventimg/${event.board_content}" alt="" />
+						src="/resources/static/eventimg/${event.board_content}.jpg" alt="" />
 					</a>
 					<div class="event_info">
 						<a href="/boards/readView?board_id=${event.board_id}">
@@ -186,11 +186,6 @@
 			<a href="/boards/endevent?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>	
-
-		<c:set var="memid" value="${user.mem_id}" />
-		<c:if test="${memid eq 'asd12321'}">
-			<a href="/boards/eventinsertView">이벤트글쓰기</a>
-		</c:if>
 	</main>
 </body>
 </html>
