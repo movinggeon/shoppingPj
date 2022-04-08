@@ -55,7 +55,7 @@ public class BoardsController {
      	
     	  //이벤트 메인페이지 종료게시글 목록조회
     	  
-    	  @GetMapping("/endevent")
+    	@GetMapping("/endevent")
       	public String EndEventBoardslist(EventPagingVO vo, Model model
       			, @RequestParam(value="nowPage", required=false)String nowPage
       			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
