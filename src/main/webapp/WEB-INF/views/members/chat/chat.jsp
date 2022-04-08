@@ -43,9 +43,8 @@
         </tr>
         </table>
     </div>
-
-
 </div>
+    </div>
 
 <script>
     ws = new WebSocket("ws://" + location.host + "/chating/"+$("#roomNumber").val());
@@ -135,7 +134,7 @@
     }
     function SettingSessionId(sId){
         $.ajax({
-            url:"updateroom",
+            url:"/chat/updateroom",
             type:"post",
             data:{
                 sId:sId
