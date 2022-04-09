@@ -13,8 +13,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class CartsVO {
-    private int cart_id, spec_id, cart_price, cart_qty, cart_refund, cart_isCare;
-    private String mem_id, cart_imp_uid, cart_merchant_uid, cart_date, cart_repair_date, cart_r_est_date, cart_address, cart_phone;
+    private int cart_id, spec_id, receipt_id, cart_price, cart_qty, cart_isCare;
+    private String mem_id;
 
     private SpecVO specVO;
     private ModelsVO modelsVO;

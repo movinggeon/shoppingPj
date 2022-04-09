@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.ReceiptsDAO">
+	<resultMap id="ReceiptsVO" type="ReceiptsVO">
+		<result column="receipt_id" property="receipt_id"/>
+		<result column="receipt_price" property="receipt_price"/>
+		<result column="receipt_discount" property="receipt_discount"/>
+		<result column="coupon_id" property="coupon_id"/>
+		<result column="receipt_point" property="receipt_point"/>
+		<result column="receipt_imp_uid" property="receipt_imp_uid"/>
+		<result column="receipt_merchant_uid" property="receipt_merchant_uid"/>
+		<result column="receipt_date" property="receipt_date"/>
+		<result column="receipt_address" property="receipt_address"/>
+		<result column="receipt_phone" property="receipt_phone"/>
+		<result column="mem_id" property="mem_id"/>
+
+		<collection property="couponsVO" resultMap="CouponsVO"/>
+	</resultMap>
+	<resultMap id="CouponsVO" type="CouponsVO">
+		<result column="coupon_id" property="coupon_id"/>
+		<result column="mem_id" property="mem_id"/>
+		<result column="coupon_desc" property="coupon_desc"/>
+		<result column="coupon_pct" property="coupon_pct"/>
+		<result column="coupon_price" property="coupon_price"/>
+		<result column="coupon_valid_date" property="coupon_valid_date"/>
+	</resultMap>
+
+	<select id="getAllReceipts" resultMap="ReceiptsVO">
+		select * from receipts r left join coupons c
+		on r.coupon_id = c.coupon_id
+		where r.mem_id = #{mem_id};
+	</select>
+
+
+</mapper>

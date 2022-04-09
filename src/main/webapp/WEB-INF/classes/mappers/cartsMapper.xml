@@ -6,17 +6,11 @@
 		<result column="cart_id" property="cart_id"/>
 		<result column="spec_id" property="spec_id"/>
 		<result column="mem_id" property="mem_id"/>
-		<result column="cart_imp_uid" property="cart_imp_uid"/>
-		<result column="cart_merchant_uid" property="cart_merchant_uid"/>
+		<result column="receipt_id" property="receipt_id"/>
 		<result column="cart_price" property="cart_price"/>
 		<result column="cart_qty" property="cart_qty"/>
-		<result   column="cart_date" property="cart_date"/>
-		<result column="cart_refund" property="cart_refund"/>
-		<result column="cart_repair_date" property="cart_repair_date"/>
-		<result column="cart_r_est_date" property="cart_r_est_date"/>
-		<result column="cart_address" property="cart_address"/>
-		<result column="cart_phone" property="cart_phone"/>
 		<result column="cart_isCare" property="cart_isCare"/>
+
 		<collection property="specVO" resultMap="SpecVO"/>
 		<collection property="productsVO" resultMap="ProductsVO"/>
 		<collection property="modelsVO" resultMap="ModelsVO"/>
@@ -49,8 +43,15 @@
 		select *
 		from carts c, specifications s, products p, models m
 		where  p.product_id = m.product_id and m.model_id = s.model_id and s.spec_id = c.spec_id
-		  and cart_imp_uid is ${history}
+		  and receipt_id is ${history}
 		  and mem_id = #{mem_id}
+	</select>
+
+	<select id="getPaidCart" resultMap="CartsVO">
+		select *
+		from carts c, specifications s, products p, models m
+		where  p.product_id = m.product_id and m.model_id = s.model_id and s.spec_id = c.spec_id
+		  and receipt_id = #{receipt_id}
 	</select>
 
 	<delete id="deleteCart">
@@ -67,7 +68,7 @@
 	<select id="getTotal" resultType="int">
 		select sum(cart_price * cart_qty)
 		from carts
-		where mem_id = #{mem_id} and cart_imp_uid is ${history}
+		where mem_id = #{mem_id} and receipt_id is ${history}
 	</select>
 
 	<select id="getSingleCart" resultType="CartsVO">
@@ -76,7 +77,7 @@
 		where cart_id = #{cart_id};
 	</select>
 
-	<update id="updateCart">
+<!--	<update id="updateCart">
 		update carts c
 		set cart_price = (select salePrice from(
 			select cart_id, (cart_price-round((cart_price / (select (sum(cart_price)) from carts where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null )) * #{salePrice})) as salePrice
@@ -88,7 +89,7 @@
 			  (select cId from(select cart_id as cId
 							   from carts
 							   where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null) B );
-	</update>
+	</update>-->
 
 	<select id="getPopularItem" resultMap="ModelsVO">
 		select p.product_name, m.model_name, m.model_id, count(*)

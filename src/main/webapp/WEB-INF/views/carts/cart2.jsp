@@ -1,7 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Title</title>
@@ -195,6 +195,9 @@
     <div class="wrapcart">
         ${qtyError}<br>
         ${qtyZero}<br>
+        <c:if test="${fn:length(carts) < 1 }">
+            <h3>장바구니 내용이 없습니다.</h3>
+        </c:if>
         <c:forEach items="${carts}" var="items">
             <div class="oneitem" id =${items.cart_id} >
                 <div class="imagebox">
@@ -243,18 +246,19 @@
                 </div>
             </div>
         </c:forEach>
-
-        <div class="finalblock">
-            <div class="finaltotal">
-                <span class="finaltotalname"> 총계</span>
-                <span id="totalPrice" class="totalPrice">
-                    ${totalPrice}
-                </span>₩<br>
+        <c:if test="${totalPrice ne 0}">
+            <div class="finalblock">
+                <div class="finaltotal">
+                    <span class="finaltotalname"> 총계</span>
+                    <span id="totalPrice" class="totalPrice">
+                        ${totalPrice}
+                    </span>₩<br>
+                </div>
+                <div class="addressblock">
+                    <button class="goaddressbtn" onclick="location.href='/carts/member/mailinginformation' ">주소지 설정</button>
+                </div>
             </div>
-            <div class="addressblock">
-                <button class="goaddressbtn" onclick="location.href='/carts/member/mailinginformation' ">주소지 설정</button>
-            </div>
-        </div>
+        </c:if>
     </div>
     <script>
         function updateQty(id ,value){

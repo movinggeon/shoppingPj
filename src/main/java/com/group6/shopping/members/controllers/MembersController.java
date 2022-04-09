@@ -1,12 +1,17 @@
 package com.group6.shopping.members.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.group6.shopping.carts.vo.CartsVO;
+import com.group6.shopping.receipts.service.ReceiptsService;
+import com.group6.shopping.receipts.vo.ReceiptsDisplayVO;
+import com.group6.shopping.receipts.vo.ReceiptsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +30,8 @@ public class MembersController {
 	
 	@Autowired
 	private CouponsService couponsService;
+	@Autowired
+	private ReceiptsService receiptsService;
 
 	@GetMapping(value = "/")
 	public String accessMember(Model model) throws Exception {
@@ -39,14 +46,23 @@ public class MembersController {
 
 	@RequestMapping(value="/member/mypage")
 	public String mypage(HttpSession session, Model model) throws Exception {
-		
-		System.out.println("mypage로 이동");
-		
+
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
+
+		List<ReceiptsDisplayVO> receiptsDisplayVOList = receiptsService.getAllReceiptsInfo(cs.getMem_id());
+
+		for(ReceiptsDisplayVO tmp : receiptsDisplayVOList){
+			System.out.println(tmp.getReceiptsVO().toString());
+			for(CartsVO cTmp : tmp.getCartsVOList()){
+				System.out.println(cTmp.toString());
+				System.out.println(cTmp.getProductsVO().getProduct_name() + cTmp.getModelsVO().getModel_name());
+			}
+			System.out.println("--------------------");
+		}
 		
 		int count = couponsService.countCoupon(cs.getMem_id());
 		
-		System.out.println(count);
+
 		model.addAttribute("couponEA", count);
 		
 		return "members/mypage/mypage";

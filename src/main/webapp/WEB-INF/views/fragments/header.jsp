@@ -20,6 +20,8 @@
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
 	/>
+	<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
 	<script src="${pageContext.request.contextPath}/resources/static/js/jquery-3.1.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/static/js/bxslider.js" type="text/javascript"></script>
 
@@ -99,13 +101,13 @@
 				<div class="h2" style="text-align: left;">
 					<ul>
 						<h4>인기 검색어</h4>
-						<c:forEach var="i" begin="0" end="${fn:length(likesList)-1}">
+<%--						<c:forEach var="i" begin="0" end="${fn:length(likesList)-1}">
 							<a href="/spec/chooseModel?model_id=${likesList[i].model_id}&category=new&currPage=1">
 								<li>
 									<span>${i+1}</span>${likesList[i].productsVO.product_name} ${likesList[i].modelsVO.model_name}
 								</li>
 							</a>
-						</c:forEach>
+						</c:forEach>--%>
 					</ul>
 				</div>
 

@@ -2,36 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-            src="https://kit.fontawesome.com/6da1745729.js"
-            crossorigin="anonymous"
-    ></script>
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
-    />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/main.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/footer.css" />
-    <script src="${pageContext.request.contextPath}/resources/static/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/static/js/header.js" defer></script>
-    <title>SMARTDC</title>
-    <% String model_id = request.getParameter("model_id"); %>
-    <% List<String> modelIdList = (List)request.getAttribute("modelIdList"); %>
-    <% boolean likeState = false; %>
-    <% if( modelIdList != null && modelIdList.contains(model_id)){%>
-    <% 		likeState = true;%>
-    <% }%>
-</head>
-<body>
 <style>
     .container {
         box-sizing: border-box;
@@ -166,7 +136,6 @@
         font-size: 13px;
     }
 
-    /*자주묻는 질문*/
     .que_box {
         margin: 0 auto;
         max-width: 1085px;
@@ -226,7 +195,6 @@
             padding-left: 0;
         }
     }
-    /*리뷰*/
     .review {
         height: auto;
     }
@@ -320,36 +288,51 @@
         padding: 5px 5px;
         cursor: pointer;
     }
-    .like-content span {
-        color: #9d9da4;
-        font-family: monospace;
+    .like-content{
+        filter: url('#filter');
+        position: relative;
+        margin-top: 12px;
+        margin-bottom: 15px;
+        margin-left: 160px;
     }
-    .like-content {
-    	text-align: center;
-    }
-    .like-content .btn-secondary {
-        display: block;
-        margin: 40px auto 0px;
-        text-align: center;
-        background: #ed2553;
-        border-radius: 3px;
-        box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
-        padding: 10px 17px;
-        font-size: 18px;
+    .like-cnt{
         cursor: pointer;
-        border: none;
-        outline: none;
-        color: #ffffff;
-        text-decoration: none;
-        -webkit-transition: 0.3s ease;
-        transition: 0.3s ease;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        text-align: center;
     }
-    .like-content .btn-secondary:hover {
-        transform: translateY(-3px);
-    }
-    .like-content .btn-secondary .fa {
-        margin-right: 5px;
-    }
+        /*
+        .like-content span {
+            color: #9d9da4;
+            font-family: monospace;
+        }
+        .like-content {
+            text-align: center;
+        }
+        .like-content .btn-secondary {
+            display: block;
+            margin: 40px auto 0px;
+            text-align: center;
+            background: #ed2553;
+            border-radius: 3px;
+            box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+            padding: 10px 17px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            text-decoration: none;
+            -webkit-transition: 0.3s ease;
+            transition: 0.3s ease;
+        }
+        .like-content .btn-secondary:hover {
+            transform: translateY(-3px);
+        }
+        .like-content .btn-secondary .fa {
+            margin-right: 5px;
+        }*/
     .animate-like {
         animation-name: likeAnimation;
         animation-iteration-count: 1;
@@ -361,6 +344,38 @@
         100% { transform: scale(1); }
     }
 </style>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+            src="https://kit.fontawesome.com/6da1745729.js"
+            crossorigin="anonymous"
+    ></script>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/main.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/footer.css" />
+    <script src="${pageContext.request.contextPath}/resources/static/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/static/js/header.js" defer></script>--%>
+       <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
+    <title>SMARTDC</title>
+    <% String model_id = request.getParameter("model_id"); %>
+    <% List<String> modelIdList = (List)request.getAttribute("modelIdList"); %>
+    <% boolean likeState = false; %>
+    <% if( modelIdList != null && modelIdList.contains(model_id)){%>
+    <% 		likeState = true;%>
+    <% }%>
+</head>
+
+<body>
 <main class="main-content"></main>
 
     <div style="margin-top: 60px"></div>
@@ -503,17 +518,21 @@
                 <button class="basketc_btn" onclick="addCart()" style="padding: 10px 0">
                    장바구니에  담기
                 </button>
+
                 <div class="like-content">
-                	<c:set var="likeState" value="<%=likeState %>"></c:set>
-                	<c:choose>
-	                	<c:when test="${likeState }">
-							<span class="iconify" data-icon="flat-color-icons:like" style="font-size: 60px;" id="like"></span> <!--  onclick="clickLike()" -->
-						</c:when>
-						<c:otherwise>
-							<span class="iconify" data-icon="icon-park-outline:like" style="font-size: 60px;" id="dislike"></span>
-						</c:otherwise>
-					</c:choose>
+                    <div class="like-cnt unchecked" id="like-cnt">
+                        <c:set var="likeState" value="<%=likeState %>"></c:set>
+                        <c:choose>
+                            <c:when test="${likeState }">
+                                <span class="iconify" data-icon="flat-color-icons:like" style="font-size: 70px;" id="like"></span> <!--  onclick="clickLike()" -->
+                            </c:when>
+                            <c:otherwise>
+                                <span class="iconify" data-icon="icon-park-outline:like" style="font-size: 70px;" id="dislike"></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
             	</div>
+
             </div>
         </div>
     </div>
@@ -788,25 +807,27 @@
             $(this).toggleClass("on").siblings().removeClass("on");
             $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
         });
-
- /*        $(function(){
-            $(document).on('click', '.like-review', function(e) {
-                $(this).html('<i class="fa fa-heart" aria-hidden="true" id="like"></i> You liked this');
-                $(this).children('.fa-heart').addClass('animate-like');
-            });
-        });
-
-        $(function(){
-            $(document).one('click', '.like-review', function(e) {
-                $(this).html('<i class="fa fa-heart" aria-hidden="true" id="dislike"></i> Like');
-                $(this).children('.fa-heart').removeClass('animate-like');
-            });
-        }); */
         
 	    //csrf 토큰값 받기
 	    var token = $("meta[name='_csrf']").attr("content");
 	    var header = $("meta[name='_csrf_header']").attr("content");
-	    
+
+
+
+        var like_parent = $(".like-content");
+        var burst = new mojs.Burst({
+            parent: like_parent,
+            radius:   { 10: 20 },
+            count: 15,
+            children: {
+                delay: 250,
+                duration: 700,
+                radius:{10: 0},
+                fill:   [ '#f4493c' ],
+                easing: 		mojs.easing.bezier(.08,.69,.39,.97)
+            }
+        });
+
       	//좋아요    	
         $(document).on("click","#like", function(){
 
@@ -835,7 +856,7 @@
 	                   if (jsonData.success) {
 	                       console.log(jsonData.success);
 	                       $('#like').remove();
-	                       $('.like-content').append('<span class="iconify" data-icon="icon-park-outline:like" style="font-size: 60px;" id="dislike"></span>');
+	                       $('#like-cnt').append('<span class="iconify" data-icon="icon-park-outline:like" style="font-size: 70px;" id="dislike"></span>');
 	                   }
 	                   else {
 	                       alert("에러");
@@ -847,7 +868,6 @@
 	    
       	//좋아요 취소    	
         $(document).on("click","#dislike", function(){
-
        	    var likeState = $(this).attr("id");
        	    console.log('좋아요 상태 -> ' + likeState);
        	    
@@ -874,7 +894,7 @@
 	                   if (jsonData.success) {
 	                       console.log(jsonData.success);
 	                       $('#dislike').remove();
-	                       $('.like-content').append('<span class="iconify" data-icon="flat-color-icons:like" style="font-size: 60px;" id="like"></span>');
+	                       $('#like-cnt').append('<span class="iconify" data-icon="flat-color-icons:like" style="font-size: 70px;" id="like"></span>');
 	                   }
 	                   else {
 	                       alert("에러");

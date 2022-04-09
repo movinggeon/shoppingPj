@@ -28,6 +28,11 @@ public class CartsRestController {
     public String addCart(@RequestBody HashMap<String, Object> map, HttpSession session) throws Exception {
         //db work add spec_id to cart
 
+
+        for(Map.Entry<String, Object> tmp : map.entrySet()){
+            System.out.println(tmp.getKey() + " : " + tmp.getValue());
+        }
+
         CustomMemDetails user =  (CustomMemDetails) session.getAttribute("user");
         map.put("mem_id", user.getMem_id());
 
