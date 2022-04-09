@@ -22,4 +22,9 @@ public class BoardsController {
         models.addAttribute("boardsVO", boardsVO);
         return "/boards/board";
     }
+
+    @RequestMapping("/tmp")
+    public String tmp(){
+        return "/boards/tmp";
+    }
 }

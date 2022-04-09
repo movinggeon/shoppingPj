@@ -291,16 +291,20 @@
     .like-content{
         filter: url('#filter');
         position: relative;
-        margin-top: 12px;
-        margin-bottom: 15px;
-        margin-left: 160px;
+        /*
+        position: relative;
+
+        */
     }
     .like-cnt{
         cursor: pointer;
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        text-align: center;
+        margin-top: 12px;
+        margin-bottom: 15px;
+        margin-left: 175px;
+
     }
         /*
         .like-content span {
@@ -364,7 +368,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/main.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/footer.css" />
     <script src="${pageContext.request.contextPath}/resources/static/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/static/js/header.js" defer></script>--%>
+    <script src="${pageContext.request.contextPath}/resources/static/js/header.js" defer></script>
        <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
     <title>SMARTDC</title>
     <% String model_id = request.getParameter("model_id"); %>
@@ -516,7 +520,7 @@
                     </h5>
                 </div>
                 <button class="basketc_btn" onclick="addCart()" style="padding: 10px 0">
-                   장바구니에  담기
+                    장바구니에  담기
                 </button>
 
                 <div class="like-content">
@@ -524,10 +528,10 @@
                         <c:set var="likeState" value="<%=likeState %>"></c:set>
                         <c:choose>
                             <c:when test="${likeState }">
-                                <span class="iconify" data-icon="flat-color-icons:like" style="font-size: 70px;" id="like"></span> <!--  onclick="clickLike()" -->
+                                <span class="iconify" data-icon="flat-color-icons:like" style="font-size: 60px;" id="like"></span> <!--  onclick="clickLike()" -->
                             </c:when>
                             <c:otherwise>
-                                <span class="iconify" data-icon="icon-park-outline:like" style="font-size: 70px;" id="dislike"></span>
+                                <span class="iconify" data-icon="icon-park-outline:like" style="font-size: 60px;" id="dislike"></span>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -817,7 +821,7 @@
         var like_parent = $(".like-content");
         var burst = new mojs.Burst({
             parent: like_parent,
-            radius:   { 10: 20 },
+            radius:   { 50: 70 },
             count: 15,
             children: {
                 delay: 250,
@@ -856,7 +860,7 @@
 	                   if (jsonData.success) {
 	                       console.log(jsonData.success);
 	                       $('#like').remove();
-	                       $('#like-cnt').append('<span class="iconify" data-icon="icon-park-outline:like" style="font-size: 70px;" id="dislike"></span>');
+	                       $('#like-cnt').append('<span class="iconify" data-icon="icon-park-outline:like" style="font-size: 60px;" id="dislike"></span>');
 	                   }
 	                   else {
 	                       alert("에러");
@@ -894,7 +898,8 @@
 	                   if (jsonData.success) {
 	                       console.log(jsonData.success);
 	                       $('#dislike').remove();
-	                       $('#like-cnt').append('<span class="iconify" data-icon="flat-color-icons:like" style="font-size: 70px;" id="like"></span>');
+	                       $('#like-cnt').append('<span class="iconify" data-icon="flat-color-icons:like" style="font-size: 60px;" id="like"></span>');
+                           burst.replay();
 	                   }
 	                   else {
 	                       alert("에러");
