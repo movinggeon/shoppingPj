@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.CartsDAO">
+	<resultMap id="CartsVO" type="CartsVO">
+		<result column="cart_id" property="cart_id"/>
+		<result column="spec_id" property="spec_id"/>
+		<result column="mem_id" property="mem_id"/>
+		<result column="receipt_id" property="receipt_id"/>
+		<result column="cart_price" property="cart_price"/>
+		<result column="cart_qty" property="cart_qty"/>
+		<result column="cart_isCare" property="cart_isCare"/>
+
+		<collection property="specVO" resultMap="SpecVO"/>
+		<collection property="productsVO" resultMap="ProductsVO"/>
+		<collection property="modelsVO" resultMap="ModelsVO"/>
+	</resultMap>
+	<resultMap id="SpecVO" type="SpecVO">
+		<result column="spec_id" property="spec_id"/>
+		<result column="spec_memory" property="spec_memory"/>
+		<result column="spec_color" property="spec_color"/>
+		<result column="spec_network" property="spec_network"/>
+		<result column="spec_price" property="spec_price"/>
+		<result column="spec_qty" property="spec_qty"/>
+	</resultMap>
+	<resultMap id="ModelsVO" type="ModelsVO">
+		<result column="model_id" property="model_id" />
+		<result column="product_id" property="product_id" />
+		<result column="model_name" property="model_name" />
+
+		<collection property="productsVO" resultMap="ProductsVO"/>
+	</resultMap>
+	<resultMap id="ProductsVO" type="ProductsVO">
+		<result column="product_id" property="product_id"/>
+		<result column="product_name" property="product_name"/>
+	</resultMap>
+
+
+	<insert id="insertCart">
+		insert into carts (spec_id, mem_id, cart_price, cart_isCare)
+		values (#{spec_id}, #{mem_id}, #{spec_price}, #{cart_isCare});
+	</insert>
+	
+	<select id="getCart" resultMap="CartsVO">
+		select *
+		from carts c, specifications s, products p, models m
+		where  p.product_id = m.product_id and m.model_id = s.model_id and s.spec_id = c.spec_id
+		  and receipt_id is ${history}
+		  and mem_id = #{mem_id}
+	</select>
+
+	<select id="getPaidCart" resultMap="CartsVO">
+		select *
+		from carts c, specifications s, products p, models m
+		where  p.product_id = m.product_id and m.model_id = s.model_id and s.spec_id = c.spec_id
+		  and receipt_id = #{receipt_id}
+	</select>
+
+	<delete id="deleteCart">
+		delete from carts
+		where cart_id = #{cart_id}
+	</delete>
+
+	<update id="updateQty">
+		update carts
+		set cart_qty = #{cart_qty}
+		where cart_id = #{cart_id}
+	</update>
+
+	<select id="getTotal" resultType="int">
+		select sum(cart_price * cart_qty)
+		from carts
+		where mem_id = #{mem_id} and receipt_id is ${history}
+	</select>
+
+	<select id="getSingleCart" resultType="CartsVO">
+		select *
+		from carts
+		where cart_id = #{cart_id};
+	</select>
+
+<!--
+<update id="updateCart">
+		update carts c
+		set cart_price = (select salePrice from(
+			select cart_id, (cart_price-round((cart_price / (select (sum(cart_price)) from carts where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null )) * #{salePrice})) as salePrice
+			from carts
+			where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null
+			) A where A.cart_id = c.cart_id),
+		    cart_imp_uid = #{cartsVO.cart_imp_uid}, cart_merchant_uid = #{cartsVO.cart_merchant_uid}, cart_date = curdate(), cart_address = #{cartsVO.cart_address}, cart_phone = #{cartsVO.cart_phone}
+		where cart_id in
+			  (select cId from(select cart_id as cId
+							   from carts
+							   where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null) B );
+</update>
+-->
+
+	<select id="getPopularItem" resultMap="ModelsVO">
+		select p.product_name, m.model_name, m.model_id, count(*)
+		from carts c, specifications s, models m, products p
+		where c.spec_id = s.spec_id and s.model_id = m.model_id and p.product_id = m.product_id
+		group by model_id
+		order by 4 desc
+		limit ${totalShow};
+	</select>
+
+
+</mapper>

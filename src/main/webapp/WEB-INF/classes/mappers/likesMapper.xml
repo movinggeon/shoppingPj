@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.LikesDAO">
+    <resultMap id="LikesVO" type="LikesVO">
+        <result column="like_id" property="like_id"/>
+        <result column="spec_id" property="spec_id"/>
+        <result column="mem_id" property="mem_id"/>
+        <result column="model_id" property="model_id"/>
+
+        <collection property="productsVO" resultMap="ProductsVO"/>
+        <collection property="modelsVO" resultMap="ModelsVO"/>
+    </resultMap>
+    <resultMap id="ModelsVO" type="ModelsVO">
+        <result column="model_id" property="model_id" />
+        <result column="product_id" property="product_id" />
+        <result column="model_name" property="model_name" />
+
+        <collection property="productsVO" resultMap="ProductsVO"/>
+    </resultMap>
+    <resultMap id="ProductsVO" type="ProductsVO">
+        <result column="product_id" property="product_id"/>
+        <result column="product_name" property="product_name"/>
+    </resultMap>
+
+<select id="mostLikedList" resultMap="LikesVO">
+    select p.product_id, m.model_id, p.product_name, m.model_name, count(*)
+    from likes l, models m, products p
+    where l.model_id = m.model_id and m.product_id = p.product_id
+    group by l.model_id
+    order by 5 desc
+    limit 3;
+</select>
+
+<select id="getAlllikes" resultType="LikesVO">
+    select * from likes
+    where mem_id = #{mem_id}
+</select>
+
+<insert id="likeinsert">
+    insert into likes(mem_id, model_id)
+    values (#{mem_id}, #{model_id})
+</insert>
+
+<delete id="likedelete">
+    DELETE
+    FROM likes
+    WHERE mem_id=#{mem_id} and model_id=#{model_id}
+</delete>
+
+    <select id="LikeList" resultMap="LikesVO">
+        select *
+        from likes l, models m, products p
+        where l.model_id = m.model_id and m.product_id = p.product_id
+          and l.mem_id = #{mem_id}
+    </select>
+</mapper>

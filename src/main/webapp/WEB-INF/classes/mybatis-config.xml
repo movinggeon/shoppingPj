@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="MembersVO" type="com.group6.shopping.members.vo.MembersVO"/>
+		<typeAlias alias="SpecVO" type="com.group6.shopping.specifications.vo.SpecVO"/>
+		<typeAlias alias="SpecDisplayVO" type="com.group6.shopping.specifications.vo.SpecDisplayVO"/>
+		<typeAlias alias="CartsVO" type="com.group6.shopping.carts.vo.CartsVO"/>
+		<typeAlias alias="ModelsVO" type="com.group6.shopping.models.vo.ModelsVO"/>
+		<typeAlias alias="ProductsVO" type="com.group6.shopping.products.vo.ProductsVO"/>
+		<typeAlias alias="CouponsVO" type="com.group6.shopping.coupons.vo.CouponsVO"/>
+		<typeAlias alias="BoardsVO" type="com.group6.shopping.boards.vo.BoardsVO"/>
+		<typeAlias alias="RepliesVO" type="com.group6.shopping.replies.vo.RepliesVO"/>
+		<typeAlias alias="FilesVO" type="com.group6.shopping.files.vo.FilesVO"/>
+		<typeAlias alias="LikesVO" type="com.group6.shopping.likes.vo.LikesVO"/>
+		<typeAlias alias="ReceiptsVO" type="com.group6.shopping.receipts.vo.ReceiptsVO"/>
+	</typeAliases>
+</configuration>

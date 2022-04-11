@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.MembersDAO">
+	<select id="getAllMembers" resultType="MembersVO">
+		SELECT *
+			FROM members
+		limit #{numOfBoards} offset #{offset}
+	</select>
+
+	<select id="getCntMember" resultType="int">
+		SELECT count(*)
+		FROM members
+	</select>
+	
+	<select id="lookupId" resultType="String" parameterType="String">
+		SELECT mem_id
+			FROM members
+			WHERE mem_id = #{mem_id}
+	</select>
+	
+	<select id="getMemById" parameterType="String" resultType="com.group6.shopping.security.CustomMemDetails">
+		SELECT * FROM members WHERE mem_id=#{mem_id}
+	</select>
+	
+	<insert id="insertMem" parameterType="MembersVO">
+		INSERT INTO members
+			VALUES( #{mem_name}, #{mem_id}, #{mem_password}, #{mem_email}, #{mem_phone} , #{mem_birth}, #{mem_post_code}, #{mem_address} ,#{mem_point}, #{mem_auth}, #{mem_enable} )
+	</insert>
+
+	<update id="usePoint">
+		update members
+		set mem_point = mem_point - #{mem_point}
+		where mem_id = #{mem_id};
+	</update>
+
+	<update id="addPoint">
+		update members
+		set mem_point = mem_point + #{mem_point}
+		where mem_id = #{mem_id};
+	</update>
+
+	<update id="modifyMem" >
+		UPDATE members
+			SET mem_name=#{mem_name}, mem_phone=#{mem_phone}, mem_email=#{mem_email}, mem_post_code=#{mem_post_code}, mem_address=#{mem_address}
+			WHERE mem_id=#{mem_id}
+	</update>
+
+	<select id="pwCheck" parameterType="String" resultType="String">
+		SELECT mem_password
+		FROM members
+		WHERE mem_id=#{mem_id}
+	</select>
+
+	<update id="modifyPw">
+		UPDATE members
+		SET mem_password=#{mem_password}
+		WHERE mem_id=#{mem_id}
+	</update>
+	<delete id="deleteMem">
+		DELETE
+		FROM members
+		WHERE mem_id=#{mem_id}
+	</delete>
+		<select id="findId" resultType="String">
+		SELECT mem_id
+		FROM members
+		WHERE mem_email=#{mem_email}
+	</select>
+
+	<select id="findIdCheck" resultType="int">
+		SELECT count(*)
+		FROM members
+		WHERE mem_email=#{mem_email}
+	</select>
+
+	<update id="findPw">
+		UPDATE members
+		SET mem_password=#{mem_password}
+		WHERE mem_id=#{mem_id} AND mem_email=#{mem_email}
+	</update>
+
+	<select id="findPwCheck" resultType="int">
+		SELECT count(*)
+		FROM members
+		WHERE mem_id=#{mem_id} AND mem_email=#{mem_email}
+	</select>
+	
+	<update id="updateEnableMem">
+		UPDATE members
+		SET mem_enable = #{mem_enable}
+		WHERE mem_id=#{mem_id}
+	</update>
+	
+	<select id="searchAdmin" resultType="String">
+		SELECT mem_id
+		FROM members
+		WHERE mem_auth = 'ROLE_ADMIN'
+	</select>
+</mapper>

@@ -883,6 +883,12 @@
 
     //좋아요 취소
     $(document).on("click","#dislike", function(){
+        var user = "${user.mem_id}";
+        if(user.length == 0){
+            alert("로그인 해주세요");
+            return;
+        }
+
         var likeState = $(this).attr("id");
         console.log('좋아요 상태 -> ' + likeState);
 

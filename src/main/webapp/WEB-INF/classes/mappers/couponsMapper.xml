@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group6.shopping.batis.CouponsDAO">
+	<select id="getAllCoupons" resultType="CouponsVO">
+		select * from coupons
+		where mem_id = #{mem_id} and coupon_valid_date >= curdate();
+	</select>
+
+	<update id="usedCoupon">
+		update coupons
+		set coupon_valid_date = '0'
+		where coupon_id = #{coupon_id}
+	</update>
+	<select id="getCoupon" resultType="CouponsVO">
+		select * from coupons
+		where coupon_id = #{coupon_id};
+	</select>
+
+	<select id="countCoupon" resultType="int">
+		select count(*) from coupons
+		where mem_id = #{mem_id} and coupon_valid_date >= curdate();
+	</select>
+
+	<insert id="insertCoupon">
+		insert into coupons (mem_id, coupon_desc, coupon_pct, coupon_price, coupon_valid_date)
+			values ( #{mem_id}, #{coupon_desc}, #{coupon_pct}, #{coupon_price}, #{coupon_valid_date})
+	</insert>
+
+	<insert id="createCoupon">
+		INSERT INTO coupons (mem_id, coupon_desc, coupon_pct, coupon_price, coupon_valid_date)
+			VALUES ( #{mem_id}, #{coupon_desc}, #{coupon_pct}, #{coupon_price}, #{coupon_valid_date} )
+	</insert>
+
+	<select id="getAdminCoupons" resultType="CouponsVO">
+		select * from coupons
+		where mem_id = #{mem_id}
+		limit #{pagingVO.numOfBoards} offset #{pagingVO.offset}
+	</select>
+
+	<select id="getCountAdminCoupons" resultType="int">
+		select count(*) from coupons
+		where mem_id = #{mem_id};
+	</select>
+
+	<delete id="deleteCoupon">
+		DELETE
+		FROM coupons
+		WHERE coupon_desc = #{coupon_decs}
+	</delete>
+</mapper>
