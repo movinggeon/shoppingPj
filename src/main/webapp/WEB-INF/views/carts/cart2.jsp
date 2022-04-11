@@ -18,7 +18,6 @@
             font-weight: normal;
             font-style: normal;
         }
-
         h1{
             margin-left: auto;
             margin-right: auto;
@@ -42,8 +41,6 @@
             border-bottom: 2px solid rgba(0, 0, 0, 0.3);
             background: none;
             width:80%
-
-
         }
         .oneitem{
             border-top: 30px;
@@ -54,7 +51,6 @@
             border-collapse: collapse;
             /*-moz-background-clip: padding-box;*/
             background-clip: padding-box;
-
         }
         .imagebox{
             float:left;
@@ -191,7 +187,6 @@
 <div class="wrapper2">
     <h1>장바구니</h1>
 
-
     <div class="wrapcart">
         ${qtyError}<br>
         ${qtyZero}<br>
@@ -286,7 +281,6 @@
                     alert("error");
                 }
             });
-
         }
         function delCart(id){
             var cartId = id.substring(3);

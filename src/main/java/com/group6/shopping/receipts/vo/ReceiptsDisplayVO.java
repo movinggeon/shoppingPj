@@ -8,5 +8,6 @@ import java.util.List;
 @Getter@Setter@NoArgsConstructor@AllArgsConstructor@ToString
 public class ReceiptsDisplayVO {
     private ReceiptsVO receiptsVO;
+
     private List<CartsVO> cartsVOList;
 }

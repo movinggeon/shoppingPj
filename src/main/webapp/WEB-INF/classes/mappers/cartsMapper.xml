@@ -77,7 +77,8 @@
 		where cart_id = #{cart_id};
 	</select>
 
-<!--	<update id="updateCart">
+<!--
+<update id="updateCart">
 		update carts c
 		set cart_price = (select salePrice from(
 			select cart_id, (cart_price-round((cart_price / (select (sum(cart_price)) from carts where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null )) * #{salePrice})) as salePrice
@@ -89,7 +90,8 @@
 			  (select cId from(select cart_id as cId
 							   from carts
 							   where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null) B );
-	</update>-->
+</update>
+-->
 
 	<select id="getPopularItem" resultMap="ModelsVO">
 		select p.product_name, m.model_name, m.model_id, count(*)

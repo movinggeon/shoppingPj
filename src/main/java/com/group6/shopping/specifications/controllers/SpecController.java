@@ -145,7 +145,7 @@ public class SpecController {
         	}
 
         	if(modelIdList.size() > 0) {
-        		models.addAttribute("likeState", modelIdList);
+        		models.addAttribute("modelIdList", modelIdList);
         	}
         }
         return "/spec/chooseModel2";

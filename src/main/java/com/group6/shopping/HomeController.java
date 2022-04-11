@@ -81,9 +81,9 @@ public class HomeController {
 			recommendations.addAll(popularItems);
 		}
 		List<LikesVO> likesVOList = likesService.mostLikedList();
-
-
-		session.setAttribute("likesList", likesVOList);
+		if(likesVOList.size() > 0){
+			session.setAttribute("likesList", likesVOList);
+		}
 		models.addAttribute("recommendList", recommendations);
 		return "home";
 	}
