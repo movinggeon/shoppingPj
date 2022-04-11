@@ -58,49 +58,166 @@
 	background-color: #f3f3f3;
 	width: 100%;
 }
+.container {
+	display: grid;
+	grid-auto-rows: minmax(10%, auto);
+	grid-template-columns: 1fr 6fr;
+	border-left: 1px solid #ebebeb;
+	border-top: 1px solid #ebebeb;
+}
+
+
+.input_st {
+	max-width: 233px;
+	min-width: 230px;
+	padding: 5px;
+	border: 1px solid rgb(206, 204, 204);
+}
+.input_date {
+	width: 200px;
+	padding: 5px;
+	border: 1px solid rgb(206, 204, 204);
+}
+.container input:focus {
+	outline: 2px solid #0071e3;
+}
+
+.container button {
+	padding: 5px 7px;
+	border: 0;
+	border-radius: 10px;
+	background-color: #0071e3;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.join_btn {
+	padding: 8px 15px;
+	border: 2px solid #0071e3;
+	border-radius: 20px;
+	background-color: white;
+	color: #0071e3;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.item {
+	min-height: 60px;
+	border-bottom: 1px solid #ebebeb;
+	border-right: 1px solid #ebebeb;
+}
+
+.item:nth-child(odd) {
+	background-color: #f8f8f8;
+	min-width: 90px;
+	vertical-align: middle;
+	line-height: 60px;
+	padding-left: 15px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.item:nth-child(even) {
+	background-color: white;
+	vertical-align: middle;
+	line-height: 60px;
+	padding-left: 20px;
+}
+/*.item > select {
+	margin-right: 8px;
+}*/
+.item-1 {
+	min-height: 40px;
+	border-bottom: 1px solid #ebebeb;
+	border-right: 1px solid #ebebeb;
+}
+.item-1:nth-child(odd) {
+	background-color: #f8f8f8;
+	min-width: 90px;
+	vertical-align: middle;
+	line-height: 60px;
+	padding-left: 15px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.item-1:nth-child(even) {
+	background-color: white;
+	vertical-align: middle;
+	line-height: 60px;
+	padding-left: 20px;
+}
+
+.m_box {
+	width: 100%;
+}
+.m_content {
+	margin: 50px auto;
+	max-width: 1110px;
+	padding:0 1.6%;
+}
+.m_box hr {
+	height: 10px;
+	border: 0;
+	box-shadow: 0 5px 5px -5px #bbb inset;
+}
+
 </style>
 
 
-<div style="margin-top: 48px"></div>
+<%--<div style="margin-top: 48px"></div>--%>
 		<div class="top_nav">
 			<div class="topp">이벤트 > Event</div>
 		</div>
 
-<div class="topp">
-
-<h1>이벤트 글 작성하기</h1>
-
 <form action="/boards/eventinsert" method="post" enctype="multipart/form-data">
-	<div>
+
 
 		<input type ="hidden" name="mem_id" value="${user.mem_id}">
-		
-		<label>제목</label>
-		<input type ="text" name="board_title">		
-		<br><br>
-		<label>메인사진</label>
-		<input type ="file" name="board_titleimg2">		
-		<br><br>
-		<label>내용사진</label>
-		<input type ="file" name="board_content2">		
-		<br><br>
-		<input type ="hidden" name="board_type" value="event">
-		<label>
-		시작날짜
-        <input type="text" id="datepicker1" name="s_date" readonly>
-        <br>
-        종료날짜
-        <input type="text" id="datepicker2" name="e_date" readonly>
-        </label>
-        <br><br>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        
-	</div>
+		<div class="m_box">
+			<div class="m_content">
+				<h3>이벤트 글 작성하기</h3>
+		<div class="container">
+			<div class="item" style="padding-top:5px;">제목</div>
+			<div class="item" style="display: flex; flex-direction: column; justify-content: center;padding-top:10px;">
+		<%--<label>제목</label>--%>
+				<input type ="text" class="input_st" name="board_title" placeholder="제목"></div>
 
- 
-   
-<button type="button" >취소</button>
-<button type="submit" >등록</button>
+			<div class="item">메인사진</div>
+			<div class="item" style="display: flex; flex-direction: column;justify-content: center;height:70px;">
+			<input type ="file" name="board_titleimg2">
+			</div>
+
+			<div class="item">내용사진</div>
+			<div class="item" style="display: flex; flex-direction: column;justify-content: center;height:70px;">
+			<input type ="file" name="board_content2">
+			</div>
+
+		<input type ="hidden" name="board_type" value="event">
+
+		<div class="item-1" style="background-color: #f8f8f8">시작날짜</div>
+		<div class="item-1" style="line-height: 40px; background-color: white">
+
+		<input type="text" class="input_date" id="datepicker1" name="s_date" readonly></div>
+
+		<div class="item-1" style="background-color: #f8f8f8">종료날짜</div>
+		<div class="item-1" style="line-height: 40px; background-color: white">
+
+        <input type="text"  class="input_date"id="datepicker2" name="e_date" readonly> </div>
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+	</div>
+		</div>
+			</div>
+
+
+
+	<div class="join_btn_box" style="text-align: center; margin-top: 25px">
+<button type="button" class="join_btn" >취소</button>
+<button type="submit" class="join_btn" >등록</button>
+	</div>
 </form>
 </div>
 </body>
