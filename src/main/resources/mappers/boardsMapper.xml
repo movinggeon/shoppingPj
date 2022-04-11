@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.group6.shopping.batis.BoardsDAO">
-
 	<resultMap id="BoardsVO" type="BoardsVO">
 		<result column="board_id" property="board_id"/>
 		<result column="model_id" property="model_id"/>

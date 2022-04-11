@@ -16,6 +16,7 @@
 		<result column="mem_id" property="mem_id"/>
 
 		<collection property="couponsVO" resultMap="CouponsVO"/>
+		<collection property="cartsVOList" column="{receipt_id = receipt_id}" ofType="CartsVO" select="selectCarts"/>
 	</resultMap>
 	<resultMap id="CouponsVO" type="CouponsVO">
 		<result column="coupon_id" property="coupon_id"/>
@@ -26,12 +27,53 @@
 		<result column="coupon_valid_date" property="coupon_valid_date"/>
 	</resultMap>
 
+	<resultMap id="CartsVO" type="CartsVO">
+		<result column="cart_id" property="cart_id"/>
+		<result column="spec_id" property="spec_id"/>
+		<result column="mem_id" property="mem_id"/>
+		<result column="receipt_id" property="receipt_id"/>
+		<result column="cart_price" property="cart_price"/>
+		<result column="cart_qty" property="cart_qty"/>
+		<result column="cart_isCare" property="cart_isCare"/>
+
+		<collection property="specVO" resultMap="SpecVO"/>
+		<collection property="productsVO" resultMap="ProductsVO"/>
+		<collection property="modelsVO" resultMap="ModelsVO"/>
+	</resultMap>
+	<resultMap id="SpecVO" type="SpecVO">
+		<result column="spec_id" property="spec_id"/>
+		<result column="spec_memory" property="spec_memory"/>
+		<result column="spec_color" property="spec_color"/>
+		<result column="spec_network" property="spec_network"/>
+		<result column="spec_price" property="spec_price"/>
+		<result column="spec_qty" property="spec_qty"/>
+	</resultMap>
+	<resultMap id="ModelsVO" type="ModelsVO">
+		<result column="model_id" property="model_id" />
+		<result column="product_id" property="product_id" />
+		<result column="model_name" property="model_name" />
+
+		<collection property="productsVO" resultMap="ProductsVO"/>
+	</resultMap>
+	<resultMap id="ProductsVO" type="ProductsVO">
+		<result column="product_id" property="product_id"/>
+		<result column="product_name" property="product_name"/>
+	</resultMap>
+
+	<select id="selectCarts" resultMap="CartsVO">
+		select *
+		from carts c, specifications s, products p, models m
+		where  p.product_id = m.product_id and m.model_id = s.model_id and s.spec_id = c.spec_id
+		  and receipt_id = #{receipt_id}
+	</select>
+
 	<select id="getAllReceipts" resultMap="ReceiptsVO">
 		select * from receipts r left join coupons c
 		on r.coupon_id = c.coupon_id
 		where r.mem_id = #{mem_id}
 		order by r.receipt_id desc;
 	</select>
+
 
 
 </mapper>

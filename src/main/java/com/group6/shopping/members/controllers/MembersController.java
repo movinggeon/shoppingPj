@@ -59,10 +59,6 @@ public class MembersController {
 
 		List<ReceiptsDisplayVO> receiptsDisplayVOList = receiptsService.getAllReceiptsInfo(cs.getMem_id());
 
-		for(ReceiptsDisplayVO tmp : receiptsDisplayVOList){
-			System.out.println(tmp.getReceiptsVO().getReceipt_id());
-		}
-
 		int count = couponsService.countCoupon(cs.getMem_id());
 
 

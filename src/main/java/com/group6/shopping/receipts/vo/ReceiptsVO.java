@@ -16,4 +16,5 @@ public class ReceiptsVO {
     private String receipt_imp_uid, receipt_merchant_uid, receipt_date, receipt_address, receipt_phone, mem_id;
 
     private CouponsVO couponsVO;
+    private List<CartsVO> cartsVOList;
 }

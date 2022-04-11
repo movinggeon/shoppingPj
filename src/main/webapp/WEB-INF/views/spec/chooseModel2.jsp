@@ -744,12 +744,11 @@
         for(i=0; i < userInput.length; i++){
             phone[userInput[i].name] = userInput[i].value;
         }
-        console.log(콜);
         $.ajax({
             url:"/spec/findSpec",
             type:"post",
             dataType:"json",
-            data: JSON.stringify(콜),
+            data: JSON.stringify(phone),
             contentType: "application/json;charset=utf-8",
             beforeSend : function(xhr)
             {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
@@ -806,7 +805,7 @@
                 error:function(request){
                     if(request.status == 403) {
                         alert("로그인 해주세요")
-                        location.href ="/login";
+                        /*location.href ="/login";*/
                     }else{
                         alert(request.status);
                     }
@@ -883,11 +882,7 @@
 
     //좋아요 취소
     $(document).on("click","#dislike", function(){
-        var user = "${user.mem_id}";
-        if(user.length == 0){
-            alert("로그인 해주세요");
-            return;
-        }
+
 
         var likeState = $(this).attr("id");
         console.log('좋아요 상태 -> ' + likeState);

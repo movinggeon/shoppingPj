@@ -25,13 +25,25 @@ public class ReceiptsServiceImpl implements ReceiptsService{
 
     @Override
     public List<ReceiptsDisplayVO> getAllReceiptsInfo(String mem_id) throws Exception {
-        List<ReceiptsVO> receiptsVOList = receiptsDAO.getAllReceipts(mem_id);
+
+/*        List<ReceiptsVO> receiptsVOList = receiptsDAO.getAllReceipts(mem_id);
         List<ReceiptsDisplayVO> receiptsDisplayVOList = new ArrayList<>();
         if(receiptsVOList.size() > 0){
             for(ReceiptsVO tmp: receiptsVOList){
                 List<CartsVO> cartsVOList = cartsDAO.getPaidCart(tmp);
                 ReceiptsDisplayVO receiptsDisplayVO = new ReceiptsDisplayVO(tmp, cartsVOList);
                 receiptsDisplayVOList.add(receiptsDisplayVO);
+            }
+        }*/
+
+        List<ReceiptsVO> receiptsVOList = receiptsDAO.getAllReceipts(mem_id);
+        List<ReceiptsDisplayVO> receiptsDisplayVOList = new ArrayList<>();
+        System.out.println("implement");
+        for(ReceiptsVO tmp: receiptsVOList){
+            for(CartsVO cTmp : tmp.getCartsVOList()){
+                System.out.println(cTmp.toString());
+                System.out.println(cTmp.getSpecVO().toString());
+                System.out.println(cTmp.getProductsVO().getProduct_name() + " " + cTmp.getModelsVO().getModel_name());
             }
         }
         return receiptsDisplayVOList;
