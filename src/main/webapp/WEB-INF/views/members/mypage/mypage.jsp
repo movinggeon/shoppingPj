@@ -58,13 +58,11 @@
 	}
 
 	div.sub_menu{
-
 		width: 100%;
 		height: 200px;
 	}
 
 	div.menu_header{
-
 		width: 100%;
 		background-color: #e5e5e5;
 	}
@@ -241,7 +239,7 @@
 		padding: 0 8px;
 		min-width: 200px;
 		height: 420px;
-		border : 1px solid #171717;
+		border : 1px solid #b5b5b5;
 
 	}
 	.like_content{

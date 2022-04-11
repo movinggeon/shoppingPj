@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- 팝업 -->
+
+<jsp:include page="popup/popup.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
