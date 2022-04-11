@@ -34,6 +34,12 @@
 
 	<select id="getAdminCoupons" resultType="CouponsVO">
 		select * from coupons
+		where mem_id = #{mem_id}
+		limit #{pagingVO.numOfBoards} offset #{pagingVO.offset}
+	</select>
+
+	<select id="getCountAdminCoupons" resultType="int">
+		select count(*) from coupons
 		where mem_id = #{mem_id};
 	</select>
 

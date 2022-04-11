@@ -3,6 +3,7 @@ package com.group6.shopping.coupons.services;
 import java.util.HashMap;
 import java.util.List;
 
+import com.group6.shopping.boards.vo.PagingVO;
 import com.group6.shopping.coupons.vo.CouponsVO;
 
 public interface CouponsService {
@@ -12,6 +13,7 @@ public interface CouponsService {
     public int countCoupon(String memId) throws Exception;
     public void insertCoupon(HashMap<String, Object> param) throws Exception;
     public void createCoupon(HashMap<String, Object> param) throws Exception;
-    public List<CouponsVO> getAdminCoupons(String memId) throws Exception;
+    public List<CouponsVO> getAdminCoupons(String memId, PagingVO page) throws Exception;
     public void deleteCoupon(String couponDecs) throws Exception;
+    public Integer getCountAdminCoupons(String memId) throws Exception;
 }

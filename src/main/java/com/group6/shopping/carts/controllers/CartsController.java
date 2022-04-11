@@ -31,7 +31,7 @@ public class CartsController {
     private CouponsService couponsService;
 
     @RequestMapping("/member/cart")
-    public String addCart(Model models, HttpSession session) throws Exception {
+    public String cart(Model models, HttpSession session) throws Exception {
         CustomMemDetails user = (CustomMemDetails) session.getAttribute("user");
         List<CartsVO> cartsVOList = cartsService.getCart(user.getMem_id(), "null");
 
@@ -64,18 +64,20 @@ public class CartsController {
     public String mailingInformation(Model models, HttpSession session, HttpServletResponse response) throws Exception {
         CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
 
-        StringTokenizer st = new StringTokenizer(user.getMem_address(), "!");
-        String tmpAddr = st.nextToken() + " " + st.nextToken();
-
+        if(!user.getMem_id().contains("KAKAO")){
+            StringTokenizer st = new StringTokenizer(user.getMem_address(), "!");
+            String tmpAddr = st.nextToken() + " " + st.nextToken();
+            models.addAttribute("tmpAddr", tmpAddr);
+        }
 
         List<CouponsVO> couponsVOList = couponsService.getAllCoupons(user.getMem_id());
         Integer totalPrice = cartsService.getTotal(user.getMem_id(), "null");
         if(totalPrice == null){
-            UrlHandler.alert(response, "Wrong Url");
+            //UrlHandler.alert(response, "Wrong Url");
             return "home";
         }
 
-        models.addAttribute("tmpAddr", tmpAddr);
+
         models.addAttribute("coupons", couponsVOList);
         models.addAttribute("totalPrice", totalPrice);
 

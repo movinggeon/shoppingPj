@@ -12,60 +12,109 @@
 <link rel="stylesheet" href="/resources/static/css/admin/nofragment/couponList.css" type="text/css">
 <title>Insert title here</title>
 </head>
+	<style>
+		.btn_a {
+			display: inline-block;
+			width: 40px;
+			border-radius: 20px;
+			background-color: #ebebeb;
+			border: 1px solid #ddd;
+			padding: 5px 5px;
+			cursor: pointer;
+		}
+
+		.btn_b {
+			color: white;
+			display: inline-block;
+			width: 40px;
+			height: 35px;
+			border-radius: 20px;
+			background-color: #0071ef;
+			border: 1px solid #0071ef;
+			padding: 5px 5px;
+			cursor: pointer;
+		}
+	</style>
 <body>
 <c:set var="name" value="${param.name }"></c:set>
 	<c:choose>
 	<%--쿠폰 삭제 페이지 --%>
 	<c:when test="${name eq 'delete' }">
     	<h1>쿠폰목록</h1>
-
-		페이지 번호 -> ${param.page }<br>
+<%--	페이지 번호 -> ${param.page }<br>
 		<fmt:parseNumber var="totalPage" value="${ ( couponCount / 6 ) +(1-(( couponCount / 6 )%1))%1}" integerOnly="true"/>
 		총 페이지 번호 -> ${totalPage }<br>
-		쿠폰 수 -> ${couponCount }<br>
+		쿠폰 수 -> ${couponCount }<br>--%>
 		<c:set var="size" value="${couponList.size() }"></c:set>
 		<c:choose>
 		<c:when test="${size > 0 }">
 			<c:set var="loop_flag" value="false" />
-			<c:forEach var="i" begin="${ (param.page - 1) * 6 }" end="${ (6 * param.page) - 1 }" varStatus="status">
-			    <c:if test="${not loop_flag }">	
+			<c:forEach var="coupon" items="${couponList}">
 					
 					<div class="coupon-context">
 						<div class="coupon-card">
 							<div class="memName">
 								<div>
-									쿠폰 이름 : ${couponList.get(i).getCoupon_desc() }
+									쿠폰 이름 : ${coupon.coupon_desc }
 								</div>
 							</div>
 							<div class="memId">
 								<div>
-									할인율(%) : ${couponList.get(i).getCoupon_pct() }
+									할인율(%) : ${coupon.coupon_pct }
 								</div>
 							</div>
 							<div class="memAddress">
-								할인가(원) : ${couponList.get(i).getCoupon_price() }
+								할인가(원) : ${coupon.coupon_price}
 							</div>
 							<div class="memEmail">
-								유효기간(개월) : ${couponList.get(i).getCoupon_valid_date() }
+								유효기간(개월) : ${coupon.coupon_valid_date}
 							</div>
 						</div>
 						<div class="coupon-btn" style="width: 60%;">
 							<div style="text-align: center;">
-								<button onclick="deleteCoupon('${couponList.get(i).getCoupon_desc()}')">쿠폰삭제</button><br>
+								<button onclick="deleteCoupon('${coupon.coupon_desc}')">쿠폰삭제</button><br>
 							</div>
 						</div>
 					</div>
 					<div style="padding-top: 10px"></div>
-					<c:if test="${i eq ( couponCount -1 ) }">
-						<c:set var="loop_flag" value="true" />
-					</c:if>
-			        <c:if test="${status.count eq 6 }">
-			            <c:set var="loop_flag" value="true" />
-			        </c:if>
-			    </c:if>
 			</c:forEach>
+
+			<div class="rev_paging" style="text-align: center; margin-top: 30px">
+				<c:choose>
+					<c:when test="${pageError ne null}">
+						${pageError}
+					</c:when>
+					<c:otherwise>
+						<%-- 일번 페이지가 아닐 경우 --%>
+						<c:if test="${page.currPage ne 1}">
+							<%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
+							<a href="/admin/nofragment/couponList?name=delete&page=1"><button class="btn_a"> << </button></a>
+							<a href="/admin/nofragment/couponList?name=delete&page=${page.currPage-1}"><button class="btn_a"> < </button></a>
+						</c:if>
+						<c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
+							<%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
+							<c:choose>
+								<c:when test="${i eq page.currPage}">
+									<button class="btn_b">${i}</button>
+								</c:when>
+								<c:otherwise>
+									<a href="/admin/nofragment/couponList?name=delete&page=${i}"><button class="btn_a">${i}</button></a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<%--현재 페이지가 마지막 페이지가 아닐 경우--%>
+						<c:if test="${page.currPage ne page.totalPage}">
+							<%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
+							<a href="/admin/nofragment/couponList?name=delete&page=${page.currPage+1}"><button class="btn_a"> > </button></a>
+							<a href="/admin/nofragment/couponList?name=delete&page=${page.totalPage}"><button class="btn_a"> >> </button></a>
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+			</div>
+
+
 			
-			<div class="div-pagingBtn">
+<%--			<div class="div-pagingBtn">
 				<div style="display: flex; padding-left: auto; padding-right: auto;">
 				<c:set var="doneLoop" value="false"/>
 				   <c:forEach var="i" begin="1" end="${totalPage }" varStatus="status">
@@ -79,7 +128,8 @@
 				     </c:if>
 				   </c:forEach>
 				  </div>
-			</div>
+			</div>--%>
+
 		</c:when>
 		<c:otherwise>
 			<h1>쿠폰이 없습니다.</h1>

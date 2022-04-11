@@ -23,6 +23,15 @@
         <result column="product_name" property="product_name"/>
     </resultMap>
 
+<select id="mostLikedList" resultMap="LikesVO">
+    select p.product_id, m.model_id, p.product_name, m.model_name, count(*)
+    from likes l, models m, products p
+    where l.model_id = m.model_id and m.product_id = p.product_id
+    group by l.model_id
+    order by 5 desc
+    limit 3;
+</select>
+
 <select id="getAlllikes" resultType="LikesVO">
     select * from likes
     where mem_id = #{mem_id}

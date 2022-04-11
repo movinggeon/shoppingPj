@@ -13,5 +13,6 @@
 		<typeAlias alias="RepliesVO" type="com.group6.shopping.replies.vo.RepliesVO"/>
 		<typeAlias alias="FilesVO" type="com.group6.shopping.files.vo.FilesVO"/>
 		<typeAlias alias="LikesVO" type="com.group6.shopping.likes.vo.LikesVO"/>
+		<typeAlias alias="ReceiptsVO" type="com.group6.shopping.receipts.vo.ReceiptsVO"/>
 	</typeAliases>
 </configuration>

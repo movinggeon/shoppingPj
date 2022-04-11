@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Title</title>
@@ -17,7 +18,6 @@
             font-weight: normal;
             font-style: normal;
         }
-
         h1{
             margin-left: auto;
             margin-right: auto;
@@ -41,8 +41,6 @@
             border-bottom: 2px solid rgba(0, 0, 0, 0.3);
             background: none;
             width:80%
-
-
         }
         .oneitem{
             border-top: 30px;
@@ -53,7 +51,6 @@
             border-collapse: collapse;
             /*-moz-background-clip: padding-box;*/
             background-clip: padding-box;
-
         }
         .imagebox{
             float:left;
@@ -190,10 +187,12 @@
 <div class="wrapper2">
     <h1>장바구니</h1>
 
-
     <div class="wrapcart">
         ${qtyError}<br>
         ${qtyZero}<br>
+        <c:if test="${fn:length(carts) < 1 }">
+            <h3>장바구니 내용이 없습니다.</h3>
+        </c:if>
         <c:forEach items="${carts}" var="items">
             <div class="oneitem" id =${items.cart_id} >
                 <div class="imagebox">
@@ -242,18 +241,19 @@
                 </div>
             </div>
         </c:forEach>
-
-        <div class="finalblock">
-            <div class="finaltotal">
-                <span class="finaltotalname"> 총계</span>
-                <span id="totalPrice" class="totalPrice">
-                    ${totalPrice}
-                </span>₩<br>
+        <c:if test="${totalPrice ne 0}">
+            <div class="finalblock">
+                <div class="finaltotal">
+                    <span class="finaltotalname"> 총계</span>
+                    <span id="totalPrice" class="totalPrice">
+                        ${totalPrice}
+                    </span>₩<br>
+                </div>
+                <div class="addressblock">
+                    <button class="goaddressbtn" onclick="location.href='/carts/member/mailinginformation' ">주소지 설정</button>
+                </div>
             </div>
-            <div class="addressblock">
-                <button class="goaddressbtn" onclick="location.href='/carts/member/mailinginformation' ">주소지 설정</button>
-            </div>
-        </div>
+        </c:if>
     </div>
     <script>
         function updateQty(id ,value){
@@ -281,7 +281,6 @@
                     alert("error");
                 }
             });
-
         }
         function delCart(id){
             var cartId = id.substring(3);

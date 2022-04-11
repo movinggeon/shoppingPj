@@ -65,12 +65,9 @@
 
 	<update id="updateSpecQty">
 		update specifications s
-		set s.spec_qty = s.spec_qty -
-		    (select qty from(
-		        select spec_id, cart_qty as qty from carts where spec_id = s.spec_id and mem_id = #{mem_id} and cart_imp_uid is null)A)
+		set s.spec_qty = s.spec_qty - (select qty from(select spec_id, cart_qty as qty from carts where spec_id = s.spec_id and mem_id = #{mem_id} and receipt_id is null)A)
 		where s.spec_id in
-			  (select sId from
-			       (select spec_id as sId from carts where mem_id = #{mem_id} and cart_imp_uid is null) B);
+			  (select sId from(select spec_id as sId from carts where mem_id = #{mem_id} and receipt_id is null) B)
 	</update>
 
 	<select id="searchSpec" resultType="string">
