@@ -60,13 +60,7 @@ public class MembersController {
 		List<ReceiptsDisplayVO> receiptsDisplayVOList = receiptsService.getAllReceiptsInfo(cs.getMem_id());
 
 		for(ReceiptsDisplayVO tmp : receiptsDisplayVOList){
-			System.out.println(tmp.getReceiptsVO().toString());
-			for(CartsVO cTmp : tmp.getCartsVOList()){
-				System.out.println(cTmp.toString());
-				System.out.println(cTmp.getSpecVO().toString());
-				System.out.println(cTmp.getProductsVO().getProduct_name() + cTmp.getModelsVO().getModel_name());
-			}
-			System.out.println("--------------------");
+			System.out.println(tmp.getReceiptsVO().getReceipt_id());
 		}
 
 		int count = couponsService.countCoupon(cs.getMem_id());

@@ -29,7 +29,8 @@
 	<select id="getAllReceipts" resultMap="ReceiptsVO">
 		select * from receipts r left join coupons c
 		on r.coupon_id = c.coupon_id
-		where r.mem_id = #{mem_id};
+		where r.mem_id = #{mem_id}
+		order by r.receipt_id desc;
 	</select>
 
 
