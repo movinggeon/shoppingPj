@@ -161,10 +161,9 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#">이벤트</a>
+					<a href="/boards/event">이벤트</a>
 					<ul>
 						<li><a href="/boards/event">Event</a></li>
-						<li><a href="/boards/boardList">리뷰</a></li>
 					</ul>
 				</li>
 			</ul>
