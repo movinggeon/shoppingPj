@@ -384,6 +384,7 @@
         animation-fill-mode: forwards;
         animation-duration: 0.65s;
     }
+
     @keyframes likeAnimation {
         0%   { transform: scale(30); }
         100% { transform: scale(1); }
@@ -392,9 +393,6 @@
         .vert {width:60px;}
     }
 </style>
-<main class="main-content"></main>
-
-    <div style="margin-top: 60px"></div>
     <div class="top_nav">
         <div class="topp">${specDisplayVO.product_name} > ${specDisplayVO.product_name} ${specDisplayVO.model_name}</div>
     </div>

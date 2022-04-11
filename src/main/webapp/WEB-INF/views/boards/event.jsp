@@ -96,9 +96,11 @@
 
 .eventbox1 {
 	margin: 10px;
-	width: 300px;
-	height: 48px;
-	border: 1px solid #323332;
+	width: auto;
+	height: auto;
+	/*border: 1px solid #323332;*/
+	border-radius: 10px;
+	padding:20px 10px;
 	font-size: 30px;
 	display: flex;
 	justify-content: center;
@@ -108,9 +110,11 @@
 
 .eventbox2 {
 	margin: 10px;
-	width: 300px;
-	height: 48px;
-	border: 1px solid #323332;
+	width: auto;
+	height: auto;
+	/*border: 1px solid #323332;*/
+	border-radius: 10px;
+	padding:20px 10px;
 	font-size: 30px;
 	display: flex;
 	justify-content: center;
@@ -137,7 +141,7 @@
 }
 </style>
 
-		<div style="margin-top: 48px"></div>
+<%--		<div style="margin-top: 48px"></div>--%>
 		<div class="top_nav">
 			<div class="topp">이벤트 > Event</div>
 		</div>
@@ -153,9 +157,10 @@
 				</c:set>
 				<c:out value="${date}" />
 			</div>
-			<a class="eventbox1" href="/boards/event">진행중인 이벤트 </a> <a
-				class="eventbox2" href="/boards/endevent">종료된 이벤트 </a>
+			<a class="eventbox1" href="/boards/event">진행중인 이벤트 </a>
+			<a class="eventbox2" href="/boards/endevent">종료된 이벤트 </a>
 		</div>
+
 		
 		<div class="event_container">
 			<c:forEach items="${eventboardlist}" var="event" begin="0" end="5">

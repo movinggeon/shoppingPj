@@ -86,7 +86,6 @@
 	}
 
 	div.menu_header li {
-
 		float: left;
 		width: 15%;
 		height: 100%;

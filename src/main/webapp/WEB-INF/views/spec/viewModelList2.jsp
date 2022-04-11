@@ -89,10 +89,10 @@
 </style>
 
 <body>
-<div style="margin-top:17px"></div>
-<div class="main-content">
+<%--<div style="margin-top:17px"></div>--%>
+<%--<div class="main-content">--%>
 
-    <div style="margin-top:48px;"></div>
+<%--    <div style="margin-top:48px;"></div>--%>
     <div class="top_nav">
         <div class="topp">
             ${specDisplayVOList[0].product_name}
