@@ -1,167 +1,193 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 
 	<meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
-<title>로그인</title>
-<link rel="stylesheet" href="/resources/static/css/login.css" type="text/css">
+	<title>로그인</title>
+	<link rel="stylesheet" href="/resources/static/css/login.css" type="text/css">
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<!-- jQuery -->
 	<script
 			src="https://code.jquery.com/jquery-3.3.1.min.js"
 			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 			crossorigin="anonymous"></script><!-- jQuery CDN --->
-<style>
-	@font-face {
-		font-family: "BBTreeGR";
-		src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
-		format("woff");
-		font-weight: normal;
-		font-style: normal;
-	}
-	html,
-	body {
-		width: 100%;
-		height: 100%;
-		margin: 0px;
-	}
+	<style>
 
-	.loginwrapper{
-		height: auto;
-		margin-top: 8%;
-		margin-bottom: 10%;
-	}
-	.loginbox{
-		width: 500px;
-		height: 500px;
-		margin-left: auto;
-		margin-right: auto;
-		text-align: center;
-		border: 2px solid rgba(0, 0, 0, 0.3);
-		background: none;
+		.loginwrapper{
+			height: auto;
+			margin-top: 20px;
+			padding-top: 100px;
+		}
 
-	}
-	.loginname{
-		padding-top: 20px;
-		padding-botton:20px;
-		margin-left: auto;
-		margin-right: auto;
-		text-align:center;
-		width: 70%;
-		font-size: 30px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-	}
-	.sform{
-		text-align: center;
-	}
+		.loginbox{
+			width: 500px;
+			height: auto;
+			padding-bottom: 20px;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			background: none;
+			border-radius: 20px;
+		}
 
-	.login_id {
-		margin-top: 20px;
-		width: 80%;
-		margin-left: auto;
-		margin-right: auto;
-	}
+		.loginname{
+			letter-spacing: 2px;
+			padding-top: 35px;
+			padding-bottom:10px;
+			margin-left: auto;
+			margin-right: auto;
+			text-align:center;
+			width: 70%;
+			font-size: 25px;
+			font-weight: bold;
+		}
 
+		.sform{
+			text-align: center;
+		}
 
-	.login_pw {
-		margin-top: 20px;
-		width: 80%;
-		margin-left: auto;
-		margin-right: auto;
+		.login_id {
+			display: flex;
+			margin-top: 20px;
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+		}
 
-	}
+		.login_pw {
+			display: flex;
+			margin-top: 15px;
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+		}
 
-	input {
-		width: 80%;
-		height: 50px;
-		background-color: #E8F0FE;
-		border-radius: 10px;
-		margin-top: 10px;
-		padding: 0px 20px;
-		border: none;
-		outline: none;
-		font-size: 15px;
-		/*padding-left: 10px;*/
+		.input_v {
+			width: 100%;
+			height: 50px;
+			background-color: #E8F0FE;
+			border-radius: 10px;
+			margin-top: 10px;
+			padding: 0px 20px;
+			border: none;
+			outline: none;
+			font-size: 15px;
+		}
 
-	}
-	/*	input:-webkit-autofill {
-            !*-webkit-box-shadow: 0 0 0 1000px #000 inset;*!
-            -webkit-box-shadow:lightgrey;
-        } 자동완성시에도 기존색 유지하고싶으면 이거 해제하면됨*/
+		.loginbox hr {
+			height: 1px;
+			border-style: solid;
+			border-width: 1px 0 0 0;
+			border-color: #ebebeb;
+			width: 80%;
+		}
+		.bbb{
 
-	.btnwrap{
-		width: 100%;
-		height: 100px;
-		margin-top: 20px;
-		text-align: center;
+		}
+		.inputbtn{
+			width: 100%;
+			text-align: center;
+			display: inline-block;
+			height: 40px;
+			border-radius: 5px;
+			background-color: #0071E3;
+			font-size: 15px;
+			font-weight: bold;
+			color:white;
+			border:0;
+			cursor: pointer;
+		}
 
-	}
-	.inputbtn{
-		display: inline-block;
-		margin-top: 20px;
-		width: 100px;
-		height: 40px;
-		border-radius: 5px;
-		background-color: #0071E3;
-		font-size: 13px;
-		font-weight: bold;
-		color:white;
-		border: 1px solid #ddd;
-		padding: 5px 5px;
-		cursor: pointer;
-	}
+		.inputbtn_kakao{
+			width: 100%;
+			text-align: center;
+			display: inline-block;
+			height: 40px;
+			border-radius: 5px;
+			background-color: #ffe600;
+			font-size: 15px;
+			font-weight: bold;
+			color:#392020;
+			border:0;
+			cursor: pointer;
+			margin-top:15px;
+		}
 
-	.custom-login-btn{
-		height: 45px;
-		width: 101px;
-	}
+		.login_links{
+			padding-top: 10px;font-size: 12px;padding-bottom: 12px;color: gray;
+		}
+		.login_links a{
+			padding:0 10px;
+		}
+		.login_links a:hover{
+			color: #333333;
+		}
 
-</style>
+		@media screen and (max-width: 600px) {
+			.loginbox{
+				width:450px;
+			}
+		}
+
+	</style>
 </head>
 <body>
+<div>
+
+	<div class="loginwrapper">
+		<div class="loginbox">
+			<div class="loginname">LOGIN</div>
+			<hr>
+			<h2>${error}</h2>
+			<h2>${logout}</h2>
+			<div class="sform">
+				<form action="/login" method="post">
+
+					<div class="login_id">
+						<input class="input_v" type="text" name="username" placeholder="아이디"/>
+					</div>
+					<div class="login_pw">
+						<input class="input_v" type="password" name="password" placeholder="비밀번호"/>
+					</div>
+					<h4 style="color:red;height: 25px;line-height:30px;margin:0;">
+						<c:if test="${not empty msg}">
+							${msg}
+						</c:if>
+					</h4>
+					<div style="margin:0 auto;width: 80%;padding-top: 10px;padding-bottom: 20px;">
+						<input class="inputbtn" type="submit" value="로그인"/>
+						<div class="inputbtn_kakao">
+							<a id="custom-login-btn" class="custom-login-btn" href="javascript:kakaoLogin()">
+								<div style="display: flex;text-align: center;justify-content: center;padding-right: 5%;">
+									<img src="/resources/static/img/kakao_btn1.png" style="height: 40px"/>
+									<h4 style="color:#392020;line-height: 3px;padding-left: 4px;">카카오로 로그인하기</h4>
+								</div>
+							</a>
+						</div>
+					</div>
+
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+				</form>
 
 
-<div class="loginwrapper">
-
-	<div id="login Error" style="text-align: center;">
-		<c:if test="${not empty msg}">
-			<h1>${msg}</h1>
-		</c:if>
-	</div>
-
-	<div class="loginbox">
-		<div class="loginname">로그인</div>
-		<h2>${error}</h2>
-		<h2>${logout}</h2>
-		<div class="sform">
-		<form action="/login" method="post">
-			<div class="login_id">
-				<h2>Id</h2>
-				<input type="text" name="username" />
 			</div>
-			<div class="login_pw">
-				<h2>Password</h2>
-				<input type="password" name="password" />
+			<hr>
+			<div class="login_links">
+				<a href="/join">회원가입</a>
+				<a href="/findId">아이디찾기</a>
+				<a href="/findPw">비밀번호찾기</a>
 			</div>
-			<div class="btnwrap"> <input class="inputbtn" type="submit" value="로그인"/></div>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		</form>
-			<a id="custom-login-btn" class="custom-login-btn" href="javascript:kakaoLogin()">
-				<img src="/resources/static/img/kakao_login_medium.png"/>
-			</a>
 		</div>
-		<a href="/join" style="font-size: 14px; margin-right:10px;">회원가입</a>
-		<a href="/findId" style="font-size: 14px; margin-right:10px;">아이디찾기</a>
-		<a href="/findPw" style="font-size: 14px;">비밀번호찾기</a>
+
+
 	</div>
-
-
-</div>
 </div>
 <script>
 	// 카카오 초기화

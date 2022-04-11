@@ -10,7 +10,7 @@
     <%CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user"); %>
 </head>
 <style>
-    .container{
+    .container2{
         display: grid;
         grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
         margin:30px auto 50px auto;
@@ -23,11 +23,9 @@
         border-top-left-radius: 30px;
         border-bottom-right-radius: 30px;
     }
-
     .product_list:hover{
         box-shadow: 1px 1px 20px #ddd;
     }
-
     .product_list img{
         padding-top: 25px;
         display: block;
@@ -37,11 +35,9 @@
         object-fit: cover;
         border-top-left-radius: 30px;
     }
-
     .product_list p{
         text-align: center;
     }
-
     .product_list button{
         display: block;
         margin:auto;
@@ -55,49 +51,32 @@
         width: 70px;
     }
 
-    .top_nav {
-        background-color: #f3f3f3;
-        width: 100%;
-    }
-
-    .topp {
-        margin:0 auto;
-        max-width: 1110px;
-        text-align: left;
-        padding-left: 20px;
-        height: 48px;
-        line-height: 48px;
-        font-size: 11px;
-        color: gray;
-    }
-
     .info_x{
         text-align: center;
         margin-top: 22px;
         padding-bottom: 8px;
     }
-
     .info_x > i {
         font-size: 23px;
     }
-
     .info_x > h3, h4 {
         color:#333;
         font-weight: 500;
     }
-
     .info_hr{
         height: 1px;border-style: solid;border-width: 1px 0 0 0;border-color: #b9b9b9;width: 80%;
     }
-
+    h1{
+        text-align: center;
+    }
 </style>
 <body>
 
 <div style="margin-top:17px"></div>
 
-<div class="main-content">
-    <h1>좋아요 리스트</h1>
-    <div class="container">
+<h1>MY♡ITEM  ALL</h1><br>
+
+    <div class="container2">
 
         <c:forEach items="${likeList}" var="like">
             <div class="product_list">
@@ -109,7 +88,6 @@
                     <br>
                     <hr class="info_hr">
                     <br>
-
                 </div>
             </div>
         </c:forEach>

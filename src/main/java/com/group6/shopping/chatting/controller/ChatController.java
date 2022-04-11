@@ -17,12 +17,13 @@ import java.util.stream.Collectors;
 
 //admin, members 권한별로 url 지정하기
 @Controller
+@RequestMapping("/chat")
 public class ChatController implements RoomList {
  /*   List<Room> roomList = new ArrayList<Room>();*/
     static int roomNumber = 0;
 
    //방페이지 return
-    @RequestMapping("/room")
+    @RequestMapping("/admin/room")
     public ModelAndView room() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/chat/room");
@@ -32,7 +33,7 @@ public class ChatController implements RoomList {
 
     //방생성
     // "/member/createRoom"
-    @RequestMapping("/createRoom")
+    @RequestMapping("/member/createRoom")
     @ResponseBody
     public Room createRoom(String mem_id){
         System.out.println(mem_id);
@@ -48,7 +49,7 @@ public class ChatController implements RoomList {
 
     //방가져오기
     // "/admin/getRoom"
-    @RequestMapping("/getRoom")
+    @RequestMapping("/admin/getRoom")
     public @ResponseBody List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
         return roomList;
     }
@@ -67,7 +68,6 @@ public class ChatController implements RoomList {
 
 
     //채팅방
-    // "/admin/moveChating"
     @RequestMapping("/moveChating")
     public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
         ModelAndView mv = new ModelAndView();

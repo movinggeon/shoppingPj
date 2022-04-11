@@ -14,25 +14,25 @@ body {
 
 
 h1.sub_title{
-	
+
 	text-align: center;
 	margin-bottom: 0px;
 }
 
 div.sub_menu{
-	
+
 	width: 100%;
 	height: 200px;
 }
 
 div.menu_header{
-	
+
 	width: 100%;
 	background-color: #e5e5e5;
 }
 
 div.menu_header ul {
-	
+
 	width: 100%;
 	height: 100%;
     list-style:none;
@@ -40,15 +40,15 @@ div.menu_header ul {
     display: flex;
     justify-content: center;
     text-align: center;
-	
+
 	padding:0px;
-	
+
 	border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
 
 div.menu_header li {
-	
+
     float: left;
     width: 15%;
     height: 100%;
@@ -57,19 +57,19 @@ div.menu_header li {
 }
 
 div.menu_header li a {
-	
+
 	vertical-align: middle;
 }
 
 div.menu_list {
-	
+
 	width: 100%;
 	height: 150px;
 	border-bottom: 1px solid black;
 }
 
 div.inner {
-	
+
 	width: 100%;
 	height: 150px;
 	display: flex;
@@ -91,17 +91,22 @@ div.inner ul:not(:first-of-type) {
 }
 
 div.inner li {
-	
+
 	text-align: center;
 	line-height: 30px;
 	vertical-align: top;
 	padding-bottom: 10px;
 	font-size: 13px;
-	
+
 }
+/*
+.spanclick{
+	cursor:pointer;
+}
+*/
 
 div.cupon_info  {
-	
+
 	width: 75%;
 	height: 200px;
 	margin-left:auto;
@@ -144,20 +149,20 @@ div.cupon_info div.user_point {
 table.order_list {
 	margin-left: auto;
 	margin-right: auto;
-	
+
 	border-collapse: collapse;
 	border-top: 2px solid #171717;
     border-bottom: 1px solid #171717;
 }
 
 table.order_list th {
-	
+
 	height: 68px;
 	border-bottom: 1px solid #b5b5b5;
 }
 
 table.order_list tr td {
-	
+
 	text-align: center;
 	vertical-align: middle;
 }
@@ -168,6 +173,10 @@ table.order_list tr td {
 	height: 36px;
 	margin-left: auto;
 	margin-right: auto;
+}
+.like_list{
+	width: 70%;
+	margin : auto;
 }
 ul li a:link { color: black; text-decoration: none;}
 ul li a:visited { color: black; text-decoration: none;}

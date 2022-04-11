@@ -12,6 +12,11 @@ import com.group6.shopping.carts.vo.CartsVO;
 import com.group6.shopping.receipts.service.ReceiptsService;
 import com.group6.shopping.receipts.vo.ReceiptsDisplayVO;
 import com.group6.shopping.receipts.vo.ReceiptsVO;
+import com.group6.shopping.coupons.services.CouponsService;
+import com.group6.shopping.likes.services.LikesService;
+import com.group6.shopping.likes.vo.LikesVO;
+import com.group6.shopping.security.CustomMemDetails;
+import com.group6.shopping.security.LogoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.group6.shopping.coupons.services.CouponsService;
-import com.group6.shopping.security.CustomMemDetails;
-import com.group6.shopping.security.LogoutHandler;
+
 
 @Controller
 @RequestMapping("/members")
@@ -32,6 +35,9 @@ public class MembersController {
 	private CouponsService couponsService;
 	@Autowired
 	private ReceiptsService receiptsService;
+
+	@Autowired
+	private LikesService likesService;
 
 	@GetMapping(value = "/")
 	public String accessMember(Model model) throws Exception {
@@ -46,7 +52,9 @@ public class MembersController {
 
 	@RequestMapping(value="/member/mypage")
 	public String mypage(HttpSession session, Model model) throws Exception {
-
+		
+		/*System.out.println("mypage로 이동");*/
+		
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 
 		List<ReceiptsDisplayVO> receiptsDisplayVOList = receiptsService.getAllReceiptsInfo(cs.getMem_id());
@@ -60,10 +68,14 @@ public class MembersController {
 			}
 			System.out.println("--------------------");
 		}
-		
-		int count = couponsService.countCoupon(cs.getMem_id());
-		
 
+		int count = couponsService.countCoupon(cs.getMem_id());
+
+
+		List<LikesVO> likesVOList = likesService.LikeList(cs.getMem_id());
+		model.addAttribute("likeList",likesVOList);
+
+		/*System.out.println(count);*/
 		model.addAttribute("couponEA", count);
 		
 		return "members/mypage/mypage";
@@ -71,19 +83,19 @@ public class MembersController {
 
 	@RequestMapping(value = "/member/modify")
 	public String modify(HttpServletRequest request) {
-		System.out.println("modify 호출");
-		return "members/mypage/modify";
+		/*System.out.println("modify 호출");*/
+		return "members/mypage/nofragment/modify";
 	}
 	@RequestMapping(value ="/member/delete")
 	public String delete(HttpServletRequest requet){
-		System.out.println("회원탈퇴 이동");
-		return "members/mypage/delete";
+		/*System.out.println("회원탈퇴 이동");*/
+		return "members/mypage/nofragment/delete";
 	}
 
 	@RequestMapping(value = "/member/modifyPassword")
 	public String modifyPassword(HttpServletRequest request){
-		System.out.println("비밀번호 변경 이동");
-		return "members/mypage/modifyPassword";
+		/*System.out.println("비밀번호 변경 이동");*/
+		return "members/mypage/nofragment/modifyPassword";
 	}
 	
 	@RequestMapping(value = "/logout")

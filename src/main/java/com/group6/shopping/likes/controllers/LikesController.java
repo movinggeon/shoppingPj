@@ -25,6 +25,6 @@ public class LikesController {
         String memId = cs.getMem_id();
         List<LikesVO> likesVOList = likesService.LikeList(memId);
         model.addAttribute("likeList",likesVOList);
-        return "members/mypage/likeList";
+        return "members/mypage/nofragment/likeList";
     }
 }

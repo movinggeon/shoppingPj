@@ -22,8 +22,8 @@ public class CustomMemDetailsService implements UserDetailsService{
 			if(members == null) {
 				throw new InternalAuthenticationServiceException(memId);
 			}
-			System.out.println("**************Found user***************");
-			System.out.println("id : " + members.getUsername());
+			/*System.out.println("**************Found user***************");
+			System.out.println("id : " + members.getUsername());*/
 			return members;
 			
 		} catch (Exception e) {

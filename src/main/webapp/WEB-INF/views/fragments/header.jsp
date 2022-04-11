@@ -35,7 +35,7 @@
 <body>
 <div class="wrapper">
 	<!-- Chat button -->
-	<div id="chat" onclick="enterRoom()"></div>
+	<div id="chat"  onclick="enterRoom();"></div>
 
 	<!-- Side menu -->
 	<div class="menu_bg"></div>
@@ -81,7 +81,7 @@
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<ul class="m2">
 				<li><a href="/admin"><img src="${pageContext.request.contextPath}/resources/static/img/admin1.png"><h4 class="left">관리자</h4></a></li>
-				<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">1:1 상담</h4></a></li>
+				<li><a href="/chat/admin/room"><img src="${pageContext.request.contextPath}/resources/static/img/center.png"><h4 class="left">1:1 상담</h4></a></li>
 			</ul>
 		</sec:authorize>
 
@@ -161,9 +161,9 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#">이벤트</a>
+					<a href="/boards/event">이벤트</a>
 					<ul>
-						<li><a href="#">Event</a></li>
+						<li><a href="/boards/event">Event</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -208,7 +208,7 @@
 									</sec:authorize>
 									<sec:authorize access="hasRole('ROLE_ADMIN')">
 										<a href="${pageContext.request.contextPath}/admin">관리자</a>
-										<a href="${pageContext.request.contextPath}/room">1:1 상담</a>
+										<a href="${pageContext.request.contextPath}/chat/admin/room">1:1 상담</a>
 										<form action="${pageContext.request.contextPath}/members/logout" method="post" class="logout_btn">
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 											<input type="submit" value="로그아웃">
@@ -340,8 +340,7 @@
 			var user = "${user.mem_id}";
 			console.log(user);
 			$.ajax({
-				//url: '/chat/member/createRoom'.
-				url: '/createRoom',
+				url: '/chat/member/createRoom',
 				data: {mem_id : user},
 				type: 'post',
 				dataType: 'json',
@@ -349,12 +348,14 @@
 					xhr.setRequestHeader(header, token);
 				},
 				success: function (res) {
-					location.href="/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
+					location.href="/chat/moveChating?roomName="+res.roomName+"&"+"roomNumber="+res.roomNumber;
 				},
 				error: function (err) {
+					alert('로그인 후 이용해주세요.');
 					console.log(err);
 				}
 			});
+
 		}
 		function enter(){
 			if (window.event.keyCode == 13) {

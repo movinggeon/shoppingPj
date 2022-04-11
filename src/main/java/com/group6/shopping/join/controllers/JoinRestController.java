@@ -33,8 +33,8 @@ public class JoinRestController {
         String memId = (String) param.get("memId");
         String lookupResult = membersService.lookupId(memId);
 
-        System.out.println(memId.isEmpty());
-        System.out.println(memId.length());
+      /*  System.out.println(memId.isEmpty());
+        System.out.println(memId.length());*/
 
         if (memId.isEmpty()) {
 
@@ -112,10 +112,10 @@ public class JoinRestController {
         String memId = (String) param.get("memId");
         String memEmail = (String) param.get("memEmail");
 
-        System.out.println("카카오컨트롤러호출");
+       /* System.out.println("카카오컨트롤러호출");
         System.out.println(memName);
         System.out.println(memId);
-        System.out.println(memEmail);
+        System.out.println(memEmail);*/
 
         String memPassword = "kakao";
         String memPhone = "";
@@ -144,8 +144,8 @@ public class JoinRestController {
         String memId = (String) param.get("memId");
         String lookupResult = membersService.lookupId(memId);
 
-        System.out.println("카카오 아이디 중복 체크");
-        System.out.println(memId);
+     /*   System.out.println("카카오 아이디 중복 체크");
+        System.out.println(memId);*/
 
         if (memId.isEmpty()) {
             result.put("error", "아이디를 입력해주세요.");

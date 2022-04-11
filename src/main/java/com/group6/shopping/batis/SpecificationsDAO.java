@@ -18,8 +18,10 @@ public interface SpecificationsDAO {
     public Integer getMinPrice( @Param("product")String product, @Param("model") String model) throws Exception;
     public SpecVO getSpec(SpecVO specVO) throws Exception;
     public int updateSpecQty(CustomMemDetails user) throws Exception;
+
     public List<String> searchSpec(String spec) throws Exception;
     public List<ModelsVO> getModel(Map<String, Object> searchContext) throws Exception;
+
 
 
 }

@@ -17,10 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <title>Room</title>
   <style>
-    /**{
-      margin:0;
-      padding:0;
-    }*/
     .container{
       width: 500px;
       margin: 0 auto;
@@ -89,13 +85,7 @@
         width: 71px;
         text-align: center;
     }
-  /*  .inputTable th{
-      padding: 5px;
-    }
-    .inputTable input{
-      width: 330px;
-      height: 25px;
-    }*/
+
   </style>
 </head>
 
@@ -109,8 +99,8 @@
     <tr><th class='num'>방 번호</th><th class='room'>신청 고객명</th><th class='go'>입장</th></tr>
       <c:forEach var="room" items="${roomList}">
 
-   <!--/chat/admin/moveChating-->
-  <form action="/moveChating" method="get">
+
+  <form action="/chat/moveChating" method="get">
     <tr>
         <td class='num'>
         <input type="text"  class="inputte" readonly value = "${room.roomNumber}" name = "roomNumber"></td>

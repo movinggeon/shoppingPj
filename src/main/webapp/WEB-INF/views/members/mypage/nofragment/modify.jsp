@@ -21,6 +21,13 @@
     <!-- daum 우편주소 api-->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#modifyPw").click(function(){
+			    $(".page_loader").load("/members/member/modifyPassword");
+			});
+		});
+	</script>
 </head>
 <body>
 
@@ -178,8 +185,8 @@
             </tbody>
         </table>
         <div class="button_box">
-        <button type="button" class="btn_c" onclick="location.href='/members/member/modifyPassword'">비밀번호 변경</button>
-        <button type="button" class="btn_b" onclick="sendInfoModify()">정보수정</button>
+	        <button type="button" class="btn_c" id="modifyPw">비밀번호 변경</button>
+	        <button type="button" class="btn_b" onclick="sendInfoModify()">정보수정</button>
         </div>
         <div class="margin">
 
