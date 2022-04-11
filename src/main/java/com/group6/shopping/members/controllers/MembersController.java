@@ -55,6 +55,7 @@ public class MembersController {
 			System.out.println(tmp.getReceiptsVO().toString());
 			for(CartsVO cTmp : tmp.getCartsVOList()){
 				System.out.println(cTmp.toString());
+				System.out.println(cTmp.getSpecVO().toString());
 				System.out.println(cTmp.getProductsVO().getProduct_name() + cTmp.getModelsVO().getModel_name());
 			}
 			System.out.println("--------------------");

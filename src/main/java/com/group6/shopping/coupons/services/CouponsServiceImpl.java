@@ -3,6 +3,7 @@ package com.group6.shopping.coupons.services;
 import java.util.HashMap;
 import java.util.List;
 
+import com.group6.shopping.boards.vo.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,12 +50,17 @@ public class CouponsServiceImpl implements CouponsService{
     }
 
     @Override
-    public List<CouponsVO> getAdminCoupons(String memId) throws Exception {
-    	return couponsDAO.getAdminCoupons(memId);
+    public List<CouponsVO> getAdminCoupons(String memId, PagingVO pagingVO) throws Exception {
+    	return couponsDAO.getAdminCoupons(memId, pagingVO);
     }
 
     @Override
     public void deleteCoupon(String couponDecs) throws Exception {
     	couponsDAO.deleteCoupon(couponDecs);
+    }
+
+    @Override
+    public Integer getCountAdminCoupons(String memId) throws Exception {
+        return couponsDAO.getCountAdminCoupons(memId);
     }
 }

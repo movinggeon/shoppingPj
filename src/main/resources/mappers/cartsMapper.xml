@@ -19,6 +19,8 @@
 		<result column="spec_id" property="spec_id"/>
 		<result column="spec_memory" property="spec_memory"/>
 		<result column="spec_color" property="spec_color"/>
+		<result column="spec_network" property="spec_network"/>
+		<result column="spec_price" property="spec_price"/>
 		<result column="spec_qty" property="spec_qty"/>
 	</resultMap>
 	<resultMap id="ModelsVO" type="ModelsVO">
