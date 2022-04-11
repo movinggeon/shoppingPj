@@ -6,6 +6,7 @@ import java.util.Map;
 import com.group6.shopping.boards.vo.BoardsVO;
 import com.group6.shopping.boards.vo.EventPagingVO;
 import com.group6.shopping.boards.vo.PagingVO;
+import com.group6.shopping.files.vo.FilesVO;
 import com.group6.shopping.models.vo.ModelsVO;
 
 public interface BoardsService {
@@ -27,7 +28,7 @@ public interface BoardsService {
     //이벤트 게시글 작성
     public void eventinsert(BoardsVO vo) throws Exception;
     //리뷰 게시글 작성
-    public void reviewinsert(BoardsVO vo) throws Exception;
+    public void reviewinsert(BoardsVO vo,FilesVO fvo) throws Exception;
     // 게시글 삭제
     public void delete(int board_id) throws Exception;
     //게시글 수정
@@ -38,5 +39,5 @@ public interface BoardsService {
     public int endcountBoard();
    
     public BoardsVO viewBoard(String board_id) throws Exception;
-
+  
 }

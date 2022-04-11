@@ -42,25 +42,60 @@
 <title>Insert title here</title>
 </head>
 <body>
+<style>
+.topp {
+	margin: 0 auto;
+	max-width: 1110px;
+	text-align: left;
+	padding-left: 20px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 11px;
+	color: gray;
+	display: flex;
+}
+.top_nav {
+	background-color: #f3f3f3;
+	width: 100%;
+}
+</style>
 
 
+<div style="margin-top: 48px"></div>
+		<div class="top_nav">
+			<div class="topp">이벤트 > Event</div>
+		</div>
+
+<div class="topp">
 
 <h1>이벤트 글 작성하기</h1>
 
-<form action="/boards/eventinsert" method="post">
+<form action="/boards/eventinsert" method="post" enctype="multipart/form-data">
 	<div>
 
 		<input type ="hidden" name="mem_id" value="${user.mem_id}">
-		<label>제목</label>
-		<input type ="text" name="board_title">
-		<label>내용</label>
-		<input type ="text" name="board_content">
 		
+		<label>제목
+		<input type ="text" name="board_title">
+		</label>
+		<br><br>
+		<label>메인사진
+		<input type ="file" name="board_titleimg2">
+		</label>
+		<br><br>
+		<label>내용사진
+		<input type ="file" name="board_content2">
+		</label>
+		<br><br>
 		<input type ="hidden" name="board_type" value="event">
-		<p>시작날짜
+		<label>
+		시작날짜
         <input type="text" id="datepicker1" name="s_date" readonly>
-       종료날짜
-        <input type="text" id="datepicker2" name="e_date" readonly></p>
+        <br>
+        종료날짜
+        <input type="text" id="datepicker2" name="e_date" readonly>
+        </label>
+        <br><br>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         
 	</div>
@@ -70,5 +105,6 @@
 <button type="button" >취소</button>
 <button type="submit" >등록</button>
 </form>
+</div>
 </body>
 </html>

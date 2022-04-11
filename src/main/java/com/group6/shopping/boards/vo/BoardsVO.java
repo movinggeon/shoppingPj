@@ -22,7 +22,7 @@ import lombok.ToString;
 @ToString
 public class BoardsVO {
     private int board_id, model_id,spec_id, board_rate;
-    private String mem_id, board_title, board_content, board_type, board_date, s_date, e_date;
+    private String mem_id, board_title, board_content, board_type, board_date, s_date, e_date, board_titleimg;
 
     private SpecVO specVO;
     private ModelsVO modelsVO;
