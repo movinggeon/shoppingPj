@@ -43,7 +43,7 @@ public class ChatController implements RoomList {
             room.setRoomName(mem_id);
             roomList.add(room);
         }
-        System.out.println("roomNum: " + room.getRoomNumber() + " roomName: " + room.getRoomName());
+       /* System.out.println("roomNum: " + room.getRoomNumber() + " roomName: " + room.getRoomName());*/
         return room;
     }
 

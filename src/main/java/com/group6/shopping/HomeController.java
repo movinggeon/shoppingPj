@@ -46,7 +46,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model models, HttpServletRequest request, HttpSession session) throws Exception {
-		System.out.println("home");
+		/*System.out.println("home");*/
 		List<ModelsVO> recommendations = new ArrayList<>();
 		Cookie[] cookies = request.getCookies();
 		Map<Integer, Integer> modelsCount = new HashMap<>();
