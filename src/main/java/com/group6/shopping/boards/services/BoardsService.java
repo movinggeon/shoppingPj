@@ -28,7 +28,7 @@ public interface BoardsService {
     //이벤트 게시글 작성
     public void eventinsert(BoardsVO vo) throws Exception;
     //리뷰 게시글 작성
-    public void reviewinsert(BoardsVO vo,FilesVO fvo) throws Exception;
+    public void reviewinsert(BoardsVO vo) throws Exception;
     // 게시글 삭제
     public void delete(int board_id) throws Exception;
     //게시글 수정

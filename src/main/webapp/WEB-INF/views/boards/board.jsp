@@ -50,11 +50,6 @@
             <span onclick="hideEditReply('${reply.reply_id}')">x</span>
             <button type="button" onclick="editReply('${reply.reply_id}')">수정</button>
         </span>
-        
-        <form action = "/replies/deleteReply">
-<input type="hidden" name="reply_id" value="${reply.reply_id}">
-	<button type="submit">${reply.reply_id}</button>
-</form>
     </div>
 </c:forEach>
 <div id="repSpace">
@@ -114,19 +109,44 @@
         console.log(id);
         var editContent = document.getElementById("editInput"+id).value;
         document.getElementById("repContent"+id).innerHTML = editContent;
-
-        //ajax work to update eidt reply
-		
-        //ajax success
+        
+      //ajax work to update eidt reply
+      
+      
+      //ajax success
         document.getElementById("editContainer"+id).style.display = 'none';
         document.getElementById("editInput"+id).value = "";
+        
     }
     function delReply(id){
         console.log(id);
 
         document.getElementById("rep"+id).remove();
-
-        //ajax work to delete reply
+        var replyData = {};
+        replyData.repid = id;
+        
+        //ajax work to delete reply]
+        $.ajax({
+            url: "/replies/deleteReply",
+            type:"post",
+            data:
+                JSON.stringify(replyData),
+            dataType: "text",
+            contentType: "application/json;charset=utf-8",
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader(header, token);
+            	
+            },
+            success: function(data) {
+            },
+            error:function(request){
+                if(request.status == 403) {
+                }else{
+                    alert(request.status);
+                }
+            }
+        });
         
     }
 </script>
