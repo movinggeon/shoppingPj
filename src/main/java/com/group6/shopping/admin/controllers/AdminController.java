@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.group6.shopping.boards.vo.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +34,20 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/nofragment/memberList")
-	public String memberList(Model model) throws Exception {
+	public String memberList(Model model, String page) throws Exception {
+		Integer cntMemers = membersService.getCntMember();
+		PagingVO pTmp = new PagingVO(cntMemers, Integer.parseInt(page));
 
 		List<MembersVO> memberList = new ArrayList<MembersVO>();
-		memberList = membersService.getAllMembers();
+		memberList = membersService.getAllMembers(pTmp);
+		if(!pTmp.pageCheck()){
+			model.addAttribute("pageError", "Page Number is not valid");
+		}else{
+			model.addAttribute("page", pTmp);
+		}
 
 		model.addAttribute("memberList", memberList);
-		model.addAttribute("memberCount", memberList.size());
+		model.addAttribute("memberCount", cntMemers);
 
 		return "admin/nofragment/members/memberList";
 	}
@@ -61,12 +69,9 @@ public class AdminController {
 		System.out.println("접속한 관리자 계정 -> " + memId);
 
 		Integer countNum = couponsService.getCountAdminCoupons(memId);
-		System.out.println("쿠폰 총 갯수: " + countNum);
-		System.out.println("현재 페이지: " + page);
 		PagingVO pTmp = new PagingVO(countNum,Integer.parseInt(page));
 
 		couponList = couponsService.getAdminCoupons(memId, pTmp);
-		System.out.println("뿌려질 쿠폰 갯수: " + couponList.size());
 
 
 		model.addAttribute("couponList", couponList);

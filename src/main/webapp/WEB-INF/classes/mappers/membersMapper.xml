@@ -5,6 +5,12 @@
 	<select id="getAllMembers" resultType="MembersVO">
 		SELECT *
 			FROM members
+		limit #{numOfBoards} offset #{offset}
+	</select>
+
+	<select id="getCntMember" resultType="int">
+		SELECT count(*)
+		FROM members
 	</select>
 	
 	<select id="lookupId" resultType="String" parameterType="String">

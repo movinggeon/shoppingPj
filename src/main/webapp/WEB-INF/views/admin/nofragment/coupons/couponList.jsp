@@ -88,8 +88,8 @@
 						<%-- 일번 페이지가 아닐 경우 --%>
 						<c:if test="${page.currPage ne 1}">
 							<%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
-							<a href="/admin/nofragment/couponList?name=delete&page=1"><button class="btn_a"> << </button></a>
-							<a href="/admin/nofragment/couponList?name=delete&page=${page.currPage-1}"><button class="btn_a"> < </button></a>
+							<button class="btn_a" onclick="paging(1)"> << </button>
+							<button class="btn_a" onclick="paging('${page.currPage-1}')"> < </button>
 						</c:if>
 						<c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
 							<%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
@@ -98,15 +98,15 @@
 									<button class="btn_b">${i}</button>
 								</c:when>
 								<c:otherwise>
-									<a href="/admin/nofragment/couponList?name=delete&page=${i}"><button class="btn_a">${i}</button></a>
+									<button class="btn_a" onclick="paging('${i}')">${i}</button>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<%--현재 페이지가 마지막 페이지가 아닐 경우--%>
 						<c:if test="${page.currPage ne page.totalPage}">
 							<%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
-							<a href="/admin/nofragment/couponList?name=delete&page=${page.currPage+1}"><button class="btn_a"> > </button></a>
-							<a href="/admin/nofragment/couponList?name=delete&page=${page.totalPage}"><button class="btn_a"> >> </button></a>
+							<button class="btn_a" onclick="paging('${page.currPage+1}')"> > </button>
+							<button class="btn_a" onclick="paging('${page.totalPage}')"> >> </button>
 						</c:if>
 					</c:otherwise>
 				</c:choose>
@@ -211,6 +211,9 @@
 
 function closeCouponList() {
 	$(".context").load("/admin/nofragment/memberList?page=${param.return_page}");
+}
+function paging(page){
+	$(".context").load("/admin/nofragment/couponList?name=delete&page="+page);
 }
 //쿠폰삭제
 function deleteCoupon(coupon_desc) {

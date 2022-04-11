@@ -3,13 +3,14 @@ package com.group6.shopping.members.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.group6.shopping.boards.vo.PagingVO;
 import org.apache.ibatis.annotations.Param;
 
 import com.group6.shopping.members.vo.MembersVO;
 
 public interface MembersService {
     
-    public List<MembersVO> getAllMembers() throws Exception;
+    public List<MembersVO> getAllMembers(PagingVO pagingVO) throws Exception;
     public String lookupId(String memId) throws Exception;
     public void insertMem(MembersVO membersVO) throws Exception;
     public int usePoint(MembersVO membersVO) throws Exception;
@@ -20,4 +21,5 @@ public interface MembersService {
     public void deleteMem(String memId) throws Exception;
     public void updateEnableMem(@Param("mem_enable")int memEnable, @Param("mem_id")String memId) throws Exception;
     public List<String> searchAdmin() throws Exception;
+    public Integer getCntMember() throws Exception;
 }

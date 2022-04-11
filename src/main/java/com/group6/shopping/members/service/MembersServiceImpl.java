@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.group6.shopping.boards.vo.PagingVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,8 +22,8 @@ public class MembersServiceImpl implements MembersService{
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@Override
-	public List<MembersVO> getAllMembers() throws Exception{
-		return membersDAO.getAllMembers();
+	public List<MembersVO> getAllMembers(PagingVO pagingVO) throws Exception{
+		return membersDAO.getAllMembers(pagingVO);
 	}
 	
 	@Override
@@ -75,5 +76,10 @@ public class MembersServiceImpl implements MembersService{
 	@Override
 	public List<String> searchAdmin() throws Exception {
 		return membersDAO.searchAdmin();
+	}
+
+	@Override
+	public Integer getCntMember() throws Exception {
+		return membersDAO.getCntMember();
 	}
 }
