@@ -25,7 +25,6 @@
 </style>
 제목: ${boardsVO.board_title} <br>
 내용: ${boardsVO.board_content}
-
 <hr>
 <div class="topp">
 <c:forEach var="file" items="${boardsVO.filesVOList}">
