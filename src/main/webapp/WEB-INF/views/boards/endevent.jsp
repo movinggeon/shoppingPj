@@ -149,7 +149,7 @@
 			<c:forEach items="${endeventboardlist}" var="event" begin="0" end="5">
 				<div class="event_list">
 					<a href="/boards/readView?board_id=${event.board_id}"> <img
-						src="/resources/static/eventmainimg/${event.board_content}.jpg" alt="" />
+						src="/resources/static/eventmainimg/${event.board_titleimg}" alt="" />
 					</a>
 					<div class="event_info">
 						<a href="/boards/readView?board_id=${event.board_id}">

@@ -81,9 +81,9 @@ public class BoardsServiceImpl implements BoardsService {
 	
 	// 리뷰게시글 작성
 	@Override
-	public void reviewinsert(BoardsVO vo, FilesVO fvo) throws Exception {
+	public void reviewinsert(BoardsVO vo) throws Exception {
 		boardsDAO.reviewinsert(vo);
-		filesDAO.reviewFile(fvo);
+		
 	}
 
 	// 리뷰게시글 삭제
