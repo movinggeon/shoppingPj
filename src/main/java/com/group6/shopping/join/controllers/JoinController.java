@@ -29,7 +29,7 @@ public class JoinController {
 		//필요없을듯
     	/*List<MembersVO> membersList = membersService.getAllMembers();
     	model.addAttribute("memberList", membersList);*/
-		System.out.println("joinController 호출됨");
+		/*System.out.println("joinController 호출됨");*/
 
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		model.addAttribute("year", year);
@@ -43,12 +43,12 @@ public class JoinController {
 	public String mailCheckGET(String email) throws Exception{
 
 		/* 뷰(View)로부터 넘어온 데이터 확인 */
-		System.out.println("이메일 데이터 전송확인");
+		/*System.out.println("이메일 데이터 전송확인");*/
 		System.out.println("인증번호:"+email);
 		/*인증번호 생성*/
 		Random random=new Random();
 		int checkNum=random.nextInt(888888)+111111;
-		System.out.println("인증번호:"+checkNum);
+		/*System.out.println("인증번호:"+checkNum);*/
 
 		/*이메일 인증*/
 		String setFrom="clothes.test.teamsix@gmail.com";

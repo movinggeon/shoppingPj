@@ -6,189 +6,123 @@
 <!DOCTYPE html>
 <html>
 <style>
-	@font-face {
-		font-family: "BBTreeGR";
-		src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
-		format("woff");
-		font-weight: normal;
-		font-style: normal;
+	.container {
+		display: grid;
+		grid-auto-rows: minmax(10%, auto);
+		grid-template-columns: 1fr 6fr;
+		border-left: 1px solid #ebebeb;
+		border-top: 1px solid #ebebeb;
 	}
-	#mail_check_input_box_false{
-		background-color:white;
+	/* .container input {
+       padding: 5px;
+       max-width: 233px;
+       min-width: 230px;
+       padding: 5px;
+       border: 1px solid rgb(206, 204, 204);
+     } */
+
+	.input_st {
+		max-width: 233px;
+		min-width: 230px;
+		padding: 5px;
+		border: 1px solid rgb(206, 204, 204);
 	}
-	/*#mail_check_input_box_true{
-		background-color:white;
-	}*/
-	.mail_check_button{
-		width: 65px;
-		height : 27px;
-		border-radius: 8px;
+
+	.input_st1 {
+		width: 120px;
+		padding: 5px;
+		border: 1px solid rgb(206, 204, 204);
+	}
+
+	.input_st2 {
+		/* max-width: 265px; */
+		min-width: 306px;
+		padding: 5px;
+		border: 1px solid rgb(206, 204, 204);
+	}
+
+	.container input:focus {
+		outline: 2px solid #0071e3;
+	}
+
+	.container button {
+		padding: 5px 7px;
+		border: 0;
+		border-radius: 10px;
 		background-color: #0071e3;
-		border: 1px solid #ddd;
-		color : white;
-		margin-left: 5px;
-		padding: 3px 3px;
-		cursor: pointer;
-		font-size: 11px;
-		text-align: center;
-		float: left;
-	}
-	.correct{
-		color : green;
-	}
-	.incorrect{
-		color : red;
-	}
-	.input_join{
-		border-right: 0px;
-		border-left: 0px;
-		border-top:0px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-		width : 100%
-	}
-	.join{
-		width: 35%;
-		margin: auto;
-		border: 2px solid rgba(0, 0, 0, 0.3);
-		border-radius: 5px;
-	}
-	.join_form{
-		width:80%;
-		margin: auto;
-	}
-	.join_form_box{
-		width:90%;
-		margin:auto;
-	}
-	.join_title{
-		text-align: center;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-		font-size: 14px;
-	}
-	.join_type{
-		width: 15%;
-		float:left;
-		height: auto;
-
-	}
-	.join_details{
-		width: 85%;
-		height: auto;
-		float:left;
-	}
-	.join_margin{
-		width: 30%;
-	}
-	.join_details_email{
-		width: 55%;
-		height: auto;
-		float:left;
-	}
-	.join_details_id{
-		width: 75%;
-		height: auto;
-		float:left;
-	}
-	.join_box{
-		width: 100%;
-		margin-top :10%;
-		height: 10%;
-		float:left;
-
-	}
-	.join_check{
-		width:100%;
-		display: table-cell;
-		vertical-align: middle;
-		color:red;
+		color: white;
 		font-size: 12px;
-	}
-	.btn_id_check{
-		width: 65px;
-		height : 30px;
-		border-radius: 8px;
-		background-color: #0071e3;
-		border: 1px solid #ddd;
-		color : white;
-		padding: 5px 5px;
+		font-weight: bold;
 		cursor: pointer;
-		font-size: 12px;
 	}
-	.input_check_id{
-		border-right: 0px;
-		border-left: 0px;
-		border-top:0px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-		width : 79%
-	}
-	.input_check_email{
-		border-right: 0px;
-		border-left: 0px;
-		border-top:0px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-		width : 76%;
-		float: left;
 
-	}
-	.join_addressNum_input{
-		width : 30%;
-		height: 25px;
-		border-right: 0px;
-		border-left: 0px;
-		border-top:0px;
-		/*border-bottom: 1px solid rgba(0, 0, 0, 0.3);*/
-		border-bottop:0px;
-		border-radius: 8px;
-	}
-	.join_address_input{
-		width : 100%;
-		height: 25px;
-		border-right: 0px;
-		border-left: 0px;
-		border-top:0px;
-		/*border-bottom: 1px solid rgba(0, 0, 0, 0.3);*/
-		border-bottop:0px;
-		border-radius: 8px;
-	}
-	.btn_addressCheck {
-		display: inline-block;
-		width: 110px;
+	.join_btn {
+		padding: 8px 15px;
+		border: 2px solid #0071e3;
 		border-radius: 20px;
-		background-color: #ebebeb;
-		border: 1px solid #ddd;
-
-		padding: 5px 5px;
+		background-color: white;
+		color: #0071e3;
+		font-size: 14px;
+		font-weight: bold;
 		cursor: pointer;
 	}
-	.mail_check_input {
-		height: 25px;
-		border-right: 0px;
-		border-left: 0px;
-		border-top:0px;
-		/*border-bottom: 1px solid rgba(0, 0, 0, 0.3);*/
-		border-bottop:0px;
-		border-radius: 8px;
-	}
-	.btn_join {
-		width : 100px;
-		height : 35px;
-		border-radius: 8px;
-		background-color: #0071E3;
-		color : white;
-		border: 1px solid #ddd;
-		padding: 5px 5px;
-		cursor: pointer;
 
-
+	.item {
+		min-height: 60px;
+		border-bottom: 1px solid #ebebeb;
+		border-right: 1px solid #ebebeb;
 	}
-	.join_btn_box{
-		width : 100%;
-		margin-bottom: 5%;
-		margin-top : 5%;
-		display: table-cell;
+	/* .item:nth-child(-n + 10) {
+       background-color: #f8f8f8;
+     } */
+	.item:nth-child(odd) {
+		background-color: #f8f8f8;
+		min-width: 90px;
 		vertical-align: middle;
-		text-align: center;
-		display: inline-block;
+		line-height: 60px;
+		padding-left: 15px;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	.item:nth-child(even) {
+		background-color: white;
+		vertical-align: middle;
+		line-height: 60px;
+		padding-left: 20px;
+	}
+	.item > select {
+		margin-right: 8px;
+	}
+
+	.add_btn {
+		padding: 5px 7px;
+		border: 0;
+		border-radius: 10px;
+		background-color: #0071e3;
+		color: white;
+		font-size: 12px;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	.m_box {
+		width: 100%;
+	}
+	.m_content {
+		margin: 50px auto;
+		max-width: 1110px;
+		padding:0 1.6%;
+	}
+	.m_box hr {
+		height: 10px;
+		border: 0;
+		box-shadow: 0 5px 5px -5px #bbb inset;
+	}
+	select {
+		outline: none;
+		width: 73px;
+		height: 26px;
+		border-color: rgb(206, 204, 204);
 	}
 </style>
 <head>
@@ -209,114 +143,250 @@
 
 </head>
 <body>
-<div class="join">
-	<div class="join_form">
-		<div class="join_title">
-			<h2>회원가입</h2>
-		</div>
-		<div class="join_form_box">
-			<div class="join_box">
-				<div class="join_type">
-					이름
-				</div>
-				<div class="join_details">
-					<input type="text" class="input_join" id="memName" placeholder="이름">
-				</div>
-				<div class="join_check" id="nameCheck">
-
-				</div>
+<div class="m_box">
+	<div class="m_content">
+		<h3>회원가입</h3>
+		<hr />
+		<p
+				style="
+            color: #0071e3;
+            font-size: 13px;
+            font-weight: bold;
+            padding-left: 8px;
+          "
+		>
+			회원정보
+		</p>
+		<div class="container">
+			<div class="item" style="padding-top:5px;">이름</div>
+			<div
+					class="item"
+					style="display: flex; flex-direction: column; justify-content: center;padding-top:10px;"
+			>
+				<input
+						class="input_st"
+						id="memName"
+						placeholder="이름"
+						type="text"
+				/>
+				<div
+						id="nameCheck"
+						style="
+                font-size: 11px;
+                color: red;
+                line-height: 0;
+                padding-left:6px;
+                padding-top: 10px;
+              "
+				></div>
 			</div>
-			<div class="join_box">
-				<div class="join_type">
-					아이디
+			<div class="item">아이디</div>
+			<div class="item" style="display: flex; flex-direction: column;justify-content: center;height:70px;">
+				<div style="line-height: 47px">
+					<input
+							id="memId"
+							class="input_st"
+							maxlength="11"
+							placeholder="아이디 입력 (5~11자)"
+							type="text"
+					/>
+					<button
+							id="idLookupBtn"
+							class="btn_id_check"
+							onclick="idLookup()"
+					>
+						중복확인
+					</button>
 				</div>
-				<div class="join_details">
-					<input type="text" id="memId" class="input_check_id" maxlength="11" placeholder="아이디 입력(5~11자)">
-					<button type=button id="idLookupBtn" class="btn_id_check" onclick="idLookup()">중복확인</button>
-				</div>
-				<div class="join_check" id="idCheck">
-				</div>
-			</div>
-			<div class="join_box">
-				<div class="join_type">
-					비밀번호
-				</div>
-				<div class="join_details">
-					<input type="password" id="memPassword" class="input_join" maxlength="40" placeholder="비밀번호(영문자,숫자,특수문자 조합 최소 8자)"><br><br>
-					<input type="password" id="passwordReEnter" class="input_join" maxlength="40" placeholder="비밀번호 확인">
-				</div>
-				<div class="join_check" id="passwordCheck">
-				</div>
-			</div>
+				<div
+						style="
+                font-size: 11px;
+                color: red;
+                line-height: 0;
+                /*margin-bottom: 12px;*/
+                padding-left:6px;
 
-
-			<div class="join_box">
-				<div class="join_type">
-					이메일
-				</div>
-				<div class="join_details">
-					<input type="text" id="memEmail" class="input_check_email" placeholder="이메일 입력">
-					<div class="mail_check_button" type="button">
-						인증번호<br>전송
+              "
+						id="idCheck"
+				></div>
+			</div>
+			<div class="item">비밀번호</div>
+			<div class="item" style="display: flex; flex-direction: column;line-height: 48px;padding-top: 5px;">
+				<input
+						type="password"
+						id="memPassword"
+						class="input_st"
+						maxlength="40"
+						placeholder="영문자,숫자,특수문자 조합 8자 이상"
+						style="margin-top: 15px"
+				/>
+				<input
+						type="password"
+						id="passwordReEnter"
+						class="input_st"
+						maxlength="40"
+						placeholder="비밀번호 확인"
+						style="margin: 15px 0 10px 0;"
+				/>
+				<div
+						style="
+                font-size: 11px;
+                color: red;
+                line-height: 0;
+                margin-bottom: 9px;
+                padding-left:6px
+              "
+						class="join_check"
+						id="passwordCheck"
+				></div>
+			</div>
+			<div class="item">이메일</div>
+			<div class="item" style="height: 105px;">
+				<div style="display: flex; height: 50px;">
+					<input
+							id="memEmail"
+							class="input_st"
+							placeholder="이메일 입력"
+							type="text"
+							style="height: 15px; margin-top: 15px;line-height: 50px;"
+					/>
+					<div
+							class="mail_check_button"
+							type="button"
+							style="
+                  font-size: 12px;
+                  padding: 3px 7px;
+                  margin-left: 5px;
+                  margin-top: 15px;
+                  border-radius: 10px;
+                  background-color: #0071e3;
+                  height: 20px;
+                  font-weight: bold;
+                  line-height: 20px;
+                  color: white;
+                  cursor: pointer;
+                "
+					>
+						인증번호전송
 					</div>
-					<div class="mail_check_wrap">
-						<div class="mail_check_input_box" id="mail_check_input_box_false">
-							<input class="mail_check_input" id="mail_check_input" disabled="disabled">
-						</div>
-						<div class="ui-helper-clearfix"></div>
-						<span id="mail_check_input_box_warn"></span>
+				</div>
+
+				<div
+						id="emailCheck"
+						style="
+                font-size: 11px;
+                color: red;
+            /*margin-top: 7px;*/
+                /*margin-bottom: 10px;*/
+                line-height: 0px;
+                padding-left:6px;
+              "
+				>
+
+				</div>
+				<div class="mail_check_wrap" style="line-height: 30px;margin-top: 8px;">
+					<div
+							class="mail_check_input_box"
+							id="mail_check_input_box_false"
+
+					>
+						<input class="mail_check_input input_st" id="mail_check_input" disabled="disabled"/>
 					</div>
+					<div class="ui-helper-clearfix"></div>
+					<div
+							id="mail_check_input_box_warn"
+							class="incorrect"
+							style="
+                  font-size: 11px;
+                  color: red;
+                  line-height: 0;
+                  margin-top:8px;
+                  margin-bottom: 12px;
+                  padding-left: 6px;
+                "
+					>
 
+					</div>
 				</div>
-				<div class="join_check" id="emailCheck">
-				</div>
-
 			</div>
-			<div class="join_box">
-				<div class="join_type">
-					생년월일
-				</div>
+			<div class="item">생년월일</div>
+			<div class="item">
 				<select name="year" id="year">
+					<option value="none">년</option>
 					<c:forEach var="i" begin="0" end="105" step="1">
 						<option value="${ year - i }">${ year - i}</option>
 					</c:forEach>
 				</select>
 				<select name="month" id="month">
+					<option value="none">월</option>
 					<c:forEach var="i" begin="1" end="12" step="1">
-						<option value="${ i }"> ${ i }</option>
+						<option value="${ i }">${ i }</option>
 					</c:forEach>
 				</select>
 				<select name="day" id="day">
+					<option value="none">일</option>
 					<c:forEach var="i" begin="1" end="31" step="1">
-						<option value="${ i }"> ${ i }</option>
+						<option value="${ i }">${ i }</option>
 					</c:forEach>
 				</select>
 			</div>
-			<div class="join_box">
-				<div class="join_type">
-					휴대폰<br>번호
-				</div>
-				<div class="join_details">
-					<input type="text" class="input_join" id="memPhone" placeholder="휴대폰번호입력(01012341234)">
-				</div>
-				<div class="join_check" id="phoneCheck"></div>
+			<div class="item">휴대폰번호</div>
+			<div class="item" style="display: flex; flex-direction: column;justify-content: center;">
+				<input
+						class="input_st"
+						id="memPhone"
+						placeholder="ex.01012341234"
+						type="text"
+						style="margin: 6px 0;"
+				/>
+				<div
+						id="phoneCheck"
+						style="font-size: 11px; color: red; line-height: 0;padding-left:6px;padding-top: 4px;"
+				></div>
 			</div>
-			<div class="join_box">
-				<div class="join_type">
-					주소
-				</div>
-				<div class="join_details">
-					<input type="text" id="postcode" class="join_addressNum_input" placeholder="우편번호" disabled="disabled">
-					<input type="button" class="btn_addressCheck" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="address" class="join_address_input" placeholder="주소" disabled="disabled"><br>
-					<input type="text" id="detailAddress" class="join_address_input" placeholder="상세주소"><br>
-					<input type="text" id="extraAddress" class="join_address_input" placeholder="참고항목" disabled="disabled">
-				</div>
-				<p id="addressCheck"></p>
+
+			<div class="item">주소</div>
+			<div class="item" style="line-height: 40px">
+				<input
+						type="text"
+						id="postcode"
+						class="input_st1"
+						placeholder="우편번호"
+						disabled="disabled"
+						style="margin-top: 15px"
+				/>
+				<input
+						type="button"
+						class="btn_addressCheck add_btn"
+						onclick="execDaumPostcode()"
+						value="우편번호 찾기"
+				/><br />
+				<input
+						id="address"
+						class="input_st2"
+						type="text"
+						placeholder="주소"
+						disabled="disabled"
+				/>
+				<input
+						class="input_st2"
+						id="detailAddress"
+						type="text"
+						placeholder="상세주소"
+				/><br />
+				<input
+						class="input_st2"
+						type="text"
+						id="extraAddress"
+						placeholder="참고항목"
+						disabled="disabled"
+						style="margin-bottom: 30px"
+				/>
+				<span id="addressCheck"></span>
 			</div>
-			<div class="join_btn_box">
-				<button class="btn_join" onclick="sendInfo()">회원가입</button>
-			</div>
+		</div>
+		<div class="join_btn_box" style="text-align: center; margin-top: 25px">
+			<button class="join_btn" onclick="sendInfo()">회원가입</button>
 		</div>
 
 	</div>
@@ -424,7 +494,7 @@
 
 		if(memPassword.value.length == 0){
 
-			passwordCheck.innerHTML = "비밀번호을 입력해주세요";
+			passwordCheck.innerHTML = "비밀번호를 입력해주세요.";
 
 		}else if(!regPassword.test(memPassword.value)){
 
@@ -454,7 +524,7 @@
 	memEmail.onblur = function (e) {
 
 		if(memEmail.value.length == 0){
-			emailCheck.innerHTML = "이메일을 입력해주세요";
+			emailCheck.innerHTML = "이메일을 입력해주세요.";
 		}else if(!regEmail.test(memEmail.value)){
 			emailCheck.innerHTML = "잘못된 이메일 형식입니다.";
 		}else{
@@ -467,9 +537,9 @@
 	memPhone.onblur = function (e) {
 
 		if(memPhone.value.length == 0){
-			phoneCheck.innerHTML = "전화번호을 입력해주세요";
+			phoneCheck.innerHTML = "휴대폰번호를 입력해주세요.";
 		}else if(!regPhone.test(memPhone.value)){
-			phoneCheck.innerHTML = "잘못된 전화번호 형식입니다.";
+			phoneCheck.innerHTML = "잘못된 휴대폰번호 형식입니다.";
 		}else{
 			phoneCheck.innerHTML = null;
 		}

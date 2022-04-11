@@ -80,7 +80,7 @@ public class MembersRestController {
 
             result.put("success", "비밀번호 수정이 완료되었습니다.");
         }else{
-            System.out.println("x");
+            /*System.out.println("x");*/
 
             result.put("error", "기존 비밀번호가 일치하지 않습니다.");
 

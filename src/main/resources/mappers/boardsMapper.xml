@@ -15,6 +15,9 @@
 		<collection property="specVO" resultMap="SpecVO"/>
 		<collection property="modelsVO" resultMap="ModelsVO"/>
 		<collection property="productsVO" resultMap="ProductsVO"/>
+
+		<collection property="repliesVOList" column="{board_id = board_id}" ofType="RepliesVO" select="selectReplies"/>
+		<collection property="filesVOList" column="{board_id = board_id}" ofType="FilesVO" select="selectFiles"/>
 	</resultMap>
 	<resultMap id="SpecVO" type="SpecVO">
 		<result column="spec_id" property="spec_id"/>
@@ -38,6 +41,26 @@
 		<result column="product_name" property="product_name"/>
 	</resultMap>
 
+
+	<select id="viewBoard" resultMap="BoardsVO">
+		select *
+		from boards b, specifications s, models m, products p
+		where b.spec_id = s.spec_id and s.model_id = m.model_id and m.product_id = p.product_id
+		  and b.board_id = #{board_id};
+	</select>
+
+	<select id="selectReplies" resultType="RepliesVO">
+		select *
+		from replies
+		where board_id = #{board_id}
+		order by reply_id asc;
+	</select>
+
+	<select id="selectFiles" resultType="FilesVO">
+		select *
+		from files
+		where board_id = #{board_id};
+	</select>
 
 	<select id="getModelBoards" resultMap="BoardsVO">
 		select * from boards b, specifications s, models m, products p
@@ -80,6 +103,74 @@
 		group by board_rate
 		order by board_rate desc;
 	</select>
+
+<!-- 이벤트 메인페이지 진행중게시글 목록조회 -->
+
+<select id="EventBoardslist" resultType="BoardsVO">
+<![CDATA[SELECT * FROM(SELECT @rownum:=@rownum+1 rnum, A.* FROM boards A, (SELECT @ROWNUM := 0) R 
+			WHERE 1=1 and board_type = 'event'
+			AND date(now()) >= s_date
+			AND e_date >= date(now()) order by e_date) list 
+			WHERE rnum >= #{start} AND rnum <= #{end}]]>
+</select>
+
+	
+	
+	<!-- 이벤트 메인페이지 종료게시글 목록조회 -->
+	<select id="EndEventBoardslist" resultType="BoardsVO">
+			<![CDATA[SELECT * FROM(SELECT @rownum:=@rownum+1 rnum, A.* FROM boards A, (SELECT @ROWNUM := 0) R 
+			WHERE 1=1 and board_type = 'event'
+			AND date(now()) > e_date
+			order by e_date desc) list 
+			WHERE rnum >= #{start} AND rnum <= #{end}]]>
+	</select>
+	
+
+	
+	<!-- 이벤트 게시글 보기 -->
+	<select id="read" parameterType="int" resultType="BoardsVO">
+		SELECT *
+			FROM boards
+			WHERE board_id = #{board_id}	
+	
+	</select>
+	<!-- 이벤트 글등록 -->
+	 <select id="eventinsert">
+		insert into boards (board_id,mem_id,board_title,board_content,board_date,board_type,s_date,e_date)
+		values (null,#{mem_id},#{board_title},#{board_content},SYSDATE(),#{board_type},#{s_date},#{e_date})
+	</select> 
+	
+	
+	
+	<!-- 리뷰 글등록 -->
+	<select id="reviewinsert">
+	insert into boards
+	values (null, #{mem_id}, #{spec_id}, #{model_id}, #{board_rate}, #{board_title}, #{board_content}, SYSDATE(), #{board_type}, null, null)
+
+	</select>
+	
+	
+	<!--  이벤트글삭제 -->
+	<select id="delete">
+	 delete from boards WHERE board_id = #{board_id}
+	</select>
+
+
+<!-- 진행중 이벤트 총 게시글 갯수 출력 -->
+<select id="countBoard" resultType="int">
+	SELECT COUNT(*) FROM boards where board_type = 'event'
+			AND date(now()) >= s_date
+			AND e_date >= date(now())
+</select>
+
+<!-- 종료이벤트 총 게시글 갯수 출력 -->
+<select id="endcountBoard" resultType="int">
+	SELECT COUNT(*) FROM boards 
+			WHERE board_type = 'event'
+			AND date(now()) > e_date
+			order by e_date desc;
+</select>
+
 
 
 

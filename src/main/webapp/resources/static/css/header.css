@@ -20,15 +20,15 @@ body {
     /* overflow-x: hidden; */
 }
 
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
+/*.wrapper {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    height: 100%;*/
+/*}*/
 
-.main-content {
-    flex: 1;
-}
+/*.main-content {*/
+/*    flex: 1;*/
+/*}*/
 
 /*Search*/
 
@@ -238,12 +238,13 @@ body {
 header {
     overflow: hidden;
     background: white;
-    z-index: 85;
+    /*z-index: 85;*/
     position: absolute;
     left: 0;
     right: 0;
     width: 100%;
     z-index: 100;
+    border-bottom: 1px solid #ebebeb;
 }
 
 ul {
@@ -275,11 +276,11 @@ a:active {
     margin: 0 auto;
     align-items: center;
     padding-bottom: 5px;
-    border-bottom: 1px solid #ebebeb;
+    /*border-bottom: 1px solid #ebebeb;*/
 }
 
 .nav_logo {
-    display: absolute;
+    /*display: absolute;*/
     left: 10px;
     min-width: 113.1px;
     font-size: 16px;
@@ -396,6 +397,82 @@ a:active {
     display: none;
 }
 
+/* 추가 수정*/
+
+.nav_links_1 {
+
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.nav_links_1 > li {
+    padding: 6px 0;
+    /*padding-left: 0;*/
+    width: 56px;
+    height: 49px;
+    text-align: center;
+    line-height: 49px;
+}
+.nav_links_1 li > div > div > a {
+    display: inline-block;
+    line-height: 27px;
+}
+
+.nav_links_1 > li > ul > li {
+    line-height: 45px;
+    padding-bottom: 2px;
+}
+
+.nav_links_1 {
+    margin: 0;
+}
+
+.nav_links_1 li > div > div > a:after {
+    display: block;
+    content: "";
+    border-bottom: 1.9px solid #333;
+    transform: scaleX(0);
+    transition: transform 200ms ease-in-out;
+}
+
+.nav_links_1 li > div > div > a:hover:after {
+    transform: scaleX(1);
+}
+
+.search_btn{
+    display: block;
+    padding: 6px 0;
+    width: 56px;
+    height: 49px;
+    text-align: center;
+    line-height: 49px;
+}
+
+.logout_btn > input{
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: -1px;
+    padding:0 2px;
+}
+
+.logout_btn_side > input{
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    vertical-align: middle;
+    padding:0 2.5px;
+    margin-bottom: 2px;
+}
+
+.m2_btn h4{
+    margin-left: -10px;
+}
+
 @media screen and (max-width: 1082px) {
     body {
         position: relative;
@@ -434,10 +511,14 @@ a:active {
         width: 95%;
         text-align: center;
     }
-    .nav_links {
+    .nav_links_1 {
         display: none;
         justify-content: center;
         width: 100%;
+    }
+
+    .nav_links_1 li {
+        display: none;
     }
 
     .menu_btn {

@@ -1,12 +1,15 @@
 package com.group6.shopping.chatting.controller;
 
+import com.group6.shopping.chatting.handler.RoomList;
 import com.group6.shopping.chatting.vo.Room;
+import com.group6.shopping.security.CustomMemDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +17,13 @@ import java.util.stream.Collectors;
 
 //admin, members 권한별로 url 지정하기
 @Controller
-public class ChatController {
-    List<Room> roomList = new ArrayList<Room>();
+@RequestMapping("/chat")
+public class ChatController implements RoomList {
+ /*   List<Room> roomList = new ArrayList<Room>();*/
     static int roomNumber = 0;
 
    //방페이지 return
-    @RequestMapping("/room")
+    @RequestMapping("/admin/room")
     public ModelAndView room() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/chat/room");
@@ -29,7 +33,7 @@ public class ChatController {
 
     //방생성
     // "/member/createRoom"
-    @RequestMapping("/createRoom")
+    @RequestMapping("/member/createRoom")
     @ResponseBody
     public Room createRoom(String mem_id){
         System.out.println(mem_id);
@@ -45,13 +49,25 @@ public class ChatController {
 
     //방가져오기
     // "/admin/getRoom"
-    @RequestMapping("/getRoom")
+    @RequestMapping("/admin/getRoom")
     public @ResponseBody List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
         return roomList;
     }
 
+    //방지우기
+    @RequestMapping("/updateroom")
+    public @ResponseBody String updateRoom(String sId, HttpSession session){
+        CustomMemDetails cs=(CustomMemDetails) session.getAttribute("user");
+        for(Room tmp:roomList){
+            if(tmp.getRoomName().equals(cs.getMem_id())){
+                tmp.setUserSessionId(sId);
+            }
+        }
+        return "";
+    }
+
+
     //채팅방
-    // "/admin/moveChating"
     @RequestMapping("/moveChating")
     public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
         ModelAndView mv = new ModelAndView();

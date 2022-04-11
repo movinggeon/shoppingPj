@@ -21,7 +21,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         //System.out.println(exception.getClass().getName());
         if(exception instanceof InternalAuthenticationServiceException || exception instanceof BadCredentialsException){
             //System.out.println("username error");
-            msg = "Wrong id or password. Please re-enter";
+            msg = "아이디/비밀번호가 잘못되었습니다.";
         }
         
         if(exception instanceof LockedException || exception instanceof DisabledException) {

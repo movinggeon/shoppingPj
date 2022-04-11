@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+div.coupon-context{
+	width: 90%;
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 1px solid black;
+}
+
+div.coupon-card{
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+div.div-pagingBtn{
+	width: 100%;
+	height: 50px;
+	padding-top: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+button.pagingBtn{
+	height: 100%;
+	width: 50px;
+}

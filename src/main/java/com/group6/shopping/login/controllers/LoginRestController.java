@@ -32,13 +32,13 @@ public class LoginRestController {
     public HashMap<String, Object> sendFindId(@RequestBody HashMap<String, Object> param) throws Exception {
 
         HashMap<String, Object> result = new HashMap<String, Object>();
-        System.out.println("아이디찾기에 왔나");
+        /*System.out.println("아이디찾기에 왔나");*/
         String mem_email = (String) param.get("mem_email");
 
-        System.out.println(mem_email);
+     /*   System.out.println(mem_email);*/
 
         int a= loginService.findIdCheck(mem_email);
-        System.out.println(a);
+       /* System.out.println(a);*/
 
 
         if(loginService.findIdCheck(mem_email)==0){
@@ -53,25 +53,25 @@ public class LoginRestController {
     @PostMapping(value = "/findPw/sendFindPw")
     public HashMap<String, String> sendFindPw(@RequestBody HashMap<String, String> param) throws Exception {
         HashMap<String, String> result = new HashMap<String, String>();
-        System.out.println("비밀번호 찾기에 왔나");
+       /* System.out.println("비밀번호 찾기에 왔나");*/
 
         String mem_id = (String) param.get("mem_id");
         String mem_email = (String) param.get("mem_email");
 
         int a = loginService.findPwCheck(param);
-        System.out.println(a);
+        /*System.out.println(a);*/
 
         String memPassword = getRandomPassword(10);
-        System.out.println(memPassword);
+       /* System.out.println(memPassword);*/
         String mem_password = bcryptPasswordEncoder.encode(memPassword);
         param.put("mem_password", mem_password);
 
         if(loginService.findPwCheck(param)==0){
             result.put("error","입력하신 정보의 회원이 존재하지 않습니다");
         }else {
-            System.out.println("임시비밀번호 :" + memPassword);
+            /*System.out.println("임시비밀번호 :" + memPassword);*/
             loginService.findPw(param);
-            System.out.println("임시비밀번호 :" + memPassword);
+            /*System.out.println("임시비밀번호 :" + memPassword);*/
             result.put("success","입력하신 email로 임시 비밀번호가 발송되었습니다");
             /*이메일 인증*/
             String setFrom="clothes.test.teamsix@gmail.com";
