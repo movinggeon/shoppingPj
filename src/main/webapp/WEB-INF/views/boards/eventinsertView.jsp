@@ -75,17 +75,14 @@
 
 		<input type ="hidden" name="mem_id" value="${user.mem_id}">
 		
-		<label>제목
-		<input type ="text" name="board_title">
-		</label>
+		<label>제목</label>
+		<input type ="text" name="board_title">		
 		<br><br>
-		<label>메인사진
-		<input type ="file" name="board_titleimg2">
-		</label>
+		<label>메인사진</label>
+		<input type ="file" name="board_titleimg2">		
 		<br><br>
-		<label>내용사진
-		<input type ="file" name="board_content2">
-		</label>
+		<label>내용사진</label>
+		<input type ="file" name="board_content2">		
 		<br><br>
 		<input type ="hidden" name="board_type" value="event">
 		<label>

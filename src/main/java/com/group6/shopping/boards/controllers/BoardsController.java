@@ -46,7 +46,6 @@ public class BoardsController {
 	public String EventBoardslist(EventPagingVO vo, Model model,
 			@RequestParam(value = "nowPage", required = false) String nowPage,
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
-		System.out.println("컨트롤러도착");
 		int total = boardsService.countBoard();
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
