@@ -10,6 +10,7 @@
       <result column="cart_price" property="cart_price"/>
       <result column="cart_qty" property="cart_qty"/>
       <result column="cart_isCare" property="cart_isCare"/>
+      <result column="cart_refund" property="cart_refund"/>
 
       <collection property="specVO" resultMap="SpecVO"/>
       <collection property="productsVO" resultMap="ProductsVO"/>
@@ -19,7 +20,9 @@
       <result column="spec_id" property="spec_id"/>
       <result column="spec_memory" property="spec_memory"/>
       <result column="spec_color" property="spec_color"/>
+      <result column="spec_network" property="spec_network"/>
       <result column="spec_qty" property="spec_qty"/>
+      <result column="spec_price" property="spec_price"/>
    </resultMap>
    <resultMap id="ModelsVO" type="ModelsVO">
       <result column="model_id" property="model_id" />
@@ -47,6 +50,13 @@
         and mem_id = #{mem_id}
    </select>
 
+   <select id="getPaidCart" resultMap="CartsVO" fetchSize="5000">
+      select *
+      from carts c, specifications s, products p, models m
+      where  p.product_id = m.product_id and m.model_id = s.model_id and s.spec_id = c.spec_id
+        and receipt_id = #{receipt_id}
+   </select>
+
    <delete id="deleteCart">
       delete from carts
       where cart_id = #{cart_id}
@@ -70,20 +80,6 @@
       where cart_id = #{cart_id};
    </select>
 
-<!--   <update id="updateCart">
-      update carts c
-      set cart_price = (select salePrice from(
-         select cart_id, (cart_price-round((cart_price / (select (sum(cart_price)) from carts where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null )) * #{salePrice})) as salePrice
-         from carts
-         where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null
-         ) A where A.cart_id = c.cart_id),
-          cart_imp_uid = #{cartsVO.cart_imp_uid}, cart_merchant_uid = #{cartsVO.cart_merchant_uid}, cart_date = curdate(), cart_address = #{cartsVO.cart_address}, cart_phone = #{cartsVO.cart_phone}
-      where cart_id in
-           (select cId from(select cart_id as cId
-                        from carts
-                        where mem_id = #{cartsVO.mem_id} and cart_imp_uid is null) B );
-   </update>-->
-
    <select id="getPopularItem" resultMap="ModelsVO">
       select p.product_name, m.model_name, m.model_id, count(*)
       from carts c, specifications s, models m, products p
@@ -93,10 +89,15 @@
       limit ${totalShow};
    </select>
 
-	<update id="updateRecId">
+	<update id="updateRefund">
 		update carts
-		set receipt_id = #{receipt_id}
-		where mem_id = #{mem_id} and receipt_id is null
+		set cart_refund = 1
+		where receipt_id = #{receipt_id}
 	</update>
-
+	
+	<update id="updateRecId">
+	update carts
+	 set receipt_id = #{receipt_id}
+	 where mem_id = #{mem_id} and receipt_id is null
+	</update>
 </mapper>

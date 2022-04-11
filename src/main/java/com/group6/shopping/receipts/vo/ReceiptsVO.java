@@ -1,5 +1,7 @@
 package com.group6.shopping.receipts.vo;
 
+import com.group6.shopping.coupons.vo.CouponsVO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,6 @@ public class ReceiptsVO {
 	private String mem_id;
 	private int coupon_id;
 	private int receipt_point;
+	
+	private CouponsVO couponsVO;
 }

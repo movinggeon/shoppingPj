@@ -1,13 +1,15 @@
 package com.group6.shopping.carts.services;
 
-import com.group6.shopping.batis.CartsDAO;
-import com.group6.shopping.carts.vo.CartsVO;
-import com.group6.shopping.models.vo.ModelsVO;
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
+import com.group6.shopping.batis.CartsDAO;
+import com.group6.shopping.carts.vo.CartsVO;
+import com.group6.shopping.models.vo.ModelsVO;
+import com.group6.shopping.receipts.vo.ReceiptsVO;
 
 @Service
 public class CartsServiceImpl implements CartsService{
@@ -57,5 +59,15 @@ public class CartsServiceImpl implements CartsService{
     @Override
     public void updateRecId(HashMap<String, Object> param) throws Exception {
     	cartsDAO.updateRecId(param);
+    }
+    
+    @Override
+    public List<CartsVO> getPaidCart(ReceiptsVO receiptsVO) throws Exception {
+        return cartsDAO.getPaidCart(receiptsVO);
+    }
+    
+    @Override
+    public void updateRefund(int cart_id) throws Exception {
+    	cartsDAO.updateRefund(cart_id);
     }
 }

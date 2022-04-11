@@ -30,6 +30,9 @@
 		$("#deleteMem").click(function(){
 		    $(".page_loader").load("/members/member/delete");
 		});
+		$("#receiptList").click(function(){
+		    $(".page_loader").load("/receipts/member/receiptList");
+		});
 	});
 </script>
 </head>
@@ -40,19 +43,19 @@
 		<div class="menu_header">
 			<ul>
 				<li>
-					<a href="#">MY♡</a>
+					<span>MY♡</span>
 				</li>
 				<li>
-					<a href="#">주문관리</a>
+					<span>주문관리</span>
 				</li>
 				<li>
-					<a href="#">혜택</a>
+					<span>혜택</span>
 				</li>
 				<li>
-					<a href="#">정보관리</a>
+					<span>정보관리</span>
 				</li>
 				<li>
-					<a href="#">문의내역</a>
+					<span>문의내역</span>
 				</li>
 			</ul>
 		</div>
@@ -61,39 +64,36 @@
 			<div class="inner">
 				<ul>
 					<li>
-						<span id="likeList">MY ♡ ITEM</span>
+						<span class="span-hover" id="likeList">MY ♡ ITEM</span>
 					</li>
 				</ul>
 				<ul>
 					<li>
-						<a href="#">주문/배송조회</a>
-					</li>
-					<li>
-						<a href="#">취소/교환/반품 조회</a>
+						<span class="span-hover" id="receiptList"> 주문/배송/취소 조회 </span>
 					</li>
 				</ul>
 				<ul>
 					<li>
-						<span id="couponList">쿠폰</span>
+						<span class="span-hover" id="couponList">쿠폰</span>
 					</li>
 				</ul>
 				<ul>
 					<li>
-       					<span id="modifyMem">회원정보수정</span>
+       					<span class="span-hover" id="modifyMem">회원정보수정</span>
 					</li>
 					<li>
-       					<span id="modifyPwMem">비밀번호 변경</span>
+       					<span class="span-hover" id="modifyPwMem">비밀번호 변경</span>
 					</li>
 					<li>
-   						<span id="deleteMem">회원탈퇴</span>
+   						<span class="span-hover" id="deleteMem">회원탈퇴</span>
 					</li>
 				</ul>
 				<ul>
 					<li>
-						<a href="#">상품평</a>
+						<span class="span-hover" >상품평</span>
 					</li>
 					<li>
-						<a href="#">1:1문의</a>
+						<span class="span-hover" >1:1문의</span>
 					</li>
 				</ul>
 			</div>

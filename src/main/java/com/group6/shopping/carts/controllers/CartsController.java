@@ -1,24 +1,23 @@
 package com.group6.shopping.carts.controllers;
 
-import com.group6.shopping.carts.services.CartsService;
-import com.group6.shopping.carts.vo.CartsVO;
-import com.group6.shopping.coupons.services.CouponsService;
-import com.group6.shopping.coupons.vo.CouponsVO;
-import com.group6.shopping.models.services.ModelsService;
-import com.group6.shopping.security.CustomMemDetails;
-import com.group6.shopping.specifications.vo.SpecVO;
-import com.group6.shopping.url.UrlHandler;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
+import com.group6.shopping.carts.services.CartsService;
+import com.group6.shopping.carts.vo.CartsVO;
+import com.group6.shopping.coupons.services.CouponsService;
+import com.group6.shopping.coupons.vo.CouponsVO;
+import com.group6.shopping.security.CustomMemDetails;
+import com.group6.shopping.url.UrlHandler;
 
 @Controller
 @RequestMapping("/carts")
@@ -29,7 +28,7 @@ public class CartsController {
 
     @Autowired
     private CouponsService couponsService;
-
+    
     @RequestMapping("/member/cart")
     public String addCart(Model models, HttpSession session) throws Exception {
         CustomMemDetails user = (CustomMemDetails) session.getAttribute("user");
@@ -63,7 +62,7 @@ public class CartsController {
     @RequestMapping("/member/mailinginformation")
     public String mailingInformation(Model models, HttpSession session, HttpServletResponse response) throws Exception {
         CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
-
+        
         StringTokenizer st = new StringTokenizer(user.getMem_address(), "!");
         String tmpAddr = st.nextToken() + " " + st.nextToken();
 

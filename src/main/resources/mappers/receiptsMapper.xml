@@ -3,8 +3,40 @@
 
 <mapper namespace="com.group6.shopping.batis.ReceiptsDAO">
 	
+	<resultMap id="ReceiptsVO" type="ReceiptsVO">
+      <result column="receipt_id" property="receipt_id"/>
+      <result column="receipt_price" property="receipt_price"/>
+      <result column="receipt_discount" property="receipt_discount"/>
+      <result column="coupon_id" property="coupon_id"/>
+      <result column="receipt_point" property="receipt_point"/>
+      <result column="receipt_imp_uid" property="receipt_imp_uid"/>
+      <result column="receipt_merchant_uid" property="receipt_merchant_uid"/>
+      <result column="receipt_date" property="receipt_date"/>
+      <result column="receipt_address" property="receipt_address"/>
+      <result column="receipt_phone" property="receipt_phone"/>
+      <result column="mem_id" property="mem_id"/>
+
+      <collection property="couponsVO" resultMap="CouponsVO"/>
+   </resultMap>
+   <resultMap id="CouponsVO" type="CouponsVO">
+      <result column="coupon_id" property="coupon_id"/>
+      <result column="mem_id" property="mem_id"/>
+      <result column="coupon_desc" property="coupon_desc"/>
+      <result column="coupon_pct" property="coupon_pct"/>
+      <result column="coupon_price" property="coupon_price"/>
+      <result column="coupon_valid_date" property="coupon_valid_date"/>
+   </resultMap>
+   
 	<insert id="insertReceipts" useGeneratedKeys="true" keyProperty="receipt_id">
 		INSERT INTO receipts(receipt_imp_uid, receipt_merchant_uid, receipt_price, receipt_discount, receipt_date, receipt_address, receipt_phone, mem_id, coupon_id, receipt_point)
 			VALUES (#{receipt_imp_uid}, #{receipt_merchant_uid}, #{receipt_price}, #{receipt_discount}, #{receipt_date}, #{receipt_address}, #{receipt_phone}, #{mem_id}, #{coupon_id}, #{receipt_point})
 	</insert>
+	
+	<select id="getAllReceipts" resultMap="ReceiptsVO" fetchSize="5000">
+	select * from receipts r left join coupons c
+	      on r.coupon_id = c.coupon_id
+	      where r.mem_id = #{mem_id}
+	        order by receipt_id desc;
+   </select>
+	
 </mapper>

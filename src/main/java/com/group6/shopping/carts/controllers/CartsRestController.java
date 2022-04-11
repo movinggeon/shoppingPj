@@ -9,10 +9,12 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group6.shopping.api.CancelPayment;
 import com.group6.shopping.carts.services.CartsService;
 import com.group6.shopping.carts.vo.CartsVO;
 import com.group6.shopping.receipts.services.ReceiptsService;
@@ -128,9 +130,38 @@ public class CartsRestController {
     	//영수증 테이블에 삽입
     	receiptsService.insertReceipts(queryMap);
 
+    	System.out.println("영수증 아이디 -> " + queryMap.get("receipt_id"));
     	//카트 테이블에 영수증 아이디 갱신
     	cartsService.updateRecId(queryMap);
     	
     	return result;
     }
+    
+    @PostMapping(value = "/member/payment/cancel")
+	public HashMap<String, Object> cancelProcess(@RequestBody HashMap<String, Object>map) throws Exception{
+    	
+		System.out.println("결제 취소 시작");
+		System.out.println(map);
+		
+		CancelPayment cancelPayment = new CancelPayment(); // 결제취소
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		if(map.size() > 0) {
+			
+			int receipt_id = Integer.parseInt(  String.valueOf(map.get("receipt_id")) );
+			String reason = (String)map.get("reason");
+			String imp_uid = (String)map.get("imp_uid");
+			int cancel_request_amount = Integer.parseInt(  String.valueOf(map.get("cancel_request_amount")));
+			
+			cancelPayment.doCanelPayment( reason, imp_uid, cancel_request_amount ); 
+			
+			//db에서 내역수정
+			cartsService.updateRefund(receipt_id);
+			
+			result.put("result", "결제 취소 완료");
+			result.put("everythings_fine", true);
+		}
+		
+		return result;
+	}
 }
