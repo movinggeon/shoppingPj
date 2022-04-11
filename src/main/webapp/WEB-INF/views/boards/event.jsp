@@ -105,7 +105,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #e43680;
+	color: white;
+	background-color:  #0071e3;
 }
 
 .eventbox2 {
@@ -157,7 +158,7 @@
 				</c:set>
 				<c:out value="${date}" />
 			</div>
-			<a class="eventbox1" href="/boards/event">진행중인 이벤트 </a>
+			<a class="eventbox1" style="color: white" href="/boards/event">진행중인 이벤트 </a>
 			<a class="eventbox2" href="/boards/endevent">종료된 이벤트 </a>
 		</div>
 

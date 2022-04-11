@@ -58,15 +58,15 @@ public class AdminController {
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 		String memId = cs.getMem_id();
 
-		System.out.println("접속한 관리자 계정 -> " + memId);
+	/*	System.out.println("접속한 관리자 계정 -> " + memId);*/
 
 		Integer countNum = couponsService.getCountAdminCoupons(memId);
-		System.out.println("쿠폰 총 갯수: " + countNum);
-		System.out.println("현재 페이지: " + page);
+	/*	System.out.println("쿠폰 총 갯수: " + countNum);
+		System.out.println("현재 페이지: " + page);*/
 		PagingVO pTmp = new PagingVO(countNum,Integer.parseInt(page));
 
 		couponList = couponsService.getAdminCoupons(memId, pTmp);
-		System.out.println("뿌려질 쿠폰 갯수: " + couponList.size());
+	/*	System.out.println("뿌려질 쿠폰 갯수: " + couponList.size());*/
 
 
 		model.addAttribute("couponList", couponList);

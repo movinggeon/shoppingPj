@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec"
+		   uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,9 +83,9 @@
 }
 
 .topp {
-	margin: 0 auto;
+	margin: auto auto;
 	max-width: 1110px;
-	text-align: left;
+	text-align: center;
 	padding-left: 20px;
 	height: 48px;
 	line-height: 48px;
@@ -97,26 +100,30 @@
 
 .eventbox1 {
 	margin: 10px;
-	width: 300px;
-	height: 48px;
-	border: 1px solid #323332;
+	width: auto;
+	height: auto;
+	/*border: 1px solid #323332;*/
+	border-radius: 10px;
+	padding:20px 10px;
 	font-size: 30px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #e43680;
+	color: white;
+	background-color:  #0071e3;
 	
 }
 .eventbox2 {
 	margin: 10px;
-	width: 300px;
-	height: 48px;
-	border: 1px solid #323332;
+	width: auto;
+	height: auto;
+	/*border: 1px solid #323332;*/
+	border-radius: 10px;
+	padding:20px 10px;
 	font-size: 30px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
 }
 
 .eventday {
@@ -140,10 +147,19 @@
 			<div class="topp">이벤트 > Event</div>
 		</div>
 		<div class="topp">
-			<div class="eventday"></div>
+			<div class="eventday">
+				오늘날짜 :
+				<!-- 현재날짜 -->
+				<c:set var="today" value="<%=new java.util.Date()%>" />
+
+				<c:set var="date">
+					<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />
+				</c:set>
+				<c:out value="${date}" />
+			</div>
 			<a class="eventbox2" href="/boards/event">진행중인 이벤트 </a>
 
-			<a class="eventbox1" href="/boards/endevent">종료된 이벤트 </a>
+			<a class="eventbox1" style="color: white" href="/boards/endevent">종료된 이벤트 </a>
 		</div>
 		<div class="event_container">
 			<c:forEach items="${endeventboardlist}" var="event" begin="0" end="5">
