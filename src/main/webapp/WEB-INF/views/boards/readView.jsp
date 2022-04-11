@@ -74,7 +74,7 @@ max-height: 100%;
 display: block;
 }
 </style>
-		<div style="margin-top: 48px"></div>
+<%--		<div style="margin-top: 48px"></div>--%>
 		<div class="top_nav">
 			<div class="topp">이벤트 > Event</div>
 		</div>

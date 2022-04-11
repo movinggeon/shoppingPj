@@ -31,7 +31,6 @@
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
     border-radius: 16px;
-
 }
 .me::after{
     content: '';
@@ -56,6 +55,16 @@
     width:100%;
     padding-bottom: 20px;
 }
+
+/*.chat_box .others {*/
+/*    padding: 5px;*/
+/*}*/
+
+/*.chat_box .me {*/
+/*    padding: 5px;*/
+/*}*/
+
+
 .chating .others{
     font-family: 'Jua', sans-serif;
     /*float:left;*/
