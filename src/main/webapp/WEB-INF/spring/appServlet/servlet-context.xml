@@ -52,4 +52,8 @@
 
 	<context:component-scan
 		base-package="com.group6.shopping" />
+	
+	<!--  spring-upload -->
+<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+<!--  spring-upload -->	
 </beans:beans>

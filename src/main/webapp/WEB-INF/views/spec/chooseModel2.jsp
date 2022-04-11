@@ -616,6 +616,7 @@
                         </c:if>
                     </c:otherwise>
                 </c:choose>
+                <a href="/boards/insertView">일반이벤트</a>
             </div>
         </div>
     </div>

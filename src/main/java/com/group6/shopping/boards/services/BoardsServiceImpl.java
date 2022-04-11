@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group6.shopping.batis.BoardsDAO;
+import com.group6.shopping.batis.FilesDAO;
 import com.group6.shopping.boards.vo.BoardsVO;
 import com.group6.shopping.boards.vo.EventPagingVO;
 import com.group6.shopping.boards.vo.PagingVO;
+import com.group6.shopping.files.vo.FilesVO;
 import com.group6.shopping.models.vo.ModelsVO;
 
 @Service
@@ -17,7 +19,9 @@ public class BoardsServiceImpl implements BoardsService {
 
 	@Autowired
 	private BoardsDAO boardsDAO;
-
+	@Autowired
+	private FilesDAO filesDAO;
+	
 	@Override
 	public List<BoardsVO> getModelBoards(ModelsVO modelsVO, PagingVO pagingVO, Map<String, String> cateMap)
 			throws Exception {
@@ -72,11 +76,14 @@ public class BoardsServiceImpl implements BoardsService {
 	public void eventinsert(BoardsVO vo) throws Exception {
 		boardsDAO.eventinsert(vo);
 	}
-
+	
+	
+	
 	// 리뷰게시글 작성
 	@Override
-	public void reviewinsert(BoardsVO vo) throws Exception {
+	public void reviewinsert(BoardsVO vo, FilesVO fvo) throws Exception {
 		boardsDAO.reviewinsert(vo);
+		filesDAO.reviewFile(fvo);
 	}
 
 	// 리뷰게시글 삭제
@@ -107,4 +114,5 @@ public class BoardsServiceImpl implements BoardsService {
         return boardsDAO.viewBoard(board_id);
     }
 
+   
 }

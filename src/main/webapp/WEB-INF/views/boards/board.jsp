@@ -12,16 +12,26 @@
     <title>Title</title>
 </head>
 <body>
+<style>
+.topp {
+	margin: 0 auto;
+	max-width: 1110px;
+	text-align: left;
+	padding-left: 20px;
+	height: 320px;
+	line-height: 48px;
+	display: flex;
+}
+</style>
 제목: ${boardsVO.board_title} <br>
 내용: ${boardsVO.board_content}
 
 <hr>
-
-파일들:
+<div class="topp">
 <c:forEach var="file" items="${boardsVO.filesVOList}">
-    ${file.file_name} <br>
+   <img src="/resources/static/eventimg/${file.file_name}" alt="" />  <br>
 </c:forEach>
-
+</div>
 
 <hr>
 
@@ -41,12 +51,19 @@
             <span onclick="hideEditReply('${reply.reply_id}')">x</span>
             <button type="button" onclick="editReply('${reply.reply_id}')">수정</button>
         </span>
+        
+        <form action = "/replies/deleteReply">
+<input type="hidden" name="reply_id" value="${reply.reply_id}">
+	<button type="submit">${reply.reply_id}</button>
+</form>
     </div>
 </c:forEach>
 <div id="repSpace">
 </div>
 <input type="text" id ="reply">
 <input type="button" value="댓글 입력" onclick="enterReply()">
+
+
 
 <script>
     var rep_id = Number("${rep_id + 1}");
@@ -100,7 +117,7 @@
         document.getElementById("repContent"+id).innerHTML = editContent;
 
         //ajax work to update eidt reply
-
+		
         //ajax success
         document.getElementById("editContainer"+id).style.display = 'none';
         document.getElementById("editInput"+id).value = "";
@@ -111,6 +128,7 @@
         document.getElementById("rep"+id).remove();
 
         //ajax work to delete reply
+        
     }
 </script>
 
