@@ -87,12 +87,9 @@
 			border-color: #ebebeb;
 			width: 80%;
 		}
+		.bbb{
 
-		/*   input:-webkit-autofill {
-                 !*-webkit-box-shadow: 0 0 0 1000px #000 inset;*!
-                 -webkit-box-shadow:lightgrey;
-             } 자동완성시에도 기존색 유지하고싶으면 이거 해제하면됨*/
-
+		}
 		.inputbtn{
 			width: 100%;
 			text-align: center;
