@@ -3,6 +3,7 @@ package com.group6.shopping.carts.services;
 import com.group6.shopping.batis.CartsDAO;
 import com.group6.shopping.carts.vo.CartsVO;
 import com.group6.shopping.models.vo.ModelsVO;
+import com.group6.shopping.receipts.vo.ReceiptsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,11 @@ public class CartsServiceImpl implements CartsService{
     @Override
     public List<CartsVO> getCart(String mem_id, String history) throws Exception {
         return cartsDAO.getCart(mem_id, history);
+    }
+
+    @Override
+    public List<CartsVO> getPaidCart(ReceiptsVO receiptsVO) throws Exception {
+        return cartsDAO.getPaidCart(receiptsVO);
     }
 
     @Override

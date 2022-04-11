@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSession;
 
+import com.group6.shopping.likes.services.LikesService;
+import com.group6.shopping.likes.vo.LikesVO;
 import com.group6.shopping.models.services.ModelsService;
 import com.group6.shopping.models.vo.ModelsVO;
 import com.group6.shopping.specifications.services.SpecService;
@@ -39,6 +41,8 @@ public class HomeController {
 	private CartsService cartsService;
 	@Autowired
 	private ModelsService modelsService;
+	@Autowired
+	private LikesService likesService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model models, HttpServletRequest request) throws Exception {
@@ -75,6 +79,10 @@ public class HomeController {
 			int totalShow = 5 - recommendations.size();
 			List<ModelsVO> popularItems = cartsService.getPopularItem(totalShow);
 			recommendations.addAll(popularItems);
+		}
+		List<LikesVO> likesVOList = likesService.mostLikedList();
+		if(likesVOList.size() > 0){
+			session.setAttribute("likesList", likesVOList);
 		}
 		models.addAttribute("recommendList", recommendations);
 		return "home";

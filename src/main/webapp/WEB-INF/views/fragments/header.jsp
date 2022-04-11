@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,8 @@
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
 	/>
+	<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
 	<script src="${pageContext.request.contextPath}/resources/static/js/jquery-3.1.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/static/js/bxslider.js" type="text/javascript"></script>
 
@@ -46,7 +50,6 @@
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/tablet.png"><h4 class="left">태블릿</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/watch.png"><h4 class="left">워치</h4></a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/resources/static/img/event.png"><h4 class="left">이벤트</h4></a></li>
-
 		</ul>
 		<hr color="#ebebeb" size="1px" width="95%" />
 		<sec:authorize access="isAnonymous()">
@@ -97,19 +100,23 @@
 				<div class="h2" style="text-align: left;">
 					<ul>
 						<h4>인기 검색어</h4>
-						<li><span>1</span> 스마트폰</li>
-						<li><span>2</span> 태블릿</li>
-						<li><span>3</span> 노트북</li>
+						<c:if test="${fn:length(likesList) > 0}">
+							<c:forEach var="i" begin="0" end="${fn:length(likesList)-1}">
+								<a href="/spec/chooseModel?model_id=${likesList[i].model_id}&category=new&currPage=1">
+									<li>
+										<span>${i+1}</span>${likesList[i].productsVO.product_name} ${likesList[i].modelsVO.model_name}
+									</li>
+								</a>
+							</c:forEach>
+						</c:if>
 					</ul>
 				</div>
-
 			</div>
 			<div style="text-align: center; padding-top: 40px">
 				<button class="close" id="btn_close">
 					<i class="fa-solid fa-circle-xmark"></i>
 				</button>
 			</div>
-
 		</div>
 	</div>
 	<!-- Header -->
@@ -180,7 +187,6 @@
 						</li>
 					</ul>
 				</li>
-
 				<li class="users_log">
 					<a href="#"><i class="fa-solid fa-user"></i></a>
 					<ul>
@@ -215,14 +221,12 @@
 					</ul>
 				</li>
 			</ul>
-
 			<a href="#" class="menu_find">
 				<i class="fa-solid fa-magnifying-glass"></i>
 			</a>
 			<a href="#" class="menu_btn">
 				<i class="fa-solid fa-bars"></i>
 			</a>
-
 		</nav>
 	</header>
 	<script>
