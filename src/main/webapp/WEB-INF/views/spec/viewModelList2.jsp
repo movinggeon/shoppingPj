@@ -15,7 +15,9 @@
     .product_list{
         margin:10px;
         padding: 0 8px;
-        min-width: 200px;height: 950px;border:1px solid #b9b9b9;
+        min-width: 200px;
+        height: 970px;
+        border:1px solid #dcdcdc;
         border-top-left-radius: 30px;
         border-bottom-right-radius: 30px;
     }
@@ -83,7 +85,7 @@
     }
 
     .info_hr{
-        height: 1px;border-style: solid;border-width: 1px 0 0 0;border-color: #b9b9b9;width: 80%;
+        height: 1px;border-style: solid;border-width: 1px 0 0 0;border-color: #e0dbdb;width: 80%;
     }
 
 </style>
@@ -129,19 +131,19 @@
                         </c:forEach>
                         </h4> <br>
                     <i class="fa-solid fa-sd-card"></i>
-                        <h4>엄청 넓은 저장 공간 <br>
+                        <h4>넓은 저장 공간 <br>
                             <c:forEach items="${list.spec_memory}" var="memory">
                                 <b> ${memory}GB </b>
                             </c:forEach>
                         </h4><br>
                     <i class="fa-solid fa-display"></i>
-                        <h4>겁나게 잘보이는 디스플레이<br>
+                        <h4>잘보이는 디스플레이<br>
                             <c:forEach items="${list.spec_display}" var="display">
                                 <b> ${display} inch</b>
                             </c:forEach>
                         </h4><br>
                     <i class="fa-solid fa-wifi"></i>
-                        <h4>개빠른 네트워크<br>
+                        <h4>빠른 네트워크<br>
                             <c:forEach items="${list.spec_network}" var="network">
                                 <b> ${network} </b>
                             </c:forEach>

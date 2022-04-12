@@ -32,9 +32,7 @@
 
 			<!-- banner -->
 			<div class="slider">
-				<div>
-					<img class="banner" src="${pageContext.request.contextPath}/resources/static/img/BGMAIN.png" alt="" />
-				</div>
+				<div><img class="banner" src="${pageContext.request.contextPath}/resources/static/img/BGMAIN.png" alt="" /></div>
 				<div><img class="banner" src="${pageContext.request.contextPath}/resources/static/img/BGMAIN.png" alt="" /></div>
 				<div><img class="banner" src="${pageContext.request.contextPath}/resources/static/img/BGMAIN.png" alt="" /></div>
 				<div><img class="banner" src="${pageContext.request.contextPath}/resources/static/img/BGMAIN.png" alt="" /></div>

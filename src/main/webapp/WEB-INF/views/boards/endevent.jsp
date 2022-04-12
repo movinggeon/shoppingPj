@@ -95,29 +95,61 @@
 	margin-top: 25px;
 }
 
-.eventbox1 {
-	margin: 10px;
-	width: 300px;
-	height: 48px;
-	border: 1px solid #323332;
-	font-size: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #e43680;
-	
+
+.menu_tab_box{
+	width: 100%;
+	margin-top: 35px;
 }
-.eventbox2 {
-	margin: 10px;
-	width: 300px;
-	height: 48px;
-	border: 1px solid #323332;
-	font-size: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	
+
+.menu_tab {
+	margin: 0 auto;
+	max-width: 1110px;
+	text-align: center;
+	/*padding-left: 20px;*/
+	font-size: 16px;
 }
+
+.eventbox1{
+	border:1px solid #0071E3;
+	border-radius: 20px;
+	padding: 7px 15px;
+	margin: 0 15px;
+	width: 100px;
+
+}
+
+.eventbox2{
+	border:1px solid #0071E3;
+	border-radius: 20px;
+	padding: 7px 15px;
+	margin: 0 15px;
+	width: 100px;
+	background-color: #0071E3;
+}
+
+/*.eventbox1 {*/
+/*	margin: 10px;*/
+/*	width: 300px;*/
+/*	height: 48px;*/
+/*	border: 1px solid #323332;*/
+/*	font-size: 30px;*/
+/*	display: flex;*/
+/*	justify-content: center;*/
+/*	align-items: center;*/
+/*	background-color: #e43680;*/
+/*	*/
+/*}*/
+/*.eventbox2 {*/
+/*	margin: 10px;*/
+/*	width: 300px;*/
+/*	height: 48px;*/
+/*	border: 1px solid #323332;*/
+/*	font-size: 30px;*/
+/*	display: flex;*/
+/*	justify-content: center;*/
+/*	align-items: center;*/
+/*	*/
+/*}*/
 
 .eventday {
 	margin: 10px;
@@ -139,12 +171,14 @@
 		<div class="top_nav">
 			<div class="topp">이벤트 > Event</div>
 		</div>
-		<div class="topp">
-			<div class="eventday"></div>
-			<a class="eventbox2" href="/boards/event">진행중인 이벤트 </a>
 
-			<a class="eventbox1" href="/boards/endevent">종료된 이벤트 </a>
+		<div class="menu_tab_box">
+			<div class="menu_tab">
+				<a class="eventbox1" style="color: #0071E3" href="/boards/event">진행중인 이벤트</a>
+				<a class="eventbox2" style="color: white" href="/boards/endevent">종료된 이벤트</a>
+			</div>
 		</div>
+
 		<div class="event_container">
 			<c:forEach items="${endeventboardlist}" var="event" begin="0" end="5">
 				<div class="event_list">

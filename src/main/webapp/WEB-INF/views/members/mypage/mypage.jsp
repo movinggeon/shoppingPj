@@ -52,14 +52,17 @@
 
 
 	h1.sub_title{
-
+		margin-top: 50px;
+		margin-bottom: 30px;
 		text-align: center;
-		margin-bottom: 0px;
+		/*margin-bottom: 0px;*/
 	}
 
 	div.sub_menu{
 
-		width: 100%;
+		/*width: 100%;*/
+		margin: 0 auto;
+		width: 1110px;
 		height: 200px;
 	}
 
@@ -99,7 +102,6 @@
 	}
 
 	div.menu_list {
-
 		width: 100%;
 		height: 150px;
 		border-bottom: 1px solid black;
@@ -269,7 +271,8 @@
 
 
 	<h1 class="sub_title">MY PAGE</h1>
-	
+
+<div class="width:100%">
 	<div class="sub_menu">
 		<div class="menu_header">
 			<ul>
@@ -333,6 +336,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 	
 	<div class="page_loader">
 		<div class="cupon_info">

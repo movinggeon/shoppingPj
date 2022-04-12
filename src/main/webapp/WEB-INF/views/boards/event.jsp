@@ -94,32 +94,64 @@
 	display: flex;
 }
 
-.eventbox1 {
-	margin: 10px;
-	width: auto;
-	height: auto;
-	/*border: 1px solid #323332;*/
-	border-radius: 10px;
-	padding:20px 10px;
-	font-size: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #e43680;
+/* 수정 */
+
+.menu_tab_box{
+	width: 100%;
+	margin-top: 35px;
 }
 
-.eventbox2 {
-	margin: 10px;
-	width: auto;
-	height: auto;
-	/*border: 1px solid #323332;*/
-	border-radius: 10px;
-	padding:20px 10px;
-	font-size: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.menu_tab {
+	margin: 0 auto;
+	max-width: 1110px;
+	text-align: center;
+	/*padding-left: 20px;*/
+	font-size: 16px;
 }
+
+.eventbox1{
+	border:1px solid #0071E3;
+	border-radius: 20px;
+	padding: 7px 15px;
+	margin: 0 15px;
+	width: 100px;
+	background-color: #0071E3;
+}
+
+.eventbox2{
+	border:1px solid #0071E3;
+	border-radius: 20px;
+	padding: 7px 15px;
+	margin: 0 15px;
+	width: 100px;
+}
+
+/*.eventbox1 {*/
+/*	margin: 10px;*/
+/*	width: auto;*/
+/*	height: auto;*/
+/*	!*border: 1px solid #323332;*!*/
+/*	border-radius: 10px;*/
+/*	padding:20px 10px;*/
+/*	font-size: 30px;*/
+/*	display: flex;*/
+/*	justify-content: center;*/
+/*	align-items: center;*/
+/*	background-color: #e43680;*/
+/*}*/
+
+/*.eventbox2 {*/
+/*	margin: 10px;*/
+/*	width: auto;*/
+/*	height: auto;*/
+/*	!*border: 1px solid #323332;*!*/
+/*	border-radius: 10px;*/
+/*	padding:20px 10px;*/
+/*	font-size: 30px;*/
+/*	display: flex;*/
+/*	justify-content: center;*/
+/*	align-items: center;*/
+/*}*/
 
 .eventday {
 	margin: 10px;
@@ -145,20 +177,22 @@
 		<div class="top_nav">
 			<div class="topp">이벤트 > Event</div>
 		</div>
-		
-		<div class="topp">
-			<div class="eventday">
-				오늘날짜 :
-				<!-- 현재날짜 -->
-				<c:set var="today" value="<%=new java.util.Date()%>" />
 
-				<c:set var="date">
-					<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />
-				</c:set>
-				<c:out value="${date}" />
+		<div class="menu_tab_box">
+			<div class="menu_tab">
+	<%--			<div class="eventday">--%>
+	<%--				오늘날짜 :--%>
+	<%--				<!-- 현재날짜 -->--%>
+	<%--				<c:set var="today" value="<%=new java.util.Date()%>" />--%>
+
+	<%--				<c:set var="date">--%>
+	<%--					<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />--%>
+	<%--				</c:set>--%>
+	<%--				<c:out value="${date}" />--%>
+	<%--			</div>--%>
+				<a class="eventbox1" style="color: white" href="/boards/event">진행중인 이벤트</a>
+				<a class="eventbox2" style="color: #0071E3" href="/boards/endevent">종료된 이벤트</a>
 			</div>
-			<a class="eventbox1" href="/boards/event">진행중인 이벤트 </a>
-			<a class="eventbox2" href="/boards/endevent">종료된 이벤트 </a>
 		</div>
 
 		
