@@ -16,7 +16,8 @@ div.member-card{
     width: 40%;
     margin-left: auto;
     margin-right: auto;
-
+    font-size: 15px;
+    line-height: 19px;
 }
 
 div.div-pagingBtn{

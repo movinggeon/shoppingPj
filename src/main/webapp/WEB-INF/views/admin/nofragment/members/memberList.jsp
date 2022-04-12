@@ -13,6 +13,7 @@
 <title>Insert title here</title>
 </head>
 <style>
+
 	.all_btn {
 		padding: 8px 15px;
 		border: 2px solid #0071e3;
@@ -23,7 +24,6 @@
 		font-weight: bold;
 		cursor: pointer;
 	}
-
 </style>
 <body>
 <div style="text-align: center">
