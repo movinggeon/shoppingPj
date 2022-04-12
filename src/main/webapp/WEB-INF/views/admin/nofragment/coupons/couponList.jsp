@@ -34,13 +34,26 @@
 			padding: 5px 5px;
 			cursor: pointer;
 		}
+		.delete_btn {
+			padding: 8px 15px;
+			border: 2px solid #0071e3;
+			border-radius: 20px;
+			background-color: white;
+			color: #0071e3;
+			font-size: 14px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
 	</style>
 <body>
 <c:set var="name" value="${param.name }"></c:set>
 	<c:choose>
 	<%--쿠폰 삭제 페이지 --%>
 	<c:when test="${name eq 'delete' }">
-    	<h1>쿠폰목록</h1>
+		<div style="text-align: center">
+			<h1>쿠폰목록</h1>
+		</div>
 <%--	페이지 번호 -> ${param.page }<br>
 		<fmt:parseNumber var="totalPage" value="${ ( couponCount / 6 ) +(1-(( couponCount / 6 )%1))%1}" integerOnly="true"/>
 		총 페이지 번호 -> ${totalPage }<br>
@@ -72,7 +85,7 @@
 						</div>
 						<div class="coupon-btn" style="width: 60%;">
 							<div style="text-align: center;">
-								<button onclick="deleteCoupon('${coupon.coupon_desc}')">쿠폰삭제</button><br>
+								<button onclick="deleteCoupon('${coupon.coupon_desc}')" class="delete_btn">쿠폰삭제</button><br>
 							</div>
 						</div>
 					</div>

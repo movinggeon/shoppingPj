@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<div style="margin-top:17px"></div>
+<%--<div style="margin-top:17px"></div>--%>
 <div class="main-content">
     <style>
         .container{
@@ -14,6 +14,8 @@
             grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
             margin:30px auto;
             max-width: 1140px;
+            min-height: 500px;
+            padding: 0 1%;
         }
         .product_list{
             margin:10px;
@@ -158,7 +160,7 @@
             $(".search_Val").val("");
         }
     </script>
-    <div style="margin-top:38px;"></div>
+<%--    <div style="margin-top:38px;"></div>--%>
     <div class="top_nav">
         <div class="topp">
             Home > 검색
@@ -187,7 +189,7 @@
     <div class="container" style="margin-bottom: 60px">
         <c:choose>
             <c:when test="${searchFail ne null}">
-                <h3>${searchFail}</h3>
+                <h3 style="padding-left:25px">${searchFail}</h3>
             </c:when>
             <c:otherwise>
                 <c:forEach var="model" items="${result}">

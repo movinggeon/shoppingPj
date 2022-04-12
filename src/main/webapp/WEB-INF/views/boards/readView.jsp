@@ -52,6 +52,7 @@
 	height: 48px;
 	line-height: 48px;
 	font-size: 24px;
+	border-left: 5px solid #0071e3
 }	
 .day {
 	margin: 0 auto;
@@ -72,6 +73,16 @@
 max-width: 100%;
 max-height: 100%;
 display: block;
+}
+.delete_btn {
+	padding: 8px 15px;
+	border: 2px solid #0071e3;
+	border-radius: 20px;
+	background-color: white;
+	color: #0071e3;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
 }
 </style>
 <%--		<div style="margin-top: 48px"></div>--%>
@@ -103,7 +114,9 @@ display: block;
 		<form action="/boards/delete">
 			<input type="hidden" name="board_id" value="${read.board_id}">
 			<input type="hidden" name="board_type" value="${read.board_type}">
-			<button type="submit">삭제</button>
+			<div class="delete_btn_box" style="text-align: center; margin-top: 25px">
+			<button type="submit" class="delete_btn">삭제</button>
+			</div>
 		</form>
 	</c:if>
 	</div>

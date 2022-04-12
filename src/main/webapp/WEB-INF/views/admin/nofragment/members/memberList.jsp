@@ -35,7 +35,21 @@
 		}
 	</style>
 </head>
+<style>
+
+	.all_btn {
+		padding: 8px 15px;
+		border: 2px solid #0071e3;
+		border-radius: 20px;
+		background-color: white;
+		color: #0071e3;
+		font-size: 14px;
+		font-weight: bold;
+		cursor: pointer;
+	}
+</style>
 <body>
+<div style="text-align: center">
 <h1>회원목록</h1>
 
 멤버 수: ${memberCount }<br>
@@ -89,8 +103,7 @@
 			</div>
 		</div>
 		<div class="context-coupon" id="${member.mem_id}" style="margin-bottom: 15px;">
-
-		</div>
+</div>
 </c:forEach>
 
 <div class="rev_paging" style="text-align: center; margin-top: 30px">
