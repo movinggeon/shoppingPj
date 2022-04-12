@@ -163,10 +163,12 @@ public class BoardsController {
 						 RedirectAttributes rttr, HttpServletRequest request) throws Exception {
 
 		if(board_id == 0) {
-			System.out.println("리뷰 작성");
+			//System.out.println("리뷰 작성");
 			// 웹서비스 root 경로
 			String root_path = request.getSession().getServletContext().getRealPath("/");
+
 			String attach_path = root_path + "resources/static/reviewimg/";
+			System.out.println("파일 경로: " + attach_path);
 
 			File folder = new File(attach_path);
 			if (!folder.exists())

@@ -59,10 +59,10 @@
 		<span class="iconify" data-icon="ant-design:star-filled" ></span>
 		<br>
 		<label>제목</label>
-		<input type ="text" name="board_title"  class="input_review" value="${param.title }">
+		<input type ="text" name="board_title"  class="input_review" value="${param.title }" autocomplete="false">
 		<br>
 		<label>내용</label>
-		<input type ="text" name="board_content" style="height: 300px" class="input_review" value="${param.content }">
+		<input type ="text" name="board_content" style="height: 300px" class="input_review" value="${param.content }" autocomplete="false">
 		<br>
 		<br>
 		<br>

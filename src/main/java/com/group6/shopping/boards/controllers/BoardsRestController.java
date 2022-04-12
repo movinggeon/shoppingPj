@@ -7,10 +7,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/boards")
 public class BoardsRestController {
-
-    @RequestMapping("/something")
-    public String ajax(String id){
-        System.out.println(id);
-        return "success";
-    }
 }
