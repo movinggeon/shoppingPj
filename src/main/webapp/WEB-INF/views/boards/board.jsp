@@ -162,7 +162,6 @@
 		<div class="date">${boardsVO.board_date }</div>
 		<div class="button_box">
 			<form action="/boards/insertView" method="post">
-				<input
 				<input type="hidden" id="title" name="title" value="${boardsVO.board_title }">
 				<input type="hidden" id="content" name="content" value="${boardsVO.board_content }">
 				<input type="hidden" id="board_id" name="board_id" value="${boardsVO.board_id}">
