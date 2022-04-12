@@ -362,6 +362,17 @@
     @media screen and (max-width: 600px){
         .vert {width:60px;}
     }
+    .choose_btn {
+        padding: 8px 15px;
+        border: 2px solid #0071e3;
+        border-radius: 20px;
+        background-color: white;
+        color: #0071e3;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        float: right;
+    }
 </style>
     <div class="top_nav">
         <div class="topp">${specDisplayVO.product_name} > ${specDisplayVO.product_name} ${specDisplayVO.model_name}</div>
@@ -623,7 +634,9 @@
                         </c:if>
                     </c:otherwise>
                 </c:choose>
-                <a href="/boards/insertView">일반이벤트</a>
+
+                <%--나중에 구매페이지로 데려가야함--%>
+                <a class="choose_btn" href="/boards/insertView">리뷰쓰러가기</a>
             </div>
         </div>
     </div>
