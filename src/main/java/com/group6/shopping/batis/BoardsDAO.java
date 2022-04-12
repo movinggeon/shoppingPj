@@ -40,7 +40,7 @@ public interface BoardsDAO {
 	public int countBoard();
 	public int endcountBoard();
 	
-	public void reviewupdate(HashMap<String, Object>param) throws Exception;
+	public void reviewupdate(BoardsVO vo) throws Exception;
 
 
     public BoardsVO viewBoard(String board_id) throws Exception;

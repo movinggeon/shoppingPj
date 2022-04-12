@@ -114,7 +114,13 @@ margin: 0 auto;
 
 	<div class="aaa">
 	<div style="text-align: right;">
-	<button onclick="updateBoard()">수정</button>
+	<form action="/boards/insertView" method="post">
+		<input type="hidden" id="title" name="title" value="${boardsVO.board_title }">
+		<input type="hidden" id="content" name="content" value="${boardsVO.board_content }">
+		<input type="hidden" id="board_id" name="board_id" value="${boardsVO.board_id}">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<button type="submit">수정</button>
+	</form>
 	</div>
 		<div class="top_nav">
 			<div class="member">작성자: ${boardsVO.mem_id}</div>
@@ -322,7 +328,9 @@ margin: 0 auto;
         });
     }else 
     	return 
-    	false;}
+    	false;
+    }
+
 </script>
 
 

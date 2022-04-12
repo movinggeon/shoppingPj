@@ -19,4 +19,9 @@ public class FilesServiceImpl implements FilesService {
 	public void reviewFile(FilesVO fvo) throws Exception {
 		filesDAO.reviewFile(fvo);
 	}
+	
+	@Override
+	public void deleteFile(int board_id) throws Exception {
+		filesDAO.deleteFile(board_id);
+	}
 }

@@ -114,5 +114,8 @@ public class BoardsServiceImpl implements BoardsService {
         return boardsDAO.viewBoard(board_id);
     }
 
-   
+   @Override
+   public void reviewupdate(BoardsVO vo) throws Exception {
+	   boardsDAO.reviewupdate(vo);
+   }
 }

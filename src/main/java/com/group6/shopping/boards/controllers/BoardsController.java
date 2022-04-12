@@ -156,63 +156,101 @@ public class BoardsController {
 	}
 
 	@RequestMapping(value = "/reviewinsert")
-	public String insert(@RequestParam("file_name2") List<MultipartFile> file, BoardsVO boardsVO, FilesVO filesVO,
+	public String insert(@RequestParam("file_name2") List<MultipartFile> file, @RequestParam("board_id") int board_id, BoardsVO boardsVO, FilesVO filesVO,
 			RedirectAttributes rttr, HttpServletRequest request) throws Exception {
-		// 웹서비스 root 경로​
-		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String attach_path = root_path + "resources/static/reviewimg/";
-
-		File folder = new File(attach_path);
-		if (!folder.exists())
-			folder.mkdirs();
-
-		List<Map<String, String>> fileList = new ArrayList<>();
-
-		boardsService.reviewinsert(boardsVO);
-
-		for (int i = 0; i < file.size(); i++) {
-			String originFile = file.get(i).getOriginalFilename();
-			
-			if(originFile.length() > 0) {
-				
-				String ext = originFile.substring(originFile.lastIndexOf("."));
-				String changeFile = UUID.randomUUID().toString() + ext;
+		
+		if(board_id == 0) {
+			System.out.println("리뷰 작성");
+			// 웹서비스 root 경로​
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String attach_path = root_path + "resources/static/reviewimg/";
 	
-				Map<String, String> map = new HashMap<>();
-				map.put("originFile", originFile);
-				map.put("changeFile", changeFile);
+			File folder = new File(attach_path);
+			if (!folder.exists())
+				folder.mkdirs();
 	
-				fileList.add(map);
+			List<Map<String, String>> fileList = new ArrayList<>();
+	
+			boardsService.reviewinsert(boardsVO);
+	
+			for (int i = 0; i < file.size(); i++) {
+				String originFile = file.get(i).getOriginalFilename();
 				
-				try {
-					File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
-					file.get(i).transferTo(uploadFile);
-					filesVO.setFile_name(fileList.get(i).get("changeFile"));
+				if(originFile.length() > 0) {
 					
-					filesService.reviewFile(filesVO);
+					String ext = originFile.substring(originFile.lastIndexOf("."));
+					String changeFile = UUID.randomUUID().toString() + ext;
+		
+					Map<String, String> map = new HashMap<>();
+					map.put("originFile", originFile);
+					map.put("changeFile", changeFile);
+		
+					fileList.add(map);
 					
-				} catch (IllegalStateException | IOException e) {
-					System.out.println("실패");
+					try {
+						File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
+						file.get(i).transferTo(uploadFile);
+						filesVO.setFile_name(fileList.get(i).get("changeFile"));
+						
+						filesService.reviewFile(filesVO);
+						
+					} catch (IllegalStateException | IOException e) {
+						System.out.println("실패");
+					}
 				}
+				
+			}
+	
+			return "boards/insertView";
+		/* return "redirect:" + boardsVO.getBoard_type(); */
+		}else {
+			System.out.println("리뷰 수정");
+			
+			filesService.deleteFile(board_id);
+			
+			// 웹서비스 root 경로​
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String attach_path = root_path + "resources/static/reviewimg/";
+	
+			File folder = new File(attach_path);
+			if (!folder.exists())
+				folder.mkdirs();
+	
+			List<Map<String, String>> fileList = new ArrayList<>();
+	
+			boardsService.reviewupdate(boardsVO);
+	
+			for (int i = 0; i < file.size(); i++) {
+				String originFile = file.get(i).getOriginalFilename();
+				
+				if(originFile.length() > 0) {
+					
+					String ext = originFile.substring(originFile.lastIndexOf("."));
+					String changeFile = UUID.randomUUID().toString() + ext;
+		
+					Map<String, String> map = new HashMap<>();
+					map.put("originFile", originFile);
+					map.put("changeFile", changeFile);
+		
+					fileList.add(map);
+					
+					try {
+						File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
+						file.get(i).transferTo(uploadFile);
+						filesVO.setFile_name(fileList.get(i).get("changeFile"));
+						
+						filesService.reviewFile(filesVO);
+						
+					} catch (IllegalStateException | IOException e) {
+						System.out.println("실패");
+					}
+				}
+				
 			}
 			
+			return "boards/insertView";
 		}
-//		
-//		try {
-//			for (int i = 0; i < file.size(); i++) {
-//				File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
-//				file.get(i).transferTo(uploadFile);
-//				filesVO.setFile_name(fileList.get(i).get("changeFile"));
-//
-//				filesService.reviewFile(filesVO);
-//			}
-//
-//		} catch (IllegalStateException | IOException e) {
-//			System.out.println("실패");
-//		}
-
-		return "boards/insertView";
-		/* return "redirect:" + boardsVO.getBoard_type(); */
+		
 	}
 
 	// 이벤트 글 삭제
