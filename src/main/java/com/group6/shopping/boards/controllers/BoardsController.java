@@ -191,9 +191,9 @@ public class BoardsController {
 						File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
 						file.get(i).transferTo(uploadFile);
 						filesVO.setFile_name(fileList.get(i).get("changeFile"));
-						
+						System.out.println(filesVO);
 						filesService.reviewFile(filesVO);
-						
+						System.out.println(filesVO);
 					} catch (IllegalStateException | IOException e) {
 						System.out.println("실패");
 					}
@@ -204,7 +204,6 @@ public class BoardsController {
 			return "boards/insertView";
 		/* return "redirect:" + boardsVO.getBoard_type(); */
 		}else {
-			System.out.println("리뷰 수정");
 			
 			filesService.deleteFile(board_id);
 			
@@ -238,9 +237,9 @@ public class BoardsController {
 						File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
 						file.get(i).transferTo(uploadFile);
 						filesVO.setFile_name(fileList.get(i).get("changeFile"));
-						
-						filesService.reviewFile(filesVO);
-						
+						filesVO.setBoard_id(board_id);
+						System.out.println(board_id);
+						filesService.reviewFileUpdate(filesVO);
 					} catch (IllegalStateException | IOException e) {
 						System.out.println("실패");
 					}

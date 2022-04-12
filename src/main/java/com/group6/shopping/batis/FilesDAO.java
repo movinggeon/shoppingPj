@@ -8,4 +8,7 @@ public interface FilesDAO {
     public void reviewFile(FilesVO fvo) throws Exception;
     
     public void deleteFile(int board_id) throws Exception;
+    public void reviewFileUpdate(FilesVO fvo) throws Exception;
+    
+    
 }
