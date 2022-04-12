@@ -164,6 +164,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,eclipse,macos,windows,maven!/.idea/
 
-
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,eclipse,macos,windows,maven
+/.idea/
