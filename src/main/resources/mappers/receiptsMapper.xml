@@ -34,9 +34,19 @@
 	
 	<select id="getAllReceipts" resultMap="ReceiptsVO" fetchSize="5000">
 	select * from receipts r left join coupons c
-	      on r.coupon_id = c.coupon_id
-	      where r.mem_id = #{mem_id}
-	        order by receipt_id desc;
+	on r.coupon_id = c.coupon_id
+	where r.mem_id = #{mem_id}
+	order by receipt_id desc
+    limit #{pagingVO.numOfBoards} offset #{pagingVO.offset}
    </select>
+
+    <select id="getCntReceipts" resultType="int" fetchSize="5000">
+        select count(*) from receipts r left join coupons c
+                                           on r.coupon_id = c.coupon_id
+        where r.mem_id = #{mem_id}
+        order by receipt_id desc;
+    </select>
+
+
 	
 </mapper>

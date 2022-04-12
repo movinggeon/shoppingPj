@@ -69,14 +69,14 @@ public class CartsController {
             models.addAttribute("tmpAddr", tmpAddr);
         }
 
-        List<CouponsVO> couponsVOList = couponsService.getAllCoupons(user.getMem_id());
+
+
+        List<CouponsVO> couponsVOList = couponsService.getAllCoupon(user.getMem_id());
         Integer totalPrice = cartsService.getTotal(user.getMem_id(), "null");
         if(totalPrice == null){
             //UrlHandler.alert(response, "Wrong Url");
             return "home";
         }
-
-
         models.addAttribute("coupons", couponsVOList);
         models.addAttribute("totalPrice", totalPrice);
 

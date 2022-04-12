@@ -12,6 +12,29 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <title>Insert title here</title>
+	<style>
+		.btn_a {
+			display: inline-block;
+			width: 40px;
+			border-radius: 20px;
+			background-color: #ebebeb;
+			border: 1px solid #ddd;
+			padding: 5px 5px;
+			cursor: pointer;
+		}
+
+		.btn_b {
+			color: white;
+			display: inline-block;
+			width: 40px;
+			height: 35px;
+			border-radius: 20px;
+			background-color: #0071ef;
+			border: 1px solid #0071ef;
+			padding: 5px 5px;
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 <div class="receipt_box_title">
@@ -130,8 +153,46 @@
 	  </div>
   </c:forEach>
 </div>
+	<div class="rev_paging" style="width: 100%; text-align: center; margin-top: 30px">
+		<c:choose>
+			<c:when test="${pageError ne null}">
+				${pageError}
+			</c:when>
+			<c:otherwise>
+				<%-- 일번 페이지가 아닐 경우 --%>
+				<c:if test="${page.currPage ne 1}">
+					<%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
+					<button class="btn_a" onclick="paging(1)">  << </button>
+					<button class="btn_a" onclick="paging('${page.currPage-1}')"> < </button>
+				</c:if>
+				<c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
+					<%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
+					<c:choose>
+						<c:when test="${i eq page.currPage}">
+							<button class="btn_b">${i}</button>
+						</c:when>
+						<c:otherwise>
+							<button class="btn_a" onclick="paging('${i}')">${i}</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<%--현재 페이지가 마지막 페이지가 아닐 경우--%>
+				<c:if test="${page.currPage ne page.totalPage}">
+					<%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
+					<button class="btn_a" onclick="paging('${page.currPage+1}')"> > </button>
+					<button class="btn_a" onclick="paging('${page.totalPage}')"> >> </button>
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+	</div>
 
 <script type="text/javascript">
+
+	function paging(page){
+		$(".page_loader").load("/receipts/member/receiptList?page="+page);
+	}
+
+
 	function cancelPayment(receipt_id, imp_uid, product_price, product_name) {
 		
 		jQuery.ajax({

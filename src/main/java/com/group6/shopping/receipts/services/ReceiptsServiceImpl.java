@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.group6.shopping.boards.vo.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,13 @@ public class ReceiptsServiceImpl implements ReceiptsService{
 	}
 	
     @Override
-    public List<ReceiptsVO> getAllReceipts(String mem_id) throws Exception {
-        return receiptsDAO.getAllReceipts(mem_id);
+    public List<ReceiptsVO> getAllReceipts(String mem_id, PagingVO pagingVO) throws Exception {
+        return receiptsDAO.getAllReceipts(mem_id, pagingVO);
     }
 
     @Override
-    public List<ReceiptsDisplayVO> getAllReceiptsInfo(String mem_id) throws Exception {
-        List<ReceiptsVO> receiptsVOList = receiptsDAO.getAllReceipts(mem_id);
+    public List<ReceiptsDisplayVO> getAllReceiptsInfo(String mem_id, PagingVO pagingVO) throws Exception {
+        List<ReceiptsVO> receiptsVOList = receiptsDAO.getAllReceipts(mem_id, pagingVO);
         List<ReceiptsDisplayVO> receiptsDisplayVOList = new ArrayList<>();
         if(receiptsVOList.size() > 0){
             for(ReceiptsVO tmp: receiptsVOList){
@@ -44,5 +45,10 @@ public class ReceiptsServiceImpl implements ReceiptsService{
             }
         }
         return receiptsDisplayVOList;
+    }
+
+    @Override
+    public Integer getCntReceipts(String mem_id) throws Exception {
+        return receiptsDAO.getCntReceipts(mem_id);
     }
 }

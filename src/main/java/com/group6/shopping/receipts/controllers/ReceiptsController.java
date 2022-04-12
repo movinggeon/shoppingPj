@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.group6.shopping.boards.vo.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +25,20 @@ public class ReceiptsController {
 	ReceiptsService receiptsService;
 	
 	@RequestMapping(value = "/member/receiptList")
-	public String receiptList(Model model, HttpSession session) throws Exception {
+	public String receiptList(Model model, HttpSession session, String page) throws Exception {
+
+		System.out.println("현재 페이지: " + page);
 
 		CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
 		List<ReceiptsVO> receiptList = new ArrayList<ReceiptsVO>();
 		List<List<CartsVO>> cartList = new ArrayList<List<CartsVO>>();
-		
-        
+
+		Integer cntBuy = receiptsService.getCntReceipts(user.getMem_id());
+		PagingVO pTmp =  new PagingVO(cntBuy, Integer.parseInt(page));
+
 		List<ReceiptsDisplayVO> receiptDisPlayList = new ArrayList<ReceiptsDisplayVO>();
-        receiptDisPlayList = receiptsService.getAllReceiptsInfo(user.getMem_id());
+        receiptDisPlayList = receiptsService.getAllReceiptsInfo(user.getMem_id(), pTmp);
+		System.out.println("size: " + receiptDisPlayList.size());
         
         //상세정보 넣기
         for(int i = 0; i < receiptDisPlayList.size(); i++) {
@@ -41,23 +47,14 @@ public class ReceiptsController {
         	cartList.add(receiptDisPlayList.get(i).getCartsVOList());
 
         }
-        
+
+		if(!pTmp.pageCheck()){
+			model.addAttribute("pageError", "Page Number is not valid");
+		}else{
+			model.addAttribute("page", pTmp);
+		}
         model.addAttribute("receiptList", receiptList);
         model.addAttribute("cartList", cartList);
-        
-        //model.addAttribute("cartList", cartList.get(0).get(0).getCart_isCare());
-        //model.addAttribute("cartList", cartList.get(0).get(0).getCart_isCare());
-//        System.out.println("스팩 값");
-//        System.out.println(receiptList.size());
-//        for(int i = 0; i < 4; i++) {
-//        	System.out.println("카트 사이즈 -> " + cartList.get(i).size());
-//        }
-       // System.out.println(cartList.get(0).get(0).getCart_refund());
-        //System.out.println(receiptList.get(0));
-//        
-//        for(int i = 0; i < cartList.size(); i++) {
-//        	System.out.println(cartList.get(i).get(0).getCart_refund());
-//        }
 
 		return "/members/mypage/nofragment/receiptList";
 	}

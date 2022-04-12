@@ -17,8 +17,13 @@ public class CouponsServiceImpl implements CouponsService{
 
 
     @Override
-    public List<CouponsVO> getAllCoupons(String memId) throws Exception {
-        return couponsDAO.getAllCoupons(memId);
+    public List<CouponsVO> getAllCoupons(String memId, PagingVO pagingVO) throws Exception {
+        return couponsDAO.getAllCoupons(memId, pagingVO);
+    }
+
+    @Override
+    public List<CouponsVO> getAllCoupon(String memId) throws Exception {
+        return couponsDAO.getAllCoupon(memId);
     }
 
     @Override
@@ -33,7 +38,7 @@ public class CouponsServiceImpl implements CouponsService{
 
 
     @Override
-    public int countCoupon(String memId) throws Exception {
+    public Integer countCoupon(String memId) throws Exception {
     	return couponsDAO.countCoupon(memId);
     }
 

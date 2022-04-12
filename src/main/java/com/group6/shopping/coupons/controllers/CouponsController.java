@@ -1,5 +1,6 @@
 package com.group6.shopping.coupons.controllers;
 
+import com.group6.shopping.boards.vo.PagingVO;
 import com.group6.shopping.coupons.services.CouponsService;
 import com.group6.shopping.coupons.vo.CouponsVO;
 import com.group6.shopping.security.CustomMemDetails;
@@ -20,15 +21,22 @@ public class CouponsController {
 	private CouponsService couponsService;
 	
 	@RequestMapping(value = "/coupons")
-	public String couponList(HttpSession session, Model model) throws Exception {
+	public String couponList(HttpSession session, Model model, String page) throws Exception {
 		
 		List<CouponsVO> couponList = new ArrayList<CouponsVO>();
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
-		
-		couponList = couponsService.getAllCoupons(cs.getMem_id());
+		Integer count = couponsService.countCoupon(cs.getMem_id());
+		System.out.println("쿠폰 갯수" + count);
 
-		int count = couponsService.countCoupon(cs.getMem_id());
-		//System.out.println(couponList);
+		PagingVO pTmp = new PagingVO(count, Integer.parseInt(page));
+		
+		couponList = couponsService.getAllCoupons(cs.getMem_id(), pTmp);
+		System.out.println("쿠폰 갯수2: " + couponList.size());
+		if(!pTmp.pageCheck()){
+			model.addAttribute("pageError", "Page Number is not valid");
+		}else{
+			model.addAttribute("page", pTmp);
+		}
 		
 		model.addAttribute("couponList", couponList);
 

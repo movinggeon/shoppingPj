@@ -4,7 +4,15 @@
 <mapper namespace="com.group6.shopping.batis.CouponsDAO">
 	<select id="getAllCoupons" resultType="CouponsVO">
 		select * from coupons
-		where mem_id = #{mem_id} and coupon_valid_date >= curdate();
+		where mem_id = #{mem_id} and coupon_valid_date >= curdate()
+			order by coupon_id desc
+			limit #{pagingVO.numOfBoards} offset #{pagingVO.offset}
+	</select>
+
+	<select id="getAllCoupon" resultType="CouponsVO">
+		select * from coupons
+		where mem_id = #{mem_id} and coupon_valid_date >= curdate()
+		order by coupon_id desc
 	</select>
 
 	<update id="usedCoupon">

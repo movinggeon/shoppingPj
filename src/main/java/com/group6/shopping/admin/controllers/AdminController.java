@@ -67,8 +67,10 @@ public class AdminController {
 		String memId = cs.getMem_id();
 
 		System.out.println("접속한 관리자 계정 -> " + memId);
+		System.out.println("현재 페이지: " + page);
 
 		Integer countNum = couponsService.getCountAdminCoupons(memId);
+		System.out.println("쿠폰 갯수: " + countNum);
 		PagingVO pTmp = new PagingVO(countNum,Integer.parseInt(page));
 
 		couponList = couponsService.getAdminCoupons(memId, pTmp);

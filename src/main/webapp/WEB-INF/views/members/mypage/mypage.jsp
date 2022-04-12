@@ -13,16 +13,16 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#couponList").click(function(){
-		    $(".page_loader").load("/members/coupons");
+		    $(".page_loader").load("/members/coupons?page=1");
 		});
 		$("#couponDetail").click(function(){
-		    $(".page_loader").load("/members/coupons");
+		    $(".page_loader").load("/members/coupons?page=1");
 		});
 		$("#likeList").click(function(){
-		    $(".page_loader").load("/likes/members/likeslist");
+		    $(".page_loader").load("/likes/members/likeslist?page=1");
 		});
 		$("#likeMore").click(function(){
-			$(".page_loader").load("/likes/members/likeslist");
+			$(".page_loader").load("/likes/members/likeslist?page=1");
 		});
 		$("#modifyMem").click(function(){
 		    $(".page_loader").load("/members/member/modify");
@@ -34,7 +34,7 @@
 		    $(".page_loader").load("/members/member/delete");
 		});
 		$("#receiptList").click(function(){
-		    $(".page_loader").load("/receipts/member/receiptList");
+		    $(".page_loader").load("/receipts/member/receiptList?page=1");
 		});
 	});
 </script>
