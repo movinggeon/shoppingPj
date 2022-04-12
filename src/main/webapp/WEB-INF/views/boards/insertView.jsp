@@ -6,7 +6,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	@font-face {
+		font-family: "BBTreeGR";
+		src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
+		format("woff");
+		font-weight: normal;
+		font-style: normal;
+	}
+	.insertwrap{
+		text-align: center;
+		width: 35%;
+		margin: auto auto;
+	}
+	.insert{
+		font-size: 15px;
+		width: 375px;
+		margin: auto;
+		text-align: left;
+	}
+
+</style>
 <body>
+<div class="insertwrap">
 <h1>리뷰 작성하기</h1>
 <script >
 function oneCheck(chk){
@@ -22,13 +44,6 @@ function oneCheck(chk){
 	<div>
 		<label>작성자</label>
 		<input type ="hidden" name="mem_id" value="${user.mem_id}"> ${user.mem_id}
-		<br>
-		<label>스펙</label>
-		<input type ="text" name="spec_id" value="${boardsVO.spec_id }"> ${boardsVO.spec_id }
-		<br>
-		<label>모델</label>
-		<input type ="text" name="model_id" value="${boardsVO.model_id }"> ${boardsVO.board_id }
-		<br>
 		<label>별점</label>
 		<input type ="checkbox" name="board_rate" value="1" onclick="oneCheck(this);">☆☆☆☆★
 		<input type ="checkbox" name="board_rate" value="2" onclick="oneCheck(this);">☆☆☆★★
@@ -49,5 +64,6 @@ function oneCheck(chk){
 <button type="button" >취소</button>
 <button type="submit" >등록</button>
 </form>
+</div>
 </body>
 </html>

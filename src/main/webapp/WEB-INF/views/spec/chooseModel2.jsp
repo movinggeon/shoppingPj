@@ -553,76 +553,80 @@
                 <c:forEach var="rate" items="${rateList}">
                     <div style="height: 30px;">
                             ${rate.key}점 <progress class="vert" value="${(rate.value / numOfBoards) * 100}" min="0" max="100" style="color:#0071ef;"></progress> (${rate.value})
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+            <br>
+            <!-- Review Category -->
+            <div class="rev_score">
+                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=new&currPage=${1}#reviewPoint">최신순</a></span>|
+                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=old&currPage=${1}#reviewPoint">오래된순</a></span>|
+                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=high&currPage=${1}#reviewPoint">높은 별점순</a></span>|
+                <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=low&currPage=${1}#reviewPoint">낮은 별점순</a></span>
+            </div>
+            <!--Reviews-->
+            <div class="rev_all">
+                <c:forEach var="board" items="${boardList}">
+                    <div class="rev_write">
+                        <c:forEach var="i" begin="1" end="${board.board_rate}">
+                            <span class="iconify" data-icon="ion:star" style="color: #f6d054;" data-width="13"></span>
+                        </c:forEach>
+                        <c:forEach var="j" begin="${board.board_rate+1}" end="5">
+                            <span class="iconify" data-icon="ion:star-outline" style="color: #f6d054;" data-width="13"></span>
+                        </c:forEach>
+                        <span> ${board.board_rate}</span>
+                        <a href="/boards/viewBoard?board_id=${board.board_id}">
+                            <h3>${board.board_title}</h3>
+
+                            	<div>
+                            		${board.board_content}
+                            	</div>
+                        </a>
+                        <div class="info_wr">
+                            <span style="padding-right: 30px">${board.mem_id}</span>
+                            <span>${board.board_date}</span>
+                        </div>
                     </div>
+                    <hr class="hr_wr" />
                 </c:forEach>
             </div>
-        </div>
-        <br>
-        <!-- Review Category -->
-        <div class="rev_score">
-            <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=new&currPage=${1}#reviewPoint">최신순</a></span>|
-            <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=old&currPage=${1}#reviewPoint">오래된순</a></span>|
-            <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=high&currPage=${1}#reviewPoint">높은 별점순</a></span>|
-            <span><a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=low&currPage=${1}#reviewPoint">낮은 별점순</a></span>
-        </div>
-        <!--Reviews-->
-        <div class="rev_all">
-            <c:forEach var="board" items="${boardList}">
-                <div class="rev_write">
-                    <c:forEach var="i" begin="1" end="${board.board_rate}">
-                        <span class="iconify" data-icon="ion:star" style="color: #f6d054;" data-width="13"></span>
-                    </c:forEach>
-                    <c:forEach var="j" begin="${board.board_rate+1}" end="5">
-                        <span class="iconify" data-icon="ion:star-outline" style="color: #f6d054;" data-width="13"></span>
-                    </c:forEach>
-                    <span> ${board.board_rate}</span>
-                    <a href="/boards/viewBoard?board_id=${board.board_id}">
-                        <h3>${board.board_title}</h3>
-                        <div>${board.board_content}</div>
-                    </a>
-                    <div class="info_wr">
-                        <span style="padding-right: 30px">${board.mem_id}</span>
-                        <span>${board.board_date}</span>
-                    </div>
-                </div>
-                <hr class="hr_wr" />
-            </c:forEach>
-        </div>
-        <!--paging-->
-        <div class="rev_paging" style="text-align: center; margin-top: 30px">
-            <c:choose>
-                <c:when test="${pageError ne null}">
-                    ${pageError}
-                </c:when>
-                <c:otherwise>
-                    <%-- 일번 페이지가 아닐 경우 --%>
-                    <c:if test="${page.currPage ne 1}">
-                        <%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
-                        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${1}#reviewPoint"><button class="btn_a"> << </button></a>
-                        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage-1}#reviewPoint"><button class="btn_a"> < </button></a>
-                    </c:if>
-                    <c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
-                        <%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
-                        <c:choose>
-                            <c:when test="${i eq page.currPage}">
-                                <button class="btn_b">${i}</button>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${i}#reviewPoint"><button class="btn_a">${i}</button></a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <%--현재 페이지가 마지막 페이지가 아닐 경우--%>
-                    <c:if test="${page.currPage ne page.totalPage}">
-                        <%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
-                        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage+1}#reviewPoint"><button class="btn_a"> > </button></a>
-                        <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.totalPage}#reviewPoint"><button class="btn_a"> >> </button></a>
-                    </c:if>
-                </c:otherwise>
-            </c:choose>
+            <!--paging-->
+            <div class="rev_paging" style="text-align: center; margin-top: 30px">
+                <c:choose>
+                    <c:when test="${pageError ne null}">
+                        ${pageError}
+                    </c:when>
+                    <c:otherwise>
+                        <%-- 일번 페이지가 아닐 경우 --%>
+                        <c:if test="${page.currPage ne 1}">
+                            <%--맨앞 일페이지로 가기 && 현재의 이전 페이지로 이동--%>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${1}#reviewPoint"><button class="btn_a"> << </button></a>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage-1}#reviewPoint"><button class="btn_a"> < </button></a>
+                        </c:if>
+                        <c:forEach var="i" begin="${page.minPage}" end="${page.maxPage}">
+                            <%--만약 현재 페이지일 경우 이동 링크를 제공하지 않음--%>
+                            <c:choose>
+                                <c:when test="${i eq page.currPage}">
+                                    <button class="btn_b">${i}</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${i}#reviewPoint"><button class="btn_a">${i}</button></a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <%--현재 페이지가 마지막 페이지가 아닐 경우--%>
+                        <c:if test="${page.currPage ne page.totalPage}">
+                            <%--현재 페이지의 앞 페이지로 이동 && 맨마지막 페이지로 이동--%>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.currPage+1}#reviewPoint"><button class="btn_a"> > </button></a>
+                            <a href="/spec/chooseModel?model_id=${specDisplayVO.model_id}&category=${category}&currPage=${page.totalPage}#reviewPoint"><button class="btn_a"> >> </button></a>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+                <a href="/boards/insertView">일반이벤트</a>
+            </div>
         </div>
     </div>
-</div>
 
 <div class="que_box" style="margin-top: 50px">
     <div class="que_list">
