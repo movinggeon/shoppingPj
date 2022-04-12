@@ -150,7 +150,7 @@
 	<!-- 리뷰 글수정 -->
 	<update id="reviewupdate">
 	update boards
-	set board_rate = ${board_rate}, board_title = ${board_title}, board_content = #{board_content}, board_date = SYSDATE()
+	set board_rate = #{board_rate}, board_title = #{board_title}, board_content = #{board_content}, board_date = SYSDATE()
 	where board_id = #{board_id}
 	</update>
 	

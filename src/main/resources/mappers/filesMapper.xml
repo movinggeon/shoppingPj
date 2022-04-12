@@ -11,4 +11,9 @@
 	delete from files
 	where board_id = #{board_id};
 </delete>
+
+<select id="reviewFileUpdate">
+	insert into files
+	values (null,#{board_id},#{file_name})
+	</select>
 </mapper>
