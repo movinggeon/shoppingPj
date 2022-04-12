@@ -140,7 +140,7 @@
 	        "contentType": "application/json",
 	        "data": JSON.stringify({
 		          "imp_uid": imp_uid,
-		          "cancel_request_amount": 200, // 환불금액
+		          "cancel_request_amount": product_price, // 환불금액
 		          "reason": "결제 취소", // 환불사유
 		          "receipt_id": receipt_id, // 환불사유
 		          "refund_holder": "가상계좌 예금주", // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
@@ -155,12 +155,13 @@
 	      }).done(function(data) {
 	  		data = JSON.stringify(data);
 			jsonData = JSON.parse(data);
-			
+
 			console.log(jsonData);
 			
 			if ( jsonData.everythings_fine ) {
 				
-				console.log('완료');
+				alert("환불 성공");
+				$(".page_loader").load("/receipts/member/receiptList");
 			}
 		});
 	}

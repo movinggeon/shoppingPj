@@ -301,7 +301,7 @@
 				</ul>
 				<ul>
 					<li>
-						<span class="span-hover" id="receiptList"> 주문/배송/취소 조회 </span>
+						<span style="cursor:pointer" id="receiptList"> 주문/배송/취소 조회 </span>
 					</li>
 				</ul>
 				<ul>
@@ -322,10 +322,10 @@
 				</ul>
 				<ul>
 					<li>
-						<span class="span-hover" >상품평</span>
+						<span style="cursor:pointer" >상품평</span>
 					</li>
 					<li>
-						<span class="span-hover" >1:1문의</span>
+						<span style="cursor:pointer" >1:1문의</span>
 					</li>
 				</ul>
 			</div>

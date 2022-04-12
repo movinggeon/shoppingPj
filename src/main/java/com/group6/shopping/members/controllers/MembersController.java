@@ -7,11 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.group6.shopping.carts.vo.CartsVO;
-import com.group6.shopping.receipts.service.ReceiptsService;
 import com.group6.shopping.receipts.vo.ReceiptsDisplayVO;
-import com.group6.shopping.receipts.vo.ReceiptsVO;
 import com.group6.shopping.coupons.services.CouponsService;
 import com.group6.shopping.likes.services.LikesService;
 import com.group6.shopping.likes.vo.LikesVO;
@@ -33,8 +29,6 @@ public class MembersController {
 	
 	@Autowired
 	private CouponsService couponsService;
-	@Autowired
-	private ReceiptsService receiptsService;
 
 	@Autowired
 	private LikesService likesService;
@@ -56,8 +50,6 @@ public class MembersController {
 		/*System.out.println("mypage로 이동");*/
 		
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
-
-		List<ReceiptsDisplayVO> receiptsDisplayVOList = receiptsService.getAllReceiptsInfo(cs.getMem_id());
 
 		int count = couponsService.countCoupon(cs.getMem_id());
 
