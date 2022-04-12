@@ -574,7 +574,10 @@
                         <span> ${board.board_rate}</span>
                         <a href="/boards/viewBoard?board_id=${board.board_id}">
                             <h3>${board.board_title}</h3>
-                            <div>${board.board_content}</div>
+               
+                            	<div>
+                            		${board.board_content}
+                            	</div>
                         </a>
                         <div class="info_wr">
                             <span style="padding-right: 30px">${board.mem_id}</span>

@@ -113,13 +113,18 @@ margin: 0 auto;
 <div style="margin-top: 48px"></div>
 
 	<div class="aaa">
+	<div style="text-align: right;">
+	<button onclick="updateBoard()">수정</button>
+	</div>
 		<div class="top_nav">
 			<div class="member">작성자: ${boardsVO.mem_id}</div>
 			<div class="date">${boardsVO.board_date }</div>
 		</div>
 		<br>
 		<div class="title">${boardsVO.board_title }</div>
-		<div class="content">${boardsVO.board_content}</div>
+		<div class="content">
+			${boardsVO.board_content}
+		</div>
 		<hr>
 		<div class="topp1">
 			<c:forEach var="file" items="${boardsVO.filesVOList}">
@@ -138,25 +143,30 @@ margin: 0 auto;
 						<span>${reply.mem_id}</span> <span>${reply.reply_date}</span> <br>
 						<span id="repContent${reply.reply_id}">
 							${reply.reply_content} </span>
+						
+						<!-- 처리 -->
 						<c:set var="memid1" value="${reply.mem_id}" />
 						<c:set var="memid2" value="${user.mem_id}" />
 						<c:if test="${memid1 eq memid2}">
-							<span id="${reply.reply_id}" onclick="showEditReply(this.id)">수정</span>
-							<span id="${reply.reply_id}" onclick="delReply(this.id)">삭제</span>
+							<span  onclick="showEditReply('${reply.reply_id}')">수정</span>
+							<span  onclick="delReply('${reply.reply_id}')">삭제</span>
 							<span id="editContainer${reply.reply_id}" style="display: none">
 								<input type="text" id="editInput${reply.reply_id}"> <span
 								onclick="hideEditReply('${reply.reply_id}')">x</span>
 								<button type="button" onclick="editReply('${reply.reply_id}')">수정</button>
 							</span>
 						</c:if>
+						
 					</div>
 				</div>
 			</c:forEach>
 
 		</div>
 
-
-		<div id="repSpace"></div>
+		<div class="rev_all">
+			<div class="rev_write" id="repSpace">
+			</div>
+		</div>
 		<input type="text" id="reply"> <input type="button"
 			value="댓글 입력" onclick="enterReply()">
 
@@ -166,6 +176,7 @@ margin: 0 auto;
     var rep_id = Number("${rep_id + 1}");
     var mem_id = "${user.mem_id}";
     var board_id = "${boardsVO.board_id}";
+    
     function enterReply() {
         console.log(rep_id);
         console.log(mem_id);
@@ -181,12 +192,6 @@ margin: 0 auto;
         var seconds = ('0' + date.getSeconds()).slice(-2); 
         
         var timeString = year + '-' + month  + '-' + day +' '+ hours + ':' + minutes  + ':' + seconds;
-
-        
-        
-        
-        
-        
         var reply = document.getElementById("reply").value;
         const repSpace = document.getElementById("repSpace");
 		
@@ -206,7 +211,9 @@ margin: 0 auto;
         const div = document.createElement('div');
         div.id = "rep" + rep_id;
 
-        div.innerHTML = userId + repDate + edit + del + reply + editInput1 + editInput2 + editInput3 + editInput4 + editInput5;
+        div.innerHTML = userId + repDate + edit + del +
+        				"<span id=repContent" + rep_id  + ">"+ reply + "</span>"  + editInput1 + editInput2 +
+        				editInput3 + editInput4 + editInput5;
 
         repSpace.append(div);
         document.getElementById("reply").value = '';
@@ -248,6 +255,7 @@ margin: 0 auto;
     function hideEditReply(id){
         document.getElementById("editContainer"+id).style.display = 'none';
     }
+    
     function editReply(id){
         console.log(id);
         var editContent = document.getElementById("editInput"+id).value;
@@ -282,6 +290,7 @@ margin: 0 auto;
         document.getElementById("editInput"+id).value = "";
         
     }
+    
     function delReply(id){
         console.log(id);
         if(confirm('댓글을 삭제하시겠습니까?')) { 

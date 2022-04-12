@@ -172,28 +172,44 @@ public class BoardsController {
 
 		for (int i = 0; i < file.size(); i++) {
 			String originFile = file.get(i).getOriginalFilename();
-			String ext = originFile.substring(originFile.lastIndexOf("."));
-			String changeFile = UUID.randomUUID().toString() + ext;
-
-			Map<String, String> map = new HashMap<>();
-			map.put("originFile", originFile);
-			map.put("changeFile", changeFile);
-
-			fileList.add(map);
-		}
-
-		try {
-			for (int i = 0; i < file.size(); i++) {
-				File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
-				file.get(i).transferTo(uploadFile);
-				filesVO.setFile_name(fileList.get(i).get("changeFile"));
-
-				filesService.reviewFile(filesVO);
+			
+			if(originFile.length() > 0) {
+				
+				String ext = originFile.substring(originFile.lastIndexOf("."));
+				String changeFile = UUID.randomUUID().toString() + ext;
+	
+				Map<String, String> map = new HashMap<>();
+				map.put("originFile", originFile);
+				map.put("changeFile", changeFile);
+	
+				fileList.add(map);
+				
+				try {
+					File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
+					file.get(i).transferTo(uploadFile);
+					filesVO.setFile_name(fileList.get(i).get("changeFile"));
+					
+					filesService.reviewFile(filesVO);
+					
+				} catch (IllegalStateException | IOException e) {
+					System.out.println("실패");
+				}
 			}
-
-		} catch (IllegalStateException | IOException e) {
-			System.out.println("실패");
+			
 		}
+//		
+//		try {
+//			for (int i = 0; i < file.size(); i++) {
+//				File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
+//				file.get(i).transferTo(uploadFile);
+//				filesVO.setFile_name(fileList.get(i).get("changeFile"));
+//
+//				filesService.reviewFile(filesVO);
+//			}
+//
+//		} catch (IllegalStateException | IOException e) {
+//			System.out.println("실패");
+//		}
 
 		return "boards/insertView";
 		/* return "redirect:" + boardsVO.getBoard_type(); */
