@@ -70,19 +70,18 @@
 	    </div>
 	    <div class="table-cell middle">
 	      <p>${receiptList.get(i).getReceipt_merchant_uid().substring(0,8) }</p>
-	      
 	      <div style="text-align: center;">
-
-			  
-
-
-
-	      	<c:if test="${cartList.get(i).get(0).getCart_refund() == 0 }">
-					<button onclick="cancelPayment('${cartList.get(i).get(k).getReceipt_id()}', 
-												   '${receiptList.get(i).getReceipt_imp_uid() }',
-												   '${receiptList.get(i).getReceipt_price()}',
-												   '${cartList.get(i).get(k).getProductsVO().getProduct_name() } ${cartList.get(i).get(k).getModelsVO().getModel_name() }')">주문 취소</button>
-			</c:if>
+			  <c:choose>
+				  <c:when test="${cartList.get(i).get(0).getCart_refund() == 0 and receiptList.get(i).couponsVO.coupon_id eq 0 and receiptList.get(i).receipt_point eq 0}">
+					  <button onclick="cancelPayment('${cartList.get(i).get(k).getReceipt_id()}',
+							  '${receiptList.get(i).getReceipt_imp_uid() }',
+							  '${receiptList.get(i).getReceipt_price()}',
+							  '${cartList.get(i).get(k).getProductsVO().getProduct_name() } ${cartList.get(i).get(k).getModelsVO().getModel_name() }')">주문 취소</button>
+				  </c:when>
+				  <c:when test="${(receiptList.get(i).couponsVO.coupon_id ne 0) or (receiptList.get(i).receipt_point ne 0)}">
+					  포인트 쿠폰 사용시 환불이 불가능 합니다.
+				  </c:when>
+			  </c:choose>
 	      </div>
 
 	    </div>

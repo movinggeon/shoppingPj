@@ -775,7 +775,7 @@
                 error:function(request){
                     if(request.status == 403) {
                         alert("로그인 해주세요")
-                        /*location.href ="/login";*/
+                        location.href ="/login";
                     }else{
                         alert(request.status);
                     }

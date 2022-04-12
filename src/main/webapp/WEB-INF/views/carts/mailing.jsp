@@ -541,7 +541,8 @@
     					jsonData = JSON.parse(data);
 
     					//console.log(jsonData);
-
+                        alert("결재가 완료되었습니다. 마이페이지에서 내역을 확인하세요.");
+                        location.href="/";
     					if(jsonData.success){
     						console.log(jsonData.success);
     						

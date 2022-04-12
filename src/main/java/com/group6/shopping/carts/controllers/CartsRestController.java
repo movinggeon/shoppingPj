@@ -75,7 +75,10 @@ public class CartsRestController {
     public HashMap<String, Object> deleteCart(CartsVO cartsVO, HttpSession session) throws Exception {
         CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
         cartsService.deleteCart(cartsVO);
-        int total = cartsService.getTotal(user.getMem_id(), "null");
+        Integer total = cartsService.getTotal(user.getMem_id(), "null");
+		if (total == null){
+			total = 0;
+		}
         
         //json 으로 변경후 map으로 토탈 값 전송
         HashMap<String, Object> result = new HashMap<>();
@@ -105,6 +108,7 @@ public class CartsRestController {
     @RequestMapping("/member/payment")
     public HashMap<String, Object> payment(@RequestBody HashMap<String, Object> param, HttpSession session) throws Exception{
 
+
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	HashMap<String, Object> queryMap = new HashMap<String, Object>();
     	
@@ -120,9 +124,15 @@ public class CartsRestController {
     	String receipt_address = (String) param.get("buyer_addr");
     	String receipt_phone = (String) param.get("buyer_tel");
     	String mem_id = (String) param.get("buyer_id");
-    	int coupon_id;
-    	int receipt_point;
-    	
+
+		System.out.println("mem_id " + mem_id);
+    	int coupon_id = Integer.parseInt(  String.valueOf(param.get("buyer_coupon_id")) );
+		System.out.println("cId: " + coupon_id);
+		int receipt_point = Integer.parseInt(  String.valueOf(param.get("buyer_point")) );
+		System.out.println("rpoint: " + receipt_point);
+
+
+
     	queryMap.put("receipt_imp_uid", receipt_imp_uid);
     	queryMap.put("receipt_merchant_uid", receipt_merchant_uid);
     	queryMap.put("receipt_price", receipt_price);
@@ -131,14 +141,14 @@ public class CartsRestController {
     	queryMap.put("receipt_address", receipt_address);
     	queryMap.put("receipt_phone", receipt_phone);
     	queryMap.put("mem_id", mem_id);
+
     	
-    	if(param.get("buyer_coupon_id") != null) {
-    		coupon_id = Integer.parseInt( String.valueOf(param.get("buyer_coupon_id")) );
+    	if(coupon_id != 0) {
+    		int cId = Integer.parseInt( String.valueOf(param.get("buyer_coupon_id")) );
     		queryMap.put("coupon_id", coupon_id);
-			System.out.println("coupon_id " + coupon_id);
 
 			CouponsVO couponsVO = new CouponsVO();
-			couponsVO.setCoupon_id(coupon_id);
+			couponsVO.setCoupon_id(cId);
 			couponsService.usedCoupon(couponsVO);
     	}else {
     		queryMap.put("coupon_id", null);
@@ -146,16 +156,16 @@ public class CartsRestController {
 
 		CustomMemDetails user = (CustomMemDetails) session.getAttribute("user");
 
-    	if( param.get("buyer_point") != null) {
-    		receipt_point = Integer.parseInt( String.valueOf(param.get("buyer_point")) );
+    	if(receipt_point != 0) {
+    		int rPoint = Integer.parseInt( String.valueOf(param.get("buyer_point")) );
     		queryMap.put("receipt_point", receipt_point);
 
 
 			MembersVO member = new MembersVO();
 			member.setMem_id(user.getMem_id());
-			member.setMem_point(receipt_point);
+			member.setMem_point(rPoint);
 
-			user.setMem_point(user.getMem_point() - receipt_point);
+			user.setMem_point(user.getMem_point() - rPoint);
 			membersService.usePoint(member);
 			session.setAttribute("user", user);
     	}else {
@@ -168,7 +178,7 @@ public class CartsRestController {
     	//영수증 테이블에 삽입
     	receiptsService.insertReceipts(queryMap);
 
-    	//System.out.println("영수증 아이디 -> " + queryMap.get("receipt_id"));
+
     	//카트 테이블에 영수증 아이디 갱신
     	cartsService.updateRecId(queryMap);
     	

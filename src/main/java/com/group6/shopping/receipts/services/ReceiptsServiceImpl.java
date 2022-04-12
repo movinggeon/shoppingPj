@@ -24,8 +24,8 @@ public class ReceiptsServiceImpl implements ReceiptsService{
 	CartsDAO cartsDAO;
 	
 	@Override
-	public void insertReceipts(HashMap<String, Object>param) throws Exception{
-		receiptsDAO.insertReceipts(param);
+	public int insertReceipts(HashMap<String, Object>param) throws Exception{
+		return receiptsDAO.insertReceipts(param);
 	}
 	
     @Override

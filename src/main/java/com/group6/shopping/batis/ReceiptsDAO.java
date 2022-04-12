@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface ReceiptsDAO {
 
-	public void insertReceipts(HashMap<String, Object>param) throws Exception;
+	public int insertReceipts(HashMap<String, Object>param) throws Exception;
 	public List<ReceiptsVO> getAllReceipts(@Param("mem_id")   String mem_id , @Param("pagingVO") PagingVO pagingVO) throws Exception;
 	public List<ReceiptsDisplayVO> getAllReceiptsInfo(String mem_id) throws Exception;
 	public Integer getCntReceipts(String mem_id) throws Exception;
