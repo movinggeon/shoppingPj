@@ -140,7 +140,6 @@ public class BoardsController {
 			try {
 				file2.transferTo(upchangeFile2);
 				boardsVO.setBoard_content(changeFile2);
-				System.out.println(changeFile2);
 			} catch (IOException e) {
 
 			}

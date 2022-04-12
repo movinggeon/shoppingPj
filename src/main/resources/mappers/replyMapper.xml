@@ -10,6 +10,8 @@
 	<delete id="deleteReply">
 	 delete from replies WHERE reply_id = #{reply_id}
 	</delete>
-
+	<insert id="insertReply">
+	 insert into replies values (#{reply_id},#{mem_id},#{board_id},#{reply_content},SYSDATE())
+	</insert>
 
 </mapper>
