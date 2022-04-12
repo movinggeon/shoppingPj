@@ -83,6 +83,14 @@
 		<label>모델</label>
 		<input type ="text" name="model_id" value="${boardsVO.model_id }"> ${boardsVO.board_id }
 		<br>--%>
+		<c:if test="${param.board_id > 0 }">
+			<input type="hidden" id="board_id" name="board_id" value="${param.board_id}">
+		</c:if>
+		<c:if test="${param.board_id == null}">
+			<input type="hidden" id="board_id" name="board_id" value="0">
+		</c:if>
+
+
 
 
 	</div>
