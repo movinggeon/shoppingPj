@@ -26,8 +26,8 @@ public class CouponsRestController {
     public Map<String, Object> getCoupon(HttpSession session, CouponsVO couponsVO) throws Exception {
         CustomMemDetails user = (CustomMemDetails) session.getAttribute("user");
         String totalPrice = cartsService.getTotal(user.getMem_id(), "null") + "";
-        System.out.println("getCoupon");
-/*        System.out.println("coupon Id: " + couponsVO.getCoupon_id());
+
+/*      System.out.println("coupon Id: " + couponsVO.getCoupon_id());
         System.out.println("총가격: " + totalPrice);*/
         CouponsVO tmp = couponsService.getCoupon(couponsVO);
 

@@ -524,7 +524,7 @@
 
 <div class="review_box" style="margin-bottom: 5px;">
     <div class="review">
-<%--        <a name="reviewPoint"/>--%>
+      <%-- <a name="reviewPoint"/>--%>
         <!--Review overall Info -->
         <hr class="hr_wr" style="margin-top: 80px;" />
         <h1 style="text-align: center; margin-top: 30px;">모델 리뷰</h1>

@@ -2,11 +2,13 @@ package com.group6.shopping.members.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class MembersVO {
     
     private String mem_name;

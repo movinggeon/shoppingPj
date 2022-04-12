@@ -72,6 +72,11 @@
 	      <p>${receiptList.get(i).getReceipt_merchant_uid().substring(0,8) }</p>
 	      
 	      <div style="text-align: center;">
+
+			  
+
+
+
 	      	<c:if test="${cartList.get(i).get(0).getCart_refund() == 0 }">
 					<button onclick="cancelPayment('${cartList.get(i).get(k).getReceipt_id()}', 
 												   '${receiptList.get(i).getReceipt_imp_uid() }',

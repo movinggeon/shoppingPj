@@ -9,6 +9,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.group6.shopping.coupons.services.CouponsService;
+import com.group6.shopping.coupons.vo.CouponsVO;
+import com.group6.shopping.members.service.MembersService;
+import com.group6.shopping.members.vo.MembersVO;
+import com.group6.shopping.specifications.services.SpecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,10 +31,19 @@ import com.group6.shopping.security.CustomMemDetails;
 public class CartsRestController {
 
     @Autowired
-    CartsService cartsService;
+    private CartsService cartsService;
 
     @Autowired
-    ReceiptsService receiptsService;
+    private ReceiptsService receiptsService;
+
+	@Autowired
+	private MembersService membersService;
+
+	@Autowired
+	private CouponsService couponsService;
+
+	@Autowired
+	private SpecService specService;
 
     @RequestMapping("/member/addCart")
     public String addCart(@RequestBody HashMap<String, Object> map, HttpSession session) throws Exception {
@@ -89,7 +103,7 @@ public class CartsRestController {
     }
     
     @RequestMapping("/member/payment")
-    public HashMap<String, Object> payment(@RequestBody HashMap<String, Object> param) throws Exception{
+    public HashMap<String, Object> payment(@RequestBody HashMap<String, Object> param, HttpSession session) throws Exception{
 
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	HashMap<String, Object> queryMap = new HashMap<String, Object>();
@@ -118,25 +132,43 @@ public class CartsRestController {
     	queryMap.put("receipt_phone", receipt_phone);
     	queryMap.put("mem_id", mem_id);
     	
-    	if(param.get("coupon_id") != null) {
-    		coupon_id = Integer.parseInt( String.valueOf(param.get("coupon_id")) );
+    	if(param.get("buyer_coupon_id") != null) {
+    		coupon_id = Integer.parseInt( String.valueOf(param.get("buyer_coupon_id")) );
     		queryMap.put("coupon_id", coupon_id);
+			System.out.println("coupon_id " + coupon_id);
+
+			CouponsVO couponsVO = new CouponsVO();
+			couponsVO.setCoupon_id(coupon_id);
+			couponsService.usedCoupon(couponsVO);
     	}else {
     		queryMap.put("coupon_id", null);
     	}
-    	
-    	
+
+		CustomMemDetails user = (CustomMemDetails) session.getAttribute("user");
+
     	if( param.get("buyer_point") != null) {
     		receipt_point = Integer.parseInt( String.valueOf(param.get("buyer_point")) );
     		queryMap.put("receipt_point", receipt_point);
+
+
+			MembersVO member = new MembersVO();
+			member.setMem_id(user.getMem_id());
+			member.setMem_point(receipt_point);
+
+			user.setMem_point(user.getMem_point() - receipt_point);
+			membersService.usePoint(member);
+			session.setAttribute("user", user);
     	}else {
     		queryMap.put("receipt_point", null);
     	}
+
+		//제고 수량 감소
+		specService.updateSpecQty(user);
     	
     	//영수증 테이블에 삽입
     	receiptsService.insertReceipts(queryMap);
 
-    	System.out.println("영수증 아이디 -> " + queryMap.get("receipt_id"));
+    	//System.out.println("영수증 아이디 -> " + queryMap.get("receipt_id"));
     	//카트 테이블에 영수증 아이디 갱신
     	cartsService.updateRecId(queryMap);
     	

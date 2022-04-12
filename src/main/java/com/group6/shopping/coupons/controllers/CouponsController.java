@@ -26,12 +26,10 @@ public class CouponsController {
 		List<CouponsVO> couponList = new ArrayList<CouponsVO>();
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 		Integer count = couponsService.countCoupon(cs.getMem_id());
-		System.out.println("쿠폰 갯수" + count);
 
 		PagingVO pTmp = new PagingVO(count, Integer.parseInt(page));
 		
 		couponList = couponsService.getAllCoupons(cs.getMem_id(), pTmp);
-		System.out.println("쿠폰 갯수2: " + couponList.size());
 		if(!pTmp.pageCheck()){
 			model.addAttribute("pageError", "Page Number is not valid");
 		}else{

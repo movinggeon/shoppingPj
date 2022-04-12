@@ -481,7 +481,7 @@
             return;
         } else{
         	
-            //결제AIP 구현
+            //결제API 구현
             
             //console.log(totalPrice);
             
@@ -490,8 +490,7 @@
         	var today = new Date();
         	var uuid = uuidv4();
         	var discount = Number("${totalPrice}") - totalPrice;
-        	
-        	console.log(discount);
+            console.log("쿠폰 번호: " + couponId);
             	
     	    IMP.init("imp12077457"); // 예: imp00000000
     		  // IMP.request_pay(param, callback) 결제창 호출
