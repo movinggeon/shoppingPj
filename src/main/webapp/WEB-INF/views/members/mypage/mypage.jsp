@@ -340,7 +340,7 @@
 			<div class="user_cupon">
 				쿠폰
 				<div style="padding-top: 30px">
-					<span id="couponDetail">${couponEA }</span>개
+					<span id="couponDetail"  style="cursor:pointer" >${couponEA }</span>개
 				</div>
 			</div>
 			<div class="user_point">

@@ -15,12 +15,81 @@
     <title>Title</title>
 </head>
 <body>
-아이디찾기
+<style>
+    .findId_Box{
+        width : 70%;
+        margin: 7% auto auto;
 
-<p>가입 하신 이메일을 입력해주세요</p>
 
-    <input type="email" id="memEmail" placeholder="Enter Email Address...">
-    <button type="button" onclick="sendFindId()">Find ID</button>
+    }
+    .findId_Title{
+        width: 80%;
+        margin : auto;
+        text-align: center;
+        font-size : 30px;
+    }
+    .findId_subTitle{
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        font-size : 23px;
+        height: 70px;
+        line-height: 70px;
+        border-bottom : 2px solid #171717;
+    }
+    .findId_form{
+        width: 50%;
+        text-align: center;
+        margin: 5% auto auto;
+        height: 100px;
+        border-bottom: 1px solid #ccc;
+    }
+    .email_input{
+        width: 80%;
+        height: 32px;
+        font-size: 15px;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        padding-left: 10px;
+        background-color: #E8F0FE;
+        text-align: center;
+    }
+    .btn_findId{
+        width : 100px;
+        height : 35px;
+        border-radius: 8px;
+        background-color: #0071E3;
+        color : white;
+        border: 1px solid #ddd;
+        padding: 5px 5px;
+        cursor: pointer;
+        float : right;
+    }
+    .btn_box{
+        width:50%;
+        margin: auto;
+    }
+</style>
+
+
+<div class="findId_Box">
+    <div class="findId_Title">
+        아이디 찾기
+    </div>
+    <div class="findId_subTitle">
+        가입하신 이메일을 입력해주세요
+    </div>
+    <div class="findId_form">
+        <input type="email" id="memEmail" class="email_input" placeholder="Enter Email Address...">
+
+    </div>
+    <div class="btn_box">
+    <button type="button" class="btn_findId" onclick="sendFindId()">아이디 찾기</button>
+    </div>
+</div>
+
+
 
 
 <script type="text/javascript">
