@@ -14,6 +14,7 @@
 .aaa{
 margin: 0 auto;
 	max-width: 1110px;
+	height: auto;
 	}
 .member {
 	margin: 0 auto;
@@ -57,11 +58,13 @@ margin: 0 auto;
 .topp1 {
 	margin: 0 auto;
 	max-width: 1110px;
-	text-align: left;
 	padding-left: 20px;
-	height: 320px;
+	height: 400px;
 	line-height: 48px;
 	display: flex;
+}
+.topp1 img1 {
+	width: 520px;
 }
 
 .top_nav {
@@ -82,8 +85,28 @@ margin: 0 auto;
 	display: flex;
 }
 
+.review_box {
+        width: 100%;
+    }
 
-
+    .review {
+        margin: 0 auto;
+        max-width: 1110px;
+        text-align: left;
+        padding: 0 2%;
+        height: 48px;
+        line-height: 48px;
+        font-size: 13px;
+    }
+     .rev_write {
+        padding-left: 8px;
+        margin: 30px 0 10px 0;
+        line-height: 20px;
+    }
+	.rev_top {
+        position: relative;
+        max-width: 1090px;
+    }
 </style>
 </head>
 <body>
@@ -101,40 +124,41 @@ margin: 0 auto;
 		<div class="topp1">
 			<c:forEach var="file" items="${boardsVO.filesVOList}">
 				<img src="/resources/static/reviewimg/${file.file_name}" alt="" />
-				<br>
+			
 			</c:forEach>
 		</div>
 
 		<hr>
 
 		<br>
-		<c:forEach var="reply" items="${boardsVO.repliesVOList}">
-			<div id="rep${reply.reply_id}">
-				<span>${reply.mem_id}</span> 
-				<span>${reply.reply_date}</span> <br>
-				<span id="repContent${reply.reply_id}">
-					${reply.reply_content} </span> 
-					
-					
-					<c:set var="memid1" value="${reply.mem_id}" />
-					<c:set var="memid2" value="${user.mem_id}" />
-					<c:if test="${memid1 eq memid2}">
-			 		<span id="${reply.reply_id}" onclick="showEditReply(this.id)">수정</span> 
-			 		<span id="${reply.reply_id}" onclick="delReply(this.id)">삭제</span>
-					
-					<span id="editContainer${reply.reply_id}" style="display: none"> 
-					<input type="text" id="editInput${reply.reply_id}">
-					<span onclick="hideEditReply('${reply.reply_id}')">x</span>
-					<button type="button" onclick="editReply('${reply.reply_id}')">수정</button>
-					</span>
-					</c:if>
-				
-				
-			</div>
-		</c:forEach>
+		<div class="rev_all">
+			<c:forEach var="reply" items="${boardsVO.repliesVOList}">
+				<div class="rev_write">
+					<div id="rep${reply.reply_id}">
+						<span>${reply.mem_id}</span> <span>${reply.reply_date}</span> <br>
+						<span id="repContent${reply.reply_id}">
+							${reply.reply_content} </span>
+						<c:set var="memid1" value="${reply.mem_id}" />
+						<c:set var="memid2" value="${user.mem_id}" />
+						<c:if test="${memid1 eq memid2}">
+							<span id="${reply.reply_id}" onclick="showEditReply(this.id)">수정</span>
+							<span id="${reply.reply_id}" onclick="delReply(this.id)">삭제</span>
+							<span id="editContainer${reply.reply_id}" style="display: none">
+								<input type="text" id="editInput${reply.reply_id}"> <span
+								onclick="hideEditReply('${reply.reply_id}')">x</span>
+								<button type="button" onclick="editReply('${reply.reply_id}')">수정</button>
+							</span>
+						</c:if>
+					</div>
+				</div>
+			</c:forEach>
+
+		</div>
+
+
 		<div id="repSpace"></div>
-		<input type="text" id="reply"> 
-		<input type="button" value="댓글 입력" onclick="enterReply()">
+		<input type="text" id="reply"> <input type="button"
+			value="댓글 입력" onclick="enterReply()">
 
 	</div>
 
