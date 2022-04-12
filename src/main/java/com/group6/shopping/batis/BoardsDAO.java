@@ -1,5 +1,6 @@
 package com.group6.shopping.batis;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,8 @@ public interface BoardsDAO {
     public void update(BoardsVO vo) throws Exception;
 	public int countBoard();
 	public int endcountBoard();
+	
+	public void reviewupdate(BoardsVO vo) throws Exception;
 
 
     public BoardsVO viewBoard(String board_id) throws Exception;

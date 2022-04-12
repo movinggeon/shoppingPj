@@ -139,14 +139,19 @@
 		insert into boards (board_id,mem_id,board_title,board_content,board_date,board_type,s_date,e_date,board_titleimg)
 		values (null,#{mem_id},#{board_title},#{board_content},SYSDATE(),#{board_type},#{s_date},#{e_date},#{board_titleimg})
 	</select> 
-	
-	
 		
 	<!-- 리뷰 글등록 -->
 	<select id="reviewinsert">
 	insert into boards
 	values (null, #{mem_id}, #{spec_id}, #{model_id}, #{board_rate}, #{board_title}, #{board_content}, SYSDATE(), #{board_type}, null, null,null)
 	</select>
+		
+	<!-- 리뷰 글수정 -->
+	<update id="reviewupdate">
+	update boards
+	set board_rate = #{board_rate}, board_title = #{board_title}, board_content = #{board_content}, board_date = SYSDATE()
+	where board_id = #{board_id}
+	</update>
 	
 	
 	<!--  이벤트글삭제 -->

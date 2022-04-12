@@ -13,17 +13,16 @@ public class RepliesServiceImpl implements RepliesService {
 	private RepliesDAO repliesDAO;
 	
 	@Override
-	public int updateReply(RepliesVO repliesvo) {
-		return repliesDAO.updateReply(repliesvo);
+	public int updateReply(RepliesVO repliesVO) {
+		return repliesDAO.updateReply(repliesVO);
 	}
 	@Override
 	public int deleteReply(int reply_id){
 		return repliesDAO.deleteReply(reply_id);
 		
 	}
-
 	@Override
-	public Integer cntRep() throws Exception {
-		return repliesDAO.cntRep();
+	public void insertReply(RepliesVO repliesVO) throws Exception {
+		repliesDAO.insertReply(repliesVO);
 	}
 }

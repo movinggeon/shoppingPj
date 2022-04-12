@@ -50,8 +50,8 @@ public class BoardsController {
 	// 이벤트 메인페이지 진행중게시글 목록조회
 	@GetMapping("/event")
 	public String EventBoardslist(EventPagingVO vo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
+								  @RequestParam(value = "nowPage", required = false) String nowPage,
+								  @RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
 		int total = boardsService.countBoard();
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
@@ -70,8 +70,8 @@ public class BoardsController {
 	// 이벤트 메인페이지 종료게시글 목록조회
 	@GetMapping("/endevent")
 	public String EndEventBoardslist(EventPagingVO vo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
+									 @RequestParam(value = "nowPage", required = false) String nowPage,
+									 @RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
 
 		int total = boardsService.endcountBoard();
 		if (nowPage == null && cntPerPage == null) {
@@ -104,10 +104,10 @@ public class BoardsController {
 	// 이벤트 글쓰기
 	@RequestMapping(value = "/eventinsert")
 	public String eventinsert(@RequestParam("board_titleimg2") MultipartFile file,
-			@RequestParam("board_content2") MultipartFile file2, BoardsVO boardsVO, RedirectAttributes rttr,
-			HttpServletRequest request) throws Exception {
+							  @RequestParam("board_content2") MultipartFile file2, BoardsVO boardsVO, RedirectAttributes rttr,
+							  HttpServletRequest request) throws Exception {
 		if (!file.getOriginalFilename().isEmpty()) {
-			// 웹서비스 root 경로​
+			// 웹서비스 root 경로
 			String root_path = request.getSession().getServletContext().getRealPath("/");
 			String attach_path = root_path + "resources/static/eventmainimg/";
 			//폴더없을경우 생성
@@ -130,7 +130,7 @@ public class BoardsController {
 
 		}
 		if (!file2.getOriginalFilename().isEmpty()) {
-			// 웹서비스 root 경로​
+			// 웹서비스 root 경로
 			String root_path2 = request.getSession().getServletContext().getRealPath("/");
 			String attach_path2 = root_path2 + "resources/static/eventimg/";
 			File folder = new File(attach_path2);
@@ -143,7 +143,6 @@ public class BoardsController {
 			try {
 				file2.transferTo(upchangeFile2);
 				boardsVO.setBoard_content(changeFile2);
-				System.out.println(changeFile2);
 			} catch (IOException e) {
 
 			}
@@ -160,47 +159,100 @@ public class BoardsController {
 	}
 
 	@RequestMapping(value = "/reviewinsert")
-	public String insert(@RequestParam("file_name2") List<MultipartFile> file, BoardsVO boardsVO, FilesVO filesVO,
-			RedirectAttributes rttr, HttpServletRequest request) throws Exception {
-		// 웹서비스 root 경로​
-		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String attach_path = root_path + "resources/static/reviewimg/";
+	public String insert(@RequestParam("file_name2") List<MultipartFile> file, @RequestParam("board_id") int board_id, BoardsVO boardsVO, FilesVO filesVO,
+						 RedirectAttributes rttr, HttpServletRequest request) throws Exception {
 
-		File folder = new File(attach_path);
-		if (!folder.exists())
-			folder.mkdirs();
+		if(board_id == 0) {
+			System.out.println("리뷰 작성");
+			// 웹서비스 root 경로
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String attach_path = root_path + "resources/static/reviewimg/";
 
-		List<Map<String, String>> fileList = new ArrayList<>();
+			File folder = new File(attach_path);
+			if (!folder.exists())
+				folder.mkdirs();
 
-		boardsService.reviewinsert(boardsVO);
+			List<Map<String, String>> fileList = new ArrayList<>();
 
-		for (int i = 0; i < file.size(); i++) {
-			String originFile = file.get(i).getOriginalFilename();
-			String ext = originFile.substring(originFile.lastIndexOf("."));
-			String changeFile = UUID.randomUUID().toString() + ext;
+			boardsService.reviewinsert(boardsVO);
 
-			Map<String, String> map = new HashMap<>();
-			map.put("originFile", originFile);
-			map.put("changeFile", changeFile);
-
-			fileList.add(map);
-		}
-
-		try {
 			for (int i = 0; i < file.size(); i++) {
-				File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
-				file.get(i).transferTo(uploadFile);
-				filesVO.setFile_name(fileList.get(i).get("changeFile"));
+				String originFile = file.get(i).getOriginalFilename();
 
-				filesService.reviewFile(filesVO);
+				if(originFile.length() > 0) {
+
+					String ext = originFile.substring(originFile.lastIndexOf("."));
+					String changeFile = UUID.randomUUID().toString() + ext;
+
+					Map<String, String> map = new HashMap<>();
+					map.put("originFile", originFile);
+					map.put("changeFile", changeFile);
+
+					fileList.add(map);
+
+					try {
+						File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
+						file.get(i).transferTo(uploadFile);
+						filesVO.setFile_name(fileList.get(i).get("changeFile"));
+						System.out.println(filesVO);
+						filesService.reviewFile(filesVO);
+						System.out.println(filesVO);
+					} catch (IllegalStateException | IOException e) {
+						System.out.println("실패");
+					}
+				}
+
 			}
 
-		} catch (IllegalStateException | IOException e) {
-			System.out.println("실패");
+			return "boards/insertView";
+			/* return "redirect:" + boardsVO.getBoard_type(); */
+		}else {
+
+			filesService.deleteFile(board_id);
+
+			// 웹서비스 root 경로
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String attach_path = root_path + "resources/static/reviewimg/";
+
+			File folder = new File(attach_path);
+			if (!folder.exists())
+				folder.mkdirs();
+
+			List<Map<String, String>> fileList = new ArrayList<>();
+
+			boardsService.reviewupdate(boardsVO);
+
+			for (int i = 0; i < file.size(); i++) {
+				String originFile = file.get(i).getOriginalFilename();
+
+				if(originFile.length() > 0) {
+
+					String ext = originFile.substring(originFile.lastIndexOf("."));
+					String changeFile = UUID.randomUUID().toString() + ext;
+
+					Map<String, String> map = new HashMap<>();
+					map.put("originFile", originFile);
+					map.put("changeFile", changeFile);
+
+					fileList.add(map);
+
+					try {
+						File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
+						file.get(i).transferTo(uploadFile);
+						filesVO.setFile_name(fileList.get(i).get("changeFile"));
+						filesVO.setBoard_id(board_id);
+						System.out.println(board_id);
+						filesService.reviewFileUpdate(filesVO);
+					} catch (IllegalStateException | IOException e) {
+						System.out.println("실패");
+					}
+				}
+
+			}
+
+			return "boards/insertView";
 		}
 
-		return "boards/insertView";
-		/* return "redirect:" + boardsVO.getBoard_type(); */
 	}
 
 	// 이벤트 글 삭제

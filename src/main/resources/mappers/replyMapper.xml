@@ -10,11 +10,8 @@
 	<delete id="deleteReply">
 	 delete from replies WHERE reply_id = #{reply_id}
 	</delete>
-
-	<select id="cntRep" resultType="int">
-		select count(*)
-		from replies;
-	</select>
-
+	<insert id="insertReply">
+	 insert into replies values (null,#{mem_id},#{board_id},#{reply_content},SYSDATE())
+	</insert>
 
 </mapper>

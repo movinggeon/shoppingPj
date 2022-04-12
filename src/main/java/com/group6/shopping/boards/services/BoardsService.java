@@ -39,5 +39,7 @@ public interface BoardsService {
     public int endcountBoard();
    
     public BoardsVO viewBoard(String board_id) throws Exception;
+    
+    public void reviewupdate(BoardsVO vo) throws Exception;
   
 }

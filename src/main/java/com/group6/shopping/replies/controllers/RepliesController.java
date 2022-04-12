@@ -19,17 +19,25 @@ public class RepliesController {
 	// 이벤트 글 삭제
 	@RequestMapping(value = "/deleteReply")
 	public String deleteReply(@RequestBody HashMap<String, Object> map) {
+		System.out.println("컨트롤러");
+		
 		String strReplyId = (String) map.get("repid");
 		int reply_id = Integer.parseInt(strReplyId);
+		
 		repliesService.deleteReply(reply_id);
 		return "/boards/event";
 	}
 
 	// 이벤트 글 수정
 	@RequestMapping(value = "/updateReply")
-	public String updateReply(@RequestBody HashMap<String, Object> map, RepliesVO repliesVO) {
-
+	public String updateReply(RepliesVO repliesVO) {
 		repliesService.updateReply(repliesVO);
-		return "";
+		return "/boards/event";
+	}
+	// 이벤트 글 입력
+	@RequestMapping(value = "/insertReply")
+	public String insertReply(RepliesVO repliesVO) throws Exception {
+		repliesService.insertReply(repliesVO);
+		return "/boards/event";
 	}
 }
