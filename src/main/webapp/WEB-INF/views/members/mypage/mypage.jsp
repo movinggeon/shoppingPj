@@ -33,6 +33,9 @@
 		$("#deleteMem").click(function(){
 		    $(".page_loader").load("/members/member/delete");
 		});
+		$("#receiptList").click(function(){
+		    $(".page_loader").load("/receipts/member/receiptList");
+		});
 	});
 </script>
 </head>
@@ -272,19 +275,19 @@
 		<div class="menu_header">
 			<ul>
 				<li>
-					<a href="#">MY♡</a>
+					<span>MY♡</span>
 				</li>
 				<li>
-					<a href="#">주문관리</a>
+					<span>주문관리</span>
 				</li>
 				<li>
-					<a href="#">혜택</a>
+					<span>혜택</span>
 				</li>
 				<li>
-					<a href="#">정보관리</a>
+					<span>정보관리</span>
 				</li>
 				<li>
-					<a href="#">문의내역</a>
+					<span>문의내역</span>
 				</li>
 			</ul>
 		</div>
@@ -298,10 +301,7 @@
 				</ul>
 				<ul>
 					<li>
-						<a href="#">주문/배송조회</a>
-					</li>
-					<li>
-						<a href="#">취소/교환/반품 조회</a>
+						<span class="span-hover" id="receiptList"> 주문/배송/취소 조회 </span>
 					</li>
 				</ul>
 				<ul>
@@ -322,10 +322,10 @@
 				</ul>
 				<ul>
 					<li>
-						<a href="#">상품평</a>
+						<span class="span-hover" >상품평</span>
 					</li>
 					<li>
-						<a href="#">1:1문의</a>
+						<span class="span-hover" >1:1문의</span>
 					</li>
 				</ul>
 			</div>

@@ -1,20 +1,29 @@
 package com.group6.shopping.receipts.vo;
 
-import com.group6.shopping.carts.vo.CartsVO;
 import com.group6.shopping.coupons.vo.CouponsVO;
-import com.group6.shopping.models.vo.ModelsVO;
-import com.group6.shopping.products.vo.ProductsVO;
-import com.group6.shopping.specifications.vo.SpecVO;
-import lombok.*;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Setter@NoArgsConstructor@AllArgsConstructor@ToString
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReceiptsVO {
-    private int receipt_id, receipt_price, receipt_discount, coupon_id, receipt_point;
-    private String receipt_imp_uid, receipt_merchant_uid, receipt_date, receipt_address, receipt_phone, mem_id;
 
-    private CouponsVO couponsVO;
-    private List<CartsVO> cartsVOList;
+	private int receipt_id;
+	private String receipt_imp_uid;
+	private String receipt_merchant_uid;
+	private int receipt_price;
+	private int receipt_discount;
+	private String receipt_date; //RestController 에서 관리
+	private String receipt_address;
+	private String receipt_phone;
+	private String mem_id;
+	private int coupon_id;
+	private int receipt_point;
+	
+	private CouponsVO couponsVO;
 }

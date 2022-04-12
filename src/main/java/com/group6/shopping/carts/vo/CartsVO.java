@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class CartsVO {
-    private int cart_id, spec_id, receipt_id, cart_price, cart_qty, cart_isCare, cart_refund; /*보증유무 (cart_isCare)*/
+    private int cart_id, spec_id, receipt_id, cart_price, cart_qty, cart_isCare, cart_refund; /*보증유무 (cart_isCare) -1 : 보증 적용 -2 : 보증 안됨 */
     private String mem_id;
 
     private SpecVO specVO; /* 가격(spec_price), 메모리(spec_memory), 와이파이 데이터(spec_network), 색상(spec_color),  */
