@@ -52,7 +52,6 @@ public class HomeController {
 		Map<Integer, Integer> modelsCount = new HashMap<>();
 
 		String searchInput;
-		String searchName;
 		if(cookies != null){
 			if(!cookies[0].getName().equals("JSESSIONID")){
 				for(Cookie tmp : cookies){

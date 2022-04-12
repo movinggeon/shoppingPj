@@ -304,6 +304,7 @@
 		}
 		list+= "</ul>";
 		listContainer.innerHTML = list;
+
 		function removeItem(arr, value) {
 			var index = arr.indexOf(value);
 			if (index > -1) {

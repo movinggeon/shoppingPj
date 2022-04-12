@@ -49,42 +49,10 @@
 
 			<!--section-->
 			<section class="tab_content" style="text-align: center;">
-
-				<input type="radio" name="tabmenu" id="tab01" checked>
-				<label for="tab01">새로운제품</label>
-				<input type="radio" name="tabmenu" id="tab02">
-				<label for="tab02">케어플러스</label>
+				<input type="radio" name="tabmenu" id="tab02" checked>
+				<label for="tab02">당신을 위한 추천</label>
 				<input type="radio" name="tabmenu" id="tab03">
 				<label for="tab03">특별한혜택</label>
-
-				<div class="conbox con1">
-					<section class="subImg1">
-						<div class="sub_wrap1">
-							<a href="">
-								<div class="item1 item1_1"></div>
-								<h3>6G Phone</h3>
-							</a>
-							<a href="">
-								<div class="item1 item1_2"></div>
-								<h3>Tablet GT</h3>
-							</a>
-						</div>
-						<a href="">
-							<div class="item1 item1_3"></div>
-							<h3>SNotebook 출시</h3>
-						</a>
-						<div class="sub_wrap1">
-							<a href="">
-								<div class="item1 item1_4"></div>
-								<h3>Watch XD</h3>
-							</a>
-							<a href="">
-								<div class="item1 item1_5"></div>
-								<h3>NoteSix</h3>
-							</a>
-						</div>
-					</section>
-				</div>
 
 				<div class="conbox con2">
 					<section class="subImg2">

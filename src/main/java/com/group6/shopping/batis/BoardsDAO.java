@@ -12,8 +12,9 @@ import com.group6.shopping.models.vo.ModelsVO;
 
 public interface BoardsDAO {
     public List<BoardsVO> getModelBoards(@Param("modelsVO") ModelsVO modelsVO, @Param("pagingVO")PagingVO pagingVO, @Param("cateMap")Map<String,String> cateMap) throws Exception;
-    public int getNumOfBoards(ModelsVO modelsVO) throws Exception;
     public int sumOfBoardRate(ModelsVO modelsVO) throws Exception;
+
+    public int getNumOfBoards(ModelsVO modelsVO) throws Exception;
     public double avgOfBoardRate(ModelsVO modelsVO) throws Exception;
     public List<Integer> numOfBoardRate(ModelsVO modelsVo) throws Exception;
     public List<Integer> boardRateList(ModelsVO modelsVO) throws Exception;

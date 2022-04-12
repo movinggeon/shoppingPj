@@ -21,4 +21,9 @@ public class RepliesServiceImpl implements RepliesService {
 		return repliesDAO.deleteReply(reply_id);
 		
 	}
+
+	@Override
+	public Integer cntRep() throws Exception {
+		return repliesDAO.cntRep();
+	}
 }

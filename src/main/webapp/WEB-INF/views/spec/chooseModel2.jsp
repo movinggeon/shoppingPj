@@ -705,10 +705,6 @@
 
     var userPhone = {};
     function specCheck(){
-        //console.log("여기");
-        //bring the record of spec (qty, price)
-        //form userPhone to json
-
         let userInput = $("#userPhone").serializeArray();
         let phone = {}
         for(i=0; i < userInput.length; i++){
@@ -740,9 +736,6 @@
     }
 
     function addCart(){
-        //Object.keys(userPhone).length == 0
-        //toCart == 0
-        //console.log(userPhone.spec_id);
         var delayStopper = document.getElementById("qtyResult").value;
 
         if(userPhone.spec_qty <= 0){
@@ -852,6 +845,12 @@
 
     //좋아요 취소
     $(document).on("click","#dislike", function(){
+
+        var mem = "${user.mem_id}";
+        if(mem == ""){
+            alert("로그인 해주세요");
+            return;
+        }
 
 
         var likeState = $(this).attr("id");

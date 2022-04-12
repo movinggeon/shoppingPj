@@ -11,5 +11,10 @@
 	 delete from replies WHERE reply_id = #{reply_id}
 	</delete>
 
+	<select id="cntRep" resultType="int">
+		select count(*)
+		from replies;
+	</select>
+
 
 </mapper>
