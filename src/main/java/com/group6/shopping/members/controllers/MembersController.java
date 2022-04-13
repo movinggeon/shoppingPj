@@ -1,16 +1,22 @@
 package com.group6.shopping.members.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.group6.shopping.boards.vo.PagingVO;
+import com.group6.shopping.carts.vo.CartsVO;
+import com.group6.shopping.receipts.services.ReceiptsService;
 import com.group6.shopping.receipts.vo.ReceiptsDisplayVO;
 import com.group6.shopping.coupons.services.CouponsService;
 import com.group6.shopping.likes.services.LikesService;
 import com.group6.shopping.likes.vo.LikesVO;
+import com.group6.shopping.receipts.vo.ReceiptsVO;
 import com.group6.shopping.security.CustomMemDetails;
 import com.group6.shopping.security.LogoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +38,9 @@ public class MembersController {
 
 	@Autowired
 	private LikesService likesService;
+
+	@Autowired
+	ReceiptsService receiptsService;
 
 	@GetMapping(value = "/")
 	public String accessMember(Model model) throws Exception {
@@ -59,9 +68,39 @@ public class MembersController {
 
 		/*System.out.println(count);*/
 		model.addAttribute("couponEA", count);
-		
+
+
+		CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
+		List<ReceiptsVO> receiptList = new ArrayList<ReceiptsVO>();
+		List<List<CartsVO>> cartList = new ArrayList<List<CartsVO>>();
+
+		Integer cntBuy = receiptsService.getCntReceipts(user.getMem_id());
+		PagingVO pTmp =  new PagingVO(cntBuy, Integer.parseInt("1"));
+
+		List<ReceiptsDisplayVO> receiptDisPlayList = new ArrayList<ReceiptsDisplayVO>();
+		receiptDisPlayList = receiptsService.getAllReceiptsInfo(user.getMem_id(), pTmp);
+		System.out.println("size: " + receiptDisPlayList.size());
+
+		//상세정보 넣기
+		for(int i = 0; i < receiptDisPlayList.size(); i++) {
+
+			receiptList.add(receiptDisPlayList.get(i).getReceiptsVO());
+			cartList.add(receiptDisPlayList.get(i).getCartsVOList());
+
+		}
+
+		if(!pTmp.pageCheck()){
+			model.addAttribute("pageError", "Page Number is not valid");
+		}else{
+			model.addAttribute("page", pTmp);
+		}
+		model.addAttribute("receiptList", receiptList);
+		model.addAttribute("cartList", cartList);
+
 		return "members/mypage/mypage";
 	}
+
+
 
 	@RequestMapping(value = "/member/modify")
 	public String modify(HttpServletRequest request) {

@@ -74,15 +74,9 @@
 		<input type ="hidden" name="board_type"  class="input_review" value="review">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-		<%--지우던가..?--%>
-		<input type ="hidden" name="spec_id" value="1">
-		<input type ="hidden" name="model_id" value="1">
-		<%--<label>스펙</label>
-		<input type ="text" name="spec_id" value="${boardsVO.spec_id }"> ${boardsVO.spec_id }
-		<br>
-		<label>모델</label>
-		<input type ="text" name="model_id" value="${boardsVO.model_id }"> ${boardsVO.board_id }
-		<br>--%>
+		<input type ="hidden" name="spec_id" value="${specVO.spec_id}">
+		<input type ="hidden" name="model_id" value="${specVO.model_id}">
+
 		<c:if test="${param.board_id > 0 }">
 			<input type="hidden" id="board_id" name="board_id" value="${param.board_id}">
 		</c:if>
