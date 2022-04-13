@@ -17,17 +17,17 @@ import com.group6.shopping.receipts.vo.ReceiptsVO;
 @Service("receiptsService")
 public class ReceiptsServiceImpl implements ReceiptsService{
 
-	@Autowired
-	ReceiptsDAO receiptsDAO;
-	
-	@Autowired
-	CartsDAO cartsDAO;
-	
-	@Override
-	public int insertReceipts(HashMap<String, Object>param) throws Exception{
-		return receiptsDAO.insertReceipts(param);
-	}
-	
+    @Autowired
+    ReceiptsDAO receiptsDAO;
+
+    @Autowired
+    CartsDAO cartsDAO;
+
+    @Override
+    public int insertReceipts(HashMap<String, Object>param) throws Exception{
+        return receiptsDAO.insertReceipts(param);
+    }
+
     @Override
     public List<ReceiptsVO> getAllReceipts(String mem_id, PagingVO pagingVO) throws Exception {
         return receiptsDAO.getAllReceipts(mem_id, pagingVO);
