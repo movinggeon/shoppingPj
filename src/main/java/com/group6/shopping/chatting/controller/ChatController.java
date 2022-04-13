@@ -36,7 +36,6 @@ public class ChatController implements RoomList {
     @RequestMapping("/member/createRoom")
     @ResponseBody
     public Room createRoom(String mem_id){
-        System.out.println(mem_id);
         Room room = new Room();
         if(mem_id != null && !mem_id.trim().equals("")) {
             room.setRoomNumber(++roomNumber);
@@ -69,17 +68,26 @@ public class ChatController implements RoomList {
 
     //채팅방
     @RequestMapping("/moveChating")
-    public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
+    public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpSession session) {
+        CustomMemDetails cs = (CustomMemDetails) session.getAttribute("user");
         ModelAndView mv = new ModelAndView();
-        int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+        if(cs.getMem_id().equals(params.get("roomName")) || cs.getMem_auth().equals("ROLE_ADMIN")){
 
-        List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
-        if(new_list != null && new_list.size() > 0) {
-            mv.addObject("roomName", params.get("roomName"));
-            mv.addObject("roomNumber", params.get("roomNumber"));
-            mv.setViewName("members/chat/chat");
+            int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+
+            List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
+            if(new_list != null && new_list.size() > 0) {
+                mv.addObject("roomName", params.get("roomName"));
+                mv.addObject("roomNumber", params.get("roomNumber"));
+                mv.setViewName("members/chat/chat");
+            }
+            return mv;
+        }else{
+            mv.addObject("chatError","옳바르지 못한 접근 입니다");
+            mv.setViewName("home");
+            return mv;
         }
-        return mv;
+
     }
 
 }

@@ -79,7 +79,6 @@ public class MembersController {
 
 		List<ReceiptsDisplayVO> receiptDisPlayList = new ArrayList<ReceiptsDisplayVO>();
 		receiptDisPlayList = receiptsService.getAllReceiptsInfo(user.getMem_id(), pTmp);
-		System.out.println("size: " + receiptDisPlayList.size());
 
 		//상세정보 넣기
 		for(int i = 0; i < receiptDisPlayList.size(); i++) {

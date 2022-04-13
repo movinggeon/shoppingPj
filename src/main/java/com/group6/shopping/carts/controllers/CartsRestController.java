@@ -123,12 +123,8 @@ public class CartsRestController {
     	String receipt_phone = (String) param.get("buyer_tel");
     	String mem_id = (String) param.get("buyer_id");
 
-		System.out.println("mem_id " + mem_id);
     	int coupon_id = Integer.parseInt(  String.valueOf(param.get("buyer_coupon_id")) );
-		System.out.println("cId: " + coupon_id);
 		int receipt_point = Integer.parseInt(  String.valueOf(param.get("buyer_point")) );
-		System.out.println("rpoint: " + receipt_point);
-
 
 
     	queryMap.put("receipt_imp_uid", receipt_imp_uid);
@@ -185,9 +181,7 @@ public class CartsRestController {
     
     @PostMapping(value = "/member/payment/cancel")
 	public HashMap<String, Object> cancelProcess(@RequestBody HashMap<String, Object>map) throws Exception{
-    	
-		System.out.println("결제 취소 시작");
-		System.out.println(map);
+
 		
 		CancelPayment cancelPayment = new CancelPayment(); // 결제취소
 		HashMap<String, Object> result = new HashMap<String, Object>();

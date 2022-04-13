@@ -202,7 +202,6 @@ public class SpecController {
         if(searchFail == 7){
             models.addAttribute("resultNum", 0);
             models.addAttribute("searchFail", "No Search Result");
-            System.out.println("실패");
         }else{
             //검색 결과
             List<ModelsVO> resultModels = specService.getModel(searchContext);

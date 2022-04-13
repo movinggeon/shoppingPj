@@ -27,8 +27,6 @@ public class ReceiptsController {
 	@RequestMapping(value = "/member/receiptList")
 	public String receiptList(Model model, HttpSession session, String page) throws Exception {
 
-		System.out.println("현재 페이지: " + page);
-
 		CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
 		List<ReceiptsVO> receiptList = new ArrayList<ReceiptsVO>();
 		List<List<CartsVO>> cartList = new ArrayList<List<CartsVO>>();
@@ -38,7 +36,6 @@ public class ReceiptsController {
 
 		List<ReceiptsDisplayVO> receiptDisPlayList = new ArrayList<ReceiptsDisplayVO>();
         receiptDisPlayList = receiptsService.getAllReceiptsInfo(user.getMem_id(), pTmp);
-		System.out.println("size: " + receiptDisPlayList.size());
         
         //상세정보 넣기
         for(int i = 0; i < receiptDisPlayList.size(); i++) {

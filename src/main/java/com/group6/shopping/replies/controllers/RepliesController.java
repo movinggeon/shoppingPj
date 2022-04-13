@@ -19,7 +19,6 @@ public class RepliesController {
 	// 이벤트 글 삭제
 	@RequestMapping(value = "/deleteReply")
 	public String deleteReply(@RequestBody HashMap<String, Object> map) {
-		System.out.println("컨트롤러");
 		
 		String strReplyId = (String) map.get("repid");
 		int reply_id = Integer.parseInt(strReplyId);

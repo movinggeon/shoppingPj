@@ -124,7 +124,6 @@ public class BoardsController {
 			try {
 				file.transferTo(upchangeFile);
 				boardsVO.setBoard_titleimg(changeFile);
-				System.out.println(changeFile);
 			} catch (IOException e) {
 
 			}
@@ -208,7 +207,7 @@ public class BoardsController {
 
 			}
 
-			return "boards/insertView";
+			return "redirect:/members/member/mypage";
 			/* return "redirect:" + boardsVO.getBoard_type(); */
 		}else {
 
@@ -254,7 +253,7 @@ public class BoardsController {
 
 			}
 
-			return "boards/insertView";
+			return "redirect:/members/member/mypage";
 		}
 
 	}

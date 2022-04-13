@@ -532,7 +532,7 @@
 								<div class="detail-table-row">
 									<div class="detail-table-cell">
 										<c:if test="${cartList.get(i).get(k).getCart_refund() == 0 }">
-											<button class="all_btn"  onclick="location.href='/boards/insertView' ">리뷰쓰기</button>
+											<button class="all_btn"  onclick="location.href='/boards/insertView?spec_id=${cartList.get(i).get(k).spec_id}&model_id=${cartList.get(i).get(k).modelsVO.model_id}' ">리뷰쓰기</button>
 										</c:if>
 										<c:if test="${cartList.get(i).get(k).getCart_refund() == 1 }">
 
