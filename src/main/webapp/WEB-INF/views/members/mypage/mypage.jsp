@@ -424,10 +424,10 @@
 				<td colspan="7">주문하신 내역이 없습니다.</td>
 			</tr>
 		</table>--%>
-		<div class="table_title">
+		<div class="table_title2">
 		<div class="receipt_box_title">
-			최근 주문 내역
-		</div>
+			<h3>최근 주문 내역</h3>
+		</div></div>
 
 		<div class="table">
 			<div class="table-row">
