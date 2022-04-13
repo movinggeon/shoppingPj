@@ -70,4 +70,14 @@ public class CartsServiceImpl implements CartsService{
     public void updateRefund(int cart_id) throws Exception {
     	cartsDAO.updateRefund(cart_id);
     }
+
+    @Override
+    public Integer duplicationItem(HashMap<String, Object> map) throws Exception {
+        return cartsDAO.duplicationItem(map);
+    }
+
+    @Override
+    public int updateDuplicate(String cart_id) throws Exception {
+        return cartsDAO.updateDuplicate(cart_id);
+    }
 }

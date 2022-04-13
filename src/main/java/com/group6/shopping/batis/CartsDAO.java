@@ -20,4 +20,7 @@ public interface CartsDAO {
     public List<ModelsVO> getPopularItem(int totalshow) throws Exception;
     public void updateRecId(HashMap<String, Object> param) throws Exception;
     public void updateRefund(int cart_id) throws Exception;
+
+    public Integer duplicationItem(HashMap<String, Object> map) throws Exception;
+    public int updateDuplicate(String cart_id)throws Exception;
 }

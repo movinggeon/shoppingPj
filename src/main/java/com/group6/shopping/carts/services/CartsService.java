@@ -24,4 +24,7 @@ public interface CartsService {
     public void updateRecId(HashMap<String, Object> param) throws Exception;
     public List<CartsVO> getPaidCart(ReceiptsVO receiptsVO) throws Exception;
     public void updateRefund(int cart_id) throws Exception;
+
+    public Integer duplicationItem(HashMap<String, Object> map) throws Exception;
+    public int updateDuplicate(String cart_id)throws Exception;
 }

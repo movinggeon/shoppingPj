@@ -100,4 +100,16 @@
 	 set receipt_id = #{receipt_id}
 	 where mem_id = #{mem_id} and receipt_id is null
 	</update>
+
+   <select id="duplicationItem" resultType="int">
+      select cart_id
+      from carts
+      where mem_id = #{mem_id} and receipt_id is null and spec_id = #{spec_id}
+   </select>
+
+   <update id="updateDuplicate">
+      update carts
+      set cart_qty = cart_qty + 1
+      where cart_id = #{cart_id}
+   </update>
 </mapper>

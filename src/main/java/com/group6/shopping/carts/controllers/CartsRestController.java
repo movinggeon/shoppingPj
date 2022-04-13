@@ -49,11 +49,6 @@ public class CartsRestController {
     public String addCart(@RequestBody HashMap<String, Object> map, HttpSession session) throws Exception {
         //db work add spec_id to cart
 
-
-        for(Map.Entry<String, Object> tmp : map.entrySet()){
-            System.out.println(tmp.getKey() + " : " + tmp.getValue());
-        }
-
         CustomMemDetails user =  (CustomMemDetails) session.getAttribute("user");
         map.put("mem_id", user.getMem_id());
 
@@ -65,9 +60,12 @@ public class CartsRestController {
            spec_price+=10;
            map.replace("spec_price", spec_price);
        }
-
-       cartsService.insertCart(map);
-
+	   Integer cart_id = cartsService.duplicationItem(map);
+	   if(cart_id == null){
+		   cartsService.insertCart(map);
+	   }else{
+		   cartsService.updateDuplicate(String.valueOf(cart_id));
+	   }
         return "success";
     }
 
