@@ -47,7 +47,7 @@ public class CartsController {
                 tmp.setCart_qty(1);
                 cartsService.updateQty(tmp);
                 models.addAttribute("qtyError"," 수량이 부족하여 갯수가 1개로 재설정 되었습니다.");
-                totalPr ice += (tmp.getCart_price() * tmp.getCart_qty());
+                totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
             }else{
                 totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
             }
