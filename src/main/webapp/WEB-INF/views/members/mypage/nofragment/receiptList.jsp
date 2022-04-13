@@ -12,29 +12,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <title>Insert title here</title>
-	<style>
-		.btn_a {
-			display: inline-block;
-			width: 40px;
-			border-radius: 20px;
-			background-color: #ebebeb;
-			border: 1px solid #ddd;
-			padding: 5px 5px;
-			cursor: pointer;
-		}
 
-		.btn_b {
-			color: white;
-			display: inline-block;
-			width: 40px;
-			height: 35px;
-			border-radius: 20px;
-			background-color: #0071ef;
-			border: 1px solid #0071ef;
-			padding: 5px 5px;
-			cursor: pointer;
-		}
-	</style>
 </head>
 <body>
 <div class="receipt_box_title">
@@ -73,7 +51,7 @@
 	      <div style="text-align: center;">
 			  <c:choose>
 				  <c:when test="${cartList.get(i).get(0).getCart_refund() == 0 and receiptList.get(i).couponsVO.coupon_id eq 0 and receiptList.get(i).receipt_point eq 0}">
-					  <button onclick="cancelPayment('${cartList.get(i).get(k).getReceipt_id()}',
+					  <button class="all_btn" onclick="cancelPayment('${cartList.get(i).get(k).getReceipt_id()}',
 							  '${receiptList.get(i).getReceipt_imp_uid() }',
 							  '${receiptList.get(i).getReceipt_price()}',
 							  '${cartList.get(i).get(k).getProductsVO().getProduct_name() } ${cartList.get(i).get(k).getModelsVO().getModel_name() }')">주문 취소</button>
@@ -144,7 +122,7 @@
 		      		<div class="detail-table-row">
 		      			<div class="detail-table-cell">
 		      				<c:if test="${cartList.get(i).get(k).getCart_refund() == 0 }">
-			      				<button>리뷰쓰기</button>
+			      				<button class="all_btn"  onclick="location.href='/boards/insertView' ">리뷰쓰기</button>
 		      				</c:if>
 		      				<c:if test="${cartList.get(i).get(k).getCart_refund() == 1 }">
 

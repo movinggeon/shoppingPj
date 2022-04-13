@@ -33,21 +33,18 @@
 			padding: 5px 5px;
 			cursor: pointer;
 		}
+		.all_btn {
+			padding: 8px 15px;
+			border: 2px solid #0071e3;
+			border-radius: 20px;
+			background-color: white;
+			color: #0071e3;
+			font-size: 14px;
+			font-weight: bold;
+			cursor: pointer;
+		}
 	</style>
 </head>
-<style>
-
-	.all_btn {
-		padding: 8px 15px;
-		border: 2px solid #0071e3;
-		border-radius: 20px;
-		background-color: white;
-		color: #0071e3;
-		font-size: 14px;
-		font-weight: bold;
-		cursor: pointer;
-	}
-</style>
 <body>
 <div style="text-align: center">
 <h1>회원목록</h1>
@@ -79,21 +76,21 @@
 				<c:choose>
 					<c:when test="${auth eq 'ROLE_MEMBER' }">
 						<div style="text-align: center;">
-							<button onclick="openCoupon('${member.mem_id}')">쿠폰지급</button><br>
+							<button class="all_btn" onclick="openCoupon('${member.mem_id}')">쿠폰지급</button><br>
 						</div>
 						<div style="text-align: center; padding-top: 10px;">
 							<c:set var="enableState" value="${member.mem_enable }"></c:set>
 							<c:choose>
 								<c:when test="${enableState eq 1}">
-									<button onclick="blockMem('${member.mem_id}', '${member.mem_auth }')">계정차단</button>
+									<button class="all_btn" onclick="blockMem('${member.mem_id}', '${member.mem_auth }')">계정차단</button>
 								</c:when>
 								<c:otherwise>
-									<button onclick="unblockMem('${member.mem_id}', '${member.mem_auth }')">계정차단 해제</button>
+									<button class="all_btn" onclick="unblockMem('${member.mem_id}', '${member.mem_auth }')">계정차단 해제</button>
 								</c:otherwise>
 							</c:choose>
 						</div>
 						<div style="text-align: center; padding-top: 10px;">
-							<button onclick="deleteMem('${member.mem_id}', '${member.mem_auth }')">계정삭제</button>
+							<button class="all_btn" onclick="deleteMem('${member.mem_id}', '${member.mem_auth }')">계정삭제</button>
 						</div>
 					</c:when>
 					<c:otherwise>
