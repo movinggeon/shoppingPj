@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.group6.shopping.specifications.vo.SpecVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -154,7 +155,8 @@ public class BoardsController {
 
 	// 리뷰글쓰기 뷰페이지
 	@RequestMapping(value = "/insertView")
-	public String insertView(BoardsVO boardsVO, Model model) throws Exception {
+	public String insertView(BoardsVO boardsVO, Model model, SpecVO specVO) throws Exception {
+		model.addAttribute("specVO", specVO);
 		return "boards/insertView";
 	}
 
@@ -168,7 +170,7 @@ public class BoardsController {
 			String root_path = request.getSession().getServletContext().getRealPath("/");
 
 			String attach_path = root_path + "resources/static/reviewimg/";
-			System.out.println("파일 경로: " + attach_path);
+			/*System.out.println("파일 경로: " + attach_path);*/
 
 			File folder = new File(attach_path);
 			if (!folder.exists())
@@ -196,11 +198,11 @@ public class BoardsController {
 						File uploadFile = new File(attach_path + fileList.get(i).get("changeFile"));
 						file.get(i).transferTo(uploadFile);
 						filesVO.setFile_name(fileList.get(i).get("changeFile"));
-						System.out.println(filesVO);
+						/*System.out.println(filesVO);*/
 						filesService.reviewFile(filesVO);
-						System.out.println(filesVO);
+						/*System.out.println(filesVO);*/
 					} catch (IllegalStateException | IOException e) {
-						System.out.println("실패");
+						/*System.out.println("실패");*/
 					}
 				}
 
@@ -243,10 +245,10 @@ public class BoardsController {
 						file.get(i).transferTo(uploadFile);
 						filesVO.setFile_name(fileList.get(i).get("changeFile"));
 						filesVO.setBoard_id(board_id);
-						System.out.println(board_id);
+						/*System.out.println(board_id);*/
 						filesService.reviewFileUpdate(filesVO);
 					} catch (IllegalStateException | IOException e) {
-						System.out.println("실패");
+						/*System.out.println("실패");*/
 					}
 				}
 
