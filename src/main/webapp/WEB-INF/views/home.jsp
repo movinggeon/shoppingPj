@@ -118,26 +118,36 @@
 					<div class="subImg3">
 						<div class="sub_wrap3">
 							<a href="/boards/readView?board_id=${eventList[0].board_id}">
-								<div class="item3 item3_1"></div>
+								<div class="item3 item3_1">
+									<%--<img src="/resources/static/eventimg/${eventList[0].board_titleimg}" alt="" />--%>
+								</div>
 								<h3>${eventList[0].board_title}</h3>
 							</a>
 							<a href="/boards/readView?board_id=${eventList[1].board_id}">
-								<div class="item3 item3_2"></div>
+								<div class="item3 item3_2">
+									<%--<img src="/resources/static/eventimg/${eventList[1].board_titleimg}" alt="" />--%>
+								</div>
 								<h3>${eventList[1].board_title}</h3>
 							</a>
 						</div>
 						<div class="sub_wrap3">
 							<a href="/boards/readView?board_id=${eventList[2].board_id}">
-								<div class="item3 item3_4"></div>
+								<div class="item3 item3_4">
+									<%--<img src="/resources/static/eventimg/${eventList[2].board_titleimg}" alt="" />--%>
+								</div>
 								<h3>${eventList[2].board_title}</h3>
 							</a>
 							<a href="/boards/readView?board_id=${eventList[3].board_id}">
-								<div class="item3 item3_5"></div>
+								<div class="item3 item3_5">
+									<%--<img src="/resources/static/eventimg/${eventList[3].board_titleimg}" alt="" />--%>
+								</div>
 								<h3>${eventList[3].board_title}</h3>
 							</a>
 						</div>
 						<a href="/boards/readView?board_id=${eventList[4].board_id}">
-							<div class="item3 item3_3"></div>
+							<div class="item3 item3_3">
+								<%--<img src="/resources/static/eventimg/${eventList[4].board_titleimg}" alt="" />--%>
+							</div>
 							<h3>${eventList[4].board_title}</h3>
 						</a>
 					</div>
