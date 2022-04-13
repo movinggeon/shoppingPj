@@ -39,7 +39,7 @@ public class CartsController {
 
         while(iter.hasNext()){
             CartsVO tmp = iter.next();
-            if(tmp.getSpecVO().getSpec_qty() == 0){
+            if(tmp.getSpecVO().getSpec_qty() < 1){
                 cartsService.deleteCart(tmp);
                 iter.remove();
                 models.addAttribute("qtyZero"," 수량이 부족하여 장바구니에서 삭제되었습니다..");
@@ -47,7 +47,7 @@ public class CartsController {
                 tmp.setCart_qty(1);
                 cartsService.updateQty(tmp);
                 models.addAttribute("qtyError"," 수량이 부족하여 갯수가 1개로 재설정 되었습니다.");
-                totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
+                totalPr ice += (tmp.getCart_price() * tmp.getCart_qty());
             }else{
                 totalPrice += (tmp.getCart_price() * tmp.getCart_qty());
             }
