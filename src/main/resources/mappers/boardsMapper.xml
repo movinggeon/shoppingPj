@@ -11,6 +11,7 @@
 		<result column="board_content" property="board_content"/>
 		<result column="board_type" property="board_type"/>
 		<result column="board_date" property="board_date"/>
+		<result column="board_titleimg" property="board_titleimg"/>
 
 		<collection property="specVO" resultMap="SpecVO"/>
 		<collection property="modelsVO" resultMap="ModelsVO"/>
@@ -174,5 +175,13 @@
 			AND date(now()) > e_date
 			order by e_date desc;
 </select>
+
+
+	<select id="eventMainDisplay" resultMap="BoardsVO">
+		select board_id, board_title, board_titleimg from boards
+		where board_type = 'event' and e_date >= now()
+		order by e_date asc
+			limit 5;
+	</select>
 
 </mapper>

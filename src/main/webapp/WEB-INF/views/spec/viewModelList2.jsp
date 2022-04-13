@@ -104,7 +104,7 @@
     <div class="container">
     <c:forEach items="${specDisplayVOList}" var="list">
             <div class="product_list">
-                <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="">
+                <img src="${pageContext.request.contextPath}/resources/static/img/${list.product_name}.png" alt="">
                 <div class="info_x">
                     <h2>${list.product_name} ${list.model_name}</h2>
                     <p>놀라운 성능</p>

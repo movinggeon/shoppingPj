@@ -46,4 +46,6 @@ public interface BoardsDAO {
 
     public BoardsVO viewBoard(String board_id) throws Exception;
 
+    public List<BoardsVO> eventMainDisplay() throws Exception;
+
 }

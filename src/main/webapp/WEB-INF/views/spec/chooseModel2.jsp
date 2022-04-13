@@ -380,7 +380,7 @@
 
 <div class="container">
     <div class="product_item product_item_1">
-        <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="" />
+        <img src="${pageContext.request.contextPath}/resources/static/img/${specDisplayVO.product_name}.png" alt="" />
         <!-- <p>무료배송</p><p>무료반품</p> -->
     </div>
     <div class="product_item product_item_2">
@@ -534,7 +534,7 @@
 </div>
 
 <div class="review_box" style="margin-bottom: 5px;">
-    <div class="review">
+    <div class="review" id ="reviewPoint">
       <%-- <a name="reviewPoint"/>--%>
         <!--Review overall Info -->
         <hr class="hr_wr" style="margin-top: 80px;" />

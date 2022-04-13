@@ -77,6 +77,7 @@
 		group by ${spec};
 	</select>
 
+
 	<select id = "getModel" resultMap="ModelsVO">
 		select m.model_id, m.model_name, p.product_name
 		from specifications s, models m, products p

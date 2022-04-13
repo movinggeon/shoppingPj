@@ -195,7 +195,7 @@
                 <c:forEach var="model" items="${result}">
                     <a href="/spec/chooseModel?model_id=${model.model_id}&category=new&currPage=1">
                         <div class="product_list">
-                            <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png"  alt="">
+                            <img src="${pageContext.request.contextPath}/resources/static/img/${model.productsVO.product_name}.png"  alt="">
                             <p>${model.productsVO.product_name} ${model.model_name}</p>
                         </div>
                     </a>

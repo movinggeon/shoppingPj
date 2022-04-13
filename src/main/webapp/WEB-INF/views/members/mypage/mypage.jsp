@@ -390,7 +390,7 @@
 		<div class="like_list">
 			<c:forEach items="${likeList}" var="like" begin="0" end="3">
 					<div class="like_item">
-						<img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="">
+						<img src="${pageContext.request.contextPath}/resources/static/img/${like.productsVO.product_name}.png" alt="">
 						<div class="like_content">
 							<h3>${like.productsVO.product_name}  ${like.modelsVO.model_name}</h3>
 							<br>

@@ -118,4 +118,9 @@ public class BoardsServiceImpl implements BoardsService {
    public void reviewupdate(BoardsVO vo) throws Exception {
 	   boardsDAO.reviewupdate(vo);
    }
+
+	@Override
+	public List<BoardsVO> eventMainDisplay() throws Exception {
+		return boardsDAO.eventMainDisplay();
+	}
 }

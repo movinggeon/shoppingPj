@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSession;
 
+import com.group6.shopping.boards.services.BoardsService;
+import com.group6.shopping.boards.vo.BoardsVO;
 import com.group6.shopping.likes.services.LikesService;
 import com.group6.shopping.likes.vo.LikesVO;
 import com.group6.shopping.models.services.ModelsService;
@@ -43,6 +45,8 @@ public class HomeController {
 	private ModelsService modelsService;
 	@Autowired
 	private LikesService likesService;
+	@Autowired
+	private BoardsService boardsService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model models, HttpServletRequest request, HttpSession session) throws Exception {
@@ -84,6 +88,12 @@ public class HomeController {
 			session.setAttribute("likesList", likesVOList);
 		}
 		models.addAttribute("recommendList", recommendations);
+
+		List<ModelsVO> brandNew = modelsService.getBrandNewModels();
+		models.addAttribute("brandNew", brandNew);
+
+		List<BoardsVO> eventList = boardsService.eventMainDisplay();
+		models.addAttribute("eventList", eventList);
 		return "home";
 	}
 }

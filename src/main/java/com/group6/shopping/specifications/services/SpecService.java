@@ -24,4 +24,5 @@ public interface SpecService {
     public List<ModelsVO> getModel(Map<String, Object> searchContext) throws Exception;
     public Map<Integer, Integer> orderByModelCount(List<ModelsVO> modelsVOList);
 
+
 }

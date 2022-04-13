@@ -21,4 +21,14 @@
 		  and m.model_id = #{model_id};
 	</select>
 
+
+	<select id="getBrandNewModels" resultMap="ModelsVO">
+		select * from models m, products p
+		where m.product_id = p.product_id
+		order by model_id desc
+			limit 5;
+	</select>
+
+
+
 </mapper>

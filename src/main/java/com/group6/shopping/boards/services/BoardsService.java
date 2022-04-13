@@ -41,5 +41,7 @@ public interface BoardsService {
     public BoardsVO viewBoard(String board_id) throws Exception;
     
     public void reviewupdate(BoardsVO vo) throws Exception;
+
+    public List<BoardsVO> eventMainDisplay() throws Exception;
   
 }

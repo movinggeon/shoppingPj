@@ -86,12 +86,12 @@
 
 	    </div>
 	    <div class="table-cell middle"> 
-	    	<div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="" /> -->
+	    	<div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixPhone.png" alt="" /> -->
 	    	
 	      		<c:forEach var="k" begin="0" end="${cartList.get(i).size() - 1 }">		
 		      		<div class="detail-table-row">
 		      			<div class="detail-table-cell">
-		      				<img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" width="50%" height="50%" alt="" />
+		      				<img src="${pageContext.request.contextPath}/resources/static/img/${cartList.get(i).get(k).getProductsVO().getProduct_name() }.png" width="50%" height="50%" alt="" />
 		      			</div>
 		      			<div class="detail-table-cell">
 			      				<p>${cartList.get(i).get(k).getProductsVO().getProduct_name() } ${cartList.get(i).get(k).getModelsVO().getModel_name() }</p>
@@ -112,7 +112,7 @@
 	      	</div>
 	    </div>
 	    <div class="table-cell middle">
-		    <div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="" /> -->
+		    <div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixPhone.png" alt="" /> -->
 	      		<c:forEach var="k" begin="0" end="${cartList.get(i) .size()- 1 }">		
 		      		<div class="detail-table-row">
 		      			<div class="detail-table-cell">
@@ -123,7 +123,7 @@
 	      	</div>
 	    </div>
 	    <div class="table-cell middle">
-		    <div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="" /> -->
+		    <div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixPhone.png" alt="" /> -->
 	      		<c:forEach var="k" begin="0" end="${cartList.get(i) .size()- 1 }">		
 		      		<div class="detail-table-row">
 		      			<div class="detail-table-cell">
@@ -139,7 +139,7 @@
 	      	</div>
 	    </div>
 	    <div class="table-cell middle">
-		    <div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="" /> -->
+		    <div class="detail-table"> <!-- <img src="${pageContext.request.contextPath}/resources/static/img/sixPhone.png" alt="" /> -->
 	      		<c:forEach var="k" begin="0" end="${cartList.get(i) .size()- 1 }">		
 		      		<div class="detail-table-row">
 		      			<div class="detail-table-cell">

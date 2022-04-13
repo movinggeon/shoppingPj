@@ -80,7 +80,7 @@
 
         <c:forEach items="${likeList}" var="like">
             <div class="product_list">
-                <img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" alt="">
+                <img src="${pageContext.request.contextPath}/resources/static/img/${like.productsVO.product_name}.png" alt="">
                 <div class="info_x">
                     <h2> ${like.productsVO.product_name}  ${like.modelsVO.model_name}</h2>
                     <br>

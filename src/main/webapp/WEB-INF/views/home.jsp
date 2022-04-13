@@ -49,10 +49,41 @@
 
 			<!--section-->
 			<section class="tab_content" style="text-align: center;">
+				<input type="radio" name="tabmenu" id="tab01" checked>
+				<label for="tab01">새로운제품</label>
 				<input type="radio" name="tabmenu" id="tab02" checked>
 				<label for="tab02">당신을 위한 추천</label>
 				<input type="radio" name="tabmenu" id="tab03">
 				<label for="tab03">특별한혜택</label>
+
+				<div class="conbox con1">
+					<section class="subImg1">
+						<div class="sub_wrap1">
+							<a href="/spec/chooseModel?model_id=${brandNew[0].model_id}&category=new&currPage=1">
+								<div class="item1 item1_1"></div>
+								<h3>${brandNew[0].productsVO.product_name} ${brandNew[0].model_name}</h3>
+							</a>
+							<a href="/spec/chooseModel?model_id=${brandNew[1].model_id}&category=new&currPage=1">
+								<div class="item1 item1_2"></div>
+								<h3>${brandNew[1].productsVO.product_name} ${brandNew[1].model_name}</h3>
+							</a>
+						</div>
+						<a href="/spec/chooseModel?model_id=${brandNew[2].model_id}&category=new&currPage=1">
+							<div class="item1 item1_3"></div>
+							<h3>${brandNew[2].productsVO.product_name} ${brandNew[2].model_name}</h3>
+						</a>
+						<div class="sub_wrap1">
+							<a href="/spec/chooseModel?model_id=${brandNew[3].model_id}&category=new&currPage=1">
+								<div class="item1 item1_4"></div>
+								<h3>${brandNew[3].productsVO.product_name} ${brandNew[3].model_name}</h3>
+							</a>
+							<a href="/spec/chooseModel?model_id=${brandNew[4].model_id}&category=new&currPage=1">
+								<div class="item1 item1_5"></div>
+								<h3>${brandNew[4].productsVO.product_name} ${brandNew[4].model_name}</h3>
+							</a>
+						</div>
+					</section>
+				</div>
 
 				<div class="conbox con2">
 					<section class="subImg2">
@@ -86,28 +117,28 @@
 				<div class="conbox con3">
 					<div class="subImg3">
 						<div class="sub_wrap3">
-							<a href="">
+							<a href="/boards/readView?board_id=${eventList[0].board_id}">
 								<div class="item3 item3_1"></div>
-								<h3>영화관 무료티켓 1+1</h3>
+								<h3>${eventList[0].board_title}</h3>
 							</a>
-							<a href="">
+							<a href="/boards/readView?board_id=${eventList[1].board_id}">
 								<div class="item3 item3_2"></div>
-								<h3>1000 Point 받아가세요</h3>
+								<h3>${eventList[1].board_title}</h3>
 							</a>
 						</div>
 						<div class="sub_wrap3">
-							<a href="">
+							<a href="/boards/readView?board_id=${eventList[2].board_id}">
 								<div class="item3 item3_4"></div>
-								<h3>모두의 혜택</h3>
+								<h3>${eventList[2].board_title}</h3>
 							</a>
-							<a href="">
+							<a href="/boards/readView?board_id=${eventList[3].board_id}">
 								<div class="item3 item3_5"></div>
-								<h3>특별한 날 공모전</h3>
+								<h3>${eventList[3].board_title}</h3>
 							</a>
 						</div>
-						<a href="">
+						<a href="/boards/readView?board_id=${eventList[4].board_id}">
 							<div class="item3 item3_3"></div>
-							<h3>스마트폰 런칭 기념 이어폰 증정</h3>
+							<h3>${eventList[4].board_title}</h3>
 						</a>
 					</div>
 				</div>
