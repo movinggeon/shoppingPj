@@ -1,3 +1,6 @@
+[![Video Label](https://youtu.be/jlEddtRgM8g)]
+
+
 ## setting 할때 필요한 사항
 
 1. MYSQL 연결 정보 단톡방 확인<br><br>
