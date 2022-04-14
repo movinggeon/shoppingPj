@@ -1,4 +1,5 @@
-[![Video Label](https://www.youtube.com/watch?v=jlEddtRgM8g)]
+
+[![Video Label](http://img.youtube.com/watch?v=jlEddtRgM8g.jpg)](https://www.youtube.com/watch?v=jlEddtRgM8g)
 
 
 ## setting 할때 필요한 사항
