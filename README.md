@@ -1,5 +1,6 @@
 
-[![Video Label](http://img.youtube.com/watch?v=jlEddtRgM8g/0.jpg)](https://www.youtube.com/watch?v=jlEddtRgM8g)
+[![Video Label](https://img.youtube.com/vi/jlEddtRgM8gg/0.jpg)](https://youtu.be/jlEddtRgM8g)
+\
 
 
 ## setting 할때 필요한 사항
