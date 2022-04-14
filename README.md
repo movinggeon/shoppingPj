@@ -1,4 +1,4 @@
-[![Video Label](https://youtu.be/jlEddtRgM8g)]
+[![Video Label](https://img.youtu.be/jlEddtRgM8g)]
 
 
 ## setting 할때 필요한 사항
