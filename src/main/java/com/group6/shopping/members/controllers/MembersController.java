@@ -60,14 +60,24 @@ public class MembersController {
 		
 		CustomMemDetails cs = (CustomMemDetails)session.getAttribute("user");
 
-		int count = couponsService.countCoupon(cs.getMem_id());
-
+		Integer count = couponsService.countCoupon(cs.getMem_id());
+		System.out.println("쿠폰 갯수 : " + count);
 
 		List<LikesVO> likesVOList = likesService.LikeList(cs.getMem_id());
-		model.addAttribute("likeList",likesVOList);
+		List<LikesVO> tmpListList = new ArrayList<>();
+		for(int i = 0; i < likesVOList.size(); i++){
+			if(i == 3){
+				break;
+			}
+			tmpListList.add(likesVOList.get(i));
+		}
 
-		/*System.out.println(count);*/
+		model.addAttribute("likeList",tmpListList);
+
+
 		model.addAttribute("couponEA", count);
+		/*System.out.println(count);*/
+
 
 
 		CustomMemDetails user = (CustomMemDetails)  session.getAttribute("user");
@@ -82,19 +92,19 @@ public class MembersController {
 
 		//상세정보 넣기
 		for(int i = 0; i < receiptDisPlayList.size(); i++) {
-
+			if(i == 2){
+				break;
+			}
 			receiptList.add(receiptDisPlayList.get(i).getReceiptsVO());
 			cartList.add(receiptDisPlayList.get(i).getCartsVOList());
 
 		}
 
-		if(!pTmp.pageCheck()){
-			model.addAttribute("pageError", "Page Number is not valid");
-		}else{
-			model.addAttribute("page", pTmp);
+		if(receiptList.size() > 0){
+			model.addAttribute("receiptList", receiptList);
+			model.addAttribute("cartList", cartList);
 		}
-		model.addAttribute("receiptList", receiptList);
-		model.addAttribute("cartList", cartList);
+
 
 		return "members/mypage/mypage";
 	}

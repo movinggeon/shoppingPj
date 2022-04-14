@@ -103,7 +103,7 @@ public class AdminRestController {
     	
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	
-    	String couponDesc = (String) param.get("coupon_desc");
+    	String couponDesc = (String) param.get("coupon_id");
     	
     	couponsService.deleteCoupon(couponDesc);
     	

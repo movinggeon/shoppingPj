@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,7 +111,8 @@ display: block;
 			<div>
 		<c:set var="memid1" value="${read.mem_id}" />
 	<c:set var="memid2" value="${user.mem_id}" />
-	<c:if test="${memid1 eq memid2}">
+
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<form action="/boards/delete">
 			<input type="hidden" name="board_id" value="${read.board_id}">
 			<input type="hidden" name="board_type" value="${read.board_type}">
@@ -118,7 +120,7 @@ display: block;
 			<button type="submit" class="delete_btn">삭제</button>
 			</div>
 		</form>
-	</c:if>
+	</sec:authorize>
 	</div>
 
 

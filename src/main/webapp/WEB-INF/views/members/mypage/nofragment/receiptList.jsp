@@ -40,7 +40,7 @@
       <p>리뷰쓰기</p>
     </div>
   </div>
-  
+  <c:if test="${receiptList.size() > 0}">
   <c:forEach var="i" begin="0" end="${receiptList.size() - 1 }">
 	  <div class="table-row">
 	    <div class="table-cell middle">
@@ -135,6 +135,7 @@
 	  </div>
   </c:forEach>
 </div>
+</c:if>
 	<div class="rev_paging" style="width: 100%; text-align: center; margin-top: 30px">
 		<c:choose>
 			<c:when test="${pageError ne null}">
@@ -204,7 +205,7 @@
 			if ( jsonData.everythings_fine ) {
 				
 				alert("환불 성공");
-				$(".page_loader").load("/receipts/member/receiptList");
+				location.href="/members/member/mypage";
 			}
 		});
 	}

@@ -331,27 +331,27 @@ input[id="tab03"]:checked ~ .con3 {
 }
 .item3_1 {
     height: 200px;
-    background-image: url("../img/phone.png");
+    background-image: url("../eventmainimg/fd31a93a-a3f2-412e-949e-9b8a5f754873.jpg");
 }
 
 .item3_2 {
     height: 200px;
-    background-image: url("../img/phone.png");
+    background-image: url("../eventmainimg/5d3c95ae-4b83-45ad-aa73-9deb126087fb.jpg");
 }
 
 .item3_3 {
-    background-image: url("../img/sub3.jpg");
+    background-image: url("../eventmainimg/ec35ca8a-5810-4961-9cf1-3f77ef19894b.jpg");
     height: 450px;
 }
 
 .item3_4 {
     height: 200px;
-    background-image: url("../img/phone.png");
+    background-image: url("../eventmainimg/92ec6d7d-ecca-4d92-af31-76891aeb17cf.jpg");
 }
 
 .item3_5 {
     height: 200px;
-    background-image: url("../img/phone.png");
+    background-image: url("../eventmainimg/1ae6f5f3-704c-4b42-a858-4d9b9cee74b3.jpg");
 }
 
 @media screen and (max-width: 500px) {

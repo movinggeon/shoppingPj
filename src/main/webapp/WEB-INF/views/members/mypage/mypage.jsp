@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -79,7 +79,7 @@
 			if ( jsonData.everythings_fine ) {
 
 				alert("환불 성공");
-				$(".page_loader").load("/receipts/member/receiptList");
+				location.reload();
 			}
 		});
 	}
@@ -315,7 +315,7 @@
 </style>
 
 
-	<h1 class="sub_title">MY PAGE</h1>
+	<a href="/members/member/mypage"><h1 class="sub_title">MY PAGE</h1></a>
 	
 	<div class="sub_menu">
 		<div class="menu_header">
@@ -450,8 +450,8 @@
 					<p>리뷰쓰기</p>
 				</div>
 			</div>
-
-			<c:forEach var="i" begin="0" end="1">
+			<c:if test="${fn:length(receiptList) > 0 }">
+			<c:forEach var="i" begin="0" end="${fn:length(receiptList) -1 }">
 				<div class="table-row">
 					<div class="table-cell middle">
 						<p>${receiptList.get(i).getReceipt_date() }</p>
@@ -479,7 +479,7 @@
 							<c:forEach var="k" begin="0" end="${cartList.get(i).size() - 1 }">
 								<div class="detail-table-row">
 									<div class="detail-table-cell">
-										<img src="${pageContext.request.contextPath}/resources/static/img/sixphone.png" width="50%" height="50%" alt="" />
+										<img src="${pageContext.request.contextPath}/resources/static/img/${cartList.get(i).get(k).getProductsVO().getProduct_name() }.png" width="50%" height="50%" alt="" />
 									</div>
 									<div class="detail-table-cell">
 										<p>${cartList.get(i).get(k).getProductsVO().getProduct_name() } ${cartList.get(i).get(k).getModelsVO().getModel_name() }</p>
@@ -544,6 +544,7 @@
 					</div>
 				</div>
 			</c:forEach>
+			</c:if>
 		</div>
 
 
@@ -552,13 +553,13 @@
 			<div class="like_title">
 				<h3>좋아요</h3>
 			</div>
-			<div class="like_more">
+			<div class="like_more" style="cursor: pointer;">
 				<span id="likeMore">more+</span>
 			</div>
 		</div>
-
+		<c:if test="${fn:length(likeList) > 0 }">
 		<div class="like_list">
-			<c:forEach items="${likeList}" var="like" begin="0" end="3">
+			<c:forEach items="${likeList}" var="like" begin="0" end="${fn:length(likeList) -1 }">
 					<div class="like_item">
 						<img src="${pageContext.request.contextPath}/resources/static/img/${like.productsVO.product_name}.png" alt="">
 						<div class="like_content">
@@ -570,6 +571,7 @@
 					</div>
 			</c:forEach>
 		</div>
+		</c:if>
 	</div>
 </body>
 </html>

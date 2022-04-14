@@ -45,7 +45,7 @@ public class MembersRestController {
         result.put("success", "회원정보수정이 완료되었습니다.");
         result.put("modPhone", memPhone);
 
-        cs.setMem_id(memName);
+        cs.setMem_name(memName);
         cs.setMem_email(memEmail);
         cs.setMem_phone(memPhone);
         cs.setMem_post_code(memPostCode);

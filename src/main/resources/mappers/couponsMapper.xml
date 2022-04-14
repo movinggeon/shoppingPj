@@ -54,6 +54,6 @@
 	<delete id="deleteCoupon">
 		DELETE
 		FROM coupons
-		WHERE coupon_desc = #{coupon_decs}
+		WHERE coupon_id = #{coupon_id}
 	</delete>
 </mapper>

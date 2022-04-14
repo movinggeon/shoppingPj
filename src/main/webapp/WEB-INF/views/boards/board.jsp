@@ -161,6 +161,7 @@
 		<div class="member">작성자: ${boardsVO.mem_id}</div>
 		<div class="date">${boardsVO.board_date }</div>
 		<div class="button_box">
+		<c:if test="${boardsVO.mem_id eq user.mem_id}">
 			<form action="/boards/insertView" method="post">
 				<input type="hidden" id="title" name="title" value="${boardsVO.board_title }">
 				<input type="hidden" id="content" name="content" value="${boardsVO.board_content }">
@@ -168,6 +169,7 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<button class="btn_modify" type="submit">수정</button>
 			</form>
+		</c:if>
 		</div>
 	</div>
 

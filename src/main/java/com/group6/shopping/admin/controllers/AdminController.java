@@ -59,7 +59,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/nofragment/couponList")
-	public String couopnList(HttpSession session, Model model, String page) throws Exception {
+	public String couopnList(HttpSession session, Model model, String page, String mem_id) throws Exception {
 
 		List<CouponsVO> couponList = new ArrayList<CouponsVO>();
 
@@ -78,7 +78,6 @@ public class AdminController {
 		}else{
 			model.addAttribute("page", pTmp);
 		}
-
 
 		return "admin/nofragment/coupons/couponList";
 	}

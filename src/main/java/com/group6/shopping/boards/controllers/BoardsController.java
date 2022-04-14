@@ -38,7 +38,6 @@ public class BoardsController {
 	public String viewBoard(String board_id, Model models) throws Exception {
 		BoardsVO boardsVO = boardsService.viewBoard(board_id);
 
-
 		if(boardsVO.getRepliesVOList().size() > 0){
 			models.addAttribute("rep_id",
 					boardsVO.getRepliesVOList().get(boardsVO.getRepliesVOList().size() - 1).getReply_id());
@@ -252,8 +251,7 @@ public class BoardsController {
 				}
 
 			}
-
-			return "redirect:/members/member/mypage";
+			return "redirect:"+"viewBoard?board_id="+board_id;
 		}
 
 	}
